@@ -23,7 +23,7 @@ sparksys-cloud
 ├──── sparksys-commons-sentinel-starter             -- 限流组件封装
 ├──── sparksys-commons-web-starter                  -- web统一组件封装
 ├──── sparksys-commons-zookeeper-starter            -- zookeeper组件封装
-├── sparksys-gateway                                -- 网关模块
+├── sparksys-gateway                              -- 网关模块
 ```
 
 ### 技术选型
