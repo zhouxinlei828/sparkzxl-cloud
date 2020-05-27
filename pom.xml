@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sparksys</groupId>
     <artifactId>sparksys-cloud</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${sparksys-project.version}</version>
     <packaging>pom</packaging>
 
     <properties>
-        <sparksys-project.version>1.0-SNAPSHOT</sparksys-project.version>
+        <sparksys-project.version>1.0</sparksys-project.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
