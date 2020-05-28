@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 /**
  * description: SpringSecurity需要的用户详情
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:37:50
+ * @author zhouxinlei
+ * @date 2020-05-24 13:37:50
  */
 @Data
 public class AdminUserDetails implements UserDetails {

@@ -5,8 +5,8 @@ import java.util.concurrent.*;
 /**
  * description: 线程池-静态内部类方式
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:14:26
+ * @author zhouxinlei
+ * @date 2020-05-24 13:14:26
  */
 public class ThreadPoolExecutorUtils {
 

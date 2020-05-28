@@ -3,8 +3,8 @@ package com.sparksys.commons.core.support;
 /**
  * description: 业务异常类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:49:04
+ * @author zhouxinlei
+ * @date 2020-05-24 12:49:04
  */
 public class BusinessException extends Exception {
 

@@ -3,8 +3,8 @@ package com.sparksys.commons.core.support;
 /**
  * description: 授权认证异常类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:48:54
+ * @author zhouxinlei
+ * @date 2020-05-24 12:48:54
  */
 public class AuthException extends Exception {
 

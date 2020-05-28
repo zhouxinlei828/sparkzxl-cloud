@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 /**
  * description: image处理
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:14:52
+ * @author zhouxinlei
+ * @date 2020-05-24 13:14:52
  */
 public final class BufferedImageLuminanceSource extends LuminanceSource {
 

@@ -12,8 +12,8 @@ import java.util.function.Function;
 /**
  * description: redis缓存实现
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:28:55
+ * @author zhouxinlei
+ * @date 2020-05-24 13:28:55
  */
 @Component("redisCacheProvider")
 public class RedisCacheProviderImpl implements CacheProviderService {

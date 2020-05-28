@@ -11,8 +11,8 @@ import java.util.Date;
 /**
  * description: Person
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:18:20
+ * @author zhouxinlei
+ * @date 2020-05-24 13:18:20
  */
 @Data
 @Builder

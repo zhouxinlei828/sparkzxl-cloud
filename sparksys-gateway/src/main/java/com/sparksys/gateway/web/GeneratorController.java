@@ -9,8 +9,8 @@ import org.springframework.web.reactive.result.view.Rendering;
 /**
  * description: 常用Controller
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:18:02
+ * @author zhouxinlei
+ * @date 2020-05-24 12:18:02
  */
 @Controller
 public class GeneratorController {

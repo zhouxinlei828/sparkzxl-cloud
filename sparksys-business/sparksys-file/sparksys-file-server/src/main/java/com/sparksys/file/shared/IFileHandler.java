@@ -13,8 +13,8 @@ import java.io.File;
 /**
  * description: File handler interface
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:34:47
+ * @author zhouxinlei
+ * @date 2020-05-24 12:34:47
  */
 public interface IFileHandler {
 

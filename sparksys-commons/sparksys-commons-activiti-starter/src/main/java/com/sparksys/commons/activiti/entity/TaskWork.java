@@ -7,8 +7,8 @@ import java.io.Serializable;
 /**
  * description: 任务节点类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:44:27
+ * @author zhouxinlei
+ * @date 2020-05-24 12:44:27
  */
 @Data
 public class TaskWork implements Serializable {

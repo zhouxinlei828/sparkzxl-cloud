@@ -12,8 +12,8 @@ import static javax.imageio.ImageIO.write;
 /**
  * description:
  *
- * @Author zhouxinlei
- * @Date  2020-05-24 13:15:03
+ * @author zhouxinlei
+ * @date  2020-05-24 13:15:03
  */
 public final class MatrixToImageWriter {
 

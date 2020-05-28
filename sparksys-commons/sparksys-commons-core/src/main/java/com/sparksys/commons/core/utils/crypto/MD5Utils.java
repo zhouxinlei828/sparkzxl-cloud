@@ -6,8 +6,8 @@ import cn.hutool.crypto.digest.MD5;
 /**
  * description: MD5加密
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:51:43
+ * @author zhouxinlei
+ * @date 2020-05-24 12:51:43
  */
 public class MD5Utils {
 

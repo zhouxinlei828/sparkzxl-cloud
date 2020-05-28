@@ -17,8 +17,8 @@ import org.springframework.web.server.ServerWebExchange;
 /**
  * description: SwaggerXForwardedHeadersFilter
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:14:52
+ * @author zhouxinlei
+ * @date 2020-05-24 12:14:52
  */
 @Component
 public class SwaggerForwardedHeadersFilter implements HttpHeadersFilter, Ordered {

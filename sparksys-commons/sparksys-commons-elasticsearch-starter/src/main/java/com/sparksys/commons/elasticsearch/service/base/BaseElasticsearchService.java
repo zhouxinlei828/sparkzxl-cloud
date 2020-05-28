@@ -26,8 +26,8 @@ import java.io.IOException;
 /**
  * description: BaseElasticsearchService
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:19:23
+ * @author zhouxinlei
+ * @date 2020-05-24 13:19:23
  */
 @Slf4j
 public abstract class BaseElasticsearchService {

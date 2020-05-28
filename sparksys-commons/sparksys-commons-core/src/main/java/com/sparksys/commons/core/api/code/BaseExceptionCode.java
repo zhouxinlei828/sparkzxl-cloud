@@ -3,8 +3,8 @@ package com.sparksys.commons.core.api.code;
 /**
  * description: 封装API响应状态码
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:45:46
+ * @author zhouxinlei
+ * @date 2020-05-24 12:45:46
  */
 public interface BaseExceptionCode {
     /**

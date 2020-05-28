@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 /**
  * description: 用户 Mapper 接口
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:23:50
+ * @author zhouxinlei
+ * @date 2020-05-24 12:23:50
  */
 @Repository
 public interface AuthUserMapper extends BaseMapper<AuthUser> {

@@ -9,8 +9,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 /**
  * description: 使用Jwt存储token的配置
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:24:30
+ * @author zhouxinlei
+ * @date 2020-05-24 13:24:30
  */
 @Configuration
 public class JwtTokenStoreConfig {

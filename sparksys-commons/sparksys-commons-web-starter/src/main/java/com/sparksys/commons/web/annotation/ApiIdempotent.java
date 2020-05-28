@@ -8,8 +8,8 @@ import java.lang.annotation.Target;
 /**
  * description: API幂等性注解
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:40:39
+ * @author zhouxinlei
+ * @date 2020-05-24 13:40:39
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

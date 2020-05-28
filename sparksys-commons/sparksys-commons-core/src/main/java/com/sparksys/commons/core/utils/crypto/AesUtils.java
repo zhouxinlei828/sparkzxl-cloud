@@ -10,8 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * description: AES加密
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:51:00
+ * @author zhouxinlei
+ * @date 2020-05-24 12:51:00
  */
 @Slf4j
 public class AesUtils {

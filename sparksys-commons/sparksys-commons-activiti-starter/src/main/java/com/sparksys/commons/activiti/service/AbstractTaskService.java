@@ -7,8 +7,8 @@ import java.util.Map;
 /**
  * description: 抽象任务AbstractTaskService
  *
- * @Author zhouxinlei
- * @Date  2020-05-24 12:44:42
+ * @author zhouxinlei
+ * @date  2020-05-24 12:44:42
  */
 public abstract class AbstractTaskService {
 

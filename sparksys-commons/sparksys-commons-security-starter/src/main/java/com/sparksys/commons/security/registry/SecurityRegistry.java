@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * description: Security api放行配置
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:38:27
+ * @author zhouxinlei
+ * @date 2020-05-24 13:38:27
  */
 @Setter
 @Getter
@@ -28,7 +28,7 @@ public class SecurityRegistry {
 
     private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
 
-    public static final List<String> LIST = Arrays.asList(
+    public static final List<String> excludeStaticPatterns = Arrays.asList(
             "/swagger-ui.html",
             "/swagger-resources/**",
             "/swagger/**",
@@ -47,7 +47,6 @@ public class SecurityRegistry {
         this.ignoreUrlsProperties = ignoreUrlsProperties;
         log.info("ignoreUrlsProperties is {}", ignoreUrlsProperties.getUrls());
         excludePatterns.addAll(ignoreUrlsProperties.getUrls());
-        excludePatterns.addAll(LIST);
     }
 
     /**

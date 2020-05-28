@@ -5,8 +5,8 @@ import com.sparksys.file.domain.dto.OssPolicyResult;
 /**
  * description: 文件查询服务
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:32:56
+ * @author zhouxinlei
+ * @date 2020-05-24 12:32:56
  */
 public interface IFileQueryService {
 

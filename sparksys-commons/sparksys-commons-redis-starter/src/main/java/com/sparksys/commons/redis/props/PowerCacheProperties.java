@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 /**
  * description: 缓存构建配置
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:33:14
+ * @author zhouxinlei
+ * @date 2020-05-24 13:33:14
  */
 @Data
 @Component

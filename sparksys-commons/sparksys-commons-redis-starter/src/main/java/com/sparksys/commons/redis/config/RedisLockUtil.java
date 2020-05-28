@@ -8,8 +8,8 @@ import java.util.concurrent.locks.Lock;
 /**
  * description: redis分布式锁
  *
- * @Author zhouxinlei
- * @Date  2020-05-24 13:32:22
+ * @author zhouxinlei
+ * @date  2020-05-24 13:32:22
  */
 public class RedisLockUtil {
 
@@ -67,8 +67,8 @@ public class RedisLockUtil {
      *
      * @param lockKey key值
      * @return void
-     * @Author zhouxinlei
-     * @Date 2020-01-18 16:18:23
+     * @author zhouxinlei
+     * @date 2020-01-18 16:18:23
      */
     public static void unlock(String lockKey) {
         Lock lock = lock(lockKey);
@@ -80,8 +80,8 @@ public class RedisLockUtil {
      *
      * @param lock Lock锁
      * @return void
-     * @Author zhouxinlei
-     * @Date 2020-01-18 16:18:23
+     * @author zhouxinlei
+     * @date 2020-01-18 16:18:23
      */
     public static void unlock(Lock lock) {
         lock.unlock();

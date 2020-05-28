@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 /**
  * description: mybatis配置属性常量
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:23:12
+ * @author zhouxinlei
+ * @date 2020-05-24 13:23:12
  */
 @Data
 @Component

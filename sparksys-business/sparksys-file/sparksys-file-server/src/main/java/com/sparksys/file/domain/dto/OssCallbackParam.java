@@ -7,8 +7,8 @@ import lombok.Data;
 /**
  * description: oss上传成功后的回调参数
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:36:52
+ * @author zhouxinlei
+ * @date 2020-05-24 12:36:52
  */
 @Data
 @ApiModel(description = "oss上传成功后的回调参数")

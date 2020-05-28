@@ -16,8 +16,8 @@ import java.util.Date;
 /**
  * description: 文件素材实体类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:38:24
+ * @author zhouxinlei
+ * @date 2020-05-24 12:38:24
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

@@ -6,8 +6,8 @@ import java.lang.reflect.UndeclaredThrowableException;
 /**
  * description: 异常处理工具类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:53:29
+ * @author zhouxinlei
+ * @date 2020-05-24 12:53:29
  */
 public class ExceptionUtils {
 
@@ -17,8 +17,8 @@ public class ExceptionUtils {
      * @param e
      * @return RuntimeException
      * @throws
-     * @Author zhouxinlei
-     * @Date 2019-12-27 10:10:56
+     * @author zhouxinlei
+     * @date 2019-12-27 10:10:56
      */
     public static RuntimeException unchecked(Throwable e) {
         if (e instanceof IllegalAccessException || e instanceof IllegalArgumentException
@@ -39,8 +39,8 @@ public class ExceptionUtils {
      * @param wrapped 包装过得异常
      * @return Throwable 解包后的异常
      * @throws
-     * @Author zhouxinlei
-     * @Date 2019-12-27 10:10:33
+     * @author zhouxinlei
+     * @date 2019-12-27 10:10:33
      */
     public static Throwable unwrap(Throwable wrapped) {
         Throwable unwrapped = wrapped;

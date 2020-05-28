@@ -7,8 +7,8 @@ import lombok.Data;
 /**
  * description: 获取OSS上传文件授权返回结果
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:37:06
+ * @author zhouxinlei
+ * @date 2020-05-24 12:37:06
  */
 @Data
 @ApiModel(description = "获取OSS上传文件授权返回结果")

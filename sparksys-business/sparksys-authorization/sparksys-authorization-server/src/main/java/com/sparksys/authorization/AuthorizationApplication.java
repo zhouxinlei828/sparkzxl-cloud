@@ -13,8 +13,8 @@ import java.net.UnknownHostException;
 /**
  * description: 授权认证启动类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:21:13
+ * @author zhouxinlei
+ * @date 2020-05-24 12:21:13
  */
 @SpringBootApplication(scanBasePackages = {"com.sparksys"})
 @Slf4j

@@ -8,8 +8,8 @@ import java.util.function.Supplier;
 /**
  * description: Lambda异常处理工具类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:08:20
+ * @author zhouxinlei
+ * @date 2020-05-24 13:08:20
  */
 public class LambdaExceptionUtils {
 

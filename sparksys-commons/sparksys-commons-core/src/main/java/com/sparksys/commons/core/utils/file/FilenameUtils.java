@@ -9,8 +9,8 @@ import java.io.File;
 /**
  * description: 文件名处理类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:00:31
+ * @author zhouxinlei
+ * @date 2020-05-24 13:00:31
  */
 @SuppressWarnings("ALL")
 public class FilenameUtils {

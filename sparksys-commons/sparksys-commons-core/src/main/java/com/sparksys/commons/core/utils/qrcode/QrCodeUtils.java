@@ -22,8 +22,8 @@ import java.util.Map;
 /**
  * description: 二维码工具类
  *
- * @Author zhouxinlei
- * @Date  2020-05-24 13:15:24
+ * @author zhouxinlei
+ * @date  2020-05-24 13:15:24
  */
 @Slf4j
 public class QrCodeUtils {

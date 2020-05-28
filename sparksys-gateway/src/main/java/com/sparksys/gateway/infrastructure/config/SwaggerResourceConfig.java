@@ -21,8 +21,8 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 /**
  * description: 资源配置
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:16:52
+ * @author zhouxinlei
+ * @date 2020-05-24 12:16:52
  */
 @Component
 @Primary

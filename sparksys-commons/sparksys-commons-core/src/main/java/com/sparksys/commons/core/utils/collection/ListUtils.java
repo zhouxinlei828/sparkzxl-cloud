@@ -1,6 +1,7 @@
 package com.sparksys.commons.core.utils.collection;
 
 import cn.hutool.core.convert.Convert;
+import java.util.stream.Stream;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -14,8 +15,8 @@ import java.util.stream.Collectors;
 /**
  * description: ListUtils工具类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:49:53
+ * @author zhouxinlei
+ * @date 2020-05-24 12:49:53
  */
 public class ListUtils {
 
@@ -196,6 +197,15 @@ public class ListUtils {
         }
     }
 
+
+    public static String[] stringToArray(List<String> data) {
+        if (isNotEmpty(data)) {
+            return data.stream().map(s -> String.valueOf(s)).toArray(String[]::new);
+        } else {
+            return new String[0];
+        }
+    }
+
     /**
      * 过滤重复id
      *
@@ -229,8 +239,8 @@ public class ListUtils {
      * @param a
      * @param b
      * @return List<T>
-     * @Author zhouxinlei
-     * @Date 2019-12-27 09:40:48
+     * @author zhouxinlei
+     * @date 2019-12-27 09:40:48
      */
     public static <T> List<T> unionList(List<T> a, List<T> b) {
         return new ArrayList<>(CollectionUtils.union(a, b));

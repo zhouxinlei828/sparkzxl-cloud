@@ -24,8 +24,8 @@ import java.util.List;
 /**
  * description: Elasticsearch自动装载配置类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:17:10
+ * @author zhouxinlei
+ * @date 2020-05-24 13:17:10
  */
 @Configuration
 @RequiredArgsConstructor(onConstructor_ = @Autowired)

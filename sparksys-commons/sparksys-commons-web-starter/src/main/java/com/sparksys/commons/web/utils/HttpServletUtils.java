@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * description: HttpServlet工具类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:45:00
+ * @author zhouxinlei
+ * @date 2020-05-24 13:45:00
  */
 public class HttpServletUtils {
 

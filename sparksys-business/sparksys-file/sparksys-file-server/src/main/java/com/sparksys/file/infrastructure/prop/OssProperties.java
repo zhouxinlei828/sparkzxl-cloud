@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 /**
  * description: oss属性配置
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:39:43
+ * @author zhouxinlei
+ * @date 2020-05-24 12:39:43
  */
 @Data
 @Component

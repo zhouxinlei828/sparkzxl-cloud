@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * description: WebConfig全局配置
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:43:12
+ * @author zhouxinlei
+ * @date 2020-05-24 13:43:12
  */
 public class GlobalWebConfig implements WebMvcConfigurer {
 

@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * description: 用户 前端控制器
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:25:32
+ * @author zhouxinlei
+ * @date 2020-05-24 12:25:32
  */
 
 @RestController

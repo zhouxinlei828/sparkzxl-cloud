@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * description: JWT登录授权过滤器
  *
- * @Author zhouxinlei
- * @Date  2020-05-24 13:34:44
+ * @author zhouxinlei
+ * @date  2020-05-24 13:34:44
  */
 @Slf4j
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {

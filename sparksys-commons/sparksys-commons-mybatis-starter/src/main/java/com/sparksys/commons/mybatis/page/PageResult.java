@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * description: mybatis分页
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:22:54
+ * @author zhouxinlei
+ * @date 2020-05-24 13:22:54
  */
 public class PageResult extends ApiPageResult {
 

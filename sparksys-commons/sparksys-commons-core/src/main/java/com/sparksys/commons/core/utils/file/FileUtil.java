@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * description: 文件工具类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:01:03
+ * @author zhouxinlei
+ * @date 2020-05-24 13:01:03
  */
 @Slf4j
 public class FileUtil extends FileCopyUtils {

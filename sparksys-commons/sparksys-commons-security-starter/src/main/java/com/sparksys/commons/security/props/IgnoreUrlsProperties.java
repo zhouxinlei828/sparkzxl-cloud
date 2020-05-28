@@ -9,8 +9,8 @@ import java.util.List;
 /**
  * description: 用于配置不需要保护的资源路径
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:38:12
+ * @author zhouxinlei
+ * @date 2020-05-24 13:38:12
  */
 @Getter
 @Setter

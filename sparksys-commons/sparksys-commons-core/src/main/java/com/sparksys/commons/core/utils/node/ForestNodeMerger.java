@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * description: 森林节点归并类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:10:00
+ * @author zhouxinlei
+ * @date 2020-05-24 13:10:00
  */
 public class ForestNodeMerger {
 

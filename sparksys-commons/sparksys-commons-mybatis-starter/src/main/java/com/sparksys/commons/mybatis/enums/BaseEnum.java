@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * description: 枚举基类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:22:10
+ * @author zhouxinlei
+ * @date 2020-05-24 13:22:10
  */
 public interface BaseEnum extends IEnum<String> {
 

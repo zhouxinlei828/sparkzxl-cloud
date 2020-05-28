@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 /**
  * description:
  *
- * @Author zhouxinlei
- * @Date  2020-05-24 13:45:22
+ * @author zhouxinlei
+ * @date  2020-05-24 13:45:22
  */
 @Configuration
 public class CuratorConfig {

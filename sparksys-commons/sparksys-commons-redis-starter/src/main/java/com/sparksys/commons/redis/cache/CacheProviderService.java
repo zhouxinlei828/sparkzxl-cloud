@@ -5,8 +5,8 @@ import java.util.function.Function;
 /**
  * description: 缓存提供接口
  *
- * @Author zhouxinlei
- * @Date  2020-05-24 13:25:06
+ * @author zhouxinlei
+ * @date  2020-05-24 13:25:06
  */
 public interface CacheProviderService {
 
@@ -15,8 +15,8 @@ public interface CacheProviderService {
      *
      * @param key 缓存键 不可为空
      * @return T
-     * @Author zhouxinlei
-     * @Date 2020-01-27 20:19:27
+     * @author zhouxinlei
+     * @date 2020-01-27 20:19:27
      */
     <T> T get(String key);
 

@@ -9,8 +9,8 @@ import java.util.List;
 /**
  * description: 文件入参
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:36:23
+ * @author zhouxinlei
+ * @date 2020-05-24 12:36:23
  */
 @Data
 @ApiModel(value = "文件入参", description = "文件入参")

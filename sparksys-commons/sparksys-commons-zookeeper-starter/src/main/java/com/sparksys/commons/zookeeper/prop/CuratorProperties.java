@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 /**
  * description: zookeeper属性配置
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:45:52
+ * @author zhouxinlei
+ * @date 2020-05-24 13:45:52
  */
 @Data
 @Component

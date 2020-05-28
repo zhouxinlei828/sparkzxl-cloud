@@ -18,8 +18,8 @@ import java.util.function.Function;
 /**
  * description: 缓存构建器
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:28:24
+ * @author zhouxinlei
+ * @date 2020-05-24 13:28:24
  */
 @Component
 @Slf4j
@@ -46,8 +46,8 @@ public class PowerCacheBuilder {
      * 初始化缓存提供者 默认优先级：先本地缓存，后分布式缓存
      *
      * @return CacheProviderService>
-     * @Author zhouxinlei
-     * @Date 2020-01-28 14:11:52
+     * @author zhouxinlei
+     * @date 2020-01-28 14:11:52
      */
     private List<CacheProviderService> getCacheProviders() {
         if (providerServiceList.size() > 0) {
@@ -230,8 +230,8 @@ public class PowerCacheBuilder {
      *
      * @param key 缓存键 不可为空
      * @return void
-     * @Author zhouxinlei
-     * @Date 2020-01-28 14:09:10
+     * @author zhouxinlei
+     * @date 2020-01-28 14:09:10
      */
     public void remove(String key) {
         //key = generateVerKey(key);//构造带版本的缓存键
@@ -249,8 +249,8 @@ public class PowerCacheBuilder {
      * @param key 缓存键 不可为空
      * @return boolean
      * @throws
-     * @Author zhouxinlei
-     * @Date 2020-01-28 14:08:31
+     * @author zhouxinlei
+     * @date 2020-01-28 14:08:31
      */
     public boolean contains(String key) {
         boolean exists = false;
@@ -269,8 +269,8 @@ public class PowerCacheBuilder {
      * 获取分布式缓存版本号
      *
      * @return String
-     * @Author zhouxinlei
-     * @Date 2020-01-28 14:08:04
+     * @author zhouxinlei
+     * @date 2020-01-28 14:08:04
      */
     public String getCacheVersion() {
         String version = "";
@@ -285,8 +285,8 @@ public class PowerCacheBuilder {
     /**
      * 重置分布式缓存版本  如果启用分布式缓存，设置缓存版本
      *
-     * @Author zhouxinlei
-     * @Date 2020-01-28 14:07:01
+     * @author zhouxinlei
+     * @date 2020-01-28 14:07:01
      */
     public void resetCacheVersion() {
         String version = "";
@@ -306,8 +306,8 @@ public class PowerCacheBuilder {
      *
      * @param key 缓存key值
      * @return String
-     * @Author zhouxinlei
-     * @Date 2020-01-28 14:06:08
+     * @author zhouxinlei
+     * @date 2020-01-28 14:06:08
      */
     public String generateVerKey(String key) {
         String result = key;

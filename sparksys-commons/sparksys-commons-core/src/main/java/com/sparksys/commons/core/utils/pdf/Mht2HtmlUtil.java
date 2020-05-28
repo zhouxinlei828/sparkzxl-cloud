@@ -25,8 +25,8 @@ import javax.mail.internet.MimePartDataSource;
 /**
  * description: Mht2Html转换工具类
  *
- * @Author zhouxinlei
- * @Date  2020-05-24 13:13:53
+ * @author zhouxinlei
+ * @date  2020-05-24 13:13:53
  */
 public class Mht2HtmlUtil {
 

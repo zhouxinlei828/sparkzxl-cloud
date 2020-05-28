@@ -6,8 +6,8 @@ import lombok.Getter;
 /**
  * description: Elasticsearch异常类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:18:09
+ * @author zhouxinlei
+ * @date 2020-05-24 13:18:09
  */
 public class ElasticsearchException extends RuntimeException {
 

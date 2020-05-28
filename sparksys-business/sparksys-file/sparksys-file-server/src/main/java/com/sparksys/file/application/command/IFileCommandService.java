@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * description: 文件上传服务
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:30:30
+ * @author zhouxinlei
+ * @date 2020-05-24 12:30:30
  */
 public interface IFileCommandService {
 

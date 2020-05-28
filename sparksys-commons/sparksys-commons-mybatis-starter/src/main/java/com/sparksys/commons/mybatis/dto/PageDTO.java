@@ -7,8 +7,8 @@ import lombok.Data;
 /**
  * description: 分页入参
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:21:22
+ * @author zhouxinlei
+ * @date 2020-05-24 13:21:22
  */
 @Data
 public class PageDTO {

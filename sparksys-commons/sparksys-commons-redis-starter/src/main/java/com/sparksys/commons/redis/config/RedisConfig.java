@@ -17,8 +17,8 @@ import org.springframework.integration.redis.util.RedisLockRegistry;
 /**
  * description: redis缓存配置
  *
- * @Author zhouxinlei
- * @Date  2020-05-24 13:31:56
+ * @author zhouxinlei
+ * @date  2020-05-24 13:31:56
  */
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)

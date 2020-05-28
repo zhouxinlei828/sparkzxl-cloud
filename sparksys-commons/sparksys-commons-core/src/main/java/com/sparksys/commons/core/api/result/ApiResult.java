@@ -10,8 +10,8 @@ import java.io.Serializable;
 /**
  * description: API接口响应结果
  *
- * @Author zhouxinlei
- * @Date  2020-05-24 12:46:27
+ * @author zhouxinlei
+ * @date  2020-05-24 12:46:27
  */
 @NoArgsConstructor
 @Setter

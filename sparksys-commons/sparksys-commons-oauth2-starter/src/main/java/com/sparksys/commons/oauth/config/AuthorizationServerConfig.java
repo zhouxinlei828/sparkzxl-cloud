@@ -22,8 +22,8 @@ import java.util.List;
 /**
  * description: 认证服务器配置
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:23:36
+ * @author zhouxinlei
+ * @date 2020-05-24 13:23:36
  */
 @Configuration
 @EnableAuthorizationServer

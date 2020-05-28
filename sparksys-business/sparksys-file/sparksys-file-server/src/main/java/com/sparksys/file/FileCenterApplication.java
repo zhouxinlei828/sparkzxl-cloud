@@ -14,8 +14,8 @@ import java.net.UnknownHostException;
 /**
  * description: 文件存储启动类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:42:02
+ * @author zhouxinlei
+ * @date 2020-05-24 12:42:02
  */
 @SpringBootApplication(scanBasePackages = {"com.sparksys"})
 @Slf4j

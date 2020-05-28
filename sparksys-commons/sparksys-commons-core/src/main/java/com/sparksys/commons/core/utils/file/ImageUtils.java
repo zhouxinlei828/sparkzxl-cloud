@@ -29,8 +29,8 @@ import javax.imageio.stream.ImageInputStream;
  * description: 图片处理工具类
  * 功能：缩放图像、切割图像、图像类型转换、彩色转黑白、文字水印、图片水印等
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:03:06
+ * @author zhouxinlei
+ * @date 2020-05-24 13:03:06
  */
 public class ImageUtils {
 

@@ -20,8 +20,8 @@ import java.text.SimpleDateFormat;
 /**
  * description: Jackson全局配置
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:43:33
+ * @author zhouxinlei
+ * @date 2020-05-24 13:43:33
  */
 @Configuration
 public class JacksonConfig {

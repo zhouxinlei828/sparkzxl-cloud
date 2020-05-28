@@ -14,8 +14,8 @@ import java.util.Map;
 /**
  * description: JwtToken生成工具类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:06:51
+ * @author zhouxinlei
+ * @date 2020-05-24 13:06:51
  */
 @Slf4j
 public class JwtTokenUtil {

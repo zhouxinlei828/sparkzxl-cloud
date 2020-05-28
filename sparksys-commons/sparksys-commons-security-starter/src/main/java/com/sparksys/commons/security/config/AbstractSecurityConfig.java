@@ -1,5 +1,6 @@
 package com.sparksys.commons.security.config;
 
+import com.sparksys.commons.core.utils.collection.ListUtils;
 import com.sparksys.commons.security.component.JwtAuthenticationTokenFilter;
 import com.sparksys.commons.security.component.RestAuthenticationEntryPoint;
 import com.sparksys.commons.security.component.RestfulAccessDeniedHandler;
@@ -23,8 +24,8 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 /**
  * description: Spring Security 抽象配置，具体可在实际业务中注入
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:35:26
+ * @author zhouxinlei
+ * @date 2020-05-24 13:35:26
  */
 public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -34,6 +35,14 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
      * @return SecurityRegistry
      */
     protected abstract SecurityRegistry securityRegistry();
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        super.configure(web);
+        String[] excludeStaticPatterns = ListUtils.stringToArray(SecurityRegistry.excludeStaticPatterns);
+        web.ignoring().antMatchers(excludeStaticPatterns);
+        web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
+    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -119,9 +128,5 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
         return firewall;
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
-        web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
-    }
+
 }

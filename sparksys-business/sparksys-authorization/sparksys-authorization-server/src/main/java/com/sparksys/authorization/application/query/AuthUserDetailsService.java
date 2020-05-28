@@ -11,8 +11,8 @@ import org.springframework.util.ObjectUtils;
 /**
  * description: security 加载用户信息
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:23:23
+ * @author zhouxinlei
+ * @date 2020-05-24 12:23:23
  */
 @Service
 public class AuthUserDetailsService implements UserDetailsService {

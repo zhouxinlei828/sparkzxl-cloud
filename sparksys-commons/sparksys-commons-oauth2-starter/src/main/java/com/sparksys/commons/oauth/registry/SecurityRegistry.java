@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * description: Security api放行配置
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:38:27
+ * @author zhouxinlei
+ * @date 2020-05-24 13:38:27
  */
 @Setter
 @Getter

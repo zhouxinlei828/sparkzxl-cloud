@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * description: 文件API
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:27:04
+ * @author zhouxinlei
+ * @date 2020-05-24 12:27:04
  */
 @FeignClient(value = "sparksys-file", path = "/file",
         qualifier = "fileFeignApi", fallback = FileFeignApiFallback.class)

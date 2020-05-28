@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * description: 响应超时熔断处理器
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:17:49
+ * @author zhouxinlei
+ * @date 2020-05-24 12:17:49
  */
 @RestController
 public class FallbackController {

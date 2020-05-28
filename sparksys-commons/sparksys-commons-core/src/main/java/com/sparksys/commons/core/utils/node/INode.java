@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * description: 节点接口类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:09:16
+ * @author zhouxinlei
+ * @date 2020-05-24 13:09:16
  */
 public interface INode {
 

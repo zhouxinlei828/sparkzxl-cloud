@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 /**
  * description: 用于配置不需要保护的资源路径
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:17:10
+ * @author zhouxinlei
+ * @date 2020-05-24 12:17:10
  */
 @Getter
 @Setter

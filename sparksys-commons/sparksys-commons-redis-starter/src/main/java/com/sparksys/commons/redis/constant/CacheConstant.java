@@ -3,8 +3,8 @@ package com.sparksys.commons.redis.constant;
 /**
  * description: 缓存常量
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:32:45
+ * @author zhouxinlei
+ * @date 2020-05-24 13:32:45
  */
 public class CacheConstant {
 

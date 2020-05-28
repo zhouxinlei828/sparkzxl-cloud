@@ -12,8 +12,8 @@ import java.io.IOException;
 /**
  * description: 当访问接口没有权限时，自定义的返回结果
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:35:14
+ * @author zhouxinlei
+ * @date 2020-05-24 13:35:14
  */
 public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
 

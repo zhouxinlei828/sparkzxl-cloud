@@ -10,8 +10,8 @@ import java.io.Serializable;
 /**
  * description: token实体类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:38:01
+ * @author zhouxinlei
+ * @date 2020-05-24 13:38:01
  */
 @Data
 @ApiModel(value = "登录返回", description = "登录返回")

@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * description: 全局获取用户信息
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:41:46
+ * @author zhouxinlei
+ * @date 2020-05-24 13:41:46
  */
 public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
 

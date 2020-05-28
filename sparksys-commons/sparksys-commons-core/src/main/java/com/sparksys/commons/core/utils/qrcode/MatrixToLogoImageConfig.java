@@ -5,8 +5,8 @@ import java.awt.*;
 /**
  * description: MatrixToLogoImageConfig
  *
- * @Author zhouxinlei
- * @Date  2020-05-24 13:15:13
+ * @author zhouxinlei
+ * @date  2020-05-24 13:15:13
  */
 public class MatrixToLogoImageConfig {
     /**

@@ -9,8 +9,8 @@ import java.util.Date;
 /**
  * description: mybatis-plus自动注入处理器
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:22:30
+ * @author zhouxinlei
+ * @date 2020-05-24 13:22:30
  */
 @Slf4j
 public class MetaDateHandler implements MetaObjectHandler {

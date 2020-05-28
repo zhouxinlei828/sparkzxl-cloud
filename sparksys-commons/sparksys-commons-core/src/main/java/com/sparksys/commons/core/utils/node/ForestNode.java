@@ -7,8 +7,8 @@ import lombok.EqualsAndHashCode;
 /**
  * description: 森林节点类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:09:37
+ * @author zhouxinlei
+ * @date 2020-05-24 13:09:37
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

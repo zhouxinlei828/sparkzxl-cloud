@@ -13,8 +13,8 @@ import java.util.Date;
 /**
  * description: DateUtils工具类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:52:19
+ * @author zhouxinlei
+ * @date 2020-05-24 12:52:19
  */
 @Slf4j
 public class DateUtils {
@@ -26,8 +26,8 @@ public class DateUtils {
     /**
      * @param dateTimeFormatter 格式化日期
      * @return String
-     * @Author zhouxinlei
-     * @Date 2020-01-21 09:59:33
+     * @author zhouxinlei
+     * @date 2020-01-21 09:59:33
      * @see DateTimeFormatter
      */
     public static String now(DateTimeFormatter dateTimeFormatter) {

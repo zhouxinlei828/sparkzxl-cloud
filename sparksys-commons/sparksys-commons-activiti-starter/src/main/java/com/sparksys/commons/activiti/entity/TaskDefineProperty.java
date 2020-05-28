@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * description: 下一节点实体 属性
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:44:17
+ * @author zhouxinlei
+ * @date 2020-05-24 12:44:17
  */
 @Data
 public class TaskDefineProperty implements Serializable {

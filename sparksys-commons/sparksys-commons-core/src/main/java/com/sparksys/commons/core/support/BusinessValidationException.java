@@ -3,8 +3,8 @@ package com.sparksys.commons.core.support;
 /**
  * description: 校验异常类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:49:20
+ * @author zhouxinlei
+ * @date 2020-05-24 12:49:20
  */
 public class BusinessValidationException extends Exception {
 

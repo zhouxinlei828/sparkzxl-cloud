@@ -3,8 +3,8 @@ package com.sparksys.commons.activiti.constant;
 /**
  * description: 工作流核心常量
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:43:28
+ * @author zhouxinlei
+ * @date 2020-05-24 12:43:28
  */
 public class ActWorkflowConstant {
 

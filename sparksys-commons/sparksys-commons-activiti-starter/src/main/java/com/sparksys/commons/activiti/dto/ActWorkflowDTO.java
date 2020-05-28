@@ -6,8 +6,8 @@ import lombok.Data;
 /**
  * description: 工作流核心参数类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:43:41
+ * @author zhouxinlei
+ * @date 2020-05-24 12:43:41
  */
 @Data
 public class ActWorkflowDTO {

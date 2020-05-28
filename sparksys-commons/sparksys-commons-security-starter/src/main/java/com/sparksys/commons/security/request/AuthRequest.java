@@ -7,8 +7,8 @@ import lombok.Data;
 /**
  * description: 登录请求参数
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:38:55
+ * @author zhouxinlei
+ * @date 2020-05-24 13:38:55
  */
 @Data
 @ApiModel(description = "登录请求参数")

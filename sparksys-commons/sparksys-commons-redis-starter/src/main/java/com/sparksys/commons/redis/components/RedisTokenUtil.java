@@ -10,8 +10,8 @@ import org.springframework.util.StringUtils;
 /**
  * description: redis token生成组件
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:29:13
+ * @author zhouxinlei
+ * @date 2020-05-24 13:29:13
  */
 @Component
 @DependsOn("redisCacheProvider")

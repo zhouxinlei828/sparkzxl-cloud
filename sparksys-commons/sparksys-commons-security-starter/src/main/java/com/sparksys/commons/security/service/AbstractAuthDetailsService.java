@@ -27,8 +27,8 @@ import java.util.List;
 /**
  * description: 登录授权Service
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:39:06
+ * @author zhouxinlei
+ * @date 2020-05-24 13:39:06
  */
 @Slf4j
 public abstract class AbstractAuthDetailsService {

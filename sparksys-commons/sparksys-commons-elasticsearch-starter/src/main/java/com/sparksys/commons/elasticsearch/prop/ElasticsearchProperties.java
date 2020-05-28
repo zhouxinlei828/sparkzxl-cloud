@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * description: Elasticsearch 配置类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:18:31
+ * @author zhouxinlei
+ * @date 2020-05-24 13:18:31
  */
 @Data
 @Component

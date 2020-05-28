@@ -7,8 +7,8 @@ import java.net.NetworkInterface;
 /**
  * description: snowflake算法--用于分布式主键生成策略
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:34:24
+ * @author zhouxinlei
+ * @date 2020-05-24 13:34:24
  */
 public class SnowFlakeId {
 
@@ -91,8 +91,8 @@ public class SnowFlakeId {
     /**
      * @param lastTimestamp 上次时间戳
      * @return long
-     * @Author zhouxinlei
-     * @Date 2020-01-17 11:05:53
+     * @author zhouxinlei
+     * @date 2020-01-17 11:05:53
      */
     private long tilNextMillis(final long lastTimestamp) {
         long timestamp = this.timeGen();
@@ -107,8 +107,8 @@ public class SnowFlakeId {
      *
      * @return long
      * @throws
-     * @Author zhouxinlei
-     * @Date 2019-12-25 15:43:38
+     * @author zhouxinlei
+     * @date 2019-12-25 15:43:38
      */
     private long timeGen() {
         return System.currentTimeMillis();
@@ -119,8 +119,8 @@ public class SnowFlakeId {
      *
      * @param maxDataCenterId
      * @return long
-     * @Author zhouxinlei
-     * @Date 2019-12-25 15:43:23
+     * @author zhouxinlei
+     * @date 2019-12-25 15:43:23
      */
     protected static long getDataCenterId(long maxDataCenterId) {
         long id = 0L;
@@ -149,8 +149,8 @@ public class SnowFlakeId {
      * @param dataCenterId
      * @param maxWorkerId
      * @return long
-     * @Author zhouxinlei
-     * @Date 2019-12-25 15:41:10
+     * @author zhouxinlei
+     * @date 2019-12-25 15:41:10
      */
     protected static long getMaxWorkerId(long dataCenterId, long maxWorkerId) {
         StringBuilder stringBuffer = new StringBuilder();
@@ -168,8 +168,8 @@ public class SnowFlakeId {
      * 获取下一个ID
      *
      * @return long
-     * @Author zhouxinlei
-     * @Date 2019-12-25 15:40:56
+     * @author zhouxinlei
+     * @date 2019-12-25 15:40:56
      */
     public synchronized long getNextId() {
         long timestamp = timeGen();
@@ -202,8 +202,8 @@ public class SnowFlakeId {
      * 分布式生成id
      *
      * @return Long
-     * @Author zhouxinlei
-     * @Date 2020-01-17 11:06:10
+     * @author zhouxinlei
+     * @date 2020-01-17 11:06:10
      */
     public static synchronized Long getSnowFlakeId() {
         return snowFlakeId.getNextId();

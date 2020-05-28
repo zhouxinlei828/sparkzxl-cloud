@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * description: 森林管理类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:09:48
+ * @author zhouxinlei
+ * @date 2020-05-24 13:09:48
  */
 public class ForestNodeManager<T extends INode> {
 

@@ -13,8 +13,8 @@ import java.util.List;
 /**
  * description: 树形实体封装
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:48:27
+ * @author zhouxinlei
+ * @date 2020-05-24 12:48:27
  */
 @Getter
 @Setter

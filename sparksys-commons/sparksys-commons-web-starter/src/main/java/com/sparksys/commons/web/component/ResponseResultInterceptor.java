@@ -13,8 +13,8 @@ import java.lang.reflect.Method;
 /**
  * description: 全局请求拦截处理
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:42:17
+ * @author zhouxinlei
+ * @date 2020-05-24 13:42:17
  */
 @Slf4j
 public class ResponseResultInterceptor extends HandlerInterceptorAdapter {

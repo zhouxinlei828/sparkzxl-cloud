@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 /**
  * description:文件API降级处理
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:29:26
+ * @author zhouxinlei
+ * @date 2020-05-24 12:29:26
  */
 @Component
 public class FileFeignApiFallback implements FileFeignApi {

@@ -16,8 +16,8 @@ import springfox.documentation.swagger.web.UiConfigurationBuilder;
 /**
  * description: Swagger配置
  *
- * @Author zhouxinlei
- * @Date  2020-05-24 12:16:41
+ * @author zhouxinlei
+ * @date  2020-05-24 12:16:41
  */
 @RestController
 public class SwaggerHandler {

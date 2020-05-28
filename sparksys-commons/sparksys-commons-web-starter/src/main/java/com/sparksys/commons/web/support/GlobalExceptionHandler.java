@@ -26,8 +26,8 @@ import java.sql.SQLException;
 /**
  * description: 全局异常处理
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:44:48
+ * @author zhouxinlei
+ * @date 2020-05-24 13:44:48
  */
 @ControllerAdvice
 @RestController

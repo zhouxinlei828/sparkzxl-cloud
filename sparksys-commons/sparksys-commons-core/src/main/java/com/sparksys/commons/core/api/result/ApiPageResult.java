@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * description: API接口分页响应结果
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:46:08
+ * @author zhouxinlei
+ * @date 2020-05-24 12:46:08
  */
 @Getter
 @Setter

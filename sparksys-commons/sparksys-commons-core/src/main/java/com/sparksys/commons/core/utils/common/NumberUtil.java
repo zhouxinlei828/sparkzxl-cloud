@@ -8,8 +8,8 @@ import java.text.DecimalFormat;
 /**
  * description: 数字转换工具
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:50:33
+ * @author zhouxinlei
+ * @date 2020-05-24 12:50:33
  */
 public class NumberUtil extends NumberUtils {
 

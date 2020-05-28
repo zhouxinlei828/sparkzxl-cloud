@@ -43,8 +43,8 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * description: aliYun oss 文件上传处理器
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:34:06
+ * @author zhouxinlei
+ * @date 2020-05-24 12:34:06
  */
 @Slf4j
 @Component

@@ -15,8 +15,8 @@ import java.io.IOException;
 /**
  * description: SecurityResponse工具类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:40:03
+ * @author zhouxinlei
+ * @date 2020-05-24 13:40:03
  */
 public class SecurityResponse {
 

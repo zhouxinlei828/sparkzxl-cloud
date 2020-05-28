@@ -13,8 +13,8 @@ import java.util.concurrent.CountDownLatch;
 /**
  * description: zookeeper分布式锁
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:45:29
+ * @author zhouxinlei
+ * @date 2020-05-24 13:45:29
  */
 @Slf4j
 public class DistributedZkLock implements InitializingBean {

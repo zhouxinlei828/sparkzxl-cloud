@@ -3,8 +3,8 @@ package com.sparksys.commons.core.constant;
 /**
  * description: 通用核心常量
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:47:09
+ * @author zhouxinlei
+ * @date 2020-05-24 12:47:09
  */
 public class CoreConstant {
 
@@ -12,8 +12,8 @@ public class CoreConstant {
     /**
      * description: jwt常量
      *
-     * @Author zhouxinlei
-     * @Date 2020-05-24 12:47:17
+     * @author zhouxinlei
+     * @date 2020-05-24 12:47:17
      */
     public static final class JwtTokenConstant {
 

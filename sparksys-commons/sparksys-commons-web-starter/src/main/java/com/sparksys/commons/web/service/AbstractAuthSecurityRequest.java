@@ -9,8 +9,8 @@ import org.springframework.util.ObjectUtils;
 /**
  * description: 请求用户接口抽象类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:44:10
+ * @author zhouxinlei
+ * @date 2020-05-24 13:44:10
  */
 @Slf4j
 public abstract class AbstractAuthSecurityRequest {
@@ -21,8 +21,8 @@ public abstract class AbstractAuthSecurityRequest {
      * @param accessToken
      * @return AuthUser
      * @throws
-     * @Author zhouxinlei
-     * @Date 2020-01-03 15:47:42
+     * @author zhouxinlei
+     * @date 2020-01-03 15:47:42
      */
     public AuthUser getUserInfo(String accessToken) throws AuthException {
         log.info("accessToken is {}", accessToken);
@@ -40,8 +40,8 @@ public abstract class AbstractAuthSecurityRequest {
      * @param key
      * @return AuthUser
      * @throws
-     * @Author zhouxinlei
-     * @Date 2020-05-24 10:09:32
+     * @author zhouxinlei
+     * @date 2020-05-24 10:09:32
      */
     protected abstract AuthUser getCache(String key);
 

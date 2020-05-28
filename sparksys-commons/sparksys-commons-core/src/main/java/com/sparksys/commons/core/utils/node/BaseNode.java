@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * description: 节点基类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:09:26
+ * @author zhouxinlei
+ * @date 2020-05-24 13:09:26
  */
 @Data
 public class BaseNode implements INode {

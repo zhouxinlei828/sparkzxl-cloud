@@ -7,8 +7,8 @@ import org.springframework.http.MediaType;
 /**
  * description: 上传结果
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:38:34
+ * @author zhouxinlei
+ * @date 2020-05-24 12:38:34
  */
 @Data
 @ToString

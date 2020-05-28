@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * description: 授权认证controller
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:37:27
+ * @author zhouxinlei
+ * @date 2020-05-24 13:37:27
  */
 @Slf4j
 @RestController

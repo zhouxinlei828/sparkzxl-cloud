@@ -9,8 +9,8 @@ import java.nio.charset.Charset;
 /**
  * description: DES加密
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:51:14
+ * @author zhouxinlei
+ * @date 2020-05-24 12:51:14
  */
 public class DesUtils {
 

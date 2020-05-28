@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 /**
  * description: 性别枚举
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:21:59
+ * @author zhouxinlei
+ * @date 2020-05-24 13:21:59
  */
 @Getter
 @AllArgsConstructor

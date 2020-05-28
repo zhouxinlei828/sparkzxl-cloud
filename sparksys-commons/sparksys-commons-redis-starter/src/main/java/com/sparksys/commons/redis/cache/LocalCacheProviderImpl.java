@@ -15,8 +15,8 @@ import java.util.function.Function;
 /**
  * description: 本地缓存
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:25:44
+ * @author zhouxinlei
+ * @date 2020-05-24 13:25:44
  */
 @Component("localCacheProvider")
 public class LocalCacheProviderImpl implements CacheProviderService {

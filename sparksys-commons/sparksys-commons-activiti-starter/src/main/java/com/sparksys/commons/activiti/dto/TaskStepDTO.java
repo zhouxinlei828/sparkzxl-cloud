@@ -8,8 +8,8 @@ import java.io.Serializable;
 /**
  * description: 流程步骤操作入参
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:44:04
+ * @author zhouxinlei
+ * @date 2020-05-24 12:44:04
  */
 @Data
 public class TaskStepDTO implements Serializable {

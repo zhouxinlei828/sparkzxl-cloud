@@ -9,8 +9,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 /**
  * description: 资源服务器配置
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 13:24:41
+ * @author zhouxinlei
+ * @date 2020-05-24 13:24:41
  */
 @Configuration
 @EnableResourceServer

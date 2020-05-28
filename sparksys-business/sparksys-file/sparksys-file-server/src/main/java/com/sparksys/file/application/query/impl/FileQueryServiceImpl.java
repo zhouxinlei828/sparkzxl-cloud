@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 /**
  * description: 文件查询服务实现类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:33:15
+ * @author zhouxinlei
+ * @date 2020-05-24 12:33:15
  */
 @Service
 public class FileQueryServiceImpl implements IFileQueryService {

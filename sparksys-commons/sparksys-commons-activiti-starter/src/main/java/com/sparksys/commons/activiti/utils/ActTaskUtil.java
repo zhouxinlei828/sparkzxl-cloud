@@ -12,8 +12,8 @@ import java.util.*;
 /**
  * description: 任务节点工具类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:45:26
+ * @author zhouxinlei
+ * @date 2020-05-24 12:45:26
  */
 @Service
 public class ActTaskUtil {

@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * description: 登录认证用户实体类
  *
- * @Author zhouxinlei
- * @Date 2020-05-24 12:47:33
+ * @author zhouxinlei
+ * @date 2020-05-24 12:47:33
  */
 @Data
 @ApiModel(description = "登录用户实体类")
