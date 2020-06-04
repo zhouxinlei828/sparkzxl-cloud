@@ -13,6 +13,8 @@ import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.PolicyConditions;
 import com.aliyun.oss.model.PutObjectResult;
 import com.sparksys.commons.core.support.BusinessException;
+import com.sparksys.commons.core.support.ResponseResultStatus;
+import com.sparksys.commons.core.support.SparkSysExceptionAssert;
 import com.sparksys.commons.core.utils.file.FileUtil;
 import com.sparksys.commons.core.utils.file.FilenameUtils;
 import com.sparksys.file.domain.constant.OssConstant;
@@ -78,17 +80,17 @@ public class AliOssFileHandler implements IFileHandler {
     }
 
     @Override
-    public UploadResult upload(MultipartFile file) throws Exception {
+    public UploadResult upload(MultipartFile file) {
         return aliOssUpload(file);
     }
 
     @Override
-    public UploadResult upload(File file) throws Exception {
+    public UploadResult upload(File file) {
         return aliOssUpload(file);
     }
 
 
-    private UploadResult aliOssUpload(MultipartFile multipartFile) throws BusinessException {
+    private UploadResult aliOssUpload(MultipartFile multipartFile) {
         // Init OSS client
         OSS ossClient = getOssClient();
         String originalFilename = multipartFile.getOriginalFilename();
@@ -104,10 +106,7 @@ public class AliOssFileHandler implements IFileHandler {
             // Upload
             PutObjectResult putObjectResult = ossClient.putObject(ossProperties.getBucketName(),
                     uploadFilePath, inputStream);
-            if (putObjectResult == null) {
-                throw new BusinessException(
-                        "上传附件 " + multipartFile.getOriginalFilename() + " 到阿里云失败 ");
-            }
+            ResponseResultStatus.UPLOAD_FAILURE.assertNotNull(putObjectResult);
             // Response result
             UploadResult uploadResult = new UploadResult();
             uploadResult.setFilename(basename);
@@ -121,10 +120,11 @@ public class AliOssFileHandler implements IFileHandler {
             return uploadResult;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new BusinessException("上传附件 " + originalFilename + " 失败 ");
+            SparkSysExceptionAssert.businessFail("上传附件 " + originalFilename + " 失败 ");
         } finally {
             ossClient.shutdown();
         }
+        return null;
     }
 
 
@@ -156,7 +156,7 @@ public class AliOssFileHandler implements IFileHandler {
             PutObjectResult putObjectResult = ossClient.putObject(ossProperties.getBucketName(),
                     uploadFilePath, file);
             if (putObjectResult == null) {
-                throw new BusinessException("上传附件 " + originalFilename + " 到阿里云失败 ");
+                ResponseResultStatus.UPLOAD_FAILURE.assertNotNull(putObjectResult);
             }
             // Response result
             UploadResult uploadResult = new UploadResult();
@@ -169,15 +169,16 @@ public class AliOssFileHandler implements IFileHandler {
             return uploadResult;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new BusinessException("上传附件 " + originalFilename + " 失败 ");
+            SparkSysExceptionAssert.businessFail("上传附件 " + originalFilename + " 失败 ");
         } finally {
             ossClient.shutdown();
             file.delete();
         }
+        return null;
     }
 
     @Override
-    public void delete(String key) throws BusinessException {
+    public void delete(String key) {
         Assert.notNull(key, "File key must not be blank");
         String bucketName = ossProperties.getBucketName();
         // Init OSS client
@@ -185,7 +186,7 @@ public class AliOssFileHandler implements IFileHandler {
         try {
             ossClient.deleteObject(new DeleteObjectsRequest(bucketName).withKey(key));
         } catch (Exception e) {
-            throw new BusinessException("附件 " + key + " 从阿里云删除失败");
+            SparkSysExceptionAssert.businessFail("附件 " + key + " 从阿里云删除失败");
         } finally {
             ossClient.shutdown();
         }

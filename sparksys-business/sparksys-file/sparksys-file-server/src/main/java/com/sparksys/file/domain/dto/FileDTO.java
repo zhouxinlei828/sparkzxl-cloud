@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -17,9 +18,11 @@ import java.util.List;
 public class FileDTO {
 
     @ApiModelProperty(value = "文件地址")
+    @NotEmpty(message = "文件地址不能为空")
     private String filePath;
 
     @ApiModelProperty(value = "文件地址列表")
+    @NotEmpty(message = "文件地址列表不能为空")
     private List<String> fileList;
 
 }

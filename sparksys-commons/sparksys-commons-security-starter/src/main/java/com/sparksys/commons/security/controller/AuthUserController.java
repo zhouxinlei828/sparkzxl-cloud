@@ -3,7 +3,6 @@ package com.sparksys.commons.security.controller;
 
 import com.sparksys.commons.core.entity.AuthUser;
 import com.sparksys.commons.security.entity.AuthToken;
-import com.sparksys.commons.security.request.AuthNoSecretRequest;
 import com.sparksys.commons.security.request.AuthRequest;
 import com.sparksys.commons.security.service.AuthSecurityRequest;
 import com.sparksys.commons.web.annotation.ResponseResult;
@@ -39,12 +38,6 @@ public class AuthUserController {
     @PostMapping("/login")
     public AuthToken login(@RequestBody AuthRequest authRequest) throws Exception {
         return authSecurityRequest.getAccessToken(authRequest);
-    }
-
-    @ApiOperation("免密登录")
-    @PostMapping("/noSecretLogin")
-    public AuthToken noSecretLogin(@RequestBody AuthNoSecretRequest authNoSecretRequest) throws Exception {
-        return authSecurityRequest.noSecretAccessToken(authNoSecretRequest);
     }
 
     @ApiOperation("获取登录用户信息")

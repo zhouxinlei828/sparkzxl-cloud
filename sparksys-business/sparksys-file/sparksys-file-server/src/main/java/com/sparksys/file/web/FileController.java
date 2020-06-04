@@ -10,6 +10,7 @@ import com.sparksys.file.domain.dto.FileDTO;
 import com.sparksys.file.domain.dto.OssCallbackDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,19 +37,19 @@ public class FileController {
 
     @ApiOperation("文件上传")
     @PostMapping("/upload")
-    public FileMaterial upload(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+    public FileMaterial upload(@RequestParam("file") MultipartFile multipartFile) {
         return fileCommandService.upload(multipartFile);
     }
 
     @ApiOperation("删除文件")
     @DeleteMapping("/delete/{fileName}")
-    public boolean delete(@PathVariable("fileName") String fileName) throws BusinessException {
+    public boolean delete(@PathVariable("fileName") String fileName){
         return fileCommandService.deleteFile(fileName);
     }
 
     @ApiOperation("转换html文件")
     @PostMapping("/html")
-    public FileDTO getHtml(@RequestBody FileDTO fileDTO) throws Exception {
+    public FileDTO getHtml(@Validated @RequestBody FileDTO fileDTO) {
         return fileCommandService.getHtml(fileDTO);
     }
 

@@ -23,7 +23,7 @@ public interface IFileCommandService {
      * @return
      * @throws Exception
      */
-    FileMaterial upload(MultipartFile multipartFile) throws Exception;
+    FileMaterial upload(MultipartFile multipartFile);
 
     /**
      * 删除文件
@@ -32,7 +32,7 @@ public interface IFileCommandService {
      * @return
      * @throws BusinessException
      */
-    boolean deleteFile(String objectName) throws BusinessException;
+    boolean deleteFile(String objectName);
 
     /**
      * 文件上传回调
@@ -49,5 +49,5 @@ public interface IFileCommandService {
      * @return
      * @throws Exception
      */
-    FileDTO getHtml(FileDTO fileDTO) throws Exception;
+    FileDTO getHtml(FileDTO fileDTO);
 }

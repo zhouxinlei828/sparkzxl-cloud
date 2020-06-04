@@ -52,7 +52,4 @@ public class AuthSecurityRequest extends AbstractAuthSecurityRequest {
         return cacheProviderService.get(AuthConstant.AUTH_USER + key);
     }
 
-    public AuthToken noSecretAccessToken(AuthNoSecretRequest authNoSecretRequest) throws Exception {
-        return authSecurityDetailsService.noSecretLogin(authNoSecretRequest);
-    }
 }

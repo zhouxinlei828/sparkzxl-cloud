@@ -96,6 +96,8 @@ public enum ResponseResultStatus implements BusinessExceptionAssert {
     TOO_MUCH_DATA_ERROR(HttpStatus.HTTP_INTERNAL_ERROR, "批量新增数据过多"),
 
     HYSTRIX_ERROR(HttpStatus.HTTP_UNAVAILABLE, "请求超时，请稍候再试"),
+
+    UPLOAD_FAILURE(HttpStatus.HTTP_INTERNAL_ERROR, "上传文件失败了哦"),
     ;
 
     /**

@@ -38,7 +38,7 @@ public class FileCommandServiceImpl implements IFileCommandService {
     private FileMaterialMapper fileMaterialMapper;
 
     @Override
-    public FileMaterial upload(MultipartFile multipartFile) throws Exception {
+    public FileMaterial upload(MultipartFile multipartFile) {
         FileMaterial fileMaterial;
         //文件新路径
         String fileName = FilenameUtils.getBasename(Objects.requireNonNull(multipartFile.getOriginalFilename()));
@@ -65,7 +65,7 @@ public class FileCommandServiceImpl implements IFileCommandService {
     }
 
     @Override
-    public boolean deleteFile(String fileName) throws BusinessException {
+    public boolean deleteFile(String fileName) {
         // 根据BucketName,objectName删除文件
         aliOssFileHandler.delete(fileName);
         QueryWrapper<FileMaterial> materialQueryWrapper = new QueryWrapper<>();
@@ -98,7 +98,7 @@ public class FileCommandServiceImpl implements IFileCommandService {
     }
 
     @Override
-    public FileDTO getHtml(FileDTO fileDTO) throws Exception {
+    public FileDTO getHtml(FileDTO fileDTO) {
         String fileName = fileDTO.getFilePath().substring(fileDTO.getFilePath().lastIndexOf('/') + 1);
         String baseName = FilenameUtils.getBasename(fileName);
         String tempFilePath = "/data/" + baseName + ".html";

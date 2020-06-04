@@ -36,9 +36,8 @@ public interface IFileHandler {
      *
      * @param file
      * @return
-     * @throws Exception
      */
-    UploadResult upload(MultipartFile file) throws Exception;
+    UploadResult upload(MultipartFile file);
 
 
     /**
@@ -46,9 +45,8 @@ public interface IFileHandler {
      *
      * @param file
      * @return
-     * @throws Exception
      */
-    UploadResult upload(File file) throws Exception;
+    UploadResult upload(File file);
 
     /**
      * 删除文件
@@ -56,25 +54,23 @@ public interface IFileHandler {
      * @param key
      * @throws BusinessException
      */
-    void delete(String key) throws BusinessException;
+    void delete(String key);
 
     /**
      * 获取文件
      *
      * @param fileName
      * @return
-     * @throws BusinessException
      */
-    OSSObject getFile(String fileName) throws BusinessException;
+    OSSObject getFile(String fileName);
 
     /**
      * 判断文件是否存在
      *
      * @param fileName
      * @return
-     * @throws BusinessException
      */
-    boolean exist(String fileName) throws BusinessException;
+    boolean exist(String fileName);
 
     /**
      * 签名生成
