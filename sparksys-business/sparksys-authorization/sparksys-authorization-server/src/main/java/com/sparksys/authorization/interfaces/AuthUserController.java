@@ -1,4 +1,4 @@
-package com.sparksys.authorization.web;
+package com.sparksys.authorization.interfaces;
 
 
 import cn.hutool.core.util.StrUtil;

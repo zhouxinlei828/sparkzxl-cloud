@@ -1,6 +1,5 @@
-package com.sparksys.file.web;
+package com.sparksys.file.interfaces;
 
-import com.sparksys.commons.core.support.BusinessException;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import com.sparksys.file.application.command.IFileCommandService;
 import com.sparksys.file.application.query.IFileQueryService;

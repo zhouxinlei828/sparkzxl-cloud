@@ -31,7 +31,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .groupName("oath授权认证模块")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.sparksys.authorization.web"))
+                .apis(RequestHandlerSelectors.basePackage("com.sparksys.authorization.interfaces"))
                 .paths(PathSelectors.any())
                 .build();
         return docket;

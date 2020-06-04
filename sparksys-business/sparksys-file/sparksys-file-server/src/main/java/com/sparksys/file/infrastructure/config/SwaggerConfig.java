@@ -32,7 +32,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .groupName("文件存储模块")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.sparksys.file.web"))
+                .apis(RequestHandlerSelectors.basePackage("com.sparksys.file.interfaces"))
                 .paths(PathSelectors.any())
                 .build();
         return docket;
