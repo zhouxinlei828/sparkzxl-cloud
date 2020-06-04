@@ -108,7 +108,7 @@ public class PowerCacheBuilder {
         for (CacheProviderService provider : getCacheProviders()) {
             if (obj == null) {
                 obj = provider.get(key, function);
-            } else if (function != null && obj != null) {
+            } else if (function != null) {
                 //查询并设置其他缓存提供者程序缓存
                 provider.get(key, function);
             }
@@ -123,18 +123,18 @@ public class PowerCacheBuilder {
     /**
      * 查询缓存
      *
-     * @param key      缓存键 不可为空
-     * @param function 如没有缓存，调用该callable函数返回对象 可为空
-     * @param funcParm function函数的调用参数
+     * @param key       缓存键 不可为空
+     * @param function  如没有缓存，调用该callable函数返回对象 可为空
+     * @param funcParam function函数的调用参数
      **/
-    public <T extends Object, M extends Object> T get(String key, Function<M, T> function, M funcParm) {
+    public <T, M> T get(String key, Function<M, T> function, M funcParam) {
         T obj = null;
         for (CacheProviderService provider : getCacheProviders()) {
             if (obj == null) {
-                obj = provider.get(key, function, funcParm);
-            } else if (function != null && obj != null) {
+                obj = provider.get(key, function, funcParam);
+            } else if (function != null) {
                 //查询并设置其他缓存提供者程序缓存
-                provider.get(key, function, funcParm);
+                provider.get(key, function, funcParam);
             }
             //如果callable函数为空 而缓存对象不为空 及时跳出循环并返回
             if (function == null && obj != null) {
@@ -156,7 +156,7 @@ public class PowerCacheBuilder {
         for (CacheProviderService provider : getCacheProviders()) {
             if (obj == null) {
                 obj = provider.get(key, function, expireTime);
-            } else {
+            } else if (function != null) {
                 provider.get(key, function, expireTime);
             }
             //如果callable函数为空 而缓存对象不为空 及时跳出循环并返回
@@ -172,16 +172,16 @@ public class PowerCacheBuilder {
      *
      * @param key        缓存键 不可为空
      * @param function   如没有缓存，调用该callable函数返回对象 可为空
-     * @param funcParm   function函数的调用参数
+     * @param funcParam  function函数的调用参数
      * @param expireTime 过期时间（单位：毫秒） 可为空
      **/
-    public <T, M> T get(String key, Function<M, T> function, M funcParm, long expireTime) {
+    public <T, M> T get(String key, Function<M, T> function, M funcParam, long expireTime) {
         T obj = null;
         for (CacheProviderService provider : getCacheProviders()) {
             if (obj == null) {
-                obj = provider.get(key, function, funcParm, expireTime);
-            } else {
-                provider.get(key, function, funcParm, expireTime);
+                obj = provider.get(key, function, funcParam, expireTime);
+            } else if (function != null) {
+                provider.get(key, function, funcParam, expireTime);
             }
             //如果callable函数为空 而缓存对象不为空 及时跳出循环并返回
             if (function == null && obj != null) {
@@ -201,9 +201,7 @@ public class PowerCacheBuilder {
     public <T> void set(String key, T obj) {
         //key = generateVerKey(key);//构造带版本的缓存键
         for (CacheProviderService provider : getCacheProviders()) {
-
             provider.set(key, obj);
-
         }
     }
 
@@ -215,13 +213,9 @@ public class PowerCacheBuilder {
      * @param expireTime 过期时间（单位：毫秒） 可为空
      **/
     public <T> void set(String key, T obj, Long expireTime) {
-
         //key = generateVerKey(key);//构造带版本的缓存键
-
         for (CacheProviderService provider : getCacheProviders()) {
-
             provider.set(key, obj, expireTime);
-
         }
     }
 

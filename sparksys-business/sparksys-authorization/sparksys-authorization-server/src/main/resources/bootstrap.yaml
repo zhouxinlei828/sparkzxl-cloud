@@ -15,7 +15,6 @@ spring:
         namespace: e026cfa9-330a-4ec8-8544-87bd279e6f23
         file-extension: yaml
         prefix: ${spring.application.name}
-        enabled: true
         shared-configs:
           - dataId: redis.yaml
             group: DEFAULT_GROUP
@@ -23,3 +22,5 @@ spring:
           - dataId: actuator.yaml
             group: DEFAULT_GROUP
             refresh: false
+        enable-remote-sync-config: true
+        refresh-enabled: true

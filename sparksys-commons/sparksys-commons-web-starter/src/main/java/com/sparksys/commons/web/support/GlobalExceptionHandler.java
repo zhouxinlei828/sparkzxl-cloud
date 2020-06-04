@@ -11,6 +11,7 @@ import com.sparksys.commons.web.utils.HttpServletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.openssl.PasswordException;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -47,32 +48,29 @@ public class GlobalExceptionHandler {
     public ApiResult businessValidationException(BusinessValidationException e) {
         handleResponseResult();
         log.error(e.getMessage());
-        return ApiResult.apiResult(ResponseResultStatus.PARAM_VALID_ERROR.getCode(), e.getMessage());
+        return e.getResponseResultStatus() == null ? ApiResult.apiResult(ResponseResultStatus.PARAM_VALID_ERROR.getCode(), e.getMessage()) :
+                ApiResult.apiResult(e.getResponseResultStatus());
     }
 
     @ExceptionHandler(BusinessException.class)
     public ApiResult businessException(BusinessException e) {
         handleResponseResult();
         log.error(e.getMessage());
-        return ApiResult.apiResult(ResponseResultStatus.FAILURE.getCode(), e.getMessage());
+        return e.getResponseResultStatus() == null ? ApiResult.apiResult(ResponseResultStatus.FAILURE.getCode(), e.getMessage()) :
+                ApiResult.apiResult(e.getResponseResultStatus());
     }
 
     @ExceptionHandler(AuthException.class)
     public ApiResult businessAuthException(AuthException e) {
         handleResponseResult();
         log.error(e.getMessage());
-        return ApiResult.apiResult(ResponseResultStatus.UN_AUTHORIZED.getCode(), e.getMessage());
+        return e.getResponseResultStatus() == null ? ApiResult.apiResult(ResponseResultStatus.UN_AUTHORIZED.getCode(), e.getMessage()) :
+                ApiResult.apiResult(e.getResponseResultStatus());
     }
 
-    @ExceptionHandler(AccountNotFoundException.class)
-    public ApiResult accountNotFoundException(AccountNotFoundException e) {
-        handleResponseResult();
-        log.error(e.getMessage());
-        return ApiResult.apiResult(ResponseResultStatus.UN_AUTHORIZED.getCode(), e.getMessage());
-    }
 
-    @ExceptionHandler(PasswordException.class)
-    public ApiResult passwordException(PasswordException e) {
+    @ExceptionHandler({AccountNotFoundException.class, PasswordException.class})
+    public ApiResult passwordException(Exception e) {
         handleResponseResult();
         log.error(e.getMessage());
         return ApiResult.apiResult(ResponseResultStatus.UN_AUTHORIZED.getCode(), e.getMessage());

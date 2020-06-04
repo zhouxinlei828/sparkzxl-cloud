@@ -35,10 +35,9 @@ public class LocalCacheProviderImpl implements CacheProviderService {
                 .maximumSize(CACHE_MAXIMUM_SIZE)
                 //最后一次写入后的一段时间移出
                 .expireAfterWrite(CACHE_MINUTE, TimeUnit.SECONDS)
-                //.expireAfterAccess(AppConst.CACHE_MINUTE, TimeUnit.MILLISECONDS) //最后一次访问后的一段时间移出
+                //.expireAfterAccess(CACHE_MINUTE, TimeUnit.MILLISECONDS) //最后一次访问后的一段时间移出
                 .recordStats()//开启统计功能
                 .build();
-
         CACHE_CONCURRENT_MAP.put(String.valueOf(CACHE_MINUTE), cacheContainer);
     }
 
@@ -92,11 +91,11 @@ public class LocalCacheProviderImpl implements CacheProviderService {
      *
      * @param key        缓存键 不可为空
      * @param function   如没有缓存，调用该callable函数返回对象 可为空
-     * @param funcParm   function函数的调用参数
+     * @param funcParam   function函数的调用参数
      * @param expireTime 过期时间（单位：毫秒） 可为空
      **/
     @Override
-    public <T, M> T get(String key, Function<M, T> function, M funcParm, Long expireTime) {
+    public <T, M> T get(String key, Function<M, T> function, M funcParam, Long expireTime) {
         T obj = null;
         if (StringUtils.isEmpty(key)) {
             return null;
@@ -107,7 +106,7 @@ public class LocalCacheProviderImpl implements CacheProviderService {
             if (function == null) {
                 obj = (T) cacheContainer.getIfPresent(key);
             } else {
-                obj = (T) cacheContainer.get(key, () -> function.apply(funcParm));
+                obj = (T) cacheContainer.get(key, () -> function.apply(funcParam));
             }
         } catch (Exception e) {
             e.printStackTrace();
