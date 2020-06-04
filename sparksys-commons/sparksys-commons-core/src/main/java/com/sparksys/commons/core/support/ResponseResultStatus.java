@@ -1,7 +1,6 @@
 package com.sparksys.commons.core.support;
 
 import cn.hutool.http.HttpStatus;
-import com.sparksys.commons.core.api.code.BaseExceptionCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,7 +12,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum ResponseResultStatus implements BusinessExceptionAssert {
+public enum ResponseResultStatus implements BusinessExceptionSysAssert {
 
     /**
      * 操作成功

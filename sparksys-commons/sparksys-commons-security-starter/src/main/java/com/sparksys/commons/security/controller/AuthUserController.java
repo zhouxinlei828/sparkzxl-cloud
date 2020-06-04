@@ -36,13 +36,13 @@ public class AuthUserController {
 
     @ApiOperation("系统登录")
     @PostMapping("/login")
-    public AuthToken login(@RequestBody AuthRequest authRequest) throws Exception {
+    public AuthToken login(@RequestBody AuthRequest authRequest) {
         return authSecurityRequest.getAccessToken(authRequest);
     }
 
     @ApiOperation("获取登录用户信息")
     @GetMapping("/getOauthInfo")
-    public AuthUser getUserInfo(HttpServletRequest httpServletRequest) throws Exception {
+    public AuthUser getUserInfo(HttpServletRequest httpServletRequest) {
         return authSecurityRequest.getUserInfo(httpServletRequest);
     }
 }

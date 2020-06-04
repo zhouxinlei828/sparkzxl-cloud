@@ -36,11 +36,11 @@ public class AuthSecurityRequest extends AbstractAuthSecurityRequest {
         this.authSecurityDetailsService = authSecurityDetailsService;
     }
 
-    public AuthToken getAccessToken(AuthRequest authRequest) throws Exception {
+    public AuthToken getAccessToken(AuthRequest authRequest) {
         return authSecurityDetailsService.login(authRequest);
     }
 
-    public AuthUser getUserInfo(HttpServletRequest servletRequest) throws Exception {
+    public AuthUser getUserInfo(HttpServletRequest servletRequest) {
         String header = servletRequest.getHeader(CoreConstant.JwtTokenConstant.JWT_TOKEN_HEADER);
         String accessToken = StringUtils.removeStart(header, CoreConstant.JwtTokenConstant.JWT_TOKEN_HEAD);
         log.info("accessToken is {}", accessToken);

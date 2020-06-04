@@ -6,7 +6,7 @@ package com.sparksys.commons.core.support;
  * @author zhouxinlei
  * @date  2020/6/4 0004
  */
-public interface SparkAssert {
+public interface SparkSysAssert {
     /**
      * 创建异常
      *

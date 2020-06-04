@@ -18,7 +18,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
 
 /**
@@ -37,7 +36,7 @@ public abstract class AbstractAuthDetailsService {
      * @return java.lang.String
      * @throws Exception 异常
      */
-    public AuthToken login(AuthRequest authRequest) throws Exception {
+    public AuthToken login(AuthRequest authRequest){
         String account = authRequest.getAccount();
         ResponseResultStatus.USERNAME_EMPTY.assertNotNull(account);
 
@@ -89,9 +88,8 @@ public abstract class AbstractAuthDetailsService {
      *
      * @param account 用户名
      * @return AuthUser
-     * @throws AccountNotFoundException 异常
      */
-    public abstract AuthUser getOauthUserInfo(String account) throws AccountNotFoundException;
+    public abstract AuthUser getOauthUserInfo(String account);
 
     /**
      * 根据用户名获取用户信息
@@ -100,14 +98,12 @@ public abstract class AbstractAuthDetailsService {
      * @return AdminUserDetails
      * @throws BusinessException 异常
      */
-    public AdminUserDetails getAdminUserDetail(String account) throws AccountNotFoundException {
+    public AdminUserDetails getAdminUserDetail(String account) {
         AdminUserDetails adminUserDetails = new AdminUserDetails();
         AuthUser authUser = getOauthUserInfo(account);
-        if (authUser != null) {
-            adminUserDetails.setAuthUser(authUser);
-            return adminUserDetails;
-        }
-        throw new AccountNotFoundException("账户不存在");
+        ResponseResultStatus.ACCOUNT_EMPTY.assertNotNull(authUser);
+        adminUserDetails.setAuthUser(authUser);
+        return adminUserDetails;
     }
 
     /**

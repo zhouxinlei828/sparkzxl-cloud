@@ -4,13 +4,13 @@ import com.sparksys.commons.core.api.code.BaseExceptionCode;
 
 import java.text.MessageFormat;
 
-/*
- * description：
+/**
+ * description:
  *
- * @author zhouxinlei
- * @date  2020/6/4 0004
+ * @Author zhouxinlei
+ * @Date  2020-06-04 22:45:18
  */
-public interface BusinessExceptionAssert extends BaseExceptionCode, SparkAssert{
+public interface BusinessExceptionSysAssert extends BaseExceptionCode, SparkSysAssert {
 
     @Override
     default BaseException newException(Object... args) {
