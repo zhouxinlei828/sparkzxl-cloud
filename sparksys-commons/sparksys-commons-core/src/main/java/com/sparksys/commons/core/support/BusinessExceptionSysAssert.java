@@ -24,7 +24,4 @@ public interface BusinessExceptionSysAssert extends BaseExceptionCode, SparkSysA
         String msg = MessageFormat.format(this.getMessage(), args);
         return new BusinessException(this, args, msg, t);
     }
-    public static void main(String[] args) {
-
-    }
 }
