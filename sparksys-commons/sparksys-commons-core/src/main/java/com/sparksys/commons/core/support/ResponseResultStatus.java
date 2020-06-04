@@ -1,6 +1,7 @@
-package com.sparksys.commons.core.api.code;
+package com.sparksys.commons.core.support;
 
 import cn.hutool.http.HttpStatus;
+import com.sparksys.commons.core.api.code.BaseExceptionCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,7 +13,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum ResponseResultStatus implements BaseExceptionCode {
+public enum ResponseResultStatus implements BusinessExceptionAssert {
 
     /**
      * 操作成功
@@ -29,6 +30,13 @@ public enum ResponseResultStatus implements BaseExceptionCode {
      */
     UN_AUTHORIZED(HttpStatus.HTTP_UNAUTHORIZED, "暂未登录或token已过期"),
 
+    USERNAME_EMPTY(HttpStatus.HTTP_UNAUTHORIZED, "用户名不能为空"),
+
+    PASSWORD_EMPTY(HttpStatus.HTTP_UNAUTHORIZED, "密码不能为空"),
+
+    PASSWORD_ERROR(HttpStatus.HTTP_UNAUTHORIZED, "密码不正确"),
+
+    ACCOUNT_EMPTY(HttpStatus.HTTP_UNAUTHORIZED, "账户不存在"),
     /**
      * 404 没找到请求
      */

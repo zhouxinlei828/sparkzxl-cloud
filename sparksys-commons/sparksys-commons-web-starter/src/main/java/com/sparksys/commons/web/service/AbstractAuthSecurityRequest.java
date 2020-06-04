@@ -2,9 +2,8 @@ package com.sparksys.commons.web.service;
 
 import com.sparksys.commons.core.constant.AuthConstant;
 import com.sparksys.commons.core.entity.AuthUser;
-import com.sparksys.commons.core.support.AuthException;
+import com.sparksys.commons.core.support.ResponseResultStatus;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.ObjectUtils;
 
 /**
  * description: 请求用户接口抽象类
@@ -24,13 +23,11 @@ public abstract class AbstractAuthSecurityRequest {
      * @author zhouxinlei
      * @date 2020-01-03 15:47:42
      */
-    public AuthUser getUserInfo(String accessToken) throws AuthException {
+    public AuthUser getUserInfo(String accessToken) {
         log.info("accessToken is {}", accessToken);
         String cacheKey = AuthConstant.AUTH_USER.concat(accessToken);
         AuthUser authUser = getCache(cacheKey);
-        if (ObjectUtils.isEmpty(authUser)) {
-            throw new AuthException("暂未登录或token已过期");
-        }
+        ResponseResultStatus.UN_AUTHORIZED.assertNotNull(authUser);
         return authUser;
     }
 

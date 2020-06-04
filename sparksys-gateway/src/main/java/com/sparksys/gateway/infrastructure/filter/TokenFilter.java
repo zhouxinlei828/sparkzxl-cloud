@@ -2,10 +2,9 @@ package com.sparksys.gateway.infrastructure.filter;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
-import com.sparksys.commons.core.api.code.ResponseResultStatus;
+import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.core.api.result.ApiResult;
 import com.sparksys.commons.core.constant.CoreConstant;
-import com.sparksys.commons.core.utils.jwt.JwtTokenUtil;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;

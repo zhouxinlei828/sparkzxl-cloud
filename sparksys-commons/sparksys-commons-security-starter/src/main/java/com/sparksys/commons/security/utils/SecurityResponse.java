@@ -1,7 +1,7 @@
 package com.sparksys.commons.security.utils;
 
 
-import com.sparksys.commons.core.api.code.ResponseResultStatus;
+import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.core.api.result.ApiResult;
 import com.sparksys.commons.core.constant.CoreConstant;
 import com.sparksys.commons.web.component.SpringContextUtils;

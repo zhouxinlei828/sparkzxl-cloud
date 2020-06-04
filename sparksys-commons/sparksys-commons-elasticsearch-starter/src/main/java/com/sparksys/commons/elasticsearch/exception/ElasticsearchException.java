@@ -1,6 +1,6 @@
 package com.sparksys.commons.elasticsearch.exception;
 
-import com.sparksys.commons.core.api.code.ResponseResultStatus;
+import com.sparksys.commons.core.support.ResponseResultStatus;
 import lombok.Getter;
 
 /**

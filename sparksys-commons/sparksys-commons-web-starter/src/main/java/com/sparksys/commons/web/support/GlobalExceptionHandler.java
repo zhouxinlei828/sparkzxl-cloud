@@ -1,19 +1,20 @@
 package com.sparksys.commons.web.support;
 
-import com.sparksys.commons.core.api.code.ResponseResultStatus;
+import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.core.api.result.ApiResult;
-import com.sparksys.commons.core.support.AuthException;
 import com.sparksys.commons.core.support.BusinessException;
-import com.sparksys.commons.core.support.BusinessValidationException;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import com.sparksys.commons.web.constant.WebConstant;
 import com.sparksys.commons.web.utils.HttpServletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.openssl.PasswordException;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.ObjectUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -44,30 +45,34 @@ public class GlobalExceptionHandler {
         }
     }
 
-    @ExceptionHandler(BusinessValidationException.class)
-    public ApiResult businessValidationException(BusinessValidationException e) {
-        handleResponseResult();
-        log.error(e.getMessage());
-        return e.getResponseResultStatus() == null ? ApiResult.apiResult(ResponseResultStatus.PARAM_VALID_ERROR.getCode(), e.getMessage()) :
-                ApiResult.apiResult(e.getResponseResultStatus());
-    }
-
     @ExceptionHandler(BusinessException.class)
     public ApiResult businessException(BusinessException e) {
         handleResponseResult();
         log.error(e.getMessage());
-        return e.getResponseResultStatus() == null ? ApiResult.apiResult(ResponseResultStatus.FAILURE.getCode(), e.getMessage()) :
-                ApiResult.apiResult(e.getResponseResultStatus());
+        int code = e.getBaseExceptionCode().getCode();
+        String message = e.getMessage() == null ? e.getBaseExceptionCode().getMessage() : e.getMessage();
+        return ApiResult.apiResult(code, message);
     }
 
-    @ExceptionHandler(AuthException.class)
-    public ApiResult businessAuthException(AuthException e) {
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ApiResult methodArgumentNotValidException(MethodArgumentNotValidException e) {
         handleResponseResult();
         log.error(e.getMessage());
-        return e.getResponseResultStatus() == null ? ApiResult.apiResult(ResponseResultStatus.UN_AUTHORIZED.getCode(), e.getMessage()) :
-                ApiResult.apiResult(e.getResponseResultStatus());
+        return ApiResult.apiResult(ResponseResultStatus.PARAM_BIND_ERROR.getCode(), bindingResult(e.getBindingResult()));
     }
 
+    private String bindingResult(BindingResult bindingResult) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (ObjectError objectError : bindingResult.getAllErrors()) {
+            stringBuilder.append(", ");
+            if (objectError instanceof FieldError) {
+                stringBuilder.append(((FieldError) objectError).getField()).append(": ");
+            }
+            stringBuilder.append(objectError.getDefaultMessage() == null ? "" : objectError.getDefaultMessage());
+        }
+        return stringBuilder.substring(2);
+    }
 
     @ExceptionHandler({AccountNotFoundException.class, PasswordException.class})
     public ApiResult passwordException(Exception e) {
