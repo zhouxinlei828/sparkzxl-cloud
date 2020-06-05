@@ -1,6 +1,7 @@
-package com.sparksys.authorization.application.query;
+package com.sparksys.authorization.domain.service;
 
-import com.sparksys.authorization.domain.model.AuthUserDetail;
+import com.sparksys.authorization.application.service.IAuthUserService;
+import com.sparksys.authorization.infrastructure.po.AuthUserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +19,7 @@ import org.springframework.util.ObjectUtils;
 public class AuthUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private IAuthUserQueryService authUserService;
+    private IAuthUserService authUserService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -33,7 +33,7 @@ public class WebLogAspect {
 
     private static final String START_TIME = "request-start";
 
-    @Pointcut("execution(* com.sparksys.*.interfaces..*Controller.*(..))")
+    @Pointcut("execution(* com.sparksys.*.interfaces.facade..*Controller.*(..))")
     public void pointCut() {
     }
 

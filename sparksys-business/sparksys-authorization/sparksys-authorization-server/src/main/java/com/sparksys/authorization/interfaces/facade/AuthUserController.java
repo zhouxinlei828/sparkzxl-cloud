@@ -1,7 +1,11 @@
-package com.sparksys.authorization.interfaces;
+package com.sparksys.authorization.interfaces.facade;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.sparksys.authorization.application.service.IAuthUserService;
+import com.sparksys.authorization.infrastructure.po.AuthUserDetail;
+import com.sparksys.authorization.interfaces.dto.AuthUserDTO;
+import com.sparksys.authorization.interfaces.dto.AuthUserLoginDTO;
 import com.sparksys.commons.core.constant.CoreConstant;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import com.sparksys.commons.web.utils.HttpServletUtils;
@@ -11,9 +15,8 @@ import java.nio.charset.StandardCharsets;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * description: 用户 前端控制器
@@ -28,6 +31,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "用户管理")
 public class AuthUserController {
 
+    @Autowired
+    private IAuthUserService authUserService;
+
     @GetMapping("/getCurrentUser")
     @ApiOperation("获取当前用户")
     public Object getCurrentUser() {
@@ -37,6 +43,12 @@ public class AuthUserController {
                 .setSigningKey("sparksys".getBytes(StandardCharsets.UTF_8))
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    @PostMapping("getAuthUserDetail")
+    @ApiOperation("获取当前用户")
+    public AuthUserDTO getAuthUserDetail(@RequestBody AuthUserLoginDTO authUserLoginDTO) {
+        return authUserService.getAuthUserDetail(authUserLoginDTO);
     }
 
 }

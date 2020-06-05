@@ -1,8 +1,10 @@
-package com.sparksys.authorization.domain.model;
+package com.sparksys.authorization.infrastructure.po;
 
 import java.util.Collection;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author zhouxinlei
  * @date 2020-05-24 12:24:25
  */
+@Getter
+@Setter
 public class AuthUserDetail implements UserDetails {
 
     private final String username;
@@ -27,16 +31,6 @@ public class AuthUserDetail implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 
     @Override
