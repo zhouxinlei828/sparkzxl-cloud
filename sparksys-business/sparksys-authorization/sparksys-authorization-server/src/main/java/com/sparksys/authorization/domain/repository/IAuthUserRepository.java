@@ -1,7 +1,6 @@
 package com.sparksys.authorization.domain.repository;
 
 import com.sparksys.authorization.infrastructure.po.AuthUserDO;
-import com.sparksys.authorization.infrastructure.po.AuthUserDetail;
 
 /**
  * description: 用户仓储接口
