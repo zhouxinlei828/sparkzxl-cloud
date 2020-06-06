@@ -20,7 +20,7 @@ public class AuthUser implements Serializable {
     private static final long serialVersionUID = -6592610263703423919L;
 
     @ApiModelProperty(value = "id")
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty(value = "账户")
     private String account;
@@ -32,7 +32,7 @@ public class AuthUser implements Serializable {
     private String name;
 
     @ApiModelProperty(value = "账户状态")
-    private Integer status;
+    private Boolean status;
 
     @ApiModelProperty(value = "角色列表")
     private List<String> roles;

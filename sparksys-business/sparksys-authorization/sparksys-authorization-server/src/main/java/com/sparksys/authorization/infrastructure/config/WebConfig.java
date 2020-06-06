@@ -1,6 +1,6 @@
 package com.sparksys.authorization.infrastructure.config;
 
-import com.sparksys.authorization.infrastructure.component.AuthSecurityRequest;
+import com.sparksys.commons.security.service.AbstractSecurityAuthDetailService;
 import com.sparksys.commons.web.component.AuthUserArgumentResolver;
 import com.sparksys.commons.web.config.GlobalWebConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +20,11 @@ import java.util.List;
 public class WebConfig extends GlobalWebConfig {
 
     @Autowired
-    AuthSecurityRequest authSecurityRequest;
+    AbstractSecurityAuthDetailService abstractSecurityAuthDetailService;
 
     @Bean
     public AuthUserArgumentResolver authUserArgumentResolver() {
-        return new AuthUserArgumentResolver(authSecurityRequest);
+        return new AuthUserArgumentResolver(abstractSecurityAuthDetailService);
     }
 
     @Override

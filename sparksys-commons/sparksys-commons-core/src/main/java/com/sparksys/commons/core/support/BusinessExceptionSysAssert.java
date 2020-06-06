@@ -15,7 +15,6 @@ public interface BusinessExceptionSysAssert extends BaseExceptionCode, SparkSysA
     @Override
     default BaseException newException(Object... args) {
         String msg = MessageFormat.format(this.getMessage(), args);
-        System.out.println(msg);
         return new BusinessException(this, args, msg);
     }
 

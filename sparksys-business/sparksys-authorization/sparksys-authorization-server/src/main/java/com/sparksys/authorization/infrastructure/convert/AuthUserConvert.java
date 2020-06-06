@@ -1,8 +1,10 @@
 package com.sparksys.authorization.infrastructure.convert;
 
 import com.sparksys.authorization.infrastructure.po.AuthUserDO;
-import com.sparksys.authorization.interfaces.dto.AuthUserDTO;
-import com.sparksys.authorization.interfaces.dto.AuthUserLoginDTO;
+import com.sparksys.authorization.interfaces.dto.AuthUserSaveDTO;
+import com.sparksys.authorization.interfaces.dto.AuthUserStatusDTO;
+import com.sparksys.authorization.interfaces.dto.AuthUserUpdateDTO;
+import com.sparksys.commons.core.entity.AuthUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -17,8 +19,12 @@ public interface AuthUserConvert {
 
     AuthUserConvert INSTANCE = Mappers.getMapper(AuthUserConvert.class);
 
-    AuthUserDO convertAuthUserDO(AuthUserLoginDTO authUserLoginDTO);
+    AuthUserDO convertAuthUserDO(AuthUserSaveDTO authUserSaveDTO);
 
-    AuthUserDTO convertAuthUserDTO(AuthUserDO authUserDO);
+    AuthUserDO convertAuthUserDO(AuthUserUpdateDTO authUserUpdateDTO);
+
+    AuthUserDO convertAuthUserDO(AuthUserStatusDTO authUserStatusDTO);
+
+    AuthUser convertAuthUser(AuthUserDO authUserDO);
 
 }

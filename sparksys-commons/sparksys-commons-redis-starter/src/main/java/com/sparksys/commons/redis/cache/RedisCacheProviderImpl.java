@@ -1,5 +1,6 @@
 package com.sparksys.commons.redis.cache;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import java.util.function.Function;
  * @date 2020-05-24 13:28:55
  */
 @Component("redisCacheProvider")
+@Slf4j
 public class RedisCacheProviderImpl implements CacheProviderService {
     private final RedisTemplate<String, Object> redisTemplate;
 
@@ -69,7 +71,7 @@ public class RedisCacheProviderImpl implements CacheProviderService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return obj;
     }

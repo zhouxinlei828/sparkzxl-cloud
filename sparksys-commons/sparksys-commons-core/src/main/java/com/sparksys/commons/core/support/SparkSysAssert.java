@@ -1,10 +1,9 @@
 package com.sparksys.commons.core.support;
 
-/*
- * description：断言异常处理接口
+/**
+ * 断言异常处理接口
  *
  * @author zhouxinlei
- * @date  2020/6/4 0004
  */
 public interface SparkSysAssert {
     /**

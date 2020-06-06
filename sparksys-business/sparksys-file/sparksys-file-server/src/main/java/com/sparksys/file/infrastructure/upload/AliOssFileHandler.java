@@ -119,7 +119,6 @@ public class AliOssFileHandler implements IFileHandler {
             log.info("Uploaded file: [{}] successfully", originalFilename);
             return uploadResult;
         } catch (Exception e) {
-            e.printStackTrace();
             SparkSysExceptionAssert.businessFail("上传附件 " + originalFilename + " 失败 ");
         } finally {
             ossClient.shutdown();
@@ -168,7 +167,6 @@ public class AliOssFileHandler implements IFileHandler {
             log.info("Uploaded file1: [{}] successfully", originalFilename);
             return uploadResult;
         } catch (Exception e) {
-            e.printStackTrace();
             SparkSysExceptionAssert.businessFail("上传附件 " + originalFilename + " 失败 ");
         } finally {
             ossClient.shutdown();

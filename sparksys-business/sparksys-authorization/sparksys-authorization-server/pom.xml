@@ -43,7 +43,7 @@
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-commons-oauth2-starter</artifactId>
+            <artifactId>sparksys-commons-security-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>

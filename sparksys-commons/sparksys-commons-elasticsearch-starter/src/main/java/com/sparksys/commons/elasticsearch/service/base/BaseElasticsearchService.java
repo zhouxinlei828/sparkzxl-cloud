@@ -153,7 +153,8 @@ public abstract class BaseElasticsearchService {
         try {
             searchResponse = client.search(searchRequest, COMMON_OPTIONS);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            log.error(e.getMessage());
         }
         return searchResponse;
     }

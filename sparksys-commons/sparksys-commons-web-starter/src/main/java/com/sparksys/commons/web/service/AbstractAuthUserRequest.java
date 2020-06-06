@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2020-05-24 13:44:10
  */
 @Slf4j
-public abstract class AbstractAuthSecurityRequest {
+public abstract class AbstractAuthUserRequest {
 
     /**
      * 根据token获取认证用户

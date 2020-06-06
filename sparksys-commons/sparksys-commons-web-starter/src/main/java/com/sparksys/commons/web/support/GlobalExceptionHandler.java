@@ -49,6 +49,7 @@ public class GlobalExceptionHandler {
     public ApiResult businessException(BusinessException e) {
         handleResponseResult();
         log.error(e.getMessage());
+        log.error(e.getMessage());
         int code = e.getBaseExceptionCode().getCode();
         String message = e.getMessage() == null ? e.getBaseExceptionCode().getMessage() : e.getMessage();
         return ApiResult.apiResult(code, message);
@@ -60,6 +61,13 @@ public class GlobalExceptionHandler {
         handleResponseResult();
         log.error(e.getMessage());
         return ApiResult.apiResult(ResponseResultStatus.PARAM_BIND_ERROR.getCode(), bindingResult(e.getBindingResult()));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ApiResult illegalArgumentException(IllegalArgumentException e) {
+        handleResponseResult();
+        log.error(e.getMessage());
+        return ApiResult.apiResult(ResponseResultStatus.PARAM_TYPE_ERROR);
     }
 
     private String bindingResult(BindingResult bindingResult) {
@@ -137,7 +145,6 @@ public class GlobalExceptionHandler {
     public ApiResult defaultException(Exception e) {
         handleResponseResult();
         log.error(e.getMessage());
-        e.printStackTrace();
         return ApiResult.apiResult(ResponseResultStatus.INTERNAL_SERVER_ERROR);
     }
 

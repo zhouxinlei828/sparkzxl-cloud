@@ -3,6 +3,7 @@ package com.sparksys.commons.redis.cache;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -19,6 +20,7 @@ import java.util.function.Function;
  * @date 2020-05-24 13:25:44
  */
 @Component("localCacheProvider")
+@Slf4j
 public class LocalCacheProviderImpl implements CacheProviderService {
 
     private static final Map<String, Cache<String, Object>> CACHE_CONCURRENT_MAP = Maps.newConcurrentMap();
@@ -109,7 +111,7 @@ public class LocalCacheProviderImpl implements CacheProviderService {
                 obj = (T) cacheContainer.get(key, () -> function.apply(funcParam));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return obj;
     }

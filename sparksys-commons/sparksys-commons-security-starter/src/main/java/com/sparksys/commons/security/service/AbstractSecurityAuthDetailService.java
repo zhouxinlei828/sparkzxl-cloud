@@ -2,6 +2,7 @@ package com.sparksys.commons.security.service;
 
 import com.sparksys.commons.core.constant.AuthConstant;
 import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.web.service.AbstractAuthUserRequest;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.web.component.SpringContextUtils;
 import com.sparksys.commons.core.constant.CoreConstant;
@@ -27,7 +28,7 @@ import java.util.List;
  * @date 2020-05-24 13:39:06
  */
 @Slf4j
-public abstract class AbstractAuthDetailsService {
+public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUserRequest {
 
     /**
      * 登录
@@ -43,10 +44,8 @@ public abstract class AbstractAuthDetailsService {
         AdminUserDetails adminUserDetails = getAdminUserDetail(account);
         String password = authRequest.getPassword();
         ResponseResultStatus.PASSWORD_EMPTY.assertNotNull(password);
-
         String token;
         ResponseResultStatus.ACCOUNT_EMPTY.assertNotNull(adminUserDetails);
-
         AuthUser authUser = adminUserDetails.getAuthUser();
         //加密数据
         String encryptPassword = MD5Utils.encrypt(authRequest.getPassword());
@@ -58,7 +57,7 @@ public abstract class AbstractAuthDetailsService {
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(adminUserDetails,
                 null, adminUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        token = JwtTokenUtil.generateToken(adminUserDetails.getUsername());
+        token = JwtTokenUtil.generateToken(account);
         authUser.setPassword(null);
         AuthToken authToken = new AuthToken();
         authToken.setToken(token);
@@ -76,7 +75,7 @@ public abstract class AbstractAuthDetailsService {
      * @param authUser  认证用户
      * @return void
      */
-    public void accessToken(AuthToken authToken, AuthUser authUser) {
+    private void accessToken(AuthToken authToken, AuthUser authUser) {
         CacheProviderService cacheProviderService = SpringContextUtils.getBean(RedisCacheProviderImpl.class);
         String token = authToken.getToken();
         cacheProviderService.set(AuthConstant.AUTH_USER + token, authUser,
@@ -87,24 +86,10 @@ public abstract class AbstractAuthDetailsService {
      * 根据用户名获取用户信息
      *
      * @param account 用户名
-     * @return AuthUser
-     */
-    public abstract AuthUser getOauthUserInfo(String account);
-
-    /**
-     * 根据用户名获取用户信息
-     *
-     * @param account 用户名
      * @return AdminUserDetails
      * @throws BusinessException 异常
      */
-    public AdminUserDetails getAdminUserDetail(String account) {
-        AdminUserDetails adminUserDetails = new AdminUserDetails();
-        AuthUser authUser = getOauthUserInfo(account);
-        ResponseResultStatus.ACCOUNT_EMPTY.assertNotNull(authUser);
-        adminUserDetails.setAuthUser(authUser);
-        return adminUserDetails;
-    }
+    public abstract  AdminUserDetails getAdminUserDetail(String account);
 
     /**
      * 获取用户权限

@@ -67,11 +67,11 @@ public class PowerCacheBuilder {
             //启用Redis缓存
             if (powerCacheProperties.isUseRedisCache()) {
                 providerServiceList.add(redisCacheService);
-                resetCacheVersion();//设置分布式缓存版本号
+                //设置分布式缓存版本号
+                resetCacheVersion();
             }
             log.info("初始化缓存提供者成功，共有" + providerServiceList.size() + "个");
         } catch (Exception e) {
-            e.printStackTrace();
             log.error("初始化缓存提供者发生异常：{}", e.getMessage());
             providerServiceList = new ArrayList<>();
         } finally {

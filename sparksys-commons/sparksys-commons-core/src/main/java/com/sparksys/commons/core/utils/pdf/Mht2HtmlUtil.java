@@ -1,5 +1,7 @@
 package com.sparksys.commons.core.utils.pdf;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -28,6 +30,7 @@ import javax.mail.internet.MimePartDataSource;
  * @author zhouxinlei
  * @date  2020-05-24 13:13:53
  */
+@Slf4j
 public class Mht2HtmlUtil {
 
     public static void main(String[] args) {
@@ -89,7 +92,7 @@ public class Mht2HtmlUtil {
                 saveHtml(strText, descHtml, strEncode);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -164,7 +167,7 @@ public class Mht2HtmlUtil {
             osw.flush();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         } finally {
             try {
                 if (osw != null) {
@@ -178,7 +181,7 @@ public class Mht2HtmlUtil {
                 }
                 inputStream.close();
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         }
         return false;
@@ -241,7 +244,7 @@ public class Mht2HtmlUtil {
             textStream.close();
             return strHtml.toString();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         } finally {
             try {
                 if (br != null) {
@@ -292,7 +295,7 @@ public class Mht2HtmlUtil {
                 }
             }
         } catch (MessagingException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return null;
     }

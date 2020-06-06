@@ -18,6 +18,7 @@ import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.property.TextAlignment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.springframework.util.ResourceUtils;
@@ -39,6 +40,7 @@ import java.util.List;
  */
 @Getter
 @NoArgsConstructor
+@Slf4j
 public class PdfUtils {
 
     public float top = 785;
@@ -114,7 +116,7 @@ public class PdfUtils {
             documentInfo = pdfDocument.getDocumentInfo();
             addNewPage();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -388,7 +390,7 @@ public class PdfUtils {
             fox.setFixedPosition(left, top, width);
             canvas.add(fox);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -412,7 +414,7 @@ public class PdfUtils {
             pdDocument.close();
             return imgPath;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return null;
         }
     }

@@ -1,13 +1,16 @@
 package com.sparksys.authorization.domain.service;
 
 import com.sparksys.authorization.application.service.IAuthUserService;
-import com.sparksys.authorization.infrastructure.po.AuthUserDetail;
+import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.core.support.ResponseResultStatus;
+import com.sparksys.commons.redis.cache.CacheProviderService;
+import com.sparksys.commons.security.entity.AdminUserDetails;
+import com.sparksys.commons.security.service.AbstractSecurityAuthDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * description: security 加载用户信息
@@ -16,17 +19,29 @@ import org.springframework.util.ObjectUtils;
  * @date 2020-05-24 12:23:23
  */
 @Service
-public class AuthUserDetailsService implements UserDetailsService {
+public class AuthUserDetailsService extends AbstractSecurityAuthDetailService {
 
     @Autowired
     private IAuthUserService authUserService;
+    @Autowired
+    @Qualifier("redisCacheProvider")
+    private CacheProviderService cacheProviderService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AuthUserDetail authUserDetail = authUserService.getAuthUserDetail(username);
-        if (ObjectUtils.isEmpty(authUserDetail)) {
-            throw new UsernameNotFoundException("用户名或密码错误");
-        }
+    public List<String> listOauthPermission(Long adminId) {
+        return null;
+    }
+
+
+    @Override
+    protected AuthUser getCache(String key) {
+        return cacheProviderService.get(key);
+    }
+
+    @Override
+    public AdminUserDetails getAdminUserDetail(String account) {
+        AdminUserDetails authUserDetail = authUserService.getAdminUserDetails(account);
+        ResponseResultStatus.ACCOUNT_EMPTY.assertNotNull(authUserDetail);
         return authUserDetail;
     }
 }
