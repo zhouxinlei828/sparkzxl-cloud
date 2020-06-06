@@ -1,4 +1,4 @@
-package com.sparksys.gateway.web;
+package com.sparksys.gateway.interfaces.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

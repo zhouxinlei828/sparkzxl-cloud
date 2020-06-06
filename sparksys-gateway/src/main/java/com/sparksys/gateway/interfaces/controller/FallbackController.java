@@ -1,4 +1,4 @@
-package com.sparksys.gateway.web;
+package com.sparksys.gateway.interfaces.controller;
 
 import com.sparksys.commons.core.api.result.ApiResult;
 import org.springframework.web.bind.annotation.GetMapping;
