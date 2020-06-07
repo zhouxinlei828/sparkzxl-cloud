@@ -1,3 +1,4 @@
+
 spring:
   application:
     name: sparksys-authorization
@@ -17,6 +18,9 @@ spring:
         prefix: ${spring.application.name}
         shared-configs:
           - dataId: redis.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+          - dataId: kafka.yaml
             group: DEFAULT_GROUP
             refresh: false
           - dataId: actuator.yaml
