@@ -50,8 +50,8 @@ public class GlobalExceptionHandler {
         handleResponseResult();
         log.error(e.getMessage());
         log.error(e.getMessage());
-        int code = e.getBaseExceptionCode().getCode();
-        String message = e.getMessage() == null ? e.getBaseExceptionCode().getMessage() : e.getMessage();
+        int code = e.getBaseEnumCode().getCode();
+        String message = e.getMessage() == null ? e.getBaseEnumCode().getMessage() : e.getMessage();
         return ApiResult.apiResult(code, message);
     }
 

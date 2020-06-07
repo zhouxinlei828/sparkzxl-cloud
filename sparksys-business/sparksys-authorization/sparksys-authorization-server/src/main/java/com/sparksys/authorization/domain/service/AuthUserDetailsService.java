@@ -7,7 +7,7 @@ import com.sparksys.commons.redis.cache.CacheProviderService;
 import com.sparksys.commons.security.entity.AdminUserDetails;
 import com.sparksys.commons.security.service.AbstractSecurityAuthDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +24,6 @@ public class AuthUserDetailsService extends AbstractSecurityAuthDetailService {
     @Autowired
     private IAuthUserService authUserService;
     @Autowired
-    @Qualifier("redisCacheProvider")
     private CacheProviderService cacheProviderService;
 
     @Override

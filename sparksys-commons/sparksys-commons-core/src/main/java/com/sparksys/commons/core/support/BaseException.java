@@ -1,6 +1,6 @@
 package com.sparksys.commons.core.support;
 
-import com.sparksys.commons.core.api.code.BaseExceptionCode;
+import com.sparksys.commons.core.api.code.BaseEnumCode;
 import lombok.Getter;
 
 /**
@@ -14,7 +14,7 @@ public class BaseException extends RuntimeException {
 
     private static final long serialVersionUID = 5092096093495323869L;
 
-    private BaseExceptionCode baseExceptionCode;
+    private BaseEnumCode baseEnumCode;
 
     private Object[] args;
 
@@ -28,14 +28,14 @@ public class BaseException extends RuntimeException {
         super(message);
     }
 
-    public BaseException(BaseExceptionCode baseExceptionCode, Object[] args, String message) {
-        this.baseExceptionCode = baseExceptionCode;
+    public BaseException(BaseEnumCode baseEnumCode, Object[] args, String message) {
+        this.baseEnumCode = baseEnumCode;
         this.args = args;
         this.message = message;
     }
 
-    public BaseException(BaseExceptionCode baseExceptionCode, Object[] args, String message, Throwable cause) {
-        this.baseExceptionCode = baseExceptionCode;
+    public BaseException(BaseEnumCode baseEnumCode, Object[] args, String message, Throwable cause) {
+        this.baseEnumCode = baseEnumCode;
         this.args = args;
         this.message = message;
     }

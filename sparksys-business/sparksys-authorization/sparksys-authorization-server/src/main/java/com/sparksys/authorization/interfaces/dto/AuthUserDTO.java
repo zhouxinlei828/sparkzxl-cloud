@@ -1,10 +1,10 @@
 package com.sparksys.authorization.interfaces.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sparksys.authorization.infrastructure.enums.SexEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
  * @date 2020-05-24 12:24:03
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value = "AuthUserDTO查询对象", description = "AuthUserDTO查询对象")
 public class AuthUserDTO {

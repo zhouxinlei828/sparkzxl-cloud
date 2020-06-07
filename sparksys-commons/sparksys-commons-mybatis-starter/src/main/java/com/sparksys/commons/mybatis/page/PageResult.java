@@ -29,7 +29,7 @@ public class PageResult extends ApiPageResult {
      * @author zhouxinlei
      * @date 2019-09-09 18:08:40
      */
-    public static <T> ApiPageResult resetPage(IPage<T> tPage, List<T> doList) {
+    public static <T> ApiPageResult resetPage(IPage tPage, List<T> doList) {
         PageResult pageResult = new PageResult();
         processPage(tPage, pageResult);
         pageResult.setList(doList);

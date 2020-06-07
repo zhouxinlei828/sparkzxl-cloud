@@ -6,7 +6,7 @@ package com.sparksys.commons.core.api.code;
  * @author zhouxinlei
  * @date 2020-05-24 12:45:46
  */
-public interface BaseExceptionCode {
+public interface BaseEnumCode {
     /**
      * code
      *

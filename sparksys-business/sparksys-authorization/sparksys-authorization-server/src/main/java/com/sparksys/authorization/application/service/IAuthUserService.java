@@ -1,8 +1,10 @@
 package com.sparksys.authorization.application.service;
 
+import com.sparksys.authorization.interfaces.dto.AuthUserDTO;
 import com.sparksys.authorization.interfaces.dto.AuthUserSaveDTO;
 import com.sparksys.authorization.interfaces.dto.AuthUserStatusDTO;
 import com.sparksys.authorization.interfaces.dto.AuthUserUpdateDTO;
+import com.sparksys.commons.core.api.result.ApiPageResult;
 import com.sparksys.commons.core.entity.AuthUser;
 import com.sparksys.commons.security.entity.AdminUserDetails;
 
@@ -56,4 +58,22 @@ public interface IAuthUserService {
      * @return
      */
     boolean updateAuthUserStatus(AuthUser authUser, AuthUserStatusDTO authUserStatusDTO);
+
+    /**
+     * 分页查询用户列表
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param name
+     * @return
+     */
+    ApiPageResult listByPage(Integer pageNum, Integer pageSize, String name);
+
+    /**
+     * 获取用户信息
+     *
+     * @param id
+     * @return
+     */
+    AuthUserDTO getAuthUser(Long id);
 }

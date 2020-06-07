@@ -2,10 +2,13 @@ package com.sparksys.authorization.interfaces.controller;
 
 
 import com.sparksys.authorization.application.service.IAuthUserService;
+import com.sparksys.authorization.interfaces.dto.AuthUserDTO;
 import com.sparksys.authorization.interfaces.dto.AuthUserSaveDTO;
 import com.sparksys.authorization.interfaces.dto.AuthUserStatusDTO;
 import com.sparksys.authorization.interfaces.dto.AuthUserUpdateDTO;
+import com.sparksys.commons.core.api.result.ApiPageResult;
 import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.mybatis.dto.PageDTO;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +32,19 @@ public class AuthUserController {
     @Autowired
     private IAuthUserService authUserService;
 
+
+    @ApiOperation("查询用户列表")
+    @GetMapping("/authUser/page")
+    public ApiPageResult listByPage(Integer pageNum, Integer pageSize, @RequestParam(value = "name",required = false) String name) {
+        return authUserService.listByPage(pageNum, pageSize, name);
+    }
+
+    @ApiOperation("获取用户信息")
+    @GetMapping("/authUser/{id}")
+    public AuthUserDTO updateAuthUser(@PathVariable("id") Long id) {
+        return authUserService.getAuthUser(id);
+    }
+
     @ApiOperation("保存用户信息")
     @PostMapping("/authUser")
     public boolean saveAuthUser(AuthUser authUser, @Validated @RequestBody AuthUserSaveDTO authUserSaveDTO) {
@@ -51,7 +67,7 @@ public class AuthUserController {
     @ApiOperation("修改用户状态信息")
     @PatchMapping("/authUser")
     public boolean updateAuthUserStatus(AuthUser authUser, @Validated @RequestBody AuthUserStatusDTO authUserStatusDTO) {
-        return authUserService.updateAuthUserStatus(authUser,authUserStatusDTO);
+        return authUserService.updateAuthUserStatus(authUser, authUserStatusDTO);
     }
 
 

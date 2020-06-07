@@ -56,7 +56,7 @@ public class AuthUserDO implements Serializable {
 
     @ApiModelProperty(value = "性别")
     @TableField("sex")
-    private String sex;
+    private Integer sex;
 
     @ApiModelProperty(value = "状态 1启用 0禁用")
     @TableField("status")

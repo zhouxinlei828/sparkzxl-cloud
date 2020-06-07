@@ -1,5 +1,7 @@
 package com.sparksys.authorization.domain.repository;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.authorization.infrastructure.po.AuthUserDO;
 
 /**
@@ -10,6 +12,15 @@ import com.sparksys.authorization.infrastructure.po.AuthUserDO;
  */
 public interface IAuthUserRepository {
 
+
+    /**
+     * 根据用户id查询用户信息
+     *
+     * @param id
+     * @return
+     */
+    AuthUserDO selectById(Long id);
+
     /**
      * 根据账户查询用户信息
      *
@@ -17,14 +28,6 @@ public interface IAuthUserRepository {
      * @return
      */
     AuthUserDO selectByUserName(String username);
-
-    /**
-     * 根据条件查询用户信息
-     *
-     * @param authUserDO
-     * @return
-     */
-    AuthUserDO selectByCondition(AuthUserDO authUserDO);
 
     /**
      * 保存用户信息
@@ -49,4 +52,13 @@ public interface IAuthUserRepository {
      * @return
      */
     boolean deleteAuthUser(Long id);
+
+    /**
+     * 分页查询用户信息
+     *
+     * @param authUserDOPage
+     * @param name
+     * @return
+     */
+    IPage<AuthUserDO> listByPage(Page<AuthUserDO> authUserDOPage,String name);
 }

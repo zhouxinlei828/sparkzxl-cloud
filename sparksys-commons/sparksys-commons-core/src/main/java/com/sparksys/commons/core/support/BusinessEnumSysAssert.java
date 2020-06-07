@@ -1,6 +1,6 @@
 package com.sparksys.commons.core.support;
 
-import com.sparksys.commons.core.api.code.BaseExceptionCode;
+import com.sparksys.commons.core.api.code.BaseEnumCode;
 
 import java.text.MessageFormat;
 
@@ -10,7 +10,7 @@ import java.text.MessageFormat;
  * @Author zhouxinlei
  * @Date  2020-06-04 22:45:18
  */
-public interface BusinessExceptionSysAssert extends BaseExceptionCode, SparkSysAssert {
+public interface BusinessEnumSysAssert extends BaseEnumCode, SparkSysAssert {
 
     @Override
     default BaseException newException(Object... args) {
