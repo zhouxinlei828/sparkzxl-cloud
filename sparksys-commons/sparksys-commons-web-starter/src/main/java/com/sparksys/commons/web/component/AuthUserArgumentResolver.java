@@ -2,7 +2,7 @@ package com.sparksys.commons.web.component;
 
 import com.sparksys.commons.core.constant.CoreConstant;
 import com.sparksys.commons.core.entity.AuthUser;
-import com.sparksys.commons.web.service.AbstractAuthSecurityRequest;
+import com.sparksys.commons.web.service.AbstractAuthUserRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -20,10 +20,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
 
-    private final AbstractAuthSecurityRequest abstractAuthSecurityRequest;
+    private final AbstractAuthUserRequest abstractAuthUserRequest;
 
-    public AuthUserArgumentResolver(AbstractAuthSecurityRequest abstractAuthSecurityRequest) {
-        this.abstractAuthSecurityRequest = abstractAuthSecurityRequest;
+    public AuthUserArgumentResolver(AbstractAuthUserRequest abstractAuthUserRequest) {
+        this.abstractAuthUserRequest = abstractAuthUserRequest;
     }
 
     @Override
@@ -39,6 +39,6 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
         assert servletRequest != null;
         String header = servletRequest.getHeader(CoreConstant.JwtTokenConstant.JWT_TOKEN_HEADER);
         String accessToken = StringUtils.removeStart(header, CoreConstant.JwtTokenConstant.JWT_TOKEN_HEAD);
-        return abstractAuthSecurityRequest.getUserInfo(accessToken);
+        return abstractAuthUserRequest.getUserInfo(accessToken);
     }
 }

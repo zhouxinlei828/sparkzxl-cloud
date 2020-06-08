@@ -2,7 +2,6 @@ package com.sparksys.commons.elasticsearch.config;
 
 import cn.hutool.core.lang.Assert;
 import com.sparksys.commons.elasticsearch.prop.ElasticsearchProperties;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
@@ -28,11 +27,11 @@ import java.util.List;
  * @date 2020-05-24 13:17:10
  */
 @Configuration
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
 @EnableConfigurationProperties(ElasticsearchProperties.class)
 public class ElasticsearchAutoConfiguration {
 
-    private final ElasticsearchProperties elasticsearchProperties;
+    @Autowired
+    private ElasticsearchProperties elasticsearchProperties;
 
     private final List<HttpHost> httpHosts = new ArrayList<>();
 

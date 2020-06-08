@@ -1,5 +1,6 @@
 package com.sparksys.commons.redis.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.integration.redis.util.RedisLockRegistry;
 
 import java.util.concurrent.TimeUnit;
@@ -11,6 +12,7 @@ import java.util.concurrent.locks.Lock;
  * @author zhouxinlei
  * @date  2020-05-24 13:32:22
  */
+@Slf4j
 public class RedisLockUtil {
 
     private static RedisLockRegistry redisLockRegistry;
@@ -39,7 +41,7 @@ public class RedisLockUtil {
         try {
             return lock.tryLock(waitTime, unit);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return false;
     }
@@ -57,7 +59,7 @@ public class RedisLockUtil {
         try {
             return lock.tryLock(waitTime, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return false;
     }

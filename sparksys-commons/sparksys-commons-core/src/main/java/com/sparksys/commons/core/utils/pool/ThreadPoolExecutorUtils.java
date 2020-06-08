@@ -1,5 +1,7 @@
 package com.sparksys.commons.core.utils.pool;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.*;
 
 /**
@@ -8,6 +10,7 @@ import java.util.concurrent.*;
  * @author zhouxinlei
  * @date 2020-05-24 13:14:26
  */
+@Slf4j
 public class ThreadPoolExecutorUtils {
 
     private ThreadPoolExecutorUtils() {
@@ -36,7 +39,7 @@ public class ThreadPoolExecutorUtils {
                 //由LinkedBlockingQueue的offer改成put阻塞方法
                 executor.getQueue().put(runnable);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         }
     }

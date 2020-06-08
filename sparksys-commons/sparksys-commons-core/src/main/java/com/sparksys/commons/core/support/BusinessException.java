@@ -1,6 +1,6 @@
 package com.sparksys.commons.core.support;
 
-import com.sparksys.commons.core.api.code.BaseExceptionCode;
+import com.sparksys.commons.core.api.code.BaseEnumCode;
 import lombok.Getter;
 
 /**
@@ -14,12 +14,12 @@ public class BusinessException extends BaseException {
 
     private static final long serialVersionUID = -2803534562798384761L;
 
-    public BusinessException(BaseExceptionCode baseExceptionCode, Object[] args, String message) {
-        super(baseExceptionCode, args, message);
+    public BusinessException(BaseEnumCode baseEnumCode, Object[] args, String message) {
+        super(baseEnumCode, args, message);
     }
 
-    public BusinessException(BaseExceptionCode baseExceptionCode, Object[] args, String message, Throwable cause) {
-        super(baseExceptionCode, args, message, cause);
+    public BusinessException(BaseEnumCode baseEnumCode, Object[] args, String message, Throwable cause) {
+        super(baseEnumCode, args, message, cause);
     }
 
 }

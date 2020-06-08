@@ -1,5 +1,7 @@
 package com.sparksys.commons.core.utils.file;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
@@ -32,6 +34,7 @@ import javax.imageio.stream.ImageInputStream;
  * @author zhouxinlei
  * @date 2020-05-24 13:03:06
  */
+@Slf4j
 public class ImageUtils {
 
 
@@ -119,7 +122,7 @@ public class ImageUtils {
             // 输出到文件流
             ImageIO.write(tag, "JPEG", new File(result));
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -173,7 +176,7 @@ public class ImageUtils {
             }
             ImageIO.write((BufferedImage) itemp, "JPEG", new File(result));
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -214,7 +217,7 @@ public class ImageUtils {
                 ImageIO.write(tag, "JPEG", new File(result));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -286,7 +289,7 @@ public class ImageUtils {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -359,7 +362,7 @@ public class ImageUtils {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -379,7 +382,7 @@ public class ImageUtils {
             BufferedImage src = ImageIO.read(f);
             ImageIO.write(src, formatName, new File(destImageFile));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -398,7 +401,7 @@ public class ImageUtils {
             src = op.filter(src, null);
             ImageIO.write(src, "JPEG", new File(destImageFile));
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -441,7 +444,7 @@ public class ImageUtils {
             // 输出到文件流
             ImageIO.write((BufferedImage) image, "JPEG", new File(destImageFile));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -482,7 +485,7 @@ public class ImageUtils {
             g.dispose();
             ImageIO.write(image, "JPEG", new File(destImageFile));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -520,7 +523,7 @@ public class ImageUtils {
             g.dispose();
             ImageIO.write((BufferedImage) image, "JPEG", new File(destImageFile));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -552,7 +555,7 @@ public class ImageUtils {
             reader.setInput(stream, true);
             return reader;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return null;
     }

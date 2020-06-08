@@ -105,7 +105,6 @@ public class ActWorkflowApi {
         ProcessInstance instance = runtimeService.startProcessInstanceByKey(bpmnId, businessKey.toString(), variables);
         String taskId = abstractTaskService.getTaskIdByProcessInstanceId(instance.getProcessInstanceId());
         ret = promoteProcess(taskId, userId, message, variables, actWorkflowDTO);
-        objectMapper.writeValueAsString(instance);
         log.info("--------启动流程 ProcessInstance = {}--------", objectMapper.writeValueAsString(instance));
         return ret;
     }

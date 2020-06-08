@@ -33,7 +33,7 @@ public class WebLogAspect {
 
     private static final String START_TIME = "request-start";
 
-    @Pointcut("execution(* com.sparksys.*.interfaces..*Controller.*(..))")
+    @Pointcut("execution(* com.sparksys.*.interfaces.*..*(..))")
     public void pointCut() {
     }
 
@@ -148,7 +148,7 @@ public class WebLogAspect {
                 try {
                     inetAddress = InetAddress.getLocalHost();
                 } catch (UnknownHostException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage());
                 }
                 assert inetAddress != null;
                 ip = inetAddress.getHostAddress();

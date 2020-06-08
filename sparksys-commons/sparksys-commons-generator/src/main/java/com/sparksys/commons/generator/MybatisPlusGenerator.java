@@ -53,45 +53,33 @@ public class MybatisPlusGenerator {
         String projectPath = System.getProperty("user.dir");
         /*gc.setOutputDir(projectPath + "/sparksys-business/sparksys-problem/src/main/java");*/
         gc.setOutputDir(projectPath + "/sparksys-business/sparksys-authorization/src/main/java");
-        gc.setBaseColumnList(true);
-        gc.setBaseResultMap(true);
         gc.setFileOverride(true);
         gc.setSwagger2(true);
         gc.setDateType(DateType.TIME_PACK);
         gc.setIdType(IdType.ASSIGN_ID);
+        gc.setOpen(true);
         gc.setAuthor("zhouxinlei");
-        gc.setOpen(false);
         gc.setMapperName("%sMapper");
         gc.setXmlName("%sMapper");
+        gc.setEntityName("%sDO");
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:p6spy:mysql://47.100.79.211:3340/sparksys-admin");
+        dsc.setUrl("jdbc:p6spy:mysql://rm-bp1cp68o8t1gq604p5o.mysql.rds.aliyuncs.com/authorization?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8");
         dsc.setDriverName("com.p6spy.engine.spy.P6SpyDriver");
-        dsc.setUsername("root");
-        dsc.setPassword("123456");
-
-        /*dsc.setUrl("jdbc:p6spy:mysql://47.116.52.58:3306/hongneng_problem");
-        dsc.setDriverName("com.p6spy.engine.spy.P6SpyDriver");
-        dsc.setUsername("root");
-        dsc.setPassword("sparksys.2020");*/
-
-        /*dsc.setUrl("jdbc:p6spy:sqlserver://47.96.148.189:1433;DatabaseName=sparksysLTCTest");
-        dsc.setDriverName("com.p6spy.engine.spy.P6SpyDriver");
-        dsc.setUsername("test");
-        dsc.setPassword("sparksysltc");*/
-
+        dsc.setUsername("zhouxinlei");
+        dsc.setPassword("zxl298828");
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.sparksys.authorization");
-        pc.setController("controller");
-        pc.setService("service");
-        pc.setServiceImpl("service.impl");
-        pc.setMapper("mapper");
-        pc.setEntity("entity");
+        pc.setController("interfaces.controller");
+        pc.setService("application.service");
+        pc.setServiceImpl("domain.service");
+        pc.setMapper("infrastructure.mapper");
+        pc.setEntity("infrastructure.po");
         pc.setXml("mapper");
         mpg.setPackageInfo(pc);
 

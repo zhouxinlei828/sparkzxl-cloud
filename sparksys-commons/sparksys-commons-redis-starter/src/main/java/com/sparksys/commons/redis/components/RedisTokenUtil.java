@@ -2,8 +2,6 @@ package com.sparksys.commons.redis.components;
 
 import com.sparksys.commons.redis.cache.CacheProviderService;
 import com.sparksys.commons.redis.util.SnowFlakeId;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -14,12 +12,11 @@ import org.springframework.util.StringUtils;
  * @date 2020-05-24 13:29:13
  */
 @Component
-@DependsOn("redisCacheProvider")
 public class RedisTokenUtil {
 
     private final CacheProviderService cacheProviderService;
 
-    public RedisTokenUtil(@Qualifier("redisCacheProvider") CacheProviderService cacheProviderService) {
+    public RedisTokenUtil(CacheProviderService cacheProviderService) {
         this.cacheProviderService = cacheProviderService;
     }
 

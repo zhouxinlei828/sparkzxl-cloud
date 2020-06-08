@@ -2,6 +2,8 @@ package com.sparksys.commons.core.utils.collection;
 
 import cn.hutool.core.convert.Convert;
 import java.util.stream.Stream;
+
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
  * @author zhouxinlei
  * @date 2020-05-24 12:49:53
  */
+@Slf4j
 public class ListUtils {
 
     private ListUtils() {
@@ -255,7 +258,7 @@ public class ListUtils {
                     BeanUtils.copyProperties(item, data);
                     list2.add(data);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage());
                 }
             });
         }

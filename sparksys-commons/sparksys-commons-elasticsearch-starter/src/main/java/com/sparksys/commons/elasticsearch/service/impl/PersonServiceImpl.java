@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.sparksys.commons.elasticsearch.model.Person;
 import com.sparksys.commons.elasticsearch.service.PersonService;
 import com.sparksys.commons.elasticsearch.service.base.BaseElasticsearchService;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
@@ -23,6 +24,7 @@ import java.util.Map;
  * @date 2020-05-24 13:19:14
  */
 @Service
+@Slf4j
 public class PersonServiceImpl extends BaseElasticsearchService implements PersonService {
 
     @Override
@@ -44,14 +46,14 @@ public class PersonServiceImpl extends BaseElasticsearchService implements Perso
                 try {
                     client.index(request, COMMON_OPTIONS);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage());
                 }
             });
         } finally {
             try {
                 client.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         }
     }

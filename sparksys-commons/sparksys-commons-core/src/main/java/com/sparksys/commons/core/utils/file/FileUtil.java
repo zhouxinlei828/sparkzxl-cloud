@@ -148,13 +148,13 @@ public class FileUtil extends FileCopyUtils {
             fout = new FileOutputStream(file);
             fout.write(buff);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         } finally {
             if (fout != null) {
                 try {
                     fout.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage());
                 }
             }
         }
@@ -179,13 +179,13 @@ public class FileUtil extends FileCopyUtils {
             fout = new FileOutputStream(file);
             fout.write(buff);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         } finally {
             if (fout != null) {
                 try {
                     fout.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage());
                 }
             }
         }

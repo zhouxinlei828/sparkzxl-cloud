@@ -12,7 +12,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum ResponseResultStatus implements BusinessExceptionSysAssert {
+public enum ResponseResultStatus implements BusinessEnumSysAssert {
 
     /**
      * 操作成功
@@ -99,12 +99,8 @@ public enum ResponseResultStatus implements BusinessExceptionSysAssert {
     UPLOAD_FAILURE(HttpStatus.HTTP_INTERNAL_ERROR, "上传文件失败了哦"),
     ;
 
-    /**
-     * code编码
-     */
+
     final int code;
-    /**
-     * 中文信息描述
-     */
+
     final String message;
 }

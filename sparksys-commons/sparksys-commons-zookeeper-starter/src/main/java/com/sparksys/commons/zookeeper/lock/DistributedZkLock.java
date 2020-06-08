@@ -51,8 +51,8 @@ public class DistributedZkLock implements InitializingBean {
                         countDownLatch = new CountDownLatch(1);
                     }
                     countDownLatch.await();
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
+                } catch (InterruptedException interruptedException) {
+                    log.error(interruptedException.getMessage());
                 }
             }
         }

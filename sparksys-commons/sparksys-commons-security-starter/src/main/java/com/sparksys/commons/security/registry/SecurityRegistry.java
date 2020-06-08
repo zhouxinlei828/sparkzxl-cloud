@@ -70,7 +70,6 @@ public class SecurityRegistry {
 
     public boolean isIgnore(List<String> list, String currentUri) {
         log.info("忽略地址：{}", ListUtils.listToString(list));
-        log.info("请求地址：{}", currentUri);
         if (list.isEmpty()) {
             return false;
         }
