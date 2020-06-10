@@ -64,8 +64,9 @@
     </properties>
 
     <modules>
+        <module>sparksys-authorization</module>
+        <module>sparksys-file</module>
         <module>sparksys-commons</module>
-        <module>sparksys-business</module>
         <module>sparksys-gateway</module>
     </modules>
 
@@ -366,44 +367,14 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>org.activiti</groupId>
-                <artifactId>activiti-json-converter</artifactId>
-                <version>${activiti.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.activiti</groupId>
-                        <artifactId>activiti-bpmn-model</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.xmlgraphics</groupId>
-                <artifactId>batik-codec</artifactId>
-                <version>${apache.xmlgraphics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.xmlgraphics</groupId>
-                <artifactId>batik-css</artifactId>
-                <version>${apache.xmlgraphics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.xmlgraphics</groupId>
-                <artifactId>batik-svg-dom</artifactId>
-                <version>${apache.xmlgraphics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.xmlgraphics</groupId>
-                <artifactId>batik-svggen</artifactId>
-                <version>${apache.xmlgraphics.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>${xstream.version}</version>
             </dependency>
+            <!-- use mapstruct-jdk8 for Java 8 or higher -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId> <!-- use mapstruct-jdk8 for Java 8 or higher -->
+                <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
             <dependency>

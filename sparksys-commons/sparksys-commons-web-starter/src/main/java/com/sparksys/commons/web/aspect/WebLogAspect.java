@@ -1,6 +1,6 @@
 package com.sparksys.commons.web.aspect;
 
-import com.sparksys.commons.web.utils.HttpServletUtils;
+import com.sparksys.commons.web.utils.HttpUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 /**
  * description: web请求日志切面
@@ -45,7 +43,7 @@ public class WebLogAspect {
      */
     @Before("pointCut()")
     public void before(JoinPoint joinPoint) throws JsonProcessingException {
-        HttpServletRequest request = HttpServletUtils.getRequest();
+        HttpServletRequest request = HttpUtils.getRequest();
         StringBuilder stringBuilder = new StringBuilder();
         Object[] args = joinPoint.getArgs();
         if (args != null || args.length > 0) {
@@ -67,7 +65,7 @@ public class WebLogAspect {
         }
         String method = joinPoint.getTarget().getClass().getName().concat(".").concat(joinPoint.getSignature().getName());
         log.info("【请求URL】：{}", request.getRequestURL());
-        log.info("【请求IP】：{}", getIpAddress(request));
+        log.info("【请求IP】：{}", HttpUtils.getIpAddress());
         log.info("【请求类名】：{}，【请求方法名】：{}", request.getMethod(), method);
         log.info("【请求参数】：【{}】", stringBuilder.toString());
         Long start = System.currentTimeMillis();
@@ -109,51 +107,11 @@ public class WebLogAspect {
      */
     @AfterThrowing(pointcut = "pointCut()")
     public void afterThrowing() {
-        HttpServletRequest request = HttpServletUtils.getRequest();
+        HttpServletRequest request = HttpUtils.getRequest();
         Long start = (Long) request.getAttribute(START_TIME);
         Long end = System.currentTimeMillis();
         log.info("【接口请求耗时】：{}毫秒", end - start);
     }
 
-    /**
-     * 获取用户真实IP地址，不使用request.getRemoteAddr();的原因是有可能用户使用了代理软件方式避免真实IP地址。
-     * 可是，如果通过了多级反向代理的话，X-Forwarded-For的值并不止一个，而是一串IP值，究竟哪个才是真正的用户端的真实IP呢？
-     * 答案是取X-Forwarded-For中第一个非unknown的有效IP字符串
-     *
-     * @param request
-     * @return String
-     */
-    private static String getIpAddress(HttpServletRequest request) {
-        String ignoreCase = "unknown";
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || ignoreCase.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || ignoreCase.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || ignoreCase.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (ip == null || ip.length() == 0 || ignoreCase.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if (ip == null || ip.length() == 0 || ignoreCase.equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-            String localIp = "127.0.0.1";
-            String ignoreIp = "0:0:0:0:0:0:0:1";
-            if (localIp.equals(ip) || ignoreIp.equals(ip)) {
-                //根据网卡取本机配置的IP
-                InetAddress inetAddress = null;
-                try {
-                    inetAddress = InetAddress.getLocalHost();
-                } catch (UnknownHostException e) {
-                    log.error(e.getMessage());
-                }
-                assert inetAddress != null;
-                ip = inetAddress.getHostAddress();
-            }
-        }
-        return ip;
-    }
+
 }
