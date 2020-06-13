@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.ResourceUtils;
-import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -382,16 +382,11 @@ public class PdfUtils {
     }
 
     public void addImageByBase64(float left, float top, float width, String base64) throws MalformedURLException {
-        try {
-            String imgBase64 = base64.replaceAll("data:image/png;base64,", "");
-            BASE64Decoder decoder = new BASE64Decoder();
-            byte[] data = decoder.decodeBuffer(imgBase64);
-            Image fox = new Image(ImageDataFactory.create(data));
-            fox.setFixedPosition(left, top, width);
-            canvas.add(fox);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
+        String imgBase64 = base64.replaceAll("data:image/png;base64,", "");
+        byte[] data = Base64Utils.decodeFromString(imgBase64);
+        Image fox = new Image(ImageDataFactory.create(data));
+        fox.setFixedPosition(left, top, width);
+        canvas.add(fox);
     }
 
     public String pdfToImg(String pdfPath) {
