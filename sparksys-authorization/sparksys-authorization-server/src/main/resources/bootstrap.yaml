@@ -27,3 +27,10 @@ spring:
             refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
+    sentinel:
+      enabled: true
+      eager: true
+      transport:
+        dashboard: 192.168.3.3:8858
+      filter:
+        url-patterns: /**

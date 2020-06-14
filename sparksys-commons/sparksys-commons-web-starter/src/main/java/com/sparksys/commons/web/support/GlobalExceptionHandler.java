@@ -1,5 +1,6 @@
 package com.sparksys.commons.web.support;
 
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.core.api.result.ApiResult;
 import com.sparksys.commons.core.support.BusinessException;
@@ -161,6 +162,21 @@ public class GlobalExceptionHandler {
     public ApiResult handleException(SQLException e) {
         log.error("数据库异常{}", e.getMessage());
         return ApiResult.apiResult(e.getErrorCode(), "数据库异常");
+    }
+
+    /**
+     * sentinel异常
+     *
+     * @param e
+     * @return ApiResult
+     * @author zhouxinlei
+     * @date 2019/5/25 0025
+     */
+    @ExceptionHandler(BlockException.class)
+    public ApiResult blockException(BlockException e) {
+        handleResponseResult();
+        log.error(e.getMessage());
+        return ApiResult.apiResult(ResponseResultStatus.REQ_REJECT);
     }
 
 }

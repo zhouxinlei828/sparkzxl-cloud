@@ -19,7 +19,6 @@
         <module>sparksys-commons-security-starter</module>
         <module>sparksys-commons-zookeeper-starter</module>
         <module>sparksys-commons-generator</module>
-        <module>sparksys-commons-sentinel-starter</module>
         <module>sparksys-commons-mail-starter</module>
         <module>sparksys-commons-elasticsearch-starter</module>
         <module>sparksys-commons-activiti-starter</module>
