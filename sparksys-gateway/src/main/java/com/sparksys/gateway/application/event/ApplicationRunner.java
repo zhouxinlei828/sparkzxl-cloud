@@ -1,5 +1,6 @@
 package com.sparksys.gateway.application.event;
 
+import cn.hutool.system.SystemUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
@@ -26,11 +27,15 @@ public class ApplicationRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Environment env = applicationContext.getEnvironment();
-        log.info("\n----------------------------------------------------------\n\t" +
-                        "应用 '{}' 运行成功! 访问连接:\n\t" +
+        log.info("\n--------------------------------------------------------------\n\t" +
+                        "Java Version: {} \n\t" +
+                        "运行环境: {} \n\t" +
+                        "应用: {} 运行成功! 访问连接:\n\t" +
                         "Swagger文档: \t\thttp://{}:{}/doc.html\n\t" +
                         "数据库监控: \t\thttp://{}:{}/druid\n" +
-                        "----------------------------------------------------------",
+                        "--------------------------------------------------------------",
+                SystemUtil.getJavaInfo().getVersion(),
+                SystemUtil.getOsInfo().getName(),
                 env.getProperty("spring.application.name"),
                 InetAddress.getLocalHost().getHostAddress(),
                 env.getProperty("server.port"),
