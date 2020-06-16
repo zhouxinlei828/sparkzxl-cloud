@@ -54,7 +54,7 @@ public class AuthUserRepository implements IAuthUserRepository {
     }
 
     @Override
-    public IPage<AuthUserDO> listByPage(Page<AuthUserDO> authUserDOPage, String name) {
+    public Page<AuthUserDO> listByPage(Page authUserDOPage, String name) {
         QueryWrapper<AuthUserDO> authUserDOQueryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name) && !"null".equalsIgnoreCase(name)) {
             authUserDOQueryWrapper.like("name", name);

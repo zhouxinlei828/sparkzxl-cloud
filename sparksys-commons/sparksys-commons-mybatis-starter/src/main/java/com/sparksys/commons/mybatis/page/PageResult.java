@@ -1,6 +1,6 @@
 package com.sparksys.commons.mybatis.page;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.commons.core.api.result.ApiPageResult;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class PageResult extends ApiPageResult {
 
 
-    public static <T> ApiPageResult resetPage(IPage<T> tPage) {
+    public static  ApiPageResult resetPage(Page tPage) {
         PageResult pageResult = new PageResult();
         processPage(tPage, pageResult);
         pageResult.setList(tPage.getRecords());
@@ -29,14 +29,14 @@ public class PageResult extends ApiPageResult {
      * @author zhouxinlei
      * @date 2019-09-09 18:08:40
      */
-    public static <T> ApiPageResult resetPage(IPage tPage, List<T> doList) {
+    public static <T> ApiPageResult resetPage(Page tPage, List<T> doList) {
         PageResult pageResult = new PageResult();
         processPage(tPage, pageResult);
         pageResult.setList(doList);
         return pageResult;
     }
 
-    private static <T> void processPage(IPage<T> tPage, PageResult pageResult) {
+    private static  void processPage(Page tPage, PageResult pageResult) {
         long pageNum = tPage.getCurrent();
         long pageSize = tPage.getSize();
         long totalNum = new Long(tPage.getTotal()).intValue();

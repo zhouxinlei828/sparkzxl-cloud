@@ -1,14 +1,12 @@
 package com.sparksys.authorization.infrastructure.convert;
 
 import com.sparksys.authorization.infrastructure.po.AuthUserDO;
-import com.sparksys.authorization.interfaces.dto.AuthUserDTO;
-import com.sparksys.authorization.interfaces.dto.AuthUserSaveDTO;
-import com.sparksys.authorization.interfaces.dto.AuthUserStatusDTO;
-import com.sparksys.authorization.interfaces.dto.AuthUserUpdateDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserSaveDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserStatusDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserUpdateDTO;
 import com.sparksys.commons.core.entity.AuthUser;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 /**

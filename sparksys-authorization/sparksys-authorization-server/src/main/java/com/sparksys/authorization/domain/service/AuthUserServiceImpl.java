@@ -1,16 +1,15 @@
 package com.sparksys.authorization.domain.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.authorization.application.service.IAuthUserService;
 import com.sparksys.authorization.domain.constant.AuthorizationConstant;
 import com.sparksys.authorization.infrastructure.convert.AuthUserConvert;
 import com.sparksys.authorization.infrastructure.po.AuthUserDO;
 import com.sparksys.authorization.domain.repository.IAuthUserRepository;
-import com.sparksys.authorization.interfaces.dto.AuthUserDTO;
-import com.sparksys.authorization.interfaces.dto.AuthUserSaveDTO;
-import com.sparksys.authorization.interfaces.dto.AuthUserStatusDTO;
-import com.sparksys.authorization.interfaces.dto.AuthUserUpdateDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserSaveDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserStatusDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserUpdateDTO;
 import com.sparksys.commons.core.api.result.ApiPageResult;
 import com.sparksys.commons.core.entity.AuthUser;
 import com.sparksys.commons.mybatis.page.PageResult;
@@ -78,7 +77,7 @@ public class AuthUserServiceImpl implements IAuthUserService {
 
     @Override
     public ApiPageResult listByPage(Integer pageNum, Integer pageSize, String name) {
-        IPage<AuthUserDO> userDOIPage = authUserRepository.listByPage(new Page(pageNum, pageSize), name);
+        Page<AuthUserDO> userDOIPage = authUserRepository.listByPage(new Page(pageNum, pageSize), name);
         List<AuthUserDO> authUserDOList = userDOIPage.getRecords();
         List<AuthUserDTO> authUserDTOS =
                 authUserDOList.stream().map(authUserDO -> {

@@ -1,13 +1,12 @@
-package com.sparksys.authorization.interfaces.dto;
+package com.sparksys.authorization.interfaces.dto.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sparksys.authorization.infrastructure.enums.SexEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * description: 用户信息
@@ -16,24 +15,29 @@ import java.time.LocalDateTime;
  * @date 2020-05-24 12:24:03
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "AuthUserDTO查询对象", description = "AuthUserDTO查询对象")
-public class AuthUserDTO {
-
-
-    @ApiModelProperty(value = "id")
-    private Long id;
+@ApiModel(value = "AuthUserSaveDTO保存对象", description = "AuthUserSaveDTO保存对象")
+public class AuthUserSaveDTO {
 
     @ApiModelProperty(value = "账号")
+    @NotEmpty(message = "账号不能为空")
     private String account;
 
     @ApiModelProperty(value = "姓名")
+    @NotEmpty(message = "姓名不能为空")
     private String name;
 
+    @ApiModelProperty(value = "密码")
+    @NotEmpty(message = "密码不能为空")
+    private String password;
+
     @ApiModelProperty(value = "组织ID")
+    @NotEmpty(message = "组织不能为空")
     private Long orgId;
 
     @ApiModelProperty(value = "岗位ID")
+    @NotEmpty(message = "岗位不能为空")
     private Long stationId;
 
     @ApiModelProperty(value = "邮箱")
@@ -43,10 +47,8 @@ public class AuthUserDTO {
     private String mobile;
 
     @ApiModelProperty(value = "性别")
+    @NotEmpty(message = "性别不能为空")
     private String sex;
-
-    @ApiModelProperty(value = "状态 1启用 0禁用")
-    private Boolean status;
 
     @ApiModelProperty(value = "头像")
     private String avatar;
@@ -63,23 +65,10 @@ public class AuthUserDTO {
     @ApiModelProperty(value = "工作描述比如：市长、管理员、局长等等   用于登陆展示")
     private String workDescribe;
 
-    @ApiModelProperty(value = "最后登录时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime lastLoginTime;
-
     @ApiModelProperty(value = "创建人id")
     private Long createUser;
 
-    @ApiModelProperty(value = "创建时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime createTime;
-
     @ApiModelProperty(value = "更新人id")
     private Long updateUser;
-
-    @ApiModelProperty(value = "更新时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime updateTime;
-
 
 }

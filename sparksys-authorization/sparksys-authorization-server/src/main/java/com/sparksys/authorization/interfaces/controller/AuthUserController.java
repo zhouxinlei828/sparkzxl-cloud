@@ -2,13 +2,12 @@ package com.sparksys.authorization.interfaces.controller;
 
 
 import com.sparksys.authorization.application.service.IAuthUserService;
-import com.sparksys.authorization.interfaces.dto.AuthUserDTO;
-import com.sparksys.authorization.interfaces.dto.AuthUserSaveDTO;
-import com.sparksys.authorization.interfaces.dto.AuthUserStatusDTO;
-import com.sparksys.authorization.interfaces.dto.AuthUserUpdateDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserSaveDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserStatusDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserUpdateDTO;
 import com.sparksys.commons.core.api.result.ApiPageResult;
 import com.sparksys.commons.core.entity.AuthUser;
-import com.sparksys.commons.mybatis.dto.PageDTO;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

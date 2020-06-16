@@ -1,10 +1,17 @@
 package com.sparksys.authorization.interfaces.controller;
 
 
+import com.sparksys.authorization.application.service.IAuthRoleService;
+import com.sparksys.authorization.interfaces.dto.role.AuthRoleDTO;
+import com.sparksys.authorization.interfaces.dto.role.AuthRoleSaveDTO;
+import com.sparksys.authorization.interfaces.dto.role.AuthRoleUpdateDTO;
+import com.sparksys.authorization.interfaces.dto.user.AuthUserSaveDTO;
+import com.sparksys.commons.core.api.result.ApiPageResult;
+import com.sparksys.commons.core.entity.AuthUser;
 import com.sparksys.commons.web.annotation.ResponseResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * description: 角色 前端控制器
@@ -17,4 +24,48 @@ import org.springframework.web.bind.annotation.RestController;
 @ResponseResult
 public class AuthRoleController {
 
+    private final IAuthRoleService authRoleService;
+
+    public AuthRoleController(IAuthRoleService authRoleService) {
+        this.authRoleService = authRoleService;
+    }
+
+
+    @ApiOperation("查询角色列表")
+    @GetMapping("/role/page")
+    public ApiPageResult listByPage(Integer pageNum, Integer pageSize, @RequestParam(value = "name",required = false) String name) {
+        return authRoleService.listByPage(pageNum, pageSize, name);
+    }
+
+    @ApiOperation("获取角色信息")
+    @GetMapping("/role/{id}")
+    public AuthRoleDTO getAuthRole(@PathVariable("id") Long id) {
+        return authRoleService.getAuthRole(id);
+    }
+
+
+    @ApiOperation("保存角色信息")
+    @PostMapping("/role")
+    public boolean saveAuthRole(AuthUser authUser, @Validated @RequestBody AuthRoleSaveDTO authRoleSaveDTO) {
+        return authRoleService.saveAuthRole(authUser,authRoleSaveDTO);
+    }
+
+    @ApiOperation("更新角色信息")
+    @PutMapping("/role")
+    public boolean updateAuthRole(AuthUser authUser, @Validated @RequestBody AuthRoleUpdateDTO authRoleUpdateDTO) {
+        return authRoleService.updateAuthRole(authUser,authRoleUpdateDTO);
+    }
+
+
+    @ApiOperation("删除角色信息")
+    @DeleteMapping("/role/{id}")
+    public boolean deleteAuthRole(@PathVariable("id") Long id) {
+        return authRoleService.deleteAuthRole(id);
+    }
+
+    @ApiOperation("更新角色状态")
+    @PatchMapping("/role/{id}")
+    public boolean updateAuthRoleStatus(AuthUser authUser, @PathVariable("id") Long id,@RequestParam(value = "status")Boolean status) {
+        return authRoleService.updateAuthRoleStatus(authUser.getId(),id,status);
+    }
 }

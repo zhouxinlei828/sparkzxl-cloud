@@ -60,5 +60,5 @@ public interface IAuthUserRepository {
      * @param name
      * @return
      */
-    IPage<AuthUserDO> listByPage(Page<AuthUserDO> authUserDOPage,String name);
+    Page<AuthUserDO> listByPage(Page authUserDOPage,String name);
 }

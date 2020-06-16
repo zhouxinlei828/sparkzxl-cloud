@@ -1,4 +1,4 @@
-package com.sparksys.authorization.interfaces.dto;
+package com.sparksys.authorization.interfaces.dto.user;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
