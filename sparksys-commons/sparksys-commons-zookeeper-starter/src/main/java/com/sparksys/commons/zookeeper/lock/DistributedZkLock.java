@@ -38,7 +38,7 @@ public class DistributedZkLock implements InitializingBean {
                 curatorFramework
                         .create()
                         .creatingParentsIfNeeded()
-                        .withMode(CreateMode.EPHEMERAL)
+                        .withMode(CreateMode.EPHEMERAL_SEQUENTIAL)
                         .withACL(ZooDefs.Ids.OPEN_ACL_UNSAFE)
                         .forPath(keyPath);
                 log.info("success to acquire lock for path:{}", keyPath);
