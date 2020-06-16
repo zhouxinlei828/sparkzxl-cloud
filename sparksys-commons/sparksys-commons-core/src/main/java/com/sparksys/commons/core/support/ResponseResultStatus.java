@@ -57,11 +57,6 @@ public enum ResponseResultStatus implements BusinessEnumSysAssert {
     MEDIA_TYPE_NOT_SUPPORTED(HttpStatus.HTTP_UNSUPPORTED_TYPE, "不支持当前媒体类型"),
 
     /**
-     * 请求被拒绝
-     */
-    REQ_REJECT(HttpStatus.HTTP_FORBIDDEN, "请求被拒绝"),
-
-    /**
      * 服务器异常
      */
     INTERNAL_SERVER_ERROR(HttpStatus.HTTP_INTERNAL_ERROR, "系统繁忙，请稍候再试"),
@@ -94,11 +89,29 @@ public enum ResponseResultStatus implements BusinessEnumSysAssert {
 
     TOO_MUCH_DATA_ERROR(HttpStatus.HTTP_INTERNAL_ERROR, "批量新增数据过多"),
 
-    HYSTRIX_ERROR(HttpStatus.HTTP_UNAVAILABLE, "请求超时，请稍候再试"),
+    SERVICE_DEGRADATION(HttpStatus.HTTP_UNAVAILABLE, "服务降级，请稍候再试"),
 
     UPLOAD_FAILURE(HttpStatus.HTTP_INTERNAL_ERROR, "上传文件失败了哦"),
-    ;
 
+    /**
+     * 请求被拒绝
+     */
+    REQ_REJECT(HttpStatus.HTTP_FORBIDDEN, "请求被拒绝"),
+
+    /**
+     * 请求次数过多
+     */
+    REQ_LIMIT(1001, "单位时间内请求次数过多，请稍后再试"),
+
+    /**
+     * 黑名单
+     */
+    REQ_BLACKLIST(1002, "IP已被禁止，请稍后再试"),
+
+    /**
+     * 黑名单
+     */
+    PARAM_FLOW(1003, "热点参数访问限制，请稍后再试");
 
     final int code;
 

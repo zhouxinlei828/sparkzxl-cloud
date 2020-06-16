@@ -1,6 +1,10 @@
 package com.sparksys.commons.web.support;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.core.api.result.ApiResult;
 import com.sparksys.commons.core.support.BusinessException;
@@ -165,18 +169,64 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * sentinel异常
+     * 流量控制异常
      *
      * @param e
      * @return ApiResult
      * @author zhouxinlei
      * @date 2019/5/25 0025
      */
-    @ExceptionHandler(BlockException.class)
-    public ApiResult blockException(BlockException e) {
+    @ExceptionHandler(FlowException.class)
+    public ApiResult flowException(FlowException e) {
         handleResponseResult();
         log.error(e.getMessage());
-        return ApiResult.apiResult(ResponseResultStatus.REQ_REJECT);
+        return ApiResult.apiResult(ResponseResultStatus.REQ_LIMIT);
     }
+
+    /**
+     * 黑白名单异常
+     *
+     * @param e
+     * @return ApiResult
+     * @author zhouxinlei
+     * @date 2019/5/25 0025
+     */
+    @ExceptionHandler(AuthorityException.class)
+    public ApiResult authorityException(AuthorityException e) {
+        handleResponseResult();
+        log.error(e.getMessage());
+        return ApiResult.apiResult(ResponseResultStatus.REQ_BLACKLIST);
+    }
+
+    /**
+     * 服务降级异常
+     *
+     * @param e
+     * @return ApiResult
+     * @author zhouxinlei
+     * @date 2019/5/25 0025
+     */
+    @ExceptionHandler(DegradeException.class)
+    public ApiResult degradeException(DegradeException e) {
+        handleResponseResult();
+        log.error(e.getMessage());
+        return ApiResult.apiResult(ResponseResultStatus.SERVICE_DEGRADATION);
+    }
+
+    /**
+     * 热点参数限流
+     *
+     * @param e
+     * @return ApiResult
+     * @author zhouxinlei
+     * @date 2019/5/25 0025
+     */
+    @ExceptionHandler(ParamFlowException.class)
+    public ApiResult degradeException(ParamFlowException e) {
+        handleResponseResult();
+        log.error(e.getMessage());
+        return ApiResult.apiResult(ResponseResultStatus.PARAM_FLOW);
+    }
+
 
 }
