@@ -23,7 +23,7 @@
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <spring-boot-maven-plugin.version>2.3.0.RELEASE</spring-boot-maven-plugin.version>
-        <knife4j.version>2.0.2</knife4j.version>
+        <knife4j.version>2.0.3</knife4j.version>
 
         <!-- datasource-->
         <mybatis-plus.version>3.3.0</mybatis-plus.version>
@@ -166,11 +166,6 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-zookeeper-starter</artifactId>
-                <version>${sparksys-project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-sentinel-starter</artifactId>
                 <version>${sparksys-project.version}</version>
             </dependency>
             <!-- mybatis-plus -->

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * description：登录接口
+ * description：登录Controller
  *
  * @Author zhouxinlei
  * @Date 2020/6/6 9:08 上午
@@ -31,7 +31,6 @@ public class OauthController {
     public OauthController(AbstractSecurityAuthDetailService abstractSecurityAuthDetailService) {
         this.abstractSecurityAuthDetailService = abstractSecurityAuthDetailService;
     }
-
 
     @ApiOperation("系统登录")
     @PostMapping("/login")
