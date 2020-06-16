@@ -1,7 +1,7 @@
 package com.sparksys.file.domain.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.sparksys.file.domain.model.FileMaterial;
+import com.sparksys.file.domain.model.FileMaterialDO;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @date 2020-05-24 12:38:05
  */
 @Repository
-public interface FileMaterialMapper extends BaseMapper<FileMaterial> {
+public interface FileMaterialMapper extends BaseMapper<FileMaterialDO> {
 
 }

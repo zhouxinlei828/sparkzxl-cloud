@@ -1,7 +1,7 @@
 package com.sparksys.commons.core.utils.collection;
 
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.convert.Convert;
-import java.util.stream.Stream;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -21,11 +21,7 @@ import java.util.stream.Collectors;
  * @date 2020-05-24 12:49:53
  */
 @Slf4j
-public class ListUtils {
-
-    private ListUtils() {
-
-    }
+public class ListUtils extends ListUtil {
 
     public static <T> List<T> emptyList() {
         return Collections.emptyList();
@@ -203,7 +199,7 @@ public class ListUtils {
 
     public static String[] stringToArray(List<String> data) {
         if (isNotEmpty(data)) {
-            return data.stream().map(s -> String.valueOf(s)).toArray(String[]::new);
+            return data.stream().map(String::valueOf).toArray(String[]::new);
         } else {
             return new String[0];
         }

@@ -4,6 +4,9 @@ import lombok.Data;
 import lombok.ToString;
 import org.springframework.http.MediaType;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  * description: 上传结果
  *
@@ -31,5 +34,18 @@ public class UploadResult {
     private Integer width;
 
     private Integer height;
+
+
+    public FileMaterialDO builder(UploadResult uploadResult) {
+        FileMaterialDO fileMaterialDO = new FileMaterialDO();
+        fileMaterialDO.setFileName(uploadResult.getFilename());
+        fileMaterialDO.setSuffix(uploadResult.getSuffix());
+        fileMaterialDO.setFilePath(uploadResult.getFilePath());
+        fileMaterialDO.setSize((double) uploadResult.getSize());
+        fileMaterialDO.setContentType(uploadResult.getMediaType().getType());
+        fileMaterialDO.setUid(String.valueOf(System.currentTimeMillis()));
+        fileMaterialDO.setCreateTime(LocalDateTime.now());
+        return fileMaterialDO;
+    }
 
 }

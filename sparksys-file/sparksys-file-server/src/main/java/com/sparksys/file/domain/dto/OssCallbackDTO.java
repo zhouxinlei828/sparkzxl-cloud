@@ -1,9 +1,12 @@
 package com.sparksys.file.domain.dto;
 
+import cn.hutool.core.io.FileUtil;
+import com.sparksys.file.domain.model.FileMaterialDO;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 
 /**
  * description: oss上传回调入参
@@ -23,4 +26,18 @@ public class OssCallbackDTO {
     private String contentType;
 
     private String filePath;
+
+    public FileMaterialDO builder(OssCallbackDTO ossCallbackDTO) {
+        FileMaterialDO fileMaterialDO = new FileMaterialDO();
+        String filePath = ossCallbackDTO.getFilePath();
+        String extension = FileUtil.extName(ossCallbackDTO.getFilename());
+        fileMaterialDO.setFileName(ossCallbackDTO.getFilename());
+        fileMaterialDO.setSuffix(extension);
+        fileMaterialDO.setFilePath(filePath);
+        fileMaterialDO.setSize(ossCallbackDTO.getSize());
+        fileMaterialDO.setContentType(ossCallbackDTO.getContentType());
+        fileMaterialDO.setUid(String.valueOf(System.currentTimeMillis()));
+        fileMaterialDO.setCreateTime(LocalDateTime.now());
+        return fileMaterialDO;
+    }
 }

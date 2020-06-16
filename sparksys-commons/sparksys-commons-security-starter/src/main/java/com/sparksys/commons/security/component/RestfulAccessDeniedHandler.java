@@ -1,6 +1,6 @@
 package com.sparksys.commons.security.component;
 
-import com.sparksys.commons.security.utils.SecurityResponse;
+import com.sparksys.commons.security.utils.HttpResponseUtils;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
@@ -21,6 +21,6 @@ public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request,
                        HttpServletResponse response,
                        AccessDeniedException e) throws IOException, ServletException {
-        SecurityResponse.forbidden(response);
+        HttpResponseUtils.forbidden(response);
     }
 }

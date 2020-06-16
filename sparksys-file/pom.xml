@@ -15,14 +15,4 @@
         <module>sparksys-file-api</module>
         <module>sparksys-file-common</module>
     </modules>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-file-common</artifactId>
-                <version>${sparksys-project.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>

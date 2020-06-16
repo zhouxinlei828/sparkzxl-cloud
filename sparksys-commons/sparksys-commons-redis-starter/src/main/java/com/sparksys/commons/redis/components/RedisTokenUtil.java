@@ -1,7 +1,7 @@
 package com.sparksys.commons.redis.components;
 
+import cn.hutool.core.util.IdUtil;
 import com.sparksys.commons.redis.cache.CacheProviderService;
-import com.sparksys.commons.redis.util.SnowFlakeId;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -21,8 +21,7 @@ public class RedisTokenUtil {
     }
 
     public String getToken() {
-        Long tokenId = SnowFlakeId.getSnowFlakeId();
-        String token = "token".concat(tokenId.toString());
+        String token = "token".concat(IdUtil.simpleUUID());
         long expire = 60 * 60;
         cacheProviderService.set(token, token, expire);
         return token;

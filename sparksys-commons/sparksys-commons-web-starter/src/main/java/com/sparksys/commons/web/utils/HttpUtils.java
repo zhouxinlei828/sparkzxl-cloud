@@ -74,11 +74,4 @@ public class HttpUtils {
         }
         return ip;
     }
-
-    public static void main(String[] args) {
-        System.out.println(SystemUtil.getOsInfo().getName());
-        System.out.println("========================");
-        System.out.println(SystemUtil.getJavaInfo().getVersion());
-
-    }
 }

@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -24,7 +25,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @TableName("file_material")
 @ApiModel(value = "文件素材对象", description = "文件素材表")
-public class FileMaterial implements Serializable {
+public class FileMaterialDO implements Serializable {
 
     private static final long serialVersionUID = -6231176716837859634L;
 
@@ -58,7 +59,7 @@ public class FileMaterial implements Serializable {
 
     @TableField("create_time")
     @ApiModelProperty(value = "创建时间")
-    private Date createTime;
+    private LocalDateTime createTime;
 
 
 }

@@ -17,11 +17,7 @@ import java.util.Date;
  * @date 2020-05-24 12:52:19
  */
 @Slf4j
-public class DateUtils {
-
-    public static LocalDateTime now() {
-        return LocalDateTime.now();
-    }
+public class DateUtils extends DateUtil {
 
     /**
      * @param dateTimeFormatter 格式化日期
@@ -31,7 +27,7 @@ public class DateUtils {
      * @see DateTimeFormatter
      */
     public static String now(DateTimeFormatter dateTimeFormatter) {
-        return formatDate(now(), dateTimeFormatter);
+        return formatDate(LocalDateTime.now(), dateTimeFormatter);
     }
 
     public static LocalDateTime formatDate(String date, DateTimeFormatter dateTimeFormatter) {

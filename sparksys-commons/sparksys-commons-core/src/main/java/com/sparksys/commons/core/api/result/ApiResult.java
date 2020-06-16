@@ -63,7 +63,7 @@ public class ApiResult<T> implements Serializable {
     }
 
     public static <T> ApiResult timeOut() {
-        return ApiResult.builder().code(ResponseResultStatus.HYSTRIX_ERROR.getCode()).msg(ResponseResultStatus.HYSTRIX_ERROR.getMessage()).build();
+        return ApiResult.apiResult(ResponseResultStatus.SERVICE_DEGRADATION);
     }
 
     public static class ApiResultBuilder<T> {

@@ -1,11 +1,11 @@
-package com.sparksys.commons.security.utils;
+package com.sparksys.commons.web.utils;
 
 
-import com.sparksys.commons.core.support.ResponseResultStatus;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparksys.commons.core.api.result.ApiResult;
 import com.sparksys.commons.core.constant.CoreConstant;
+import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.web.component.SpringContextUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,7 +20,7 @@ import java.io.IOException;
  * @date 2020-05-24 13:40:03
  */
 @Slf4j
-public class SecurityResponse {
+public class HttpResponseUtils {
 
     public static String getAuthHeader(HttpServletRequest httpRequest) {
         String header = httpRequest.getHeader(CoreConstant.JwtTokenConstant.JWT_TOKEN_HEADER);

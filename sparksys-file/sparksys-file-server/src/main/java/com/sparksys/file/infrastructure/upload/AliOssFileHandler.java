@@ -1,5 +1,6 @@
 package com.sparksys.file.infrastructure.upload;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.text.StrBuilder;
 import cn.hutool.json.JSONUtil;
@@ -15,30 +16,22 @@ import com.aliyun.oss.model.PutObjectResult;
 import com.sparksys.commons.core.support.BusinessException;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.core.support.SparkSysExceptionAssert;
-import com.sparksys.commons.core.utils.file.FileUtil;
-import com.sparksys.commons.core.utils.file.FilenameUtils;
 import com.sparksys.file.domain.constant.OssConstant;
 import com.sparksys.file.domain.dto.OssCallbackParam;
 import com.sparksys.file.domain.dto.OssPolicyResult;
 import com.sparksys.file.domain.model.UploadResult;
 import com.sparksys.file.infrastructure.prop.OssProperties;
-import com.sparksys.file.shared.IFileHandler;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Objects;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
-import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -97,11 +90,10 @@ public class AliOssFileHandler implements IFileHandler {
         try {
             InputStream inputStream = multipartFile.getInputStream();
             assert originalFilename != null;
-            String extension = FilenameUtils.getExtension(originalFilename);
-            String basename = FilenameUtils.getBasename(originalFilename);
-            String uploadFilePath = uploadFilePath(originalFilename);
+            String basename = FileUtil.mainName(originalFilename);
+            String extension = FileUtil.extName(originalFilename);
+            String uploadFilePath = uploadFilePath(basename,extension);
             String filePath = filePath(uploadFilePath);
-
             log.info("文件路径为{}", filePath);
             // Upload
             PutObjectResult putObjectResult = ossClient.putObject(ossProperties.getBucketName(),
@@ -131,10 +123,8 @@ public class AliOssFileHandler implements IFileHandler {
         return StringUtils.join(basePath.toString(), uploadFilePath);
     }
 
-    public String uploadFilePath(String originalFilename) {
+    public String uploadFilePath(String basename,String extension) {
         String source = ossProperties.getSource();
-        String extension = FilenameUtils.getExtension(originalFilename);
-        String basename = FilenameUtils.getBasename(originalFilename);
         StrBuilder strBuilder = new StrBuilder();
         if (StringUtils.isNotEmpty(source)) {
             strBuilder.append(source)
@@ -144,25 +134,24 @@ public class AliOssFileHandler implements IFileHandler {
     }
 
     private UploadResult aliOssUpload(File file) throws BusinessException {
-        // Init OSS client
         OSS ossClient = getOssClient();
         String originalFilename = file.getName();
         try {
-            String uploadFilePath = uploadFilePath(originalFilename);
+            String basename = FileUtil.mainName(originalFilename);
+            String extension = FileUtil.extName(originalFilename);
+            String uploadFilePath = uploadFilePath(basename,extension);
             String filePath = filePath(uploadFilePath);
             log.info("文件路径为{}", filePath);
             // Upload
             PutObjectResult putObjectResult = ossClient.putObject(ossProperties.getBucketName(),
                     uploadFilePath, file);
-            if (putObjectResult == null) {
-                ResponseResultStatus.UPLOAD_FAILURE.assertNotNull(putObjectResult);
-            }
+            ResponseResultStatus.UPLOAD_FAILURE.assertNotNull(putObjectResult);
             // Response result
             UploadResult uploadResult = new UploadResult();
             uploadResult.setFilename(originalFilename);
             uploadResult.setFilePath(filePath);
             uploadResult.setKey(uploadFilePath);
-            uploadResult.setSuffix(FilenameUtils.getExtension(originalFilename));
+            uploadResult.setSuffix(extension);
             uploadResult.setSize(file.length());
             log.info("Uploaded file1: [{}] successfully", originalFilename);
             return uploadResult;

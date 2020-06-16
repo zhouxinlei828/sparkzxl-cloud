@@ -1,12 +1,12 @@
-package com.sparksys.file.application.command;
+package com.sparksys.file.application.service;
 
 import com.sparksys.commons.core.support.BusinessException;
 import com.sparksys.file.domain.dto.FileDTO;
 import com.sparksys.file.domain.dto.OssCallbackDTO;
-import com.sparksys.file.domain.model.FileMaterial;
+import com.sparksys.file.domain.dto.OssPolicyResult;
+import com.sparksys.file.domain.model.FileMaterialDO;
+import com.sparksys.file.interfaces.dto.FileMaterialDTO;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * description: 文件上传服务
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author zhouxinlei
  * @date 2020-05-24 12:30:30
  */
-public interface IFileCommandService {
+public interface IFileService {
 
     /**
      * 上传文件
@@ -23,7 +23,7 @@ public interface IFileCommandService {
      * @return
      * @throws Exception
      */
-    FileMaterial upload(MultipartFile multipartFile);
+    FileMaterialDTO upload(MultipartFile multipartFile);
 
     /**
      * 删除文件
@@ -40,7 +40,7 @@ public interface IFileCommandService {
      * @param ossCallbackDTO 回调参数
      * @return
      */
-    FileMaterial callback(OssCallbackDTO ossCallbackDTO);
+    FileMaterialDTO callback(OssCallbackDTO ossCallbackDTO);
 
     /**
      * 转换html文件
@@ -50,4 +50,13 @@ public interface IFileCommandService {
      * @throws Exception
      */
     FileDTO getHtml(FileDTO fileDTO);
+
+
+
+    /**
+     * 获取oss配置信息
+     *
+     * @return
+     */
+    OssPolicyResult policy();
 }

@@ -1,12 +1,12 @@
-package com.sparksys.file.interfaces;
+package com.sparksys.file.interfaces.controller;
 
 import com.sparksys.commons.web.annotation.ResponseResult;
-import com.sparksys.file.application.command.IFileCommandService;
-import com.sparksys.file.application.query.IFileQueryService;
+import com.sparksys.file.application.service.IFileService;
 import com.sparksys.file.domain.dto.OssPolicyResult;
-import com.sparksys.file.domain.model.FileMaterial;
+import com.sparksys.file.domain.model.FileMaterialDO;
 import com.sparksys.file.domain.dto.FileDTO;
 import com.sparksys.file.domain.dto.OssCallbackDTO;
+import com.sparksys.file.interfaces.dto.FileMaterialDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
@@ -25,42 +25,39 @@ import org.springframework.web.multipart.MultipartFile;
 @Api(tags = "文件管理")
 public class FileController {
 
-    private final IFileCommandService fileCommandService;
-    private final IFileQueryService fileQueryService;
+    private final IFileService fileService;
 
-    public FileController(IFileCommandService fileCommandService,
-                          IFileQueryService fileQueryService) {
-        this.fileCommandService = fileCommandService;
-        this.fileQueryService = fileQueryService;
+    public FileController(IFileService fileService) {
+        this.fileService = fileService;
     }
 
     @ApiOperation("文件上传")
     @PostMapping("/upload")
-    public FileMaterial upload(@RequestParam("file") MultipartFile multipartFile) {
-        return fileCommandService.upload(multipartFile);
+    public FileMaterialDTO upload(@RequestParam("file") MultipartFile multipartFile) {
+        return fileService.upload(multipartFile);
     }
 
     @ApiOperation("删除文件")
     @DeleteMapping("/delete/{fileName}")
     public boolean delete(@PathVariable("fileName") String fileName){
-        return fileCommandService.deleteFile(fileName);
+        return fileService.deleteFile(fileName);
     }
 
     @ApiOperation("转换html文件")
     @PostMapping("/html")
     public FileDTO getHtml(@Validated @RequestBody FileDTO fileDTO) {
-        return fileCommandService.getHtml(fileDTO);
+        return fileService.getHtml(fileDTO);
     }
 
     @ApiOperation("获取oss配置信息")
     @GetMapping("/ossPolicy")
     public OssPolicyResult ossPolicy() {
-        return fileQueryService.policy();
+        return fileService.policy();
     }
 
     @ApiOperation("文件上传回调")
     @PostMapping("/callback")
-    public FileMaterial callback(@RequestBody OssCallbackDTO ossCallbackDTO) {
-        return fileCommandService.callback(ossCallbackDTO);
+    public FileMaterialDTO callback(@RequestBody OssCallbackDTO ossCallbackDTO) {
+        return fileService.callback(ossCallbackDTO);
     }
 }

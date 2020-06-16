@@ -3,6 +3,7 @@ package com.sparksys.commons.web.component;
 import com.sparksys.commons.core.constant.CoreConstant;
 import com.sparksys.commons.core.entity.AuthUser;
 import com.sparksys.commons.web.service.AbstractAuthUserRequest;
+import com.sparksys.commons.web.utils.HttpResponseUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -37,8 +38,7 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
             , WebDataBinderFactory binderFactory) throws Exception {
         HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
         assert servletRequest != null;
-        String header = servletRequest.getHeader(CoreConstant.JwtTokenConstant.JWT_TOKEN_HEADER);
-        String accessToken = StringUtils.removeStart(header, CoreConstant.JwtTokenConstant.JWT_TOKEN_HEAD);
+        String accessToken = HttpResponseUtils.getAuthHeader(servletRequest);
         return abstractAuthUserRequest.getUserInfo(accessToken);
     }
 }

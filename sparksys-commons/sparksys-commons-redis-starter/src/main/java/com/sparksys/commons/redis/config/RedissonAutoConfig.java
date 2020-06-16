@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /*
- * description：
+ * description：Redisson配置
  *
  * @author zhouxinlei
  * @date  2020/6/10 0010

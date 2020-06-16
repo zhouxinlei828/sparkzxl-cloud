@@ -1,17 +1,11 @@
 package com.sparksys.commons.security.component;
 
 import com.sparksys.commons.core.entity.AuthUser;
-import com.sparksys.commons.core.support.BusinessException;
-import com.sparksys.commons.core.support.ResponseResultStatus;
-import com.sparksys.commons.core.support.SparkSysAssert;
-import com.sparksys.commons.core.support.SparkSysExceptionAssert;
 import com.sparksys.commons.security.entity.AdminUserDetails;
-import com.sparksys.commons.security.props.IgnoreUrlsProperties;
 import com.sparksys.commons.security.registry.SecurityRegistry;
 import com.sparksys.commons.security.service.AbstractSecurityAuthDetailService;
 import com.sparksys.commons.core.utils.jwt.JwtTokenUtil;
-import com.sparksys.commons.security.utils.SecurityResponse;
-import lombok.SneakyThrows;
+import com.sparksys.commons.web.utils.HttpResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +16,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * description: JWT登录授权过滤器
@@ -49,7 +41,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         try {
             log.info("请求地址：{}", request.getRequestURI());
             if (!securityRegistry.isIgnoreToken(request.getRequestURI())) {
-                String accessToken = SecurityResponse.getAuthHeader(request);
+                String accessToken = HttpResponseUtils.getAuthHeader(request);
                 if (StringUtils.isNotEmpty(accessToken)) {
                     String username = JwtTokenUtil.getUserNameFromToken(accessToken);
                     log.info("checking username:{}", username);
@@ -69,7 +61,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
         } catch (Exception e) {
             log.error(e.getMessage());
-            SecurityResponse.unauthorized(response);
+            HttpResponseUtils.unauthorized(response);
         }
     }
 }

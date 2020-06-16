@@ -1,4 +1,4 @@
-package com.sparksys.file.shared;
+package com.sparksys.file.infrastructure.upload;
 
 import com.aliyun.oss.model.OSSObject;
 import com.sparksys.commons.core.support.BusinessException;
