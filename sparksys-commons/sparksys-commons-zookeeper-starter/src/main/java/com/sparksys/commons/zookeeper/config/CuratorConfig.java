@@ -1,6 +1,6 @@
 package com.sparksys.commons.zookeeper.config;
 
-import com.sparksys.commons.zookeeper.lock.DistributedZkLock;
+import com.sparksys.commons.zookeeper.lock.ZkDistributedLock;
 import com.sparksys.commons.zookeeper.prop.CuratorProperties;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -31,7 +31,7 @@ public class CuratorConfig {
     }
 
     @Bean
-    public DistributedZkLock distributedZkLock(CuratorFramework curatorFramework) {
-        return new DistributedZkLock(curatorFramework);
+    public ZkDistributedLock distributedZkLock(CuratorFramework curatorFramework) {
+        return new ZkDistributedLock(curatorFramework);
     }
 }

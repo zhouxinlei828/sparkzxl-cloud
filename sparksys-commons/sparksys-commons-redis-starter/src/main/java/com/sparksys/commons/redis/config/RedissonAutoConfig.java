@@ -1,5 +1,6 @@
 package com.sparksys.commons.redis.config;
 
+import com.sparksys.commons.redis.lock.RedisDistributedLock;
 import com.sparksys.commons.redis.props.RedissonProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
@@ -44,10 +45,10 @@ public class RedissonAutoConfig {
     }
 
     @Bean
-    RedissLockUtil redissLockUtil(@Qualifier("redissonSingle") RedissonClient redissonClient) {
-        RedissLockUtil redissLockUtil = new RedissLockUtil();
-        redissLockUtil.setRedissonClient(redissonClient);
-        return redissLockUtil;
+    RedisDistributedLock redisDistributedLock(@Qualifier("redissonSingle") RedissonClient redissonClient) {
+        RedisDistributedLock redisDistributedLock = new RedisDistributedLock();
+        redisDistributedLock.setRedissonClient(redissonClient);
+        return redisDistributedLock;
     }
 
 }

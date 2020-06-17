@@ -17,22 +17,20 @@ import java.util.concurrent.CountDownLatch;
  * @date 2020-05-24 13:45:29
  */
 @Slf4j
-public class DistributedZkLock implements InitializingBean {
+public class ZkDistributedLock implements InitializingBean, DistributedLock {
 
     private final static String ROOT_PATH_LOCK = "rootlock";
     private CountDownLatch countDownLatch = new CountDownLatch(1);
 
     private CuratorFramework curatorFramework;
 
-    public DistributedZkLock(CuratorFramework curatorFramework) {
+    public ZkDistributedLock(CuratorFramework curatorFramework) {
         this.curatorFramework = curatorFramework;
     }
 
-    /**
-     * 获取分布式锁
-     */
-    public void acquireDistributedLock(String path) {
-        String keyPath = "/" + ROOT_PATH_LOCK + "/" + path;
+    @Override
+    public boolean lock(String key) {
+        String keyPath = "/" + ROOT_PATH_LOCK + "/" + key;
         while (true) {
             try {
                 curatorFramework
@@ -42,7 +40,7 @@ public class DistributedZkLock implements InitializingBean {
                         .withACL(ZooDefs.Ids.OPEN_ACL_UNSAFE)
                         .forPath(keyPath);
                 log.info("success to acquire lock for path:{}", keyPath);
-                break;
+                return true;
             } catch (Exception e) {
                 log.info("failed to acquire lock for path:{}", keyPath);
                 log.info("while try again .......");
@@ -55,15 +53,14 @@ public class DistributedZkLock implements InitializingBean {
                     log.error(interruptedException.getMessage());
                 }
             }
+            return false;
         }
     }
 
-    /**
-     * 释放分布式锁
-     */
-    public boolean releaseDistributedLock(String path) {
+    @Override
+    public boolean releaseLock(String key) {
         try {
-            String keyPath = "/" + ROOT_PATH_LOCK + "/" + path;
+            String keyPath = "/" + ROOT_PATH_LOCK + "/" + key;
             if (curatorFramework.checkExists().forPath(keyPath) != null) {
                 curatorFramework.delete().forPath(keyPath);
             }
