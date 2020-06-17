@@ -62,11 +62,13 @@ public class MybatisPlusGenerator {
         gc.setMapperName("%sMapper");
         gc.setXmlName("%sMapper");
         gc.setEntityName("%sDO");
+        gc.setBaseResultMap(true);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:p6spy:mysql://rm-bp1cp68o8t1gq604p5o.mysql.rds.aliyuncs.com/authorization?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8");
+        dsc.setUrl("jdbc:p6spy:mysql://rm-bp1cp68o8t1gq604p5o.mysql.rds.aliyuncs" +
+                ".com/sparksys_authorization?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8");
         dsc.setDriverName("com.p6spy.engine.spy.P6SpyDriver");
         dsc.setUsername("zhouxinlei");
         dsc.setPassword("zxl298828");

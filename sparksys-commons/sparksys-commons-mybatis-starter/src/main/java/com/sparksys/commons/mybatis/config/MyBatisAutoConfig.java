@@ -1,12 +1,12 @@
 package com.sparksys.commons.mybatis.config;
 
+import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 import com.sparksys.commons.mybatis.hander.MetaDateHandler;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 /**
  * description: mybatis全局配置
  *
@@ -28,6 +28,6 @@ public class MyBatisAutoConfig {
 
     @Bean
     public MetaDateHandler metaDateHandler() {
-        return new MetaDateHandler();
+        return new MetaDateHandler(0,0);
     }
 }

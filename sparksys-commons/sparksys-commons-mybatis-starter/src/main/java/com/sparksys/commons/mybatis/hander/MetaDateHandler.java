@@ -1,10 +1,19 @@
 package com.sparksys.commons.mybatis.hander;
 
+import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
+import com.sparksys.commons.mybatis.entity.Entity;
+import com.sparksys.commons.mybatis.entity.SuperEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 
-import java.util.Date;
+import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 
 /**
  * description: mybatis-plus自动注入处理器
@@ -15,17 +24,79 @@ import java.util.Date;
 @Slf4j
 public class MetaDateHandler implements MetaObjectHandler {
 
+    private static final String ID_TYPE = "java.lang.String";
+
+    private long workerId;
+    private long dataCenterId;
+
+    public MetaDateHandler(long workerId, long dataCenterId) {
+        this.workerId = workerId;
+        this.dataCenterId = dataCenterId;
+    }
+
     @Override
     public void insertFill(MetaObject metaObject) {
-        log.info("start insert fill ....");
-        this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
-        this.strictInsertFill(metaObject, "updateTime", Date.class, new Date());
+        boolean flag = true;
+        Object idVal;
+        if (metaObject.getOriginalObject() instanceof SuperEntity) {
+            Object oldId = ((SuperEntity) metaObject.getOriginalObject()).getId();
+            if (oldId != null) {
+                flag = false;
+            }
+
+            SuperEntity entity = (SuperEntity) metaObject.getOriginalObject();
+            if (entity.getCreateTime() == null) {
+                this.setFieldValByName("createTime", LocalDateTime.now(), metaObject);
+            }
+        }
+
+        if (metaObject.getOriginalObject() instanceof Entity) {
+            Entity entity = (Entity) metaObject.getOriginalObject();
+            this.update(metaObject, entity);
+        }
+
+        if (flag) {
+            Snowflake snowflake = IdUtil.getSnowflake(this.workerId, this.dataCenterId);
+            Long id = snowflake.nextId();
+            if (metaObject.hasGetter("id")) {
+                idVal = "java.lang.String".equals(metaObject.getGetterType("id").getName()) ? String.valueOf(id) : id;
+                this.setFieldValByName("id", idVal, metaObject);
+            } else {
+                TableInfo tableInfo = metaObject.hasGetter("MP_OPTLOCK_ET_ORIGINAL") ? TableInfoHelper.getTableInfo(metaObject.getValue("MP_OPTLOCK_ET_ORIGINAL").getClass()) : TableInfoHelper.getTableInfo(metaObject.getOriginalObject().getClass());
+                if (tableInfo != null) {
+                    Class<?> keyType = tableInfo.getKeyType();
+                    if (keyType != null) {
+                        String keyProperty = tableInfo.getKeyProperty();
+                        Field idField = ReflectUtil.getField(metaObject.getOriginalObject().getClass(), keyProperty);
+                        Object fieldValue = ReflectUtil.getFieldValue(metaObject.getOriginalObject(), idField);
+                        if (!ObjectUtil.isNotEmpty(fieldValue)) {
+                            idVal = "java.lang.String".equalsIgnoreCase(keyType.getName()) ? String.valueOf(id) : id;
+                            this.setFieldValByName(keyProperty, idVal, metaObject);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void update(MetaObject metaObject, Entity entity, String et) {
+        if (entity.getUpdateTime() == null) {
+            this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+        }
+
+    }
+
+    private void update(MetaObject metaObject, Entity entity) {
+        this.update(metaObject, entity, "");
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        log.info("start update fill ....");
-        this.strictUpdateFill(metaObject, "updateTime", Date.class, new Date());
+        log.debug("start update fill ....");
+        if (metaObject.getOriginalObject() instanceof Entity) {
+            Entity entity = (Entity) metaObject.getOriginalObject();
+            this.update(metaObject, entity);
+        }
     }
 
 }

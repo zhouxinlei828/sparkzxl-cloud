@@ -9,29 +9,24 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/*
- * description：
+/**
+ * description:
  *
- * @author zhouxinlei
- * @date  2020/6/17 0017
- */
+ * @author: zhouxinlei
+ * @date: 2020-06-17 20:14:48
+*/
 public class SuperEntity<T> implements Serializable {
 
-    public static final String FIELD_ID = "id";
-    public static final String CREATE_TIME = "createTime";
-    public static final String CREATE_TIME_COLUMN = "create_time";
-    public static final String CREATE_USER = "createUser";
-    public static final String CREATE_USER_COLUMN = "create_user";
     private static final long serialVersionUID = -4603650115461757622L;
 
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @TableId(value = "id", type = IdType.INPUT)
     @ApiModelProperty("主键")
     protected T id;
     @ApiModelProperty("创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     protected LocalDateTime createTime;
     @ApiModelProperty("创建人ID")
-    @TableField(value = "create_user", fill = FieldFill.INSERT)
+    @TableField(value = "create_user")
     protected T createUser;
 
     public T getId() {
