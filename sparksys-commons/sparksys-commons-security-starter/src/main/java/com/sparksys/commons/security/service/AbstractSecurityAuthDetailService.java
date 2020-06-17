@@ -2,6 +2,8 @@ package com.sparksys.commons.security.service;
 
 import com.sparksys.commons.core.constant.AuthConstant;
 import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.security.event.model.LoginEvent;
+import com.sparksys.commons.security.event.model.LoginStatusDTO;
 import com.sparksys.commons.web.service.AbstractAuthUserRequest;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.web.component.SpringContextUtils;
@@ -52,6 +54,8 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
         log.info("密码加密 = {}，数据库密码={}", password, encryptPassword);
         //数据库密码比对
         if (!StringUtils.equals(encryptPassword, authUser.getPassword())) {
+            SpringContextUtils.publishEvent(new LoginEvent(LoginStatusDTO.pwdError(authUser.getId(),
+                    ResponseResultStatus.PASSWORD_ERROR.getMessage())));
             ResponseResultStatus.PASSWORD_ERROR.newException(password);
         }
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(adminUserDetails,
@@ -65,6 +69,8 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
         authToken.setAuthUser(authUser);
         //设置accessToken缓存
         accessToken(authToken, authUser);
+        SpringContextUtils.publishEvent(new LoginEvent(LoginStatusDTO.success(authUser.getId(),
+                authToken)));
         return authToken;
     }
 

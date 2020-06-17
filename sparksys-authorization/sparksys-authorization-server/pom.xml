@@ -53,6 +53,10 @@
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-commons-web-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

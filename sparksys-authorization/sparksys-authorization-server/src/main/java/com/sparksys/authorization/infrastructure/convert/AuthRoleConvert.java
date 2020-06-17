@@ -1,6 +1,6 @@
 package com.sparksys.authorization.infrastructure.convert;
 
-import com.sparksys.authorization.infrastructure.po.AuthRoleDO;
+import com.sparksys.authorization.infrastructure.entity.AuthRole;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleUpdateDTO;
@@ -18,10 +18,10 @@ public interface AuthRoleConvert {
 
     AuthRoleConvert INSTANCE = Mappers.getMapper(AuthRoleConvert.class);
 
-    AuthRoleDO convertAuthRoleDO(AuthRoleSaveDTO authRoleSaveDTO);
+    AuthRole convertAuthRoleDO(AuthRoleSaveDTO authRoleSaveDTO);
 
-    AuthRoleDO convertAuthRoleDO(AuthRoleUpdateDTO authRoleUpdateDTO);
+    AuthRole convertAuthRoleDO(AuthRoleUpdateDTO authRoleUpdateDTO);
 
-    AuthRoleDTO convertAuthUserDTO(AuthRoleDO authRoleDO);
+    AuthRoleDTO convertAuthUserDTO(AuthRole authRole);
 
 }

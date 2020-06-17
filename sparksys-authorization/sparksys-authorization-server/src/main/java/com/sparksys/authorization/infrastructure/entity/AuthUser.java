@@ -1,4 +1,4 @@
-package com.sparksys.authorization.infrastructure.po;
+package com.sparksys.authorization.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
@@ -22,7 +22,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("c_auth_user")
 @ApiModel(value = "AuthUser对象", description = "用户")
-public class AuthUserDO implements Serializable {
+public class AuthUser implements Serializable {
 
     private static final long serialVersionUID = 1849014360372480614L;
 

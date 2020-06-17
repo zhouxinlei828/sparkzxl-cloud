@@ -1,6 +1,6 @@
 package com.sparksys.commons.security.component;
 
-import com.sparksys.commons.security.utils.HttpResponseUtils;
+import com.sparksys.commons.web.utils.HttpResponseUtils;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 

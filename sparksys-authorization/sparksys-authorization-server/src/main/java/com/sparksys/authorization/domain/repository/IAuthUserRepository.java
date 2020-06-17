@@ -1,8 +1,7 @@
 package com.sparksys.authorization.domain.repository;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sparksys.authorization.infrastructure.po.AuthUserDO;
+import com.sparksys.authorization.infrastructure.entity.AuthUser;
 
 /**
  * description: 用户仓储层
@@ -19,31 +18,31 @@ public interface IAuthUserRepository {
      * @param id
      * @return
      */
-    AuthUserDO selectById(Long id);
+    AuthUser selectById(Long id);
 
     /**
      * 根据账户查询用户信息
      *
-     * @param username
+     * @param account
      * @return
      */
-    AuthUserDO selectByUserName(String username);
+    AuthUser selectByAccount(String account);
 
     /**
      * 保存用户信息
      *
-     * @param authUserDO
+     * @param authUser
      * @return
      */
-    boolean saveAuthUser(AuthUserDO authUserDO);
+    boolean saveAuthUser(AuthUser authUser);
 
     /**
      * 更新用户信息
      *
-     * @param authUserDO
+     * @param authUser
      * @return
      */
-    boolean updateAuthUser(AuthUserDO authUserDO);
+    boolean updateAuthUser(AuthUser authUser);
 
     /**
      * 删除用户信息
@@ -58,7 +57,15 @@ public interface IAuthUserRepository {
      *
      * @param authUserDOPage
      * @param name
-     * @return
+     * @return Page<AuthUserDO>
      */
-    Page<AuthUserDO> listByPage(Page authUserDOPage,String name);
+    Page<AuthUser> listByPage(Page authUserDOPage, String name);
+
+    /**
+     * 密码输错自增
+     *
+     * @param id
+     * @return boolean
+     */
+    boolean incrPasswordErrorNumById(Long id);
 }

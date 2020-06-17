@@ -1,15 +1,11 @@
-package com.sparksys.authorization.infrastructure.po;
+package com.sparksys.authorization.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 
-import java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 
-import java.io.Serializable;
-
+import com.sparksys.commons.mybatis.entity.TreeEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,17 +23,9 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("c_auth_menu")
 @ApiModel(value = "CAuthMenuDO对象", description = "菜单")
-public class AuthMenuDO implements Serializable {
+public class AuthMenu extends TreeEntity<AuthMenu, Long> {
 
     private static final long serialVersionUID = 7737221207197581152L;
-
-    @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private Long id;
-
-    @ApiModelProperty(value = "租户编码")
-    @TableField("tenant_code")
-    private String tenantCode;
 
     @ApiModelProperty(value = "名称")
     @TableField("label")
@@ -74,26 +62,5 @@ public class AuthMenuDO implements Serializable {
     @ApiModelProperty(value = "分组")
     @TableField("group_")
     private String group;
-
-    @ApiModelProperty(value = "父级菜单ID")
-    @TableField("parent_id")
-    private Long parentId;
-
-    @ApiModelProperty(value = "创建人id")
-    @TableField("create_user")
-    private Long createUser;
-
-    @ApiModelProperty(value = "创建时间")
-    @TableField("create_time")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "更新人id")
-    @TableField("update_user")
-    private Long updateUser;
-
-    @ApiModelProperty(value = "更新时间")
-    @TableField("update_time")
-    private LocalDateTime updateTime;
-
 
 }

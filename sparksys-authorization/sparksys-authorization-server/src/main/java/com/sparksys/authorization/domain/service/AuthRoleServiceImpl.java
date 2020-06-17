@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.authorization.application.service.IAuthRoleService;
 import com.sparksys.authorization.domain.repository.IAuthRoleRepository;
 import com.sparksys.authorization.infrastructure.convert.AuthRoleConvert;
-import com.sparksys.authorization.infrastructure.po.AuthRoleDO;
+import com.sparksys.authorization.infrastructure.entity.AuthRole;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleUpdateDTO;
@@ -30,29 +30,29 @@ public class AuthRoleServiceImpl implements IAuthRoleService {
 
     @Override
     public ApiPageResult listByPage(Integer pageNum, Integer pageSize, String name) {
-        Page<AuthRoleDO> roleDOPage = authRoleRepository.listByPage(new Page(pageNum, pageSize), name);
+        Page<AuthRole> roleDOPage = authRoleRepository.listByPage(new Page(pageNum, pageSize), name);
         return PageResult.resetPage(roleDOPage);
     }
 
     @Override
     public AuthRoleDTO getAuthRole(Long id) {
-        AuthRoleDO authRoleDO = authRoleRepository.getAuthRole(id);
-        return AuthRoleConvert.INSTANCE.convertAuthUserDTO(authRoleDO);
+        AuthRole authRole = authRoleRepository.getAuthRole(id);
+        return AuthRoleConvert.INSTANCE.convertAuthUserDTO(authRole);
     }
 
     @Override
     public boolean saveAuthRole(AuthUser authUser, AuthRoleSaveDTO authRoleSaveDTO) {
-        AuthRoleDO authRoleDO = AuthRoleConvert.INSTANCE.convertAuthRoleDO(authRoleSaveDTO);
-        authRoleDO.setCreateUser(authUser.getId());
-        authRoleDO.setUpdateUser(authUser.getId());
-        return authRoleRepository.saveAuthRole(authRoleDO);
+        AuthRole authRole = AuthRoleConvert.INSTANCE.convertAuthRoleDO(authRoleSaveDTO);
+        authRole.setCreateUser(authUser.getId());
+        authRole.setUpdateUser(authUser.getId());
+        return authRoleRepository.saveAuthRole(authRole);
     }
 
     @Override
     public boolean updateAuthRole(AuthUser authUser, AuthRoleUpdateDTO authRoleUpdateDTO) {
-        AuthRoleDO authRoleDO = AuthRoleConvert.INSTANCE.convertAuthRoleDO(authRoleUpdateDTO);
-        authRoleDO.setUpdateUser(authUser.getId());
-        return authRoleRepository.updateAuthRole(authRoleDO);
+        AuthRole authRole = AuthRoleConvert.INSTANCE.convertAuthRoleDO(authRoleUpdateDTO);
+        authRole.setUpdateUser(authUser.getId());
+        return authRoleRepository.updateAuthRole(authRole);
     }
 
     @Override
@@ -62,10 +62,10 @@ public class AuthRoleServiceImpl implements IAuthRoleService {
 
     @Override
     public boolean updateAuthRoleStatus(Long userId, Long roleId, Boolean status) {
-        AuthRoleDO authRoleDO = new AuthRoleDO();
-        authRoleDO.setId(roleId);
-        authRoleDO.setStatus(status);
-        authRoleDO.setUpdateUser(userId);
-        return authRoleRepository.updateAuthRole(authRoleDO);
+        AuthRole authRole = new AuthRole();
+        authRole.setId(roleId);
+        authRole.setStatus(status);
+        authRole.setUpdateUser(userId);
+        return authRoleRepository.updateAuthRole(authRole);
     }
 }

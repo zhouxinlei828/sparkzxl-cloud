@@ -1,9 +1,8 @@
 package com.sparksys.authorization.domain.repository;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sparksys.authorization.infrastructure.po.AuthRoleDO;
+import com.sparksys.authorization.infrastructure.entity.AuthRole;
 
 /**
  * description: 角色 仓储类
@@ -13,13 +12,13 @@ import com.sparksys.authorization.infrastructure.po.AuthRoleDO;
  */
 public interface IAuthRoleRepository {
 
-    Page<AuthRoleDO> listByPage(Page page, String name);
+    Page<AuthRole> listByPage(Page page, String name);
 
-    AuthRoleDO getAuthRole(Long id);
+    AuthRole getAuthRole(Long id);
 
-    boolean saveAuthRole(AuthRoleDO authRoleDO);
+    boolean saveAuthRole(AuthRole authRole);
 
-    boolean updateAuthRole(AuthRoleDO authRoleDO);
+    boolean updateAuthRole(AuthRole authRole);
 
     boolean deleteAuthRole(Long id);
 }

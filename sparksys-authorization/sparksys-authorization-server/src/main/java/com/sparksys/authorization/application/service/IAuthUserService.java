@@ -19,10 +19,10 @@ public interface IAuthUserService {
     /**
      * 获取授权认证用户
      *
-     * @param username 用户名
+     * @param account 用户名
      * @return
      */
-    AdminUserDetails getAdminUserDetails(String username);
+    AdminUserDetails getAdminUserDetails(String account);
 
     /**
      * 保存用户信息
@@ -76,4 +76,8 @@ public interface IAuthUserService {
      * @return
      */
     AuthUserDTO getAuthUser(Long id);
+
+    boolean resetPassErrorNum(Long id);
+
+    boolean incrPasswordErrorNumById(Long id);
 }

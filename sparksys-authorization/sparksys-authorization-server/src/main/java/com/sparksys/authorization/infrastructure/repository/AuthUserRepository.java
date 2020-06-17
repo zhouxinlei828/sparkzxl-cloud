@@ -1,12 +1,10 @@
 package com.sparksys.authorization.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sparksys.authorization.infrastructure.entity.AuthUser;
 import com.sparksys.authorization.infrastructure.mapper.AuthUserMapper;
-import com.sparksys.authorization.infrastructure.po.AuthUserDO;
 import com.sparksys.authorization.domain.repository.IAuthUserRepository;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,27 +23,27 @@ public class AuthUserRepository implements IAuthUserRepository {
     private AuthUserMapper authUserMapper;
 
     @Override
-    public AuthUserDO selectById(Long id) {
+    public AuthUser selectById(Long id) {
         return authUserMapper.selectById(id);
     }
 
     @Override
-    public AuthUserDO selectByUserName(String username) {
-        QueryWrapper<AuthUserDO> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("account", username);
+    public AuthUser selectByAccount(String account) {
+        QueryWrapper<AuthUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("account", account);
         queryWrapper.eq("status", 1);
         return authUserMapper.selectOne(queryWrapper);
     }
 
     @Override
-    public boolean saveAuthUser(AuthUserDO authUserDO) {
-        authUserDO.setStatus(true);
-        return authUserMapper.insert(authUserDO) > 0;
+    public boolean saveAuthUser(AuthUser authUser) {
+        authUser.setStatus(true);
+        return authUserMapper.insert(authUser) > 0;
     }
 
     @Override
-    public boolean updateAuthUser(AuthUserDO authUserDO) {
-        return authUserMapper.updateById(authUserDO) > 0;
+    public boolean updateAuthUser(AuthUser authUser) {
+        return authUserMapper.updateById(authUser) > 0;
     }
 
     @Override
@@ -54,11 +52,16 @@ public class AuthUserRepository implements IAuthUserRepository {
     }
 
     @Override
-    public Page<AuthUserDO> listByPage(Page authUserDOPage, String name) {
-        QueryWrapper<AuthUserDO> authUserDOQueryWrapper = new QueryWrapper<>();
+    public Page<AuthUser> listByPage(Page authUserDOPage, String name) {
+        QueryWrapper<AuthUser> authUserDOQueryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name) && !"null".equalsIgnoreCase(name)) {
             authUserDOQueryWrapper.like("name", name);
         }
         return authUserMapper.selectPage(authUserDOPage, authUserDOQueryWrapper);
+    }
+
+    @Override
+    public boolean incrPasswordErrorNumById(Long id) {
+        return authUserMapper.incrPasswordErrorNumById(id) == 1;
     }
 }

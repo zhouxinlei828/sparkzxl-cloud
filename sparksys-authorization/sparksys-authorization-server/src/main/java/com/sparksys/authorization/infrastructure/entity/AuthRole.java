@@ -1,4 +1,4 @@
-package com.sparksys.authorization.infrastructure.po;
+package com.sparksys.authorization.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 
@@ -21,7 +21,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("c_auth_role")
 @ApiModel(value="CAuthRoleDO对象", description="角色")
-public class AuthRoleDO implements Serializable {
+public class AuthRole implements Serializable {
 
     private static final long serialVersionUID = 3582670719443769774L;
 

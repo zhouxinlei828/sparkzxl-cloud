@@ -1,6 +1,6 @@
 package com.sparksys.authorization.infrastructure.mapper;
 
-import com.sparksys.authorization.infrastructure.po.AuthMenuDO;
+import com.sparksys.authorization.infrastructure.entity.AuthMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @Date  2020-06-07 13:28:51
  */
 @Repository
-public interface AuthMenuMapper extends BaseMapper<AuthMenuDO> {
+public interface AuthMenuMapper extends BaseMapper<AuthMenu> {
 
 }

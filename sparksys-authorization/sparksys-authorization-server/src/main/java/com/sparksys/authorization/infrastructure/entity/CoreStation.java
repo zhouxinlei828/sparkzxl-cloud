@@ -1,4 +1,4 @@
-package com.sparksys.authorization.infrastructure.po;
+package com.sparksys.authorization.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -13,43 +13,29 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * description: 组织
+ * description: 岗位
  *
  * @Author zhouxinlei
- * @Date  2020-06-07 13:24:05
+ * @Date  2020-06-07 13:23:52
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("c_core_org")
-@ApiModel(value="CCoreOrgDO对象", description="组织")
-public class CoreOrgDO implements Serializable {
-
-    private static final long serialVersionUID = -7652204940090864043L;
+@TableName("c_core_station")
+@ApiModel(value="CCoreStationDO对象", description="岗位")
+public class CoreStation implements Serializable {
 
     @ApiModelProperty(value = "ID")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty(value = "名称")
-    @TableField("label")
-    private String label;
+    @TableField("name")
+    private String name;
 
-    @ApiModelProperty(value = "简称")
-    @TableField("abbreviation")
-    private String abbreviation;
-
-    @ApiModelProperty(value = "父ID")
-    @TableField("parent_id")
-    private Long parentId;
-
-    @ApiModelProperty(value = "树结构")
-    @TableField("tree_path")
-    private String treePath;
-
-    @ApiModelProperty(value = "排序")
-    @TableField("sort_value")
-    private Integer sortValue;
+    @ApiModelProperty(value = "组织ID")
+    @TableField("org_id")
+    private Long orgId;
 
     @ApiModelProperty(value = "状态")
     @TableField("status")

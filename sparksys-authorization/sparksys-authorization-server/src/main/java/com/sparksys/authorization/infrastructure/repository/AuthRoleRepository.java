@@ -4,8 +4,8 @@ package com.sparksys.authorization.infrastructure.repository;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.authorization.domain.repository.IAuthRoleRepository;
+import com.sparksys.authorization.infrastructure.entity.AuthRole;
 import com.sparksys.authorization.infrastructure.mapper.AuthRoleMapper;
-import com.sparksys.authorization.infrastructure.po.AuthRoleDO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
@@ -26,8 +26,8 @@ public class AuthRoleRepository implements IAuthRoleRepository {
 
 
     @Override
-    public Page<AuthRoleDO> listByPage(Page page, String name) {
-        QueryWrapper<AuthRoleDO> roleDOQueryWrapper = new QueryWrapper<>();
+    public Page<AuthRole> listByPage(Page page, String name) {
+        QueryWrapper<AuthRole> roleDOQueryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name) && !"null".equalsIgnoreCase(name)) {
             roleDOQueryWrapper.like("name", name);
         }
@@ -35,18 +35,18 @@ public class AuthRoleRepository implements IAuthRoleRepository {
     }
 
     @Override
-    public AuthRoleDO getAuthRole(Long id) {
+    public AuthRole getAuthRole(Long id) {
         return authRoleMapper.selectById(id);
     }
 
     @Override
-    public boolean saveAuthRole(AuthRoleDO authRoleDO) {
-        return authRoleMapper.insert(authRoleDO) == 1;
+    public boolean saveAuthRole(AuthRole authRole) {
+        return authRoleMapper.insert(authRole) == 1;
     }
 
     @Override
-    public boolean updateAuthRole(AuthRoleDO authRoleDO) {
-        return authRoleMapper.updateById(authRoleDO) == 1;
+    public boolean updateAuthRole(AuthRole authRole) {
+        return authRoleMapper.updateById(authRole) == 1;
     }
 
     @Override

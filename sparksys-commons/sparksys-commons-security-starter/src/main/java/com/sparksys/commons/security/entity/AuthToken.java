@@ -1,6 +1,7 @@
 package com.sparksys.commons.security.entity;
 
 import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.core.utils.AddressUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,5 +29,8 @@ public class AuthToken implements Serializable {
     @ApiModelProperty(value = "登录用户信息")
     private AuthUser authUser;
 
+    private String loginIp;
+
+    private String location;
 
 }

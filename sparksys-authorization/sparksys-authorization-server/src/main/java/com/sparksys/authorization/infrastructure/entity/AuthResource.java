@@ -1,4 +1,4 @@
-package com.sparksys.authorization.infrastructure.po;
+package com.sparksys.authorization.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -27,7 +27,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("c_auth_resource")
 @ApiModel(value = "CAuthResourceDO对象", description = "资源")
-public class AuthResourceDO implements Serializable {
+public class AuthResource implements Serializable {
 
     private static final long serialVersionUID = -6295580114270886981L;
 
