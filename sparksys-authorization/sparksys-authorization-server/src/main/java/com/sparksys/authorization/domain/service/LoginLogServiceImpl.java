@@ -65,7 +65,7 @@ public class LoginLogServiceImpl implements ILoginLogService {
     }
 
     @Override
-    public LoginLog save(Long userId, String account, String ua, String ip, String location, String description) {
+    public boolean save(Long userId, String account, String ua, String ip, String location, String description) {
         AuthUser authUser;
         if (userId != null) {
             authUser = authUserRepository.selectById(userId);
@@ -99,7 +99,7 @@ public class LoginLogServiceImpl implements ILoginLogService {
         if (authUser != null) {
             cacheProviderService.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TEN_DAY, tenDays, account));
         }
-        return loginLog;
+        return true;
     }
 
     @Override
