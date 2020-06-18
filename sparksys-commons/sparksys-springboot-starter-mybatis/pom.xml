@@ -6,9 +6,10 @@
         <artifactId>sparksys-commons</artifactId>
         <groupId>com.sparksys</groupId>
         <version>1.0</version>
+        <relativePath>../</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>sparksys-commons-mybatis-starter</artifactId>
+    <artifactId>sparksys-springboot-starter-mybatis</artifactId>
     <packaging>jar</packaging>
 
 

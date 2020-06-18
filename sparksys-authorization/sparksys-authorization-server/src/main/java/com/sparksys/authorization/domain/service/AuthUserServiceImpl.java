@@ -10,7 +10,7 @@ import com.sparksys.authorization.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserStatusDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserUpdateDTO;
-import com.sparksys.commons.core.api.result.ApiPageResult;
+import com.sparksys.commons.core.base.api.result.ApiPageResult;
 import com.sparksys.commons.mybatis.page.PageResult;
 import com.sparksys.commons.security.entity.AdminUserDetails;
 import lombok.extern.slf4j.Slf4j;

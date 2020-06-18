@@ -22,14 +22,13 @@ import java.time.LocalDateTime;
  * @date 2020-05-24 13:22:30
  */
 @Slf4j
-public class MetaDateHandler implements MetaObjectHandler {
+public class MetaDataHandler implements MetaObjectHandler {
 
-    private static final String ID_TYPE = "java.lang.String";
+    private final long workerId;
 
-    private long workerId;
-    private long dataCenterId;
+    private final long dataCenterId;
 
-    public MetaDateHandler(long workerId, long dataCenterId) {
+    public MetaDataHandler(long workerId, long dataCenterId) {
         this.workerId = workerId;
         this.dataCenterId = dataCenterId;
     }
@@ -43,10 +42,9 @@ public class MetaDateHandler implements MetaObjectHandler {
             if (oldId != null) {
                 flag = false;
             }
-
             SuperEntity entity = (SuperEntity) metaObject.getOriginalObject();
             if (entity.getCreateTime() == null) {
-                this.setFieldValByName("createTime", LocalDateTime.now(), metaObject);
+                this.setFieldValByName(SuperEntity.CREATE_TIME, LocalDateTime.now(), metaObject);
             }
         }
 
@@ -58,8 +56,8 @@ public class MetaDateHandler implements MetaObjectHandler {
         if (flag) {
             Snowflake snowflake = IdUtil.getSnowflake(this.workerId, this.dataCenterId);
             Long id = snowflake.nextId();
-            if (metaObject.hasGetter("id")) {
-                idVal = "java.lang.String".equals(metaObject.getGetterType("id").getName()) ? String.valueOf(id) : id;
+            if (metaObject.hasGetter(SuperEntity.FIELD_ID)) {
+                idVal = "java.lang.String".equals(metaObject.getGetterType(SuperEntity.FIELD_ID).getName()) ? String.valueOf(id) : id;
                 this.setFieldValByName("id", idVal, metaObject);
             } else {
                 TableInfo tableInfo = metaObject.hasGetter("MP_OPTLOCK_ET_ORIGINAL") ? TableInfoHelper.getTableInfo(metaObject.getValue("MP_OPTLOCK_ET_ORIGINAL").getClass()) : TableInfoHelper.getTableInfo(metaObject.getOriginalObject().getClass());
@@ -79,15 +77,10 @@ public class MetaDateHandler implements MetaObjectHandler {
         }
     }
 
-    private void update(MetaObject metaObject, Entity entity, String et) {
-        if (entity.getUpdateTime() == null) {
-            this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
-        }
-
-    }
-
     private void update(MetaObject metaObject, Entity entity) {
-        this.update(metaObject, entity, "");
+        if (entity.getUpdateTime() == null) {
+            this.setFieldValByName(Entity.UPDATE_TIME, LocalDateTime.now(), metaObject);
+        }
     }
 
     @Override

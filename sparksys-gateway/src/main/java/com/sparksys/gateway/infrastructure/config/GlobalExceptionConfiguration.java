@@ -2,7 +2,7 @@ package com.sparksys.gateway.infrastructure.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparksys.commons.core.api.result.ApiResult;
+import com.sparksys.commons.core.base.api.result.ApiResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

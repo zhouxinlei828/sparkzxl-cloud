@@ -1,4 +1,4 @@
-package com.sparksys.commons.redis.lock;
+package com.sparksys.commons.core.lock;
 
 /*
  * description：

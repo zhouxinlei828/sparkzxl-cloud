@@ -1,6 +1,6 @@
 package com.sparksys.commons.core.support;
 
-import com.sparksys.commons.core.api.code.BaseEnumCode;
+import com.sparksys.commons.core.base.api.code.BaseEnumCode;
 
 import java.text.MessageFormat;
 

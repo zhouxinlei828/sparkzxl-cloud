@@ -1,4 +1,4 @@
-package com.sparksys.commons.redis.lock;
+package com.sparksys.commons.core.lock;
 
 /*
  * description：
@@ -8,14 +8,17 @@ package com.sparksys.commons.redis.lock;
  */
 public abstract class AbstractDistributedLock implements DistributedLock {
 
+    @Override
     public boolean lock(String key) {
         return this.lock(key, WAIT_TIME, SLEEP_MILLIS);
     }
 
+    @Override
     public boolean lock(String key, long leaseTime) {
         return this.lock(key, WAIT_TIME, leaseTime);
     }
 
+    @Override
     public boolean lock(String key, int waitTime) {
         return this.lock(key, waitTime, SLEEP_MILLIS);
     }

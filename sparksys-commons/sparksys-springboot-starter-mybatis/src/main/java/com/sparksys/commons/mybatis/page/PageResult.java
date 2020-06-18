@@ -1,7 +1,7 @@
 package com.sparksys.commons.mybatis.page;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sparksys.commons.core.api.result.ApiPageResult;
+import com.sparksys.commons.core.base.api.result.ApiPageResult;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import java.util.List;
  * @author zhouxinlei
  * @date 2020-05-24 13:22:54
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class PageResult extends ApiPageResult {
-
 
     public static  ApiPageResult resetPage(Page tPage) {
         PageResult pageResult = new PageResult();

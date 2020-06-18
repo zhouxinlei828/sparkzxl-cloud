@@ -1,9 +1,11 @@
-package com.sparksys.commons.core.api.result;
+package com.sparksys.commons.core.base.api.result;
 
 import com.sparksys.commons.core.support.ResponseResultStatus;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -11,17 +13,23 @@ import java.io.Serializable;
  * description: API接口响应结果
  *
  * @author zhouxinlei
- * @date  2020-05-24 12:46:27
+ * @date 2020-05-24 12:46:27
  */
 @NoArgsConstructor
 @Setter
 @Getter
+@Accessors(chain = true)
 public class ApiResult<T> implements Serializable {
 
     private static final long serialVersionUID = -219969750248052449L;
+    @ApiModelProperty(value = "响应编码:200-请求处理成功")
     private int code;
+    @ApiModelProperty(value = "提示消息")
     private String msg;
+    @ApiModelProperty(value = "响应数据")
     private T data;
+    @ApiModelProperty(value = "响应时间戳")
+    private long timestamp = System.currentTimeMillis();
 
     private ApiResult(int code, String msg, T data) {
         this.code = code;
@@ -31,6 +39,10 @@ public class ApiResult<T> implements Serializable {
 
     public boolean ok() {
         return this.code == ResponseResultStatus.SUCCESS.getCode();
+    }
+
+    public boolean error() {
+        return !ok();
     }
 
     public static <T> ApiResultBuilder<T> builder() {

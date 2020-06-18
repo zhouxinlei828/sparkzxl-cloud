@@ -1,12 +1,16 @@
 package com.sparksys.commons.mybatis.config;
 
-import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
-import com.sparksys.commons.mybatis.hander.MetaDateHandler;
+import com.sparksys.commons.mybatis.hander.MetaDataHandler;
+import com.sparksys.commons.mybatis.properties.DataProperties;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 /**
  * description: mybatis全局配置
  *
@@ -14,8 +18,10 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020-05-24 13:20:57
  */
 @Configuration
-@MapperScan("${mybatis-plus.mapperScan}")
-public class MyBatisAutoConfig {
+@EnableConfigurationProperties(DataProperties.class)
+@MapperScan("${sparksys.data.mapperScan}")
+@ConditionalOnProperty(prefix = "formatter", name = "enabled", havingValue = "true")
+public class MyBatisAutoConfiguration {
 
     @Bean
     public PaginationInterceptor paginationInterceptor() {
@@ -27,7 +33,8 @@ public class MyBatisAutoConfig {
     }
 
     @Bean
-    public MetaDateHandler metaDateHandler() {
-        return new MetaDateHandler(0,0);
+    @ConditionalOnMissingBean
+    public MetaDataHandler metaDateHandler(DataProperties dataProperties) {
+        return new MetaDataHandler(dataProperties.getWorkerId(), dataProperties.getDataCenterId());
     }
 }

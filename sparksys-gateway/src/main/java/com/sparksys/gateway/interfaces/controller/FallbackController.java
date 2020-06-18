@@ -1,6 +1,6 @@
 package com.sparksys.gateway.interfaces.controller;
 
-import com.sparksys.commons.core.api.result.ApiResult;
+import com.sparksys.commons.core.base.api.result.ApiResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -8,7 +8,7 @@ import com.sparksys.authorization.infrastructure.entity.AuthRole;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleUpdateDTO;
-import com.sparksys.commons.core.api.result.ApiPageResult;
+import com.sparksys.commons.core.base.api.result.ApiPageResult;
 import com.sparksys.commons.core.entity.AuthUser;
 import com.sparksys.commons.mybatis.page.PageResult;
 import org.springframework.stereotype.Service;

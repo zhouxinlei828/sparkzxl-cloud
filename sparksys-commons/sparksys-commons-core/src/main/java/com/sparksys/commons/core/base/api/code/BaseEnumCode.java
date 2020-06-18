@@ -1,4 +1,4 @@
-package com.sparksys.commons.core.api.code;
+package com.sparksys.commons.core.base.api.code;
 
 /**
  * description: 封装API响应状态码

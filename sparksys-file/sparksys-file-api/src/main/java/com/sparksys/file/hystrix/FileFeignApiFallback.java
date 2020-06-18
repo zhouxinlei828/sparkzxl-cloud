@@ -1,6 +1,6 @@
 package com.sparksys.file.hystrix;
 
-import com.sparksys.commons.core.api.result.ApiResult;
+import com.sparksys.commons.core.base.api.result.ApiResult;
 import com.sparksys.file.api.FileFeignApi;
 import com.sparksys.file.common.domain.dto.FileDTO;
 import org.springframework.stereotype.Component;

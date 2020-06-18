@@ -3,7 +3,7 @@ package com.sparksys.commons.core.utils;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.sparksys.commons.core.api.result.ApiResult;
+import com.sparksys.commons.core.base.api.result.ApiResult;
 import com.sparksys.commons.core.entity.AddressInfo;
 
 import java.util.HashMap;

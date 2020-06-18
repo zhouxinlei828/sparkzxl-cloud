@@ -1,4 +1,4 @@
-package com.sparksys.commons.core.api.result;
+package com.sparksys.commons.core.base.api.result;
 
 import lombok.*;
 
