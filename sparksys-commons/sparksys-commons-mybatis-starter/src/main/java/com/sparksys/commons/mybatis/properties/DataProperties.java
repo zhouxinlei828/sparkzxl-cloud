@@ -1,6 +1,5 @@
 package com.sparksys.commons.mybatis.properties;
 
-import com.sun.org.apache.xpath.internal.operations.String;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

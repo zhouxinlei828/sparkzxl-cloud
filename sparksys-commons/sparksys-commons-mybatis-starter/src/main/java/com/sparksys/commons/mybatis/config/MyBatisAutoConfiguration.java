@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 /**
  * description: mybatis全局配置
@@ -19,8 +20,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableConfigurationProperties(DataProperties.class)
-@MapperScan("${sparksys.data.mapperScan}")
-@ConditionalOnProperty(prefix = "formatter", name = "enabled", havingValue = "true")
+@MapperScan("${mybatis-plus.mapperScan}")
 public class MyBatisAutoConfiguration {
 
     @Bean

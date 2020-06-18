@@ -9,7 +9,7 @@
         <relativePath>../</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>sparksys-springboot-starter-mybatis</artifactId>
+    <artifactId>sparksys-commons-mybatis-starter</artifactId>
     <packaging>jar</packaging>
 
 

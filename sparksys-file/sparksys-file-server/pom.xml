@@ -43,7 +43,7 @@
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-springboot-starter-mybatis</artifactId>
+            <artifactId>sparksys-commons-mybatis-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
