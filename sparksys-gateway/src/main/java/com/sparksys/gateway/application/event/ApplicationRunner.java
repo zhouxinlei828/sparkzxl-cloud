@@ -14,8 +14,8 @@ import java.net.InetAddress;
  * description: Application启动后运行
  * 日志打印微服务关键配置信息(服务名、接口文档、访问地址)
  *
- * @Author zhouxinlei
- * @Date 2020-06-05 20:31:48
+ * @author zhouxinlei
+ * @date 2020-06-05 20:31:48
  */
 @Component
 @Slf4j

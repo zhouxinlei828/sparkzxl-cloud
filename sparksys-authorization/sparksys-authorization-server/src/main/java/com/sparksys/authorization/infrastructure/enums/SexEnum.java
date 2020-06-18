@@ -6,8 +6,8 @@ import lombok.Getter;
 /**
  * description：
  *
- * @Author zhouxinlei
- * @Date 2020/6/7 3:28 下午
+ * @author zhouxinlei
+ * @date 2020/6/7 3:28 下午
  */
 @Getter
 @AllArgsConstructor

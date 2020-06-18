@@ -13,8 +13,8 @@ import lombok.experimental.Accessors;
 /**
  * description: 角色
  *
- * @Author zhouxinlei
- * @Date  2020-06-07 13:25:40
+ * @author zhouxinlei
+ * @date  2020-06-07 13:25:40
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

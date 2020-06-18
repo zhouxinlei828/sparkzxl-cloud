@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * description: 岗位 前端控制器
  *
- * @Author zhouxinlei
- * @Date 2020-06-07 13:41:11
+ * @author zhouxinlei
+ * @date 2020-06-07 13:41:11
  */
 @RestController
 @RequestMapping("/station")

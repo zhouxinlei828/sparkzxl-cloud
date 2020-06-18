@@ -1,6 +1,6 @@
 package com.sparksys.commons.core.lock;
 
-/*
+/**
  * description：
  *
  * @author zhouxinlei

@@ -18,8 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * description：
  *
- * @Author zhouxinlei
- * @Date 2020/6/7 5:20 下午
+ * @author zhouxinlei
+ * @date 2020/6/7 5:20 下午
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AuthorizationApplication.class)

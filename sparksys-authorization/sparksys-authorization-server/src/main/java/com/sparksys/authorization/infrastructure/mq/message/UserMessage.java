@@ -8,8 +8,8 @@ import java.io.Serializable;
 /**
  * description：
  *
- * @Author zhouxinlei
- * @Date 2020/6/7 5:09 下午
+ * @author zhouxinlei
+ * @date 2020/6/7 5:09 下午
  */
 @Data
 @ToString

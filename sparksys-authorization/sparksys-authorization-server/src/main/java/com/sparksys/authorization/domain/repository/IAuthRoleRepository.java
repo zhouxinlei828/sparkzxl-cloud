@@ -7,8 +7,8 @@ import com.sparksys.authorization.infrastructure.entity.AuthRole;
 /**
  * description: 角色 仓储类
  *
- * @Author zhouxinlei
- * @Date 2020-06-07 13:31:48
+ * @author zhouxinlei
+ * @date 2020-06-07 13:31:48
  */
 public interface IAuthRoleRepository {
 

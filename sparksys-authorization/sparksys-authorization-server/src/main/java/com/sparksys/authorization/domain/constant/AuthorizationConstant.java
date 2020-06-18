@@ -9,8 +9,8 @@ import java.util.Map;
 /**
  * description：
  *
- * @Author zhouxinlei
- * @Date 2020/6/7 9:19 上午
+ * @author zhouxinlei
+ * @date 2020/6/7 9:19 上午
  */
 public class AuthorizationConstant {
 

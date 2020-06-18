@@ -15,8 +15,8 @@ import lombok.experimental.Accessors;
 /**
  * description: 菜单
  *
- * @Author zhouxinlei
- * @Date 2020-06-07 13:24:14
+ * @author zhouxinlei
+ * @date 2020-06-07 13:24:14
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

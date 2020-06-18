@@ -6,8 +6,8 @@ import com.sparksys.authorization.infrastructure.entity.AuthUser;
 /**
  * description: 用户仓储层
  *
- * @Author zhouxinlei
- * @Date 2020-06-05 20:39:15
+ * @author zhouxinlei
+ * @date 2020-06-05 20:39:15
  */
 public interface IAuthUserRepository {
 

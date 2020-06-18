@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 /**
  * description：用户仓储层实现类
  *
- * @Author zhouxinlei
- * @Date 2020/6/5 8:45 下午
+ * @author zhouxinlei
+ * @date 2020/6/5 8:45 下午
  */
 @Repository
 public class AuthUserRepository implements IAuthUserRepository {

@@ -3,8 +3,8 @@ package com.sparksys.commons.core.support;
 /**
  * description：断言异常全局处理
  *
- * @Author zhouxinlei
- * @Date 2020/6/4 10:10 下午
+ * @author zhouxinlei
+ * @date 2020/6/4 10:10 下午
  */
 public class SparkSysExceptionAssert {
 

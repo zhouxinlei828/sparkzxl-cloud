@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 /**
  * description: 菜单 Mapper 接口
  *
- * @Author zhouxinlei
- * @Date  2020-06-07 13:28:51
+ * @author zhouxinlei
+ * @date  2020-06-07 13:28:51
  */
 @Repository
 public interface AuthMenuMapper extends BaseMapper<AuthMenu> {

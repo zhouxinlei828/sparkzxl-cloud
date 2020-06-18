@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 /**
  * description: 组织 服务实现类
  *
- * @Author zhouxinlei
- * @Date  2020-06-07 13:37:19
+ * @author zhouxinlei
+ * @date  2020-06-07 13:37:19
  */
 @Service
 public class CoreOrgServiceImpl implements ICoreOrgService {

@@ -7,8 +7,8 @@ import java.text.MessageFormat;
 /**
  * description:
  *
- * @Author zhouxinlei
- * @Date  2020-06-04 22:45:18
+ * @author zhouxinlei
+ * @date  2020-06-04 22:45:18
  */
 public interface BusinessEnumSysAssert extends BaseEnumCode, SparkSysAssert {
 

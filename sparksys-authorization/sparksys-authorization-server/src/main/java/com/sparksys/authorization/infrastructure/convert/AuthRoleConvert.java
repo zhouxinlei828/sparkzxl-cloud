@@ -10,8 +10,8 @@ import org.mapstruct.factory.Mappers;
 /**
  * description: AuthRole对象Convert
  *
- * @Author zhouxinlei
- * @Date 2020-06-05 21:28:06
+ * @author zhouxinlei
+ * @date 2020-06-05 21:28:06
  */
 @Mapper
 public interface AuthRoleConvert {

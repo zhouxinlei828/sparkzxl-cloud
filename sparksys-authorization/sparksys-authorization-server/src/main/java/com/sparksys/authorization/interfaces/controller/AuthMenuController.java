@@ -15,8 +15,8 @@ import java.util.List;
 /**
  * description: 菜单 前端控制器
  *
- * @Author zhouxinlei
- * @Date  2020-06-07 13:39:14
+ * @author zhouxinlei
+ * @date  2020-06-07 13:39:14
  */
 @RestController
 @RequestMapping("/menu")

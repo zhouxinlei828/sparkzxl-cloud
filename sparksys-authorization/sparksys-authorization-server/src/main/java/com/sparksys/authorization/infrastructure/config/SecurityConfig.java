@@ -12,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 /**
  * description：SecurityConfig配置
  *
- * @Author zhouxinlei
- * @Date 2020/6/6 10:28 上午
+ * @author zhouxinlei
+ * @date 2020/6/6 10:28 上午
  */
 @Configuration
 @EnableWebSecurity

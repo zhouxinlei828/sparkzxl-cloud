@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * description：登录Controller
  *
- * @Author zhouxinlei
- * @Date 2020/6/6 9:08 上午
+ * @author zhouxinlei
+ * @date 2020/6/6 9:08 上午
  */
 @RestController
 @RequestMapping("/oauth")

@@ -12,8 +12,8 @@ import java.util.concurrent.ExecutionException;
 /**
  * description：
  *
- * @Author zhouxinlei
- * @Date 2020/6/7 5:11 下午
+ * @author zhouxinlei
+ * @date 2020/6/7 5:11 下午
  */
 @Component
 public class UserProducer {
