@@ -3,9 +3,9 @@ package com.sparksys.authorization.infrastructure.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+
+import com.sparksys.commons.mybatis.entity.Entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,7 +23,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("c_core_org")
 @ApiModel(value="CCoreOrgDO对象", description="组织")
-public class CoreOrg implements Serializable {
+public class CoreOrg extends Entity<Long> {
 
     private static final long serialVersionUID = -7652204940090864043L;
 
@@ -58,18 +58,5 @@ public class CoreOrg implements Serializable {
     @ApiModelProperty(value = "描述")
     @TableField("describe_")
     private String describe;
-
-    @TableField("create_time")
-    private LocalDateTime createTime;
-
-    @TableField("create_user")
-    private Long createUser;
-
-    @TableField("update_time")
-    private LocalDateTime updateTime;
-
-    @TableField("update_user")
-    private Long updateUser;
-
 
 }

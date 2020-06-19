@@ -1,10 +1,10 @@
 package com.sparksys.authorization.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.sparksys.commons.mybatis.entity.Entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import lombok.Data;
@@ -22,7 +22,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("c_auth_user")
 @ApiModel(value = "AuthUser对象", description = "用户")
-public class AuthUser implements Serializable {
+public class AuthUser extends Entity<Long> {
 
     private static final long serialVersionUID = 1849014360372480614L;
 
@@ -101,22 +101,5 @@ public class AuthUser implements Serializable {
     @ApiModelProperty(value = "最后登录时间")
     @TableField("last_login_time")
     private LocalDateTime lastLoginTime;
-
-    @ApiModelProperty(value = "创建人id")
-    @TableField("create_user")
-    private Long createUser;
-
-    @ApiModelProperty(value = "创建时间")
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "更新人id")
-    @TableField("update_user")
-    private Long updateUser;
-
-    @ApiModelProperty(value = "更新时间")
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
-
 
 }

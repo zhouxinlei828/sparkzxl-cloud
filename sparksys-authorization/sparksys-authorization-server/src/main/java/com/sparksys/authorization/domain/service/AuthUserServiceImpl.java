@@ -49,15 +49,12 @@ public class AuthUserServiceImpl implements IAuthUserService {
 
     @Override
     public boolean saveAuthUser(com.sparksys.commons.core.entity.AuthUser authUser, AuthUserSaveDTO authUserSaveDTO) {
-        authUserSaveDTO.setCreateUser(authUser.getId());
-        authUserSaveDTO.setUpdateUser(authUser.getId());
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserSaveDTO);
         return authUserRepository.saveAuthUser(authUserDO);
     }
 
     @Override
     public boolean updateAuthUser(com.sparksys.commons.core.entity.AuthUser authUser, AuthUserUpdateDTO authUserUpdateDTO) {
-        authUserUpdateDTO.setUpdateUser(authUser.getId());
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserUpdateDTO);
         return authUserRepository.updateAuthUser(authUserDO);
     }

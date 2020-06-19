@@ -16,7 +16,7 @@ public interface IAuthMenuService {
     /**
      * 查询菜单tree
      *
-     * @return
+     * @return List<AuthMenu>
      */
     List<AuthMenu> findMenuTree();
 

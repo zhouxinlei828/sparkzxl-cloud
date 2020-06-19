@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * description: 用户信息
@@ -33,11 +34,11 @@ public class AuthUserSaveDTO {
     private String password;
 
     @ApiModelProperty(value = "组织ID")
-    @NotEmpty(message = "组织不能为空")
+    @NotNull(message = "组织不能为空")
     private Long orgId;
 
     @ApiModelProperty(value = "岗位ID")
-    @NotEmpty(message = "岗位不能为空")
+    @NotNull(message = "岗位不能为空")
     private Long stationId;
 
     @ApiModelProperty(value = "邮箱")
@@ -64,11 +65,5 @@ public class AuthUserSaveDTO {
 
     @ApiModelProperty(value = "工作描述比如：市长、管理员、局长等等   用于登陆展示")
     private String workDescribe;
-
-    @ApiModelProperty(value = "创建人id")
-    private Long createUser;
-
-    @ApiModelProperty(value = "更新人id")
-    private Long updateUser;
 
 }

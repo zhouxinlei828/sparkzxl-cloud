@@ -2,6 +2,7 @@ package com.sparksys.commons.security.service;
 
 import com.sparksys.commons.core.constant.AuthConstant;
 import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.mybatis.context.BaseContextHandler;
 import com.sparksys.commons.security.event.model.LoginEvent;
 import com.sparksys.commons.security.event.model.LoginStatusDTO;
 import com.sparksys.commons.web.service.AbstractAuthUserRequest;
@@ -41,23 +42,13 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
      */
     public AuthToken login(AuthRequest authRequest){
         String account = authRequest.getAccount();
-        ResponseResultStatus.USERNAME_EMPTY.assertNotNull(account);
-
-        AdminUserDetails adminUserDetails = getAdminUserDetail(account);
         String password = authRequest.getPassword();
-        ResponseResultStatus.PASSWORD_EMPTY.assertNotNull(password);
         String token;
+        AdminUserDetails adminUserDetails = getAdminUserDetail(account);
         ResponseResultStatus.ACCOUNT_EMPTY.assertNotNull(adminUserDetails);
         AuthUser authUser = adminUserDetails.getAuthUser();
-        //加密数据
-        String encryptPassword = MD5Utils.encrypt(authRequest.getPassword());
-        log.info("密码加密 = {}，数据库密码={}", password, encryptPassword);
-        //数据库密码比对
-        if (!StringUtils.equals(encryptPassword, authUser.getPassword())) {
-            SpringContextUtils.publishEvent(new LoginEvent(LoginStatusDTO.pwdError(authUser.getId(),
-                    ResponseResultStatus.PASSWORD_ERROR.getMessage())));
-            ResponseResultStatus.PASSWORD_ERROR.newException(password);
-        }
+        //校验密码输入是否正确
+        checkPasswordError(authRequest, password, authUser);
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(adminUserDetails,
                 null, adminUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -74,6 +65,17 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
         return authToken;
     }
 
+    private void checkPasswordError(AuthRequest authRequest, String password, AuthUser authUser) {
+        String encryptPassword = MD5Utils.encrypt(authRequest.getPassword());
+        log.info("密码加密 = {}，数据库密码={}", password, encryptPassword);
+        //数据库密码比对
+        if (!StringUtils.equals(encryptPassword, authUser.getPassword())) {
+            SpringContextUtils.publishEvent(new LoginEvent(LoginStatusDTO.pwdError(authUser.getId(),
+                    ResponseResultStatus.PASSWORD_ERROR.getMessage())));
+            ResponseResultStatus.PASSWORD_ERROR.newException(password);
+        }
+    }
+
     /**
      * 设置accessToken缓存
      *
@@ -84,6 +86,9 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
     private void accessToken(AuthToken authToken, AuthUser authUser) {
         CacheProviderService cacheProviderService = SpringContextUtils.getBean(RedisCacheProviderImpl.class);
         String token = authToken.getToken();
+        BaseContextHandler.setAccount(authUser.getAccount());
+        BaseContextHandler.setUserId(authUser.getId());
+        BaseContextHandler.setName(authUser.getName());
         cacheProviderService.set(AuthConstant.AUTH_USER + token, authUser,
                 authToken.getExpiration());
     }

@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
+import com.sparksys.commons.web.utils.HttpResponseUtils;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -41,8 +41,7 @@ public class OauthController {
     @ApiOperation("获取登录用户信息")
     @GetMapping("/getAuthUserInfo")
     public AuthUser getUserInfo(HttpServletRequest httpServletRequest) {
-        String header = httpServletRequest.getHeader(CoreConstant.JwtTokenConstant.JWT_TOKEN_HEADER);
-        String accessToken = StringUtils.removeStart(header, CoreConstant.JwtTokenConstant.JWT_TOKEN_HEAD);
+        String accessToken = HttpResponseUtils.getAuthHeader(httpServletRequest);
         return authUserDetailsService.getUserInfo(accessToken);
     }
 }

@@ -11,9 +11,9 @@ import com.sparksys.commons.core.entity.AuthUser;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * description: 用户 前端控制器
@@ -28,8 +28,11 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "用户管理")
 public class AuthUserController {
 
-    @Autowired
-    private IAuthUserService authUserService;
+    private final IAuthUserService authUserService;
+
+    public AuthUserController(IAuthUserService authUserService) {
+        this.authUserService = authUserService;
+    }
 
 
     @ApiOperation("查询用户列表")
@@ -46,14 +49,14 @@ public class AuthUserController {
 
     @ApiOperation("保存用户信息")
     @PostMapping("/authUser")
-    public boolean saveAuthUser(AuthUser authUser, @Validated @RequestBody AuthUserSaveDTO authUserSaveDTO) {
+    public boolean saveAuthUser(@ApiIgnore AuthUser authUser, @Validated @RequestBody AuthUserSaveDTO authUserSaveDTO) {
         return authUserService.saveAuthUser(authUser, authUserSaveDTO);
     }
 
 
     @ApiOperation("修改用户信息")
     @PutMapping("/authUser")
-    public boolean updateAuthUser(AuthUser authUser, @Validated @RequestBody AuthUserUpdateDTO authUserUpdateDTO) {
+    public boolean updateAuthUser(@ApiIgnore AuthUser authUser, @Validated @RequestBody AuthUserUpdateDTO authUserUpdateDTO) {
         return authUserService.updateAuthUser(authUser, authUserUpdateDTO);
     }
 
@@ -65,7 +68,7 @@ public class AuthUserController {
 
     @ApiOperation("修改用户状态信息")
     @PatchMapping("/authUser")
-    public boolean updateAuthUserStatus(AuthUser authUser, @Validated @RequestBody AuthUserStatusDTO authUserStatusDTO) {
+    public boolean updateAuthUserStatus(@ApiIgnore AuthUser authUser, @Validated @RequestBody AuthUserStatusDTO authUserStatusDTO) {
         return authUserService.updateAuthUserStatus(authUser, authUserStatusDTO);
     }
 

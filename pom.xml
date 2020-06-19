@@ -141,7 +141,7 @@
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-mybatis-starter</artifactId>
+                <artifactId>sparksys-commons-database-starter</artifactId>
                 <version>${sparksys-project.version}</version>
             </dependency>
             <dependency>

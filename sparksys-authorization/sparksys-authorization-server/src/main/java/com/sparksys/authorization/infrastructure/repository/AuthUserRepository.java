@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.authorization.infrastructure.entity.AuthUser;
 import com.sparksys.authorization.infrastructure.mapper.AuthUserMapper;
 import com.sparksys.authorization.domain.repository.IAuthUserRepository;
+import com.sparksys.commons.core.utils.crypto.MD5Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,6 +39,8 @@ public class AuthUserRepository implements IAuthUserRepository {
     @Override
     public boolean saveAuthUser(AuthUser authUser) {
         authUser.setStatus(true);
+        String password = MD5Utils.encrypt(authUser.getPassword());
+        authUser.setPassword(password);
         return authUserMapper.insert(authUser) > 0;
     }
 

@@ -54,7 +54,4 @@ public class AuthUserUpdateDTO {
     @ApiModelProperty(value = "工作描述比如：市长、管理员、局长等等   用于登陆展示")
     private String workDescribe;
 
-    @ApiModelProperty(value = "更新人id")
-    private Long updateUser;
-
 }

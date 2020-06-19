@@ -7,6 +7,7 @@ import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
+import com.sparksys.commons.mybatis.context.BaseContextHandler;
 import com.sparksys.commons.mybatis.entity.Entity;
 import com.sparksys.commons.mybatis.entity.SuperEntity;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,11 @@ public class MetaDataHandler implements MetaObjectHandler {
             if (entity.getCreateTime() == null) {
                 this.setFieldValByName(SuperEntity.CREATE_TIME, LocalDateTime.now(), metaObject);
             }
+            if (entity.getCreateUser() == null || entity.getCreateUser().equals(0)) {
+                idVal = "java.lang.String".equals(metaObject.getGetterType("createUser").getName()) ?
+                        String.valueOf(BaseContextHandler.getUserId()) : BaseContextHandler.getUserId();
+                this.setFieldValByName("createUser", idVal, metaObject);
+            }
         }
 
         if (metaObject.getOriginalObject() instanceof Entity) {
@@ -80,6 +86,19 @@ public class MetaDataHandler implements MetaObjectHandler {
     private void update(MetaObject metaObject, Entity entity) {
         if (entity.getUpdateTime() == null) {
             this.setFieldValByName(Entity.UPDATE_TIME, LocalDateTime.now(), metaObject);
+        }
+
+        if (entity.getUpdateUser() == null || entity.getUpdateUser().equals(0)) {
+            if ("java.lang.String".equals(metaObject.getGetterType(Entity.UPDATE_USER).getName())) {
+                String.valueOf(BaseContextHandler.getUserId());
+            } else {
+                BaseContextHandler.getUserId();
+            }
+            this.setFieldValByName("updateUser", BaseContextHandler.getUserId(), metaObject);
+        }
+
+        if (entity.getUpdateTime() == null) {
+            this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
         }
     }
 

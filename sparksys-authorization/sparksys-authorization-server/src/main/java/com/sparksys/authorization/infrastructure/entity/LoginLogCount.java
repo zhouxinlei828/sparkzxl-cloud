@@ -7,11 +7,11 @@ import lombok.experimental.Accessors;
 
 import java.time.LocalDate;
 
-/*
- * description：登录日志
+/**
+ * description：登录日志统计
  *
  * @author zhouxinlei
- * @date  2020/6/17 0017
+ * @date 2020/6/17 0017
  */
 @Data
 @NoArgsConstructor
@@ -21,26 +21,16 @@ import java.time.LocalDate;
 @ApiModel(value = "LoginLog", description = "登录日志统计")
 public class LoginLogCount {
 
-
-    /**
-     * 登录时间
-     */
     @ApiModelProperty(value = "登录时间")
     private LocalDate loginDate;
 
-    /**
-     * 浏览器名称
-     */
     @ApiModelProperty(value = "浏览器名称")
     private String browser;
 
-    /**
-     * 操作系统
-     */
     @ApiModelProperty(value = "操作系统")
     private String operatingSystem;
 
-
     @ApiModelProperty(value = "数量")
     private Long count;
+
 }
