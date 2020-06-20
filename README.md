@@ -26,6 +26,8 @@ sparksys-cloud
 ├── sparksys-gateway                              -- 网关模块
 ```
 
+### 技术架构
+![分布式系统架构.png](https://oss.sparksys.top/images/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg)
 ### 技术选型
 
 技术 | 说明 | 官网
