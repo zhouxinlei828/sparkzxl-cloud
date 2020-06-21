@@ -1,6 +1,6 @@
 package com.sparksys.file.domain.repository;
 
-import com.sparksys.file.domain.model.FileMaterialDO;
+import com.sparksys.file.domain.entity.FileMaterial;
 
 /*
  * description：
@@ -10,7 +10,7 @@ import com.sparksys.file.domain.model.FileMaterialDO;
  */
 public interface IFileMaterialRepository {
 
-    FileMaterialDO selectByFileName(String fileName);
+    FileMaterial selectByFileName(String fileName);
 
     /**
      * 保存文件上传记录
@@ -18,7 +18,7 @@ public interface IFileMaterialRepository {
      * @param fileMaterialDO
      * @return
      */
-    boolean saveFileMaterialDO(FileMaterialDO fileMaterialDO);
+    boolean saveFileMaterialDO(FileMaterial fileMaterialDO);
 
     /**
      * 删除文件记录
@@ -28,5 +28,5 @@ public interface IFileMaterialRepository {
      */
     boolean deleteFile(String fileName);
 
-    FileMaterialDO selectByFilePath(String filePath);
+    FileMaterial selectByFilePath(String filePath);
 }

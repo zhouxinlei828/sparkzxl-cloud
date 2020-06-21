@@ -3,7 +3,6 @@ package com.sparksys.file.interfaces.controller;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import com.sparksys.file.application.service.IFileService;
 import com.sparksys.file.domain.dto.OssPolicyResult;
-import com.sparksys.file.domain.model.FileMaterialDO;
 import com.sparksys.file.domain.dto.FileDTO;
 import com.sparksys.file.domain.dto.OssCallbackDTO;
 import com.sparksys.file.interfaces.dto.FileMaterialDTO;

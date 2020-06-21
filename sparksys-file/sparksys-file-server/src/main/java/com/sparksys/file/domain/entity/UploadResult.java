@@ -1,11 +1,10 @@
-package com.sparksys.file.domain.model;
+package com.sparksys.file.domain.entity;
 
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.http.MediaType;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * description: 上传结果
@@ -36,8 +35,8 @@ public class UploadResult {
     private Integer height;
 
 
-    public FileMaterialDO builder(UploadResult uploadResult) {
-        FileMaterialDO fileMaterialDO = new FileMaterialDO();
+    public FileMaterial builder(UploadResult uploadResult) {
+        FileMaterial fileMaterialDO = new FileMaterial();
         fileMaterialDO.setFileName(uploadResult.getFilename());
         fileMaterialDO.setSuffix(uploadResult.getSuffix());
         fileMaterialDO.setFilePath(uploadResult.getFilePath());

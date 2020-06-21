@@ -4,7 +4,6 @@ import com.sparksys.commons.core.support.BusinessException;
 import com.sparksys.file.domain.dto.FileDTO;
 import com.sparksys.file.domain.dto.OssCallbackDTO;
 import com.sparksys.file.domain.dto.OssPolicyResult;
-import com.sparksys.file.domain.model.FileMaterialDO;
 import com.sparksys.file.interfaces.dto.FileMaterialDTO;
 import org.springframework.web.multipart.MultipartFile;
 

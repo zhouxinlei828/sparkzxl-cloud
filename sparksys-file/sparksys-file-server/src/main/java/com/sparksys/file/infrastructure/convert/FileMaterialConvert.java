@@ -1,6 +1,6 @@
 package com.sparksys.file.infrastructure.convert;
 
-import com.sparksys.file.domain.model.FileMaterialDO;
+import com.sparksys.file.domain.entity.FileMaterial;
 import com.sparksys.file.interfaces.dto.FileMaterialDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -16,5 +16,5 @@ public interface FileMaterialConvert {
 
     FileMaterialConvert INSTANCE = Mappers.getMapper(FileMaterialConvert.class);
 
-    FileMaterialDTO convertFileMaterialDTO(FileMaterialDO fileMaterialDO);
+    FileMaterialDTO convertFileMaterialDTO(FileMaterial fileMaterial);
 }
