@@ -1,7 +1,7 @@
 package com.sparksys.authorization.infrastructure.mq.producer;
 
 import com.sparksys.authorization.AuthorizationApplication;
-import com.sparksys.commons.mybatis.context.BaseContextHandler;
+import com.sparksys.commons.core.context.BaseContextHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -14,8 +14,6 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * description：

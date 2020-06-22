@@ -7,7 +7,7 @@ import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
-import com.sparksys.commons.mybatis.context.BaseContextHandler;
+import com.sparksys.commons.core.context.BaseContextHandler;
 import com.sparksys.commons.mybatis.entity.Entity;
 import com.sparksys.commons.mybatis.entity.SuperEntity;
 import lombok.extern.slf4j.Slf4j;

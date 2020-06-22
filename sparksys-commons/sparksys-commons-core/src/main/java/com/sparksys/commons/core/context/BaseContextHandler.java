@@ -1,4 +1,4 @@
-package com.sparksys.commons.mybatis.context;
+package com.sparksys.commons.core.context;
 
 import cn.hutool.core.convert.Convert;
 

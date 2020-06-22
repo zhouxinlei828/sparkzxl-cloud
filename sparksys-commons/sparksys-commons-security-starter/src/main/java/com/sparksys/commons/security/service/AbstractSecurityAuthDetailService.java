@@ -2,7 +2,7 @@ package com.sparksys.commons.security.service;
 
 import com.sparksys.commons.core.constant.AuthConstant;
 import com.sparksys.commons.core.entity.AuthUser;
-import com.sparksys.commons.mybatis.context.BaseContextHandler;
+import com.sparksys.commons.core.context.BaseContextHandler;
 import com.sparksys.commons.security.event.model.LoginEvent;
 import com.sparksys.commons.security.event.model.LoginStatusDTO;
 import com.sparksys.commons.web.service.AbstractAuthUserRequest;

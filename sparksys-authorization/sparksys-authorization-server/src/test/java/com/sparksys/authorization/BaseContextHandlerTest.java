@@ -1,6 +1,6 @@
 package com.sparksys.authorization;
 
-import com.sparksys.commons.mybatis.context.BaseContextHandler;
+import com.sparksys.commons.core.context.BaseContextHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
