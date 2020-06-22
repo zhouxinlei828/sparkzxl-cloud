@@ -69,6 +69,7 @@
         <module>sparksys-file</module>
         <module>sparksys-commons</module>
         <module>sparksys-gateway</module>
+        <module>sparksys-oauth</module>
     </modules>
 
     <repositories>

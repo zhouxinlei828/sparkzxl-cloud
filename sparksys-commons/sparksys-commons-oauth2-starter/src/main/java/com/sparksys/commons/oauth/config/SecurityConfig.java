@@ -16,8 +16,11 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
+
+import java.util.Arrays;
 
 /**
  * description: SpringSecurity配置
@@ -68,21 +71,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
-
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity
                 .authorizeRequests();
         SecurityRegistry securityRegistry = securityRegistry();
         for (String url : securityRegistry.getExcludePatterns()) {
             registry.antMatchers(url).permitAll();
         }
-        httpSecurity.csrf()
+        //String[] excludePatterns = securityRegistry.getExcludePatterns().toArray(new String[securityRegistry.getExcludePatterns().size
+        // ()]);
+        /*httpSecurity.csrf()
                 .disable()
-                .requestMatchers()
-                .and()
                 .authorizeRequests()
-                .antMatchers("/oauth/**")
+                .antMatchers(excludePatterns)
+                .permitAll()
+                .anyRequest()
                 .authenticated()
-                .and().formLogin().permitAll();
+                .and()
+                .formLogin()
+                .permitAll();*/
+        registry.and()
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                // 关闭跨站请求防护
+                .and()
+                .csrf()
+                .disable();
     }
 
 

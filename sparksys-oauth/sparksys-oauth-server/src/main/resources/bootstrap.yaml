@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: sparksys-oauth
+  profiles:
+    active: dev #默认为开发环境
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.116.52.58:8086
+        namespace: e026cfa9-330a-4ec8-8544-87bd279e6f23
+      config:
+        server-addr: 47.116.52.58:8086
+        namespace: e026cfa9-330a-4ec8-8544-87bd279e6f23
+        file-extension: yaml
+        prefix: ${spring.application.name}
+        shared-configs:
+          - dataId: redis.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+          - dataId: kafka.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+          - dataId: actuator.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+        enable-remote-sync-config: true
+        refresh-enabled: true
+    sentinel:
+      enabled: true
+      eager: true
+      transport:
+        dashboard: 127.0.0.1:8858
+      filter:
+        url-patterns: /**

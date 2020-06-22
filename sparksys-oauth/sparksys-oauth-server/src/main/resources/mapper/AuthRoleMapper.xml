@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sparksys.oauth.infrastructure.mapper.AuthRoleMapper">
+
+    <delete id="deleteUserRoleRelation" parameterType="long">
+        DELETE FROM c_auth_user_role WHERE role_id = #{roleId}
+    </delete>
+
+    <delete id="deleteRoleAuthorityRelation">
+        DELETE FROM c_auth_role_authority WHERE role_id = #{roleId}
+    </delete>
+
+    <delete id="deleteRoleOrgRelation">
+        DELETE FROM c_auth_role_org WHERE role_id = #{roleId}
+    </delete>
+
+</mapper>
