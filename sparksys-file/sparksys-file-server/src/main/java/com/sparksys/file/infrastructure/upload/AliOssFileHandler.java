@@ -19,7 +19,7 @@ import com.sparksys.commons.core.support.SparkSysExceptionAssert;
 import com.sparksys.file.domain.constant.OssConstant;
 import com.sparksys.file.domain.dto.OssCallbackParam;
 import com.sparksys.file.domain.dto.OssPolicyResult;
-import com.sparksys.file.domain.model.UploadResult;
+import com.sparksys.file.domain.entity.UploadResult;
 import com.sparksys.file.infrastructure.prop.OssProperties;
 
 import java.io.File;

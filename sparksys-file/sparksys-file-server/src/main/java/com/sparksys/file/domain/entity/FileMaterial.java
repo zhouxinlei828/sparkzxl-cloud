@@ -1,4 +1,4 @@
-package com.sparksys.file.domain.model;
+package com.sparksys.file.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -25,7 +25,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @TableName("file_material")
 @ApiModel(value = "文件素材对象", description = "文件素材表")
-public class FileMaterialDO implements Serializable {
+public class FileMaterial implements Serializable {
 
     private static final long serialVersionUID = -6231176716837859634L;
 

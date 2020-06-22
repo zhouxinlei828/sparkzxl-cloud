@@ -6,8 +6,8 @@ import com.sparksys.file.application.service.IFileService;
 import com.sparksys.file.domain.dto.FileDTO;
 import com.sparksys.file.domain.dto.OssCallbackDTO;
 import com.sparksys.file.domain.dto.OssPolicyResult;
-import com.sparksys.file.domain.model.FileMaterialDO;
-import com.sparksys.file.domain.model.UploadResult;
+import com.sparksys.file.domain.entity.FileMaterial;
+import com.sparksys.file.domain.entity.UploadResult;
 import com.sparksys.file.domain.repository.IFileMaterialRepository;
 import com.sparksys.file.infrastructure.convert.FileMaterialConvert;
 import com.sparksys.file.infrastructure.upload.AliOssFileHandler;
@@ -41,17 +41,17 @@ public class FileServiceImpl implements IFileService {
 
     @Override
     public FileMaterialDTO upload(MultipartFile multipartFile) {
-        FileMaterialDO fileMaterialDO;
+        FileMaterial fileMaterial;
         String fileName = FileUtil.mainName(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        fileMaterialDO = fileMaterialRepository.selectByFileName(fileName);
-        if (ObjectUtils.isEmpty(fileMaterialDO)) {
+        fileMaterial = fileMaterialRepository.selectByFileName(fileName);
+        if (ObjectUtils.isEmpty(fileMaterial)) {
             // 上传到阿里云
             UploadResult uploadResult = aliOssFileHandler.upload(multipartFile);
-            fileMaterialDO = uploadResult.builder(uploadResult);
-            boolean result = fileMaterialRepository.saveFileMaterialDO(fileMaterialDO);
+            fileMaterial = uploadResult.builder(uploadResult);
+            boolean result = fileMaterialRepository.saveFileMaterialDO(fileMaterial);
             log.info("文件上传结果 result is {}", result);
         }
-        return FileMaterialConvert.INSTANCE.convertFileMaterialDTO(fileMaterialDO);
+        return FileMaterialConvert.INSTANCE.convertFileMaterialDTO(fileMaterial);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class FileServiceImpl implements IFileService {
 
     @Override
     public FileMaterialDTO callback(OssCallbackDTO ossCallbackDTO) {
-        FileMaterialDO fileMaterialDO;
+        FileMaterial fileMaterialDO;
         fileMaterialDO = fileMaterialRepository.selectByFilePath(ossCallbackDTO.getFilePath());
         if (ObjectUtils.isEmpty(fileMaterialDO)) {
             fileMaterialDO = ossCallbackDTO.builder(ossCallbackDTO);

@@ -1,7 +1,7 @@
 package com.sparksys.file.domain.dto;
 
 import cn.hutool.core.io.FileUtil;
-import com.sparksys.file.domain.model.FileMaterialDO;
+import com.sparksys.file.domain.entity.FileMaterial;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
@@ -27,8 +27,8 @@ public class OssCallbackDTO {
 
     private String filePath;
 
-    public FileMaterialDO builder(OssCallbackDTO ossCallbackDTO) {
-        FileMaterialDO fileMaterialDO = new FileMaterialDO();
+    public FileMaterial builder(OssCallbackDTO ossCallbackDTO) {
+        FileMaterial fileMaterialDO = new FileMaterial();
         String filePath = ossCallbackDTO.getFilePath();
         String extension = FileUtil.extName(ossCallbackDTO.getFilename());
         fileMaterialDO.setFileName(ossCallbackDTO.getFilename());
