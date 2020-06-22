@@ -5,6 +5,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 /**
  * description: 资源服务器配置
@@ -25,6 +26,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .requestMatchers()
                 //配置需要保护的资源路径
-                .antMatchers("/user/**");
+                .antMatchers("/**");
     }
 }
