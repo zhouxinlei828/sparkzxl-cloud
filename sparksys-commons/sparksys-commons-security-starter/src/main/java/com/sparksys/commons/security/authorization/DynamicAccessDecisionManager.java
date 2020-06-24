@@ -11,6 +11,12 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
+/**
+ * description：动态验证当前已认证成功的用户是否有权限访问该资源
+ *
+ * @author： zhouxinlei
+ * @date： 2020-06-24 17:37:08
+ */
 public class DynamicAccessDecisionManager implements AccessDecisionManager {
 
     @Override
