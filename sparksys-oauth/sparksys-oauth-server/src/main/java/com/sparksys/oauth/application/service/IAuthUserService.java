@@ -1,12 +1,12 @@
 package com.sparksys.oauth.application.service;
 
-import com.sparksys.oauth.infrastructure.entity.AuthUserDetail;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
+import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserStatusDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserUpdateDTO;
 import com.sparksys.commons.core.base.api.result.ApiPageResult;
-import com.sparksys.commons.core.entity.AuthUser;
 
 import java.util.Set;
 
@@ -27,7 +27,7 @@ public interface IAuthUserService {
      * @param authUserSaveDTO
      * @return
      */
-    boolean saveAuthUser(AuthUser authUser, AuthUserSaveDTO authUserSaveDTO);
+    boolean saveAuthUser(GlobalAuthUser authUser, AuthUserSaveDTO authUserSaveDTO);
 
     /**
      * 修改用户信息
@@ -36,7 +36,7 @@ public interface IAuthUserService {
      * @param authUserUpdateDTO
      * @return
      */
-    boolean updateAuthUser(AuthUser authUser, AuthUserUpdateDTO authUserUpdateDTO);
+    boolean updateAuthUser(GlobalAuthUser authUser, AuthUserUpdateDTO authUserUpdateDTO);
 
     /**
      * 删除用户信息
@@ -53,7 +53,7 @@ public interface IAuthUserService {
      * @param authUserStatusDTO
      * @return
      */
-    boolean updateAuthUserStatus(AuthUser authUser, AuthUserStatusDTO authUserStatusDTO);
+    boolean updateAuthUserStatus(GlobalAuthUser authUser, AuthUserStatusDTO authUserStatusDTO);
 
     /**
      * 分页查询用户列表

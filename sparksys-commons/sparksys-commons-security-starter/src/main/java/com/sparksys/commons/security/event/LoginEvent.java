@@ -1,7 +1,7 @@
-package com.sparksys.commons.security.event.model;
+package com.sparksys.commons.security.event;
 
 import org.springframework.context.ApplicationEvent;
-
+import com.sparksys.commons.security.entity.LoginStatus;
 /**
  * 登录事件
  *
@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationEvent;
  */
 public class LoginEvent extends ApplicationEvent {
 
-    public LoginEvent(LoginStatusDTO source) {
+    public LoginEvent(LoginStatus source) {
         super(source);
     }
 }

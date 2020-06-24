@@ -3,6 +3,7 @@ package com.sparksys.authorization.domain.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Sets;
 import com.sparksys.commons.core.base.api.result.ApiPageResult;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.utils.collection.ListUtils;
 import com.sparksys.commons.mybatis.page.PageResult;
 import com.sparksys.authorization.application.service.IAuthUserService;
@@ -14,10 +15,9 @@ import com.sparksys.authorization.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserStatusDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserUpdateDTO;
-import com.sparksys.commons.security.entity.AdminUserDetails;
+import com.sparksys.commons.security.entity.AuthUserDetail;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -43,13 +43,13 @@ public class AuthUserServiceImpl implements IAuthUserService {
 
 
     @Override
-    public boolean saveAuthUser(com.sparksys.commons.core.entity.AuthUser authUser, AuthUserSaveDTO authUserSaveDTO) {
+    public boolean saveAuthUser(GlobalAuthUser authUser, AuthUserSaveDTO authUserSaveDTO) {
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserSaveDTO);
         return authUserRepository.saveAuthUser(authUserDO);
     }
 
     @Override
-    public boolean updateAuthUser(com.sparksys.commons.core.entity.AuthUser authUser, AuthUserUpdateDTO authUserUpdateDTO) {
+    public boolean updateAuthUser(GlobalAuthUser authUser, AuthUserUpdateDTO authUserUpdateDTO) {
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserUpdateDTO);
         return authUserRepository.updateAuthUser(authUserDO);
     }
@@ -60,7 +60,7 @@ public class AuthUserServiceImpl implements IAuthUserService {
     }
 
     @Override
-    public boolean updateAuthUserStatus(com.sparksys.commons.core.entity.AuthUser authUser, AuthUserStatusDTO authUserStatusDTO) {
+    public boolean updateAuthUserStatus(GlobalAuthUser authUser, AuthUserStatusDTO authUserStatusDTO) {
         authUserStatusDTO.setUpdateUser(authUser.getId());
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserStatusDTO);
         return authUserRepository.updateAuthUser(authUserDO);
@@ -127,10 +127,13 @@ public class AuthUserServiceImpl implements IAuthUserService {
     }
 
     @Override
-    public AdminUserDetails getAdminUserDetails(String account) {
+    public AuthUserDetail getAuthUserDetail(String account) {
         AuthUser authUser = authUserRepository.selectByAccount(account);
         if (ObjectUtils.isNotEmpty(authUser)) {
-            return new AdminUserDetails(AuthUserConvert.INSTANCE.convertAuthUser(authUser));
+            List<String> userPermissions = authUserRepository.getAuthUserPermissions(authUser.getId());
+            GlobalAuthUser globalAuthUser = AuthUserConvert.INSTANCE.convertGlobalAuthUser(authUser);
+            globalAuthUser.setPermissions(userPermissions);
+            return new AuthUserDetail(globalAuthUser);
         }
         return null;
     }

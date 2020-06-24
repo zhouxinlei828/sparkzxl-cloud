@@ -1,42 +1,35 @@
 package com.sparksys.commons.security.entity;
 
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.utils.collection.ListUtils;
-import com.sparksys.commons.core.entity.AuthUser;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * description: SpringSecurity需要的用户详情
+ * description：security用户
  *
- * @author zhouxinlei
- * @date 2020-05-24 13:37:50
+ * @author： zhouxinlei
+ * @date： 2020-06-24 16:35:11
  */
-@Data
-public class AdminUserDetails implements UserDetails {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -7011302902790709870L;
-    private AuthUser authUser;
+@Getter
+public class AuthUserDetail implements UserDetails {
 
-    public AdminUserDetails(AuthUser authUser) {
+    private final GlobalAuthUser authUser;
+
+    public AuthUserDetail(GlobalAuthUser authUser) {
         this.authUser = authUser;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 返回当前用户的权限
-        if (ListUtils.isEmpty(authUser.getPermissions())) {
-            return null;
-        }
-        return authUser.getPermissions().stream().map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        return AuthorityUtils.createAuthorityList(ListUtils.listToString(authUser.getPermissions()));
     }
 
     @Override
@@ -66,6 +59,6 @@ public class AdminUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return authUser.getStatus().equals(1);
+        return authUser.getStatus();
     }
 }

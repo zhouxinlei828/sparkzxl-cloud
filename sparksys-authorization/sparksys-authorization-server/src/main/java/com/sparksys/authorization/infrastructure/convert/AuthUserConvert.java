@@ -5,6 +5,7 @@ import com.sparksys.authorization.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserStatusDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserUpdateDTO;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -25,7 +26,7 @@ public interface AuthUserConvert {
 
     AuthUser convertAuthUserDO(AuthUserStatusDTO authUserStatusDTO);
 
-    com.sparksys.commons.core.entity.AuthUser convertAuthUser(AuthUser authUser);
+    GlobalAuthUser convertGlobalAuthUser(AuthUser authUser);
 
     AuthUserDTO convertAuthUserDTO(AuthUser authUser);
 

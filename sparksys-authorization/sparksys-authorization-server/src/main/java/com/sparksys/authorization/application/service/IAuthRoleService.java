@@ -5,7 +5,7 @@ import com.sparksys.authorization.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleUpdateDTO;
 import com.sparksys.commons.core.base.api.result.ApiPageResult;
-import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 
 /**
  * description: 角色 服务类
@@ -40,7 +40,7 @@ public interface IAuthRoleService {
      * @param authRoleSaveDTO
      * @return
      */
-    boolean saveAuthRole(AuthUser authUser, AuthRoleSaveDTO authRoleSaveDTO);
+    boolean saveAuthRole(GlobalAuthUser authUser, AuthRoleSaveDTO authRoleSaveDTO);
 
     /**
      * 更新角色信息
@@ -49,7 +49,7 @@ public interface IAuthRoleService {
      * @param authRoleUpdateDTO
      * @return
      */
-    boolean updateAuthRole(AuthUser authUser, AuthRoleUpdateDTO authRoleUpdateDTO);
+    boolean updateAuthRole(GlobalAuthUser authUser, AuthRoleUpdateDTO authRoleUpdateDTO);
 
     /**
      * 删除角色信息

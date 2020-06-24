@@ -2,13 +2,14 @@ package com.sparksys.oauth.domain.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Sets;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.utils.collection.ListUtils;
+import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.domain.constant.AuthorizationConstant;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.convert.AuthUserConvert;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
-import com.sparksys.oauth.infrastructure.entity.AuthUserDetail;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserStatusDTO;
@@ -43,13 +44,13 @@ public class AuthUserServiceImpl implements IAuthUserService {
 
 
     @Override
-    public boolean saveAuthUser(com.sparksys.commons.core.entity.AuthUser authUser, AuthUserSaveDTO authUserSaveDTO) {
+    public boolean saveAuthUser(GlobalAuthUser authUser, AuthUserSaveDTO authUserSaveDTO) {
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserSaveDTO);
         return authUserRepository.saveAuthUser(authUserDO);
     }
 
     @Override
-    public boolean updateAuthUser(com.sparksys.commons.core.entity.AuthUser authUser, AuthUserUpdateDTO authUserUpdateDTO) {
+    public boolean updateAuthUser(GlobalAuthUser authUser, AuthUserUpdateDTO authUserUpdateDTO) {
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserUpdateDTO);
         return authUserRepository.updateAuthUser(authUserDO);
     }
@@ -60,7 +61,7 @@ public class AuthUserServiceImpl implements IAuthUserService {
     }
 
     @Override
-    public boolean updateAuthUserStatus(com.sparksys.commons.core.entity.AuthUser authUser, AuthUserStatusDTO authUserStatusDTO) {
+    public boolean updateAuthUserStatus(GlobalAuthUser authUser, AuthUserStatusDTO authUserStatusDTO) {
         authUserStatusDTO.setUpdateUser(authUser.getId());
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserStatusDTO);
         return authUserRepository.updateAuthUser(authUserDO);
@@ -121,9 +122,10 @@ public class AuthUserServiceImpl implements IAuthUserService {
     public AuthUserDetail getAuthUserDetail(String username) {
         AuthUser authUser = authUserRepository.selectByAccount(username);
         if (ObjectUtils.isNotEmpty(authUser)) {
+            GlobalAuthUser globalAuthUser = AuthUserConvert.INSTANCE.convertGlobalAuthUser(authUser);
             List<String> userPermissions = authUserRepository.getAuthUserPermissions(authUser.getId());
-            return new AuthUserDetail(authUser.getAccount(), authUser.getPassword(),
-                    AuthorityUtils.createAuthorityList(ListUtils.listToString(userPermissions)));
+            globalAuthUser.setPermissions(userPermissions);
+            return new AuthUserDetail(globalAuthUser);
         }
         return null;
     }

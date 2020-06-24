@@ -1,6 +1,6 @@
 package com.sparksys.oauth.application.service;
 
-import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.redis.cache.CacheProviderService;
 import com.sparksys.commons.web.service.AbstractAuthUserRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class AuthUserSecurityService extends AbstractAuthUserRequest {
 
 
     @Override
-    protected AuthUser getCache(String key) {
+    protected GlobalAuthUser getCache(String key) {
         return cacheProviderService.get(key);
     }
 }

@@ -1,7 +1,7 @@
 package com.sparksys.commons.security.component;
 
-import com.sparksys.commons.core.entity.AuthUser;
-import com.sparksys.commons.security.entity.AdminUserDetails;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
+import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.commons.security.registry.SecurityRegistry;
 import com.sparksys.commons.security.service.AbstractSecurityAuthDetailService;
 import com.sparksys.commons.core.utils.jwt.JwtTokenUtil;
@@ -45,12 +45,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 if (StringUtils.isNotEmpty(accessToken)) {
                     String username = JwtTokenUtil.getUserNameFromToken(accessToken);
                     log.info("checking username:{}", username);
-                    AuthUser authUser = abstractSecurityAuthDetailService.getUserInfo(accessToken);
+                    GlobalAuthUser authUser = abstractSecurityAuthDetailService.getUserInfo(accessToken);
                     if (StringUtils.equals(authUser.getAccount(), username)) {
-                        AdminUserDetails adminUserDetails = abstractSecurityAuthDetailService.getAdminUserDetail(username);
-                        if (JwtTokenUtil.validateToken(accessToken, adminUserDetails.getUsername())) {
+                        AuthUserDetail authUserDetail = abstractSecurityAuthDetailService.getAuthUserDetail(username);
+                        if (JwtTokenUtil.validateToken(accessToken, authUserDetail.getUsername())) {
                             UsernamePasswordAuthenticationToken authentication =
-                                    new UsernamePasswordAuthenticationToken(adminUserDetails, null, adminUserDetails.getAuthorities());
+                                    new UsernamePasswordAuthenticationToken(authUserDetail, null, authUserDetail.getAuthorities());
                             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                             log.info("authenticated user:{}", username);
                             SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -9,7 +9,7 @@ import com.sparksys.authorization.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleUpdateDTO;
 import com.sparksys.commons.core.base.api.result.ApiPageResult;
-import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.mybatis.page.PageResult;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +41,7 @@ public class AuthRoleServiceImpl implements IAuthRoleService {
     }
 
     @Override
-    public boolean saveAuthRole(AuthUser authUser, AuthRoleSaveDTO authRoleSaveDTO) {
+    public boolean saveAuthRole(GlobalAuthUser authUser, AuthRoleSaveDTO authRoleSaveDTO) {
         AuthRole authRole = AuthRoleConvert.INSTANCE.convertAuthRoleDO(authRoleSaveDTO);
         authRole.setCreateUser(authUser.getId());
         authRole.setUpdateUser(authUser.getId());
@@ -49,7 +49,7 @@ public class AuthRoleServiceImpl implements IAuthRoleService {
     }
 
     @Override
-    public boolean updateAuthRole(AuthUser authUser, AuthRoleUpdateDTO authRoleUpdateDTO) {
+    public boolean updateAuthRole(GlobalAuthUser authUser, AuthRoleUpdateDTO authRoleUpdateDTO) {
         AuthRole authRole = AuthRoleConvert.INSTANCE.convertAuthRoleDO(authRoleUpdateDTO);
         authRole.setUpdateUser(authUser.getId());
         return authRoleRepository.updateAuthRole(authRole);

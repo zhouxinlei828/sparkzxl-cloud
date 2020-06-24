@@ -1,10 +1,8 @@
 package com.sparksys.commons.web.component;
 
-import com.sparksys.commons.core.constant.CoreConstant;
-import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.web.service.AbstractAuthUserRequest;
 import com.sparksys.commons.web.utils.HttpResponseUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -30,7 +28,7 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         Class<?> clazz = parameter.getParameterType();
-        return clazz == AuthUser.class;
+        return clazz == GlobalAuthUser.class;
     }
 
     @Override

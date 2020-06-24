@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Data
 @ApiModel(description = "登录用户实体类")
-public class AuthUser implements Serializable {
+public class GlobalAuthUser implements Serializable {
 
     private static final long serialVersionUID = -6592610263703423919L;
 

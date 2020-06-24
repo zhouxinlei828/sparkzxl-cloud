@@ -1,7 +1,7 @@
 package com.sparksys.commons.web.service;
 
 import com.sparksys.commons.core.constant.AuthConstant;
-import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,10 +23,10 @@ public abstract class AbstractAuthUserRequest {
      * @author zhouxinlei
      * @date 2020-01-03 15:47:42
      */
-    public AuthUser getUserInfo(String accessToken) {
+    public GlobalAuthUser getUserInfo(String accessToken) {
         log.info("accessToken is {}", accessToken);
         String cacheKey = AuthConstant.AUTH_USER.concat(accessToken);
-        AuthUser authUser = getCache(cacheKey);
+        GlobalAuthUser authUser = getCache(cacheKey);
         ResponseResultStatus.UN_AUTHORIZED.assertNotNull(authUser);
         return authUser;
     }
@@ -40,6 +40,6 @@ public abstract class AbstractAuthUserRequest {
      * @author zhouxinlei
      * @date 2020-05-24 10:09:32
      */
-    protected abstract AuthUser getCache(String key);
+    protected abstract GlobalAuthUser getCache(String key);
 
 }

@@ -1,10 +1,11 @@
 package com.sparksys.commons.security.service;
 
 import com.sparksys.commons.core.constant.AuthConstant;
-import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.context.BaseContextHandler;
-import com.sparksys.commons.security.event.model.LoginEvent;
-import com.sparksys.commons.security.event.model.LoginStatusDTO;
+import com.sparksys.commons.security.entity.AuthUserDetail;
+import com.sparksys.commons.security.event.LoginEvent;
+import com.sparksys.commons.security.entity.LoginStatus;
 import com.sparksys.commons.web.service.AbstractAuthUserRequest;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.web.component.SpringContextUtils;
@@ -13,7 +14,6 @@ import com.sparksys.commons.core.support.BusinessException;
 import com.sparksys.commons.core.utils.crypto.MD5Utils;
 import com.sparksys.commons.redis.cache.CacheProviderService;
 import com.sparksys.commons.redis.cache.RedisCacheProviderImpl;
-import com.sparksys.commons.security.entity.AdminUserDetails;
 import com.sparksys.commons.security.entity.AuthToken;
 import com.sparksys.commons.security.request.AuthRequest;
 import com.sparksys.commons.core.utils.jwt.JwtTokenUtil;
@@ -44,9 +44,9 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
         String account = authRequest.getAccount();
         String password = authRequest.getPassword();
         String token;
-        AdminUserDetails adminUserDetails = getAdminUserDetail(account);
+        AuthUserDetail adminUserDetails = getAuthUserDetail(account);
         ResponseResultStatus.ACCOUNT_EMPTY.assertNotNull(adminUserDetails);
-        AuthUser authUser = adminUserDetails.getAuthUser();
+        GlobalAuthUser authUser = adminUserDetails.getAuthUser();
         //校验密码输入是否正确
         checkPasswordError(authRequest, password, authUser);
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(adminUserDetails,
@@ -60,16 +60,16 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
         authToken.setAuthUser(authUser);
         //设置accessToken缓存
         accessToken(authToken, authUser);
-        SpringContextUtils.publishEvent(new LoginEvent(LoginStatusDTO.success(authUser.getId())));
+        SpringContextUtils.publishEvent(new LoginEvent(LoginStatus.success(authUser.getId())));
         return authToken;
     }
 
-    private void checkPasswordError(AuthRequest authRequest, String password, AuthUser authUser) {
+    private void checkPasswordError(AuthRequest authRequest, String password, GlobalAuthUser authUser) {
         String encryptPassword = MD5Utils.encrypt(authRequest.getPassword());
         log.info("密码加密 = {}，数据库密码={}", password, encryptPassword);
         //数据库密码比对
         if (!StringUtils.equals(encryptPassword, authUser.getPassword())) {
-            SpringContextUtils.publishEvent(new LoginEvent(LoginStatusDTO.pwdError(authUser.getId(),
+            SpringContextUtils.publishEvent(new LoginEvent(LoginStatus.pwdError(authUser.getId(),
                     ResponseResultStatus.PASSWORD_ERROR.getMessage())));
             ResponseResultStatus.PASSWORD_ERROR.newException(password);
         }
@@ -82,7 +82,7 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
      * @param authUser  认证用户
      * @return void
      */
-    private void accessToken(AuthToken authToken, AuthUser authUser) {
+    private void accessToken(AuthToken authToken, GlobalAuthUser authUser) {
         CacheProviderService cacheProviderService = SpringContextUtils.getBean(RedisCacheProviderImpl.class);
         String token = authToken.getToken();
         BaseContextHandler.setAccount(authUser.getAccount());
@@ -99,7 +99,7 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
      * @return AdminUserDetails
      * @throws BusinessException 异常
      */
-    public abstract  AdminUserDetails getAdminUserDetail(String account);
+    public abstract AuthUserDetail getAuthUserDetail(String account);
 
     /**
      * 获取用户权限

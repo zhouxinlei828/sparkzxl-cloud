@@ -1,10 +1,10 @@
 package com.sparksys.authorization.domain.service;
 
 import com.sparksys.authorization.application.service.IAuthUserService;
-import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.redis.cache.CacheProviderService;
-import com.sparksys.commons.security.entity.AdminUserDetails;
+import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.commons.security.service.AbstractSecurityAuthDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,13 +33,13 @@ public class AuthUserDetailsService extends AbstractSecurityAuthDetailService {
 
 
     @Override
-    protected AuthUser getCache(String key) {
+    protected GlobalAuthUser getCache(String key) {
         return cacheProviderService.get(key);
     }
 
     @Override
-    public AdminUserDetails getAdminUserDetail(String account) {
-        AdminUserDetails authUserDetail = authUserService.getAdminUserDetails(account);
+    public AuthUserDetail getAuthUserDetail(String account) {
+        AuthUserDetail authUserDetail = authUserService.getAuthUserDetail(account);
         ResponseResultStatus.ACCOUNT_EMPTY.assertNotNull(authUserDetail);
         return authUserDetail;
     }

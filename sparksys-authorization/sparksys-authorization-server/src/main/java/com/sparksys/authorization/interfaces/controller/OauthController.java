@@ -1,14 +1,12 @@
 package com.sparksys.authorization.interfaces.controller;
 
 import com.sparksys.authorization.domain.service.AuthUserDetailsService;
-import com.sparksys.commons.core.constant.CoreConstant;
-import com.sparksys.commons.core.entity.AuthUser;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.security.entity.AuthToken;
 import com.sparksys.commons.security.request.AuthRequest;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.sparksys.commons.web.utils.HttpResponseUtils;
@@ -40,7 +38,7 @@ public class OauthController {
 
     @ApiOperation("获取登录用户信息")
     @GetMapping("/getAuthUserInfo")
-    public AuthUser getUserInfo(HttpServletRequest httpServletRequest) {
+    public GlobalAuthUser getUserInfo(HttpServletRequest httpServletRequest) {
         String accessToken = HttpResponseUtils.getAuthHeader(httpServletRequest);
         return authUserDetailsService.getUserInfo(accessToken);
     }

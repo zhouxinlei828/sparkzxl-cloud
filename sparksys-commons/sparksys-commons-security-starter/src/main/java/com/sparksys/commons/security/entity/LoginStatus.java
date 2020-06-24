@@ -1,10 +1,9 @@
-package com.sparksys.commons.security.event.model;
+package com.sparksys.commons.security.entity;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.sparksys.commons.core.entity.AddressInfo;
 import com.sparksys.commons.core.utils.AddressUtil;
-import com.sparksys.commons.security.entity.AuthToken;
 import com.sparksys.commons.web.utils.HttpUtils;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 /**
- * 登录状态DTO
+ * 登录态
  *
  * @author zuihou
  * @date 2020年03月18日17:25:44
@@ -27,7 +26,7 @@ import java.io.Serializable;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @Builder
-public class LoginStatusDTO implements Serializable {
+public class LoginStatus implements Serializable {
     private static final long serialVersionUID = -3124612657759050173L;
     /***
      * 用户id
@@ -60,44 +59,44 @@ public class LoginStatusDTO implements Serializable {
      */
     private String location;
 
-    public static LoginStatusDTO success(Long id) {
-        LoginStatusDTO loginStatus = LoginStatusDTO.builder()
+    public static LoginStatus success(Long id) {
+        LoginStatus loginStatus = LoginStatus.builder()
                 .id(id)
                 .type(Type.SUCCESS).description("登录成功")
                 .build().setInfo();
         return loginStatus;
     }
 
-    public static LoginStatusDTO success(String account) {
-        LoginStatusDTO loginStatus = LoginStatusDTO.builder()
+    public static LoginStatus success(String account) {
+        LoginStatus loginStatus = LoginStatus.builder()
                 .account(account)
                 .type(Type.SUCCESS).description("登录成功")
                 .build().setInfo();
         return loginStatus;
     }
 
-    public static LoginStatusDTO fail(Long id, String description) {
-        return LoginStatusDTO.builder()
+    public static LoginStatus fail(Long id, String description) {
+        return LoginStatus.builder()
                 .id(id)
                 .type(Type.FAIL).description(description)
                 .build().setInfo();
     }
 
-    public static LoginStatusDTO fail(String account, String description) {
-        return LoginStatusDTO.builder()
+    public static LoginStatus fail(String account, String description) {
+        return LoginStatus.builder()
                 .account(account)
                 .type(Type.FAIL).description(description)
                 .build().setInfo();
     }
 
-    public static LoginStatusDTO pwdError(Long id, String description) {
-        return LoginStatusDTO.builder()
+    public static LoginStatus pwdError(Long id, String description) {
+        return LoginStatus.builder()
                 .id(id)
                 .type(Type.PWD_ERROR).description(description)
                 .build().setInfo();
     }
 
-    private LoginStatusDTO setInfo() {
+    private LoginStatus setInfo() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {
             return this;

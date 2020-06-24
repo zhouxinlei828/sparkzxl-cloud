@@ -2,8 +2,8 @@ package com.sparksys.oauth.domain.service;
 
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.oauth.enums.GrantTypeEnum;
-import com.sparksys.commons.security.event.model.LoginEvent;
-import com.sparksys.commons.security.event.model.LoginStatusDTO;
+import com.sparksys.commons.security.event.LoginEvent;
+import com.sparksys.commons.security.entity.LoginStatus;
 import com.sparksys.commons.web.component.SpringContextUtils;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.application.service.IOauthService;
@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.stereotype.Service;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import springfox.documentation.service.GrantType;
 
 import java.security.Principal;
 import java.util.Map;
@@ -45,13 +44,13 @@ public class OauthServiceImpl implements IOauthService {
             OAuth2AccessToken oAuth2AccessToken = oAuth2AccessTokenResponseEntity.getBody();
             if (GrantTypeEnum.PASSWORD.getType().equals(grantType)) {
                 String username = parameters.get("username");
-                SpringContextUtils.publishEvent(new LoginEvent(LoginStatusDTO.success(username)));
+                SpringContextUtils.publishEvent(new LoginEvent(LoginStatus.success(username)));
             }
             return oAuth2AccessToken;
         }
         if (GrantTypeEnum.PASSWORD.getType().equals(grantType)) {
             String username = parameters.get("username");
-            SpringContextUtils.publishEvent(new LoginEvent(LoginStatusDTO.fail(username, "授权登录失败")));
+            SpringContextUtils.publishEvent(new LoginEvent(LoginStatus.fail(username, "授权登录失败")));
         }
         ResponseResultStatus.AUTHORIZED_FAIL.newException(oAuth2AccessTokenResponseEntity);
         return null;
