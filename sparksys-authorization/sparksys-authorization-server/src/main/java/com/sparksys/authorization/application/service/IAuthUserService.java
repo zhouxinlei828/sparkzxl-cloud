@@ -1,12 +1,15 @@
 package com.sparksys.authorization.application.service;
 
+import com.sparksys.commons.core.base.api.result.ApiPageResult;
+import com.sparksys.commons.core.entity.AuthUser;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserStatusDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserUpdateDTO;
-import com.sparksys.commons.core.base.api.result.ApiPageResult;
-import com.sparksys.commons.core.entity.AuthUser;
 import com.sparksys.commons.security.entity.AdminUserDetails;
+
+import java.util.Set;
+
 
 /**
  * description: 用户查询 服务类
@@ -16,13 +19,6 @@ import com.sparksys.commons.security.entity.AdminUserDetails;
  */
 public interface IAuthUserService {
 
-    /**
-     * 获取授权认证用户
-     *
-     * @param account 用户名
-     * @return
-     */
-    AdminUserDetails getAdminUserDetails(String account);
 
     /**
      * 保存用户信息
@@ -77,7 +73,51 @@ public interface IAuthUserService {
      */
     AuthUserDTO getAuthUser(Long id);
 
+    /**
+     * 重置密码错误次数
+     *
+     * @param id
+     * @return
+     */
     boolean resetPassErrorNum(Long id);
 
-    boolean incrPasswordErrorNumById(Long id);
+    /**
+     * 重置密码错误次数
+     *
+     * @param account
+     * @return
+     */
+    boolean resetPassErrorNum(String account);
+
+    /**
+     * 增加密码错误次数
+     *
+     * @param id
+     * @return boolean
+     */
+    boolean incrPasswordErrorNum(Long id);
+
+    /**
+     * 增加密码错误次数
+     *
+     * @param account
+     * @return boolean
+     */
+    boolean incrPasswordErrorNum(String account);
+
+    /**
+     * 获取用户权限集
+     *
+     * @param id
+     * @return Set<String>
+     */
+    Set<String> getAuthUserPermissions(Long id);
+
+    /**
+     * 获取授权用户信息
+     *
+     * @param account
+     * @return
+     */
+    AdminUserDetails getAdminUserDetails(String account);
 }

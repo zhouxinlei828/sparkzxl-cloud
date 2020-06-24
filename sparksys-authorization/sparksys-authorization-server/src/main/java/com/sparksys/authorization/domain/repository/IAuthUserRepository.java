@@ -3,6 +3,8 @@ package com.sparksys.authorization.domain.repository;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.authorization.infrastructure.entity.AuthUser;
 
+import java.util.List;
+
 /**
  * description: 用户仓储层
  *
@@ -68,4 +70,8 @@ public interface IAuthUserRepository {
      * @return boolean
      */
     boolean incrPasswordErrorNumById(Long id);
+
+    boolean incrPasswordErrorNumByAccount(String account);
+
+    List<String> getAuthUserPermissions(Long id);
 }

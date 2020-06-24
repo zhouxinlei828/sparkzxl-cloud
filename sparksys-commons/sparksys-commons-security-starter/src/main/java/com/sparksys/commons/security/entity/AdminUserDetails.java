@@ -2,6 +2,7 @@ package com.sparksys.commons.security.entity;
 
 import com.sparksys.commons.core.utils.collection.ListUtils;
 import com.sparksys.commons.core.entity.AuthUser;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +24,10 @@ public class AdminUserDetails implements UserDetails {
      */
     private static final long serialVersionUID = -7011302902790709870L;
     private AuthUser authUser;
+
+    public AdminUserDetails(AuthUser authUser) {
+        this.authUser = authUser;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

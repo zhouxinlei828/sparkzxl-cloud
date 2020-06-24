@@ -8,6 +8,9 @@ import com.sparksys.oauth.interfaces.dto.user.AuthUserUpdateDTO;
 import com.sparksys.commons.core.base.api.result.ApiPageResult;
 import com.sparksys.commons.core.entity.AuthUser;
 
+import java.util.Set;
+
+
 /**
  * description: 用户查询 服务类
  *
@@ -70,9 +73,51 @@ public interface IAuthUserService {
      */
     AuthUserDTO getAuthUser(Long id);
 
+    /**
+     * 重置密码错误次数
+     *
+     * @param id
+     * @return
+     */
     boolean resetPassErrorNum(Long id);
 
-    boolean incrPasswordErrorNumById(Long id);
+    /**
+     * 重置密码错误次数
+     *
+     * @param account
+     * @return
+     */
+    boolean resetPassErrorNum(String account);
 
+    /**
+     * 增加密码错误次数
+     *
+     * @param id
+     * @return boolean
+     */
+    boolean incrPasswordErrorNum(Long id);
+
+    /**
+     * 增加密码错误次数
+     *
+     * @param account
+     * @return boolean
+     */
+    boolean incrPasswordErrorNum(String account);
+
+    /**
+     * 获取用户信息
+     *
+     * @param username
+     * @return AuthUserDetail
+     */
     AuthUserDetail getAuthUserDetail(String username);
+
+    /**
+     * 获取用户权限集
+     *
+     * @param id
+     * @return Set<String>
+     */
+    Set<String> getAuthUserPermissions(Long id);
 }

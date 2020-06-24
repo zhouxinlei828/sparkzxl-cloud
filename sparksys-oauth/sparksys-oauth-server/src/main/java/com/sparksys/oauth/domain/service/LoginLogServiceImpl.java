@@ -12,6 +12,7 @@ import com.sparksys.commons.redis.constant.CacheKey;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
+import eu.bitwalker.useragentutils.Version;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -65,7 +66,7 @@ public class LoginLogServiceImpl implements ILoginLogService {
     }
 
     @Override
-    public boolean save(Long userId, String account, String ua, String ip, String location, String description) {
+    public void save(Long userId, String account, String ua, String ip, String location, String description) {
         AuthUser authUser;
         if (userId != null) {
             authUser = authUserRepository.selectById(userId);
@@ -74,6 +75,8 @@ public class LoginLogServiceImpl implements ILoginLogService {
         }
         UserAgent userAgent = UserAgent.parseUserAgentString(ua);
         Browser browser = userAgent.getBrowser();
+        Version browserVersion = userAgent.getBrowserVersion();
+        String version = browserVersion != null ? browserVersion.getVersion() : null;
         OperatingSystem operatingSystem = userAgent.getOperatingSystem();
         LoginLog loginLog = LoginLog.builder()
                 .location(location)
@@ -81,7 +84,7 @@ public class LoginLogServiceImpl implements ILoginLogService {
                 .description(description)
                 .requestIp(ip).ua(ua)
                 .browser(simplifyBrowser(browser.getName()))
-                .browserVersion(userAgent.getBrowserVersion().getVersion())
+                .browserVersion(version)
                 .operatingSystem(simplifyOperatingSystem(operatingSystem.getName()))
                 .build();
         if (authUser != null) {
@@ -99,7 +102,6 @@ public class LoginLogServiceImpl implements ILoginLogService {
         if (authUser != null) {
             cacheProviderService.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TEN_DAY, tenDays, account));
         }
-        return true;
     }
 
     @Override

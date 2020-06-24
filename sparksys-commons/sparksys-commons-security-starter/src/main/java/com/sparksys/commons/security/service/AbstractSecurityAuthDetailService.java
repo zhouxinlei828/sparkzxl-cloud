@@ -60,8 +60,7 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
         authToken.setAuthUser(authUser);
         //设置accessToken缓存
         accessToken(authToken, authUser);
-        SpringContextUtils.publishEvent(new LoginEvent(LoginStatusDTO.success(authUser.getId(),
-                authToken)));
+        SpringContextUtils.publishEvent(new LoginEvent(LoginStatusDTO.success(authUser.getId())));
         return authToken;
     }
 

@@ -23,4 +23,14 @@ public interface AuthUserMapper extends BaseMapper<AuthUser> {
     @Update("update c_auth_user set password_error_num = password_error_num + 1, password_error_last_time = SYSDATE() "
             + " where id = #{id}")
     int incrPasswordErrorNumById(Long id);
+
+    /**
+     * 密码输错自增
+     *
+     * @param account
+     * @return
+     */
+    @Update("update c_auth_user set password_error_num = password_error_num + 1, password_error_last_time = SYSDATE() "
+            + " where account = #{account}")
+    int incrPasswordErrorNumByAccount(String account);
 }

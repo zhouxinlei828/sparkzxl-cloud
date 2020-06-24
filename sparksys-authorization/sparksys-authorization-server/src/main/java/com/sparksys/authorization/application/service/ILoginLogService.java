@@ -24,7 +24,7 @@ public interface ILoginLogService {
      * @param location    客户端地址
      * @param description 登陆描述消息
      */
-    boolean save(Long userId, String account, String ua, String ip, String location, String description);
+    void save(Long userId, String account, String ua, String ip, String location, String description);
 
     /**
      * 获取系统总访问次数

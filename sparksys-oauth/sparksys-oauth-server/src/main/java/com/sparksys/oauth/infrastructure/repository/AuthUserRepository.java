@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * description：用户仓储层实现类
  *
@@ -65,5 +67,15 @@ public class AuthUserRepository implements IAuthUserRepository {
     @Override
     public boolean incrPasswordErrorNumById(Long id) {
         return authUserMapper.incrPasswordErrorNumById(id) == 1;
+    }
+
+    @Override
+    public List<String> getAuthUserPermissions(Long id) {
+        return authUserMapper.getAuthUserPermissions(id);
+    }
+
+    @Override
+    public boolean incrPasswordErrorNumByAccount(String account) {
+        return authUserMapper.incrPasswordErrorNumByAccount(account) == 1;
     }
 }

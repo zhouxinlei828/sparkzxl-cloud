@@ -1,23 +1,28 @@
 package com.sparksys.authorization.domain.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.collect.Sets;
+import com.sparksys.commons.core.base.api.result.ApiPageResult;
+import com.sparksys.commons.core.utils.collection.ListUtils;
+import com.sparksys.commons.mybatis.page.PageResult;
 import com.sparksys.authorization.application.service.IAuthUserService;
 import com.sparksys.authorization.domain.constant.AuthorizationConstant;
+import com.sparksys.authorization.domain.repository.IAuthUserRepository;
 import com.sparksys.authorization.infrastructure.convert.AuthUserConvert;
 import com.sparksys.authorization.infrastructure.entity.AuthUser;
-import com.sparksys.authorization.domain.repository.IAuthUserRepository;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserStatusDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserUpdateDTO;
-import com.sparksys.commons.core.base.api.result.ApiPageResult;
-import com.sparksys.commons.mybatis.page.PageResult;
 import com.sparksys.commons.security.entity.AdminUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -36,16 +41,6 @@ public class AuthUserServiceImpl implements IAuthUserService {
         this.authUserRepository = authUserRepository;
     }
 
-    @Override
-    public AdminUserDetails getAdminUserDetails(String account) {
-        AuthUser authUser = authUserRepository.selectByAccount(account);
-        if (ObjectUtils.isNotEmpty(authUser)) {
-            AdminUserDetails adminUserDetails = new AdminUserDetails();
-            adminUserDetails.setAuthUser(AuthUserConvert.INSTANCE.convertAuthUser(authUser));
-            return adminUserDetails;
-        }
-        return null;
-    }
 
     @Override
     public boolean saveAuthUser(com.sparksys.commons.core.entity.AuthUser authUser, AuthUserSaveDTO authUserSaveDTO) {
@@ -104,7 +99,39 @@ public class AuthUserServiceImpl implements IAuthUserService {
     }
 
     @Override
-    public boolean incrPasswordErrorNumById(Long id) {
+    public boolean resetPassErrorNum(String account) {
+        AuthUser authUser = new AuthUser();
+        authUser.setAccount(account);
+        authUser.setPasswordErrorNum(0);
+        authUser.setPasswordErrorLastTime(null);
+        return authUserRepository.updateAuthUser(authUser);
+    }
+
+    @Override
+    public boolean incrPasswordErrorNum(Long id) {
         return authUserRepository.incrPasswordErrorNumById(id);
+    }
+
+    @Override
+    public boolean incrPasswordErrorNum(String account) {
+        return authUserRepository.incrPasswordErrorNumByAccount(account);
+    }
+
+    @Override
+    public Set<String> getAuthUserPermissions(Long id) {
+        List<String> userPermissions = authUserRepository.getAuthUserPermissions(id);
+        if (ListUtils.isNotEmpty(userPermissions)) {
+            return new HashSet<>(userPermissions);
+        }
+        return Sets.newHashSet();
+    }
+
+    @Override
+    public AdminUserDetails getAdminUserDetails(String account) {
+        AuthUser authUser = authUserRepository.selectByAccount(account);
+        if (ObjectUtils.isNotEmpty(authUser)) {
+            return new AdminUserDetails(AuthUserConvert.INSTANCE.convertAuthUser(authUser));
+        }
+        return null;
     }
 }

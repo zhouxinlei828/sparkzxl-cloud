@@ -148,6 +148,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ApiResult defaultException(Exception e) {
         handleResponseResult();
+        e.printStackTrace();
         log.error(e.getMessage());
         return ApiResult.apiResult(ResponseResultStatus.INTERNAL_SERVER_ERROR);
     }

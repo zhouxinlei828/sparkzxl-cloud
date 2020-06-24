@@ -1,8 +1,8 @@
 package com.sparksys.commons.oauth.config;
 
+import com.sparksys.commons.oauth.enums.GrantTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,8 +14,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +40,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private UserDetailsService userDetailsService;
 
     @Autowired
-    @Qualifier("jwtTokenStore")
-    private TokenStore jwtTokenStore;
+    private JwtTokenStore jwtTokenStore;
 
     @Autowired
     private JwtAccessTokenConverter jwtAccessTokenConverter;
@@ -85,7 +84,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 //配置申请的权限范围
                 .scopes("all")
                 //配置grant_type，表示授权类型
-                .authorizedGrantTypes("authorization_code", "password", "refresh_token");
+                .authorizedGrantTypes(GrantTypeEnum.AUTHORIZATION_CODE.getType(),
+                        GrantTypeEnum.PASSWORD.getType(),
+                        GrantTypeEnum.REFRESH_TOKEN.getType());
     }
 
     @Override

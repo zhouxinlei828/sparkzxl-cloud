@@ -60,16 +60,19 @@ public class LoginStatusDTO implements Serializable {
      */
     private String location;
 
-    private AuthToken userToken;
-
-    public static LoginStatusDTO success(Long id, AuthToken userToken) {
+    public static LoginStatusDTO success(Long id) {
         LoginStatusDTO loginStatus = LoginStatusDTO.builder()
                 .id(id)
                 .type(Type.SUCCESS).description("登录成功")
                 .build().setInfo();
-        userToken.setLoginIp(loginStatus.getIp());
-        userToken.setLocation(loginStatus.getLocation());
-        loginStatus.setUserToken(userToken);
+        return loginStatus;
+    }
+
+    public static LoginStatusDTO success(String account) {
+        LoginStatusDTO loginStatus = LoginStatusDTO.builder()
+                .account(account)
+                .type(Type.SUCCESS).description("登录成功")
+                .build().setInfo();
         return loginStatus;
     }
 

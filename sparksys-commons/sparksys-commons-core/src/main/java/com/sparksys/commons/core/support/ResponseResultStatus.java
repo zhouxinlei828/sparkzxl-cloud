@@ -29,6 +29,8 @@ public enum ResponseResultStatus implements BusinessEnumSysAssert {
      */
     UN_AUTHORIZED(HttpStatus.HTTP_UNAUTHORIZED, "暂未登录或token已过期"),
 
+    AUTHORIZED_FAIL(HttpStatus.HTTP_UNAUTHORIZED, "授权失败，请重新尝试"),
+
     USERNAME_EMPTY(HttpStatus.HTTP_UNAUTHORIZED, "用户名不能为空"),
 
     PASSWORD_EMPTY(HttpStatus.HTTP_UNAUTHORIZED, "密码不能为空"),
@@ -36,6 +38,8 @@ public enum ResponseResultStatus implements BusinessEnumSysAssert {
     PASSWORD_ERROR(HttpStatus.HTTP_UNAUTHORIZED, "密码不正确"),
 
     ACCOUNT_EMPTY(HttpStatus.HTTP_UNAUTHORIZED, "账户不存在"),
+
+    UN_PERMISSION(HttpStatus.HTTP_UNAUTHORIZED, "抱歉，您没有访问权限"),
     /**
      * 404 没找到请求
      */

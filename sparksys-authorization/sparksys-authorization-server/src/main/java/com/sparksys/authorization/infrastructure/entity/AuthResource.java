@@ -41,4 +41,8 @@ public class AuthResource extends Entity<Long> {
     @TableField("describe_")
     private String describe;
 
+    @ApiModelProperty(value = "请求路径")
+    @TableField("request_url")
+    private String requestUrl;
+
 }

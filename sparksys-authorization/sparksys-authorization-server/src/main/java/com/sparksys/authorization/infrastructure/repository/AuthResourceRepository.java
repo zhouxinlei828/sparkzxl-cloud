@@ -2,7 +2,11 @@ package com.sparksys.authorization.infrastructure.repository;
 
 
 import com.sparksys.authorization.domain.repository.IAuthResourceRepository;
+import com.sparksys.authorization.infrastructure.entity.AuthResource;
+import com.sparksys.authorization.infrastructure.mapper.AuthResourceMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * description: 资源 仓储层实现类
@@ -13,4 +17,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AuthResourceRepository implements IAuthResourceRepository {
 
+    private final AuthResourceMapper authResourceMapper;
+
+    public AuthResourceRepository(AuthResourceMapper authResourceMapper) {
+        this.authResourceMapper = authResourceMapper;
+    }
+
+    @Override
+    public List<AuthResource> authResourceList() {
+        return authResourceMapper.selectList(null);
+    }
 }

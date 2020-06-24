@@ -1,9 +1,9 @@
-package com.sparksys.authorization.infrastructure.config;
+package com.sparksys.oauth.infrastructure.config;
 
-import com.sparksys.authorization.domain.service.AuthUserDetailsService;
 import com.sparksys.commons.security.config.AbstractSecurityConfig;
 import com.sparksys.commons.security.props.IgnoreUrlsProperties;
 import com.sparksys.commons.security.registry.SecurityRegistry;
+import com.sparksys.oauth.application.service.IAuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
@@ -13,24 +13,25 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
- * description：SecurityConfig配置
+ * description: SpringSecurity配置
  *
  * @author zhouxinlei
- * @date 2020/6/6 10:28 上午
+ * @date 2020-05-24 13:24:51
  */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends AbstractSecurityConfig {
 
+
     @Autowired
-    private AuthUserDetailsService authUserDetailsService;
+    private IAuthUserService authUserService;
 
     @Override
     @Bean
     public UserDetailsService userDetailsService() {
         //获取登录用户信息
-        return username -> authUserDetailsService.getAdminUserDetail(username);
+        return username -> authUserService.getAuthUserDetail(username);
     }
 
 

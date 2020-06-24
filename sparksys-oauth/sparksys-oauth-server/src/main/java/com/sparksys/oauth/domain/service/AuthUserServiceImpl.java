@@ -1,6 +1,8 @@
 package com.sparksys.oauth.domain.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.collect.Sets;
+import com.sparksys.commons.core.utils.collection.ListUtils;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.domain.constant.AuthorizationConstant;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
@@ -18,7 +20,9 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -95,17 +99,41 @@ public class AuthUserServiceImpl implements IAuthUserService {
     }
 
     @Override
-    public boolean incrPasswordErrorNumById(Long id) {
+    public boolean resetPassErrorNum(String account) {
+        AuthUser authUser = new AuthUser();
+        authUser.setAccount(account);
+        authUser.setPasswordErrorNum(0);
+        authUser.setPasswordErrorLastTime(null);
+        return authUserRepository.updateAuthUser(authUser);
+    }
+
+    @Override
+    public boolean incrPasswordErrorNum(Long id) {
         return authUserRepository.incrPasswordErrorNumById(id);
+    }
+
+    @Override
+    public boolean incrPasswordErrorNum(String account) {
+        return authUserRepository.incrPasswordErrorNumByAccount(account);
     }
 
     @Override
     public AuthUserDetail getAuthUserDetail(String username) {
         AuthUser authUser = authUserRepository.selectByAccount(username);
         if (ObjectUtils.isNotEmpty(authUser)) {
+            List<String> userPermissions = authUserRepository.getAuthUserPermissions(authUser.getId());
             return new AuthUserDetail(authUser.getAccount(), authUser.getPassword(),
-                    AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                    AuthorityUtils.createAuthorityList(ListUtils.listToString(userPermissions)));
         }
         return null;
+    }
+
+    @Override
+    public Set<String> getAuthUserPermissions(Long id) {
+        List<String> userPermissions = authUserRepository.getAuthUserPermissions(id);
+        if (ListUtils.isNotEmpty(userPermissions)) {
+            return new HashSet<>(userPermissions);
+        }
+        return Sets.newHashSet();
     }
 }
