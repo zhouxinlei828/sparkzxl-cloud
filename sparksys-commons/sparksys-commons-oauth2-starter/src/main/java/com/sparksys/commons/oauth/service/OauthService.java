@@ -1,4 +1,4 @@
-package com.sparksys.oauth.application.service;
+package com.sparksys.commons.oauth.service;
 
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -8,19 +8,19 @@ import java.security.Principal;
 import java.util.Map;
 
 /**
- * description: 授权登录 服务类
+ * description: Oauth认证 服务类
  *
- * @author： zhouxinlei
- * @date： 2020-06-24 14:49:55
+ * @author: zhouxinlei
+ * @date: 2020-06-25 09:49:22
  */
-public interface IOauthService {
+public interface OauthService {
 
     /**
      * get请求授权登录
      *
      * @param principal
      * @param parameters
-     * @return
+     * @return OAuth2AccessToken
      * @throws HttpRequestMethodNotSupportedException
      */
     OAuth2AccessToken getAccessToken(Principal principal, @RequestParam Map<String, String> parameters)

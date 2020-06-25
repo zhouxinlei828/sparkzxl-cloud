@@ -2,11 +2,10 @@ package com.sparksys.oauth.domain.service;
 
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.oauth.enums.GrantTypeEnum;
+import com.sparksys.commons.oauth.service.OauthService;
 import com.sparksys.commons.security.event.LoginEvent;
 import com.sparksys.commons.security.entity.LoginStatus;
 import com.sparksys.commons.web.component.SpringContextUtils;
-import com.sparksys.oauth.application.service.IAuthUserService;
-import com.sparksys.oauth.application.service.IOauthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -24,12 +23,10 @@ import java.util.Map;
  * @date： 2020-06-24 14:50:40
  */
 @Service
-public class OauthServiceImpl implements IOauthService {
+public class OauthServiceImpl implements OauthService {
 
     @Autowired
     private TokenEndpoint tokenEndpoint;
-    @Autowired
-    private IAuthUserService authUserService;
 
     @Override
     public OAuth2AccessToken getAccessToken(Principal principal, Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
