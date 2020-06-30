@@ -30,7 +30,6 @@ public class OauthServiceImpl implements OauthService {
 
     @Override
     public OAuth2AccessToken getAccessToken(Principal principal, Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
-
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity = tokenEndpoint.getAccessToken(principal, parameters);
         return loginEventAndBack(parameters, oAuth2AccessTokenResponseEntity);
     }

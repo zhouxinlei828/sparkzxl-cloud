@@ -15,10 +15,10 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 public class JwtTokenStoreConfig {
 
-    @Bean
+    /*@Bean
     public JwtTokenStore jwtTokenStore() {
         return new JwtTokenStore(jwtAccessTokenConverter());
-    }
+    }*/
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
