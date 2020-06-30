@@ -3,6 +3,8 @@ package com.sparksys.oauth.interfaces.controller;
 import com.sparksys.commons.oauth.service.OauthService;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
+import org.apache.skywalking.apm.toolkit.trace.ActiveSpan;
+import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +32,16 @@ public class OauthController {
     }
 
     @GetMapping("/token")
+    @Trace(operationName = "oauth_get_token_trace")
     public OAuth2AccessToken getAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+        ActiveSpan.tag("getAccessToken", "get授权登录");
         return oauthService.getAccessToken(principal, parameters);
     }
 
     @PostMapping("/token")
+    @Trace(operationName = "oauth_post_token_trace")
     public OAuth2AccessToken postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+        ActiveSpan.tag("postAccessToken", "post授权登录");
         return oauthService.postAccessToken(principal, parameters);
     }
 }

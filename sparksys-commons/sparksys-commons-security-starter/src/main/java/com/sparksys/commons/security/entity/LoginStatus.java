@@ -107,6 +107,7 @@ public class LoginStatus implements Serializable {
         AddressInfo addressInfo = AddressUtil.getAddress(ip);
         this.ua = ua;
         this.ip = ip;
+        assert addressInfo != null;
         this.location = addressInfo.getRegion().concat(" ").concat(addressInfo.getCity());
         return this;
     }

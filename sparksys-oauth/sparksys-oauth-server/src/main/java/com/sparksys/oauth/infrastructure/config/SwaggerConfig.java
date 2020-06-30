@@ -29,7 +29,7 @@ public class SwaggerConfig {
     public Docket defaultApi2() {
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .groupName("oath授权认证模块")
+                .groupName("oauth模块")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.sparksys.oauth.interfaces"))
                 .paths(PathSelectors.any())
@@ -39,8 +39,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("oath授权认证模块")
-                .description("oath授权认证管理")
+                .title("oauth模块")
+                .description("oauth模块")
                 .termsOfServiceUrl("https://www.sparksys.top/")
                 .version("1.0")
                 .build();
