@@ -34,6 +34,7 @@
         <!-- common组件-->
         <commons-lang3.version>3.9</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-io.version>2.7</commons-io.version>
         <bcprov-jdk16.version>1.46</bcprov-jdk16.version>
         <spring-data-commos.version>2.2.6.RELEASE</spring-data-commos.version>
         <!-- jwt组件-->
@@ -63,6 +64,7 @@
         <lombok.version>1.18.8</lombok.version>
         <userAgent.version>1.21</userAgent.version>
         <apm-toolkit-trace.version>8.0.1</apm-toolkit-trace.version>
+        <ip2region.version>1.7.2</ip2region.version>
     </properties>
 
     <modules>
@@ -231,6 +233,11 @@
                 <version>${commons-collections4.version}</version>
             </dependency>
             <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk16</artifactId>
                 <version>${bcprov-jdk16.version}</version>
@@ -394,6 +401,13 @@
             <dependency>
                 <groupId>org.apache.skywalking</groupId>
                 <artifactId>apm-toolkit-trace</artifactId>
+                <version>${apm-toolkit-trace.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.lionsoul</groupId>
+                <artifactId>ip2region</artifactId>
+                <version>${ip2region.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

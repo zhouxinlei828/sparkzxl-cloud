@@ -2,8 +2,7 @@ package com.sparksys.commons.security.entity;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
-import com.sparksys.commons.core.entity.AddressInfo;
-import com.sparksys.commons.core.utils.AddressUtil;
+import com.sparksys.commons.core.utils.ip2region.AddressUtil;
 import com.sparksys.commons.web.utils.HttpUtils;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -104,11 +103,9 @@ public class LoginStatus implements Serializable {
         HttpServletRequest request = HttpUtils.getRequest();
         String ua = StrUtil.sub(request.getHeader("user-agent"), 0, 500);
         String ip = ServletUtil.getClientIP(request);
-        AddressInfo addressInfo = AddressUtil.getAddress(ip);
         this.ua = ua;
         this.ip = ip;
-        assert addressInfo != null;
-        this.location = addressInfo.getRegion().concat(" ").concat(addressInfo.getCity());
+        this.location = AddressUtil.getRegion(ip);
         return this;
     }
 
