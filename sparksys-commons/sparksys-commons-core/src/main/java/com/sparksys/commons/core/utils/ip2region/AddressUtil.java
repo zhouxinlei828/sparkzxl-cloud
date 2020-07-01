@@ -23,7 +23,6 @@ import java.lang.reflect.Method;
 @Slf4j
 public class AddressUtil {
 
-    private static final String JAVA_TEMP_DIR = "java.io.tmpdir";
     static DbConfig config = null;
     static DbSearcher searcher = null;
 
