@@ -1,6 +1,6 @@
 package com.sparksys.oauth.infrastructure.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sparksys.commons.mybatis.mapper.SuperMapper;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2020-05-24 12:23:50
  */
 @Repository
-public interface AuthUserMapper extends BaseMapper<AuthUser> {
+public interface AuthUserMapper extends SuperMapper<AuthUser> {
 
     /**
      * 密码输错自增

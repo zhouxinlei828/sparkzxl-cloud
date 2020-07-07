@@ -1,6 +1,7 @@
 package com.sparksys.oauth.application.service;
 
 
+import com.sparksys.commons.mybatis.service.SuperCacheService;
 import com.sparksys.oauth.infrastructure.entity.AuthMenu;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @author zhouxinlei
  * @date 2020-06-07 13:31:12
  */
-public interface IAuthMenuService {
+public interface IAuthMenuService extends SuperCacheService<AuthMenu> {
 
     /**
      * 查询菜单tree

@@ -31,30 +31,6 @@ public interface IAuthUserRepository {
     AuthUser selectByAccount(String account);
 
     /**
-     * 保存用户信息
-     *
-     * @param authUser
-     * @return
-     */
-    boolean saveAuthUser(AuthUser authUser);
-
-    /**
-     * 更新用户信息
-     *
-     * @param authUser
-     * @return
-     */
-    boolean updateAuthUser(AuthUser authUser);
-
-    /**
-     * 删除用户信息
-     *
-     * @param id
-     * @return
-     */
-    boolean deleteAuthUser(Long id);
-
-    /**
      * 分页查询用户信息
      *
      * @param authUserDOPage

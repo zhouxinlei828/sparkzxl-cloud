@@ -1,4 +1,4 @@
-package com.sparksys.commons.redis.cache;
+package com.sparksys.commons.core.cache;
 
 import java.util.Map;
 import java.util.function.Function;

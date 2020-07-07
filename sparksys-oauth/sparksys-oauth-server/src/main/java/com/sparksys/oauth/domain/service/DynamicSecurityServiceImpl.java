@@ -12,6 +12,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * description: DB动态权限源 service
+ *
+ * @author: zhouxinlei
+ * @date: 2020-07-07 19:09:16
+ */
 @Service("dynamicSecurityService")
 public class DynamicSecurityServiceImpl implements DynamicSecurityService {
 
@@ -26,7 +32,7 @@ public class DynamicSecurityServiceImpl implements DynamicSecurityService {
         List<AuthResource> authResources = authResourceRepository.authResourceList();
         Map<String, ConfigAttribute> configAttributeMap = new ConcurrentHashMap<>(authResources.size());
         for (AuthResource resource : authResources) {
-            if (StringUtils.isNotEmpty(resource.getRequestUrl())){
+            if (StringUtils.isNotEmpty(resource.getRequestUrl())) {
                 configAttributeMap.put(resource.getRequestUrl(),
                         new SecurityConfig(resource.getId() + ":" + resource.getName()));
             }

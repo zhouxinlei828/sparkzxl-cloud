@@ -1,6 +1,8 @@
 package com.sparksys.authorization.application.service;
 
 
+import com.sparksys.commons.mybatis.service.SuperCacheService;
+import com.sparksys.authorization.infrastructure.entity.LoginLog;
 import com.sparksys.authorization.infrastructure.entity.LoginLogCount;
 
 import java.time.LocalDateTime;
@@ -10,9 +12,9 @@ import java.util.List;
  * description：系统日志 服务类
  *
  * @author zhouxinlei
- * @date  2020-06-17 11:33:15
+ * @date 2020-06-17 11:33:15
  */
-public interface ILoginLogService {
+public interface ILoginLogService extends SuperCacheService<LoginLog> {
 
     /**
      * 记录登录日志

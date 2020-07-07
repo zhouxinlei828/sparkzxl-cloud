@@ -1,11 +1,14 @@
 package com.sparksys.oauth.domain.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sparksys.commons.core.cache.CacheKey;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
+import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.IAuthRoleService;
 import com.sparksys.oauth.domain.repository.IAuthRoleRepository;
 import com.sparksys.oauth.infrastructure.convert.AuthRoleConvert;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
+import com.sparksys.oauth.infrastructure.mapper.AuthRoleMapper;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleUpdateDTO;
@@ -20,7 +23,7 @@ import org.springframework.stereotype.Service;
  * @date 2020-06-07 13:37:09
  */
 @Service
-public class AuthRoleServiceImpl implements IAuthRoleService {
+public class AuthRoleServiceImpl extends AbstractSuperCacheServiceImpl<AuthRoleMapper, AuthRole> implements IAuthRoleService {
 
     private final IAuthRoleRepository authRoleRepository;
 
@@ -36,7 +39,7 @@ public class AuthRoleServiceImpl implements IAuthRoleService {
 
     @Override
     public AuthRoleDTO getAuthRole(Long id) {
-        AuthRole authRole = authRoleRepository.getAuthRole(id);
+        AuthRole authRole = getByIdCache(id);
         return AuthRoleConvert.INSTANCE.convertAuthUserDTO(authRole);
     }
 
@@ -45,19 +48,19 @@ public class AuthRoleServiceImpl implements IAuthRoleService {
         AuthRole authRole = AuthRoleConvert.INSTANCE.convertAuthRoleDO(authRoleSaveDTO);
         authRole.setCreateUser(authUser.getId());
         authRole.setUpdateUser(authUser.getId());
-        return authRoleRepository.saveAuthRole(authRole);
+        return save(authRole);
     }
 
     @Override
     public boolean updateAuthRole(GlobalAuthUser authUser, AuthRoleUpdateDTO authRoleUpdateDTO) {
         AuthRole authRole = AuthRoleConvert.INSTANCE.convertAuthRoleDO(authRoleUpdateDTO);
         authRole.setUpdateUser(authUser.getId());
-        return authRoleRepository.updateAuthRole(authRole);
+        return updateAllById(authRole);
     }
 
     @Override
     public boolean deleteAuthRole(Long id) {
-        return authRoleRepository.deleteAuthRole(id);
+        return removeById(id);
     }
 
     @Override
@@ -66,6 +69,11 @@ public class AuthRoleServiceImpl implements IAuthRoleService {
         authRole.setId(roleId);
         authRole.setStatus(status);
         authRole.setUpdateUser(userId);
-        return authRoleRepository.updateAuthRole(authRole);
+        return updateById(authRole);
+    }
+
+    @Override
+    protected String getRegion() {
+        return CacheKey.ROLE;
     }
 }

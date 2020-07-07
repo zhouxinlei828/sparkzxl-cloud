@@ -1,6 +1,8 @@
 package com.sparksys.oauth.application.service;
 
 
+import com.sparksys.commons.mybatis.service.SuperCacheService;
+import com.sparksys.oauth.infrastructure.entity.LoginLog;
 import com.sparksys.oauth.infrastructure.entity.LoginLogCount;
 
 import java.time.LocalDateTime;
@@ -12,7 +14,7 @@ import java.util.List;
  * @author zhouxinlei
  * @date 2020-06-17 11:33:15
  */
-public interface ILoginLogService {
+public interface ILoginLogService extends SuperCacheService<LoginLog> {
 
     /**
      * 记录登录日志

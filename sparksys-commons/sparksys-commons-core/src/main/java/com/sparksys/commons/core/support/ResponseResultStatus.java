@@ -93,6 +93,8 @@ public enum ResponseResultStatus implements BusinessEnumSysAssert {
 
     TOO_MUCH_DATA_ERROR(HttpStatus.HTTP_INTERNAL_ERROR, "批量新增数据过多"),
 
+    SERVICE_MAPPER_ERROR(-11, "Mapper类转换异常"),
+
     SERVICE_DEGRADATION(HttpStatus.HTTP_UNAVAILABLE, "服务降级，请稍候再试"),
 
     UPLOAD_FAILURE(HttpStatus.HTTP_INTERNAL_ERROR, "上传文件失败了哦"),

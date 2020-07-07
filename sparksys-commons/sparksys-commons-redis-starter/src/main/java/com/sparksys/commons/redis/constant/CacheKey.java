@@ -13,8 +13,6 @@ import java.time.LocalDate;
  */
 public interface CacheKey {
 
-    // 权限系统缓存 start
-
     /**
      * 验证码 前缀
      * 完整key: captcha:{key} -> str
@@ -211,7 +209,7 @@ public interface CacheKey {
     }
 
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         LocalDate now = LocalDate.now();
         System.out.println(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY_IP, now));
     }

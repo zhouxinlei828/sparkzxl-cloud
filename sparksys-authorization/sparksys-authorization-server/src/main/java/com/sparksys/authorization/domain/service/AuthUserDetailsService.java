@@ -3,7 +3,7 @@ package com.sparksys.authorization.domain.service;
 import com.sparksys.authorization.application.service.IAuthUserService;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.support.ResponseResultStatus;
-import com.sparksys.commons.redis.cache.CacheProviderService;
+import com.sparksys.commons.core.cache.CacheProviderService;
 import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.commons.security.service.AbstractSecurityAuthDetailService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,9 @@
 package com.sparksys.oauth.application.service;
 
 import com.sparksys.commons.core.entity.GlobalAuthUser;
+import com.sparksys.commons.mybatis.service.SuperCacheService;
 import com.sparksys.commons.security.entity.AuthUserDetail;
+import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserStatusDTO;
@@ -17,7 +19,7 @@ import java.util.Set;
  * @author zhouxinlei
  * @date 2020-05-24 12:22:23
  */
-public interface IAuthUserService {
+public interface IAuthUserService extends SuperCacheService<AuthUser> {
 
 
     /**

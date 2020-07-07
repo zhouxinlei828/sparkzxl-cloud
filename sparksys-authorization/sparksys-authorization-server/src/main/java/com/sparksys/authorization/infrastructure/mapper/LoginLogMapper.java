@@ -1,6 +1,6 @@
 package com.sparksys.authorization.infrastructure.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sparksys.commons.mybatis.mapper.SuperMapper;
 import com.sparksys.authorization.infrastructure.entity.LoginLog;
 import com.sparksys.authorization.infrastructure.entity.LoginLogCount;
 import org.apache.ibatis.annotations.Delete;
@@ -19,7 +19,7 @@ import java.util.List;
  * @date 2020-06-17 11:56:18
  */
 @Repository
-public interface LoginLogMapper extends BaseMapper<LoginLog> {
+public interface LoginLogMapper extends SuperMapper<LoginLog> {
     /**
      * 获取系统总访问次数
      *

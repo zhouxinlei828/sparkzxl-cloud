@@ -2,14 +2,18 @@ package com.sparksys.oauth.domain.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Sets;
+import com.sparksys.commons.core.cache.CacheKey;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.utils.collection.ListUtils;
+import com.sparksys.commons.core.utils.crypto.MD5Utils;
+import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.domain.constant.AuthorizationConstant;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.convert.AuthUserConvert;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
+import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserStatusDTO;
@@ -18,7 +22,6 @@ import com.sparksys.commons.core.base.api.result.ApiPageResult;
 import com.sparksys.commons.mybatis.page.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -34,7 +37,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
-public class AuthUserServiceImpl implements IAuthUserService {
+public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserMapper, AuthUser> implements IAuthUserService {
 
     private final IAuthUserRepository authUserRepository;
 
@@ -46,25 +49,28 @@ public class AuthUserServiceImpl implements IAuthUserService {
     @Override
     public boolean saveAuthUser(GlobalAuthUser authUser, AuthUserSaveDTO authUserSaveDTO) {
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserSaveDTO);
-        return authUserRepository.saveAuthUser(authUserDO);
+        authUser.setStatus(true);
+        String password = MD5Utils.encrypt(authUser.getPassword());
+        authUser.setPassword(password);
+        return save(authUserDO);
     }
 
     @Override
     public boolean updateAuthUser(GlobalAuthUser authUser, AuthUserUpdateDTO authUserUpdateDTO) {
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserUpdateDTO);
-        return authUserRepository.updateAuthUser(authUserDO);
+        return updateAllById(authUserDO);
     }
 
     @Override
     public boolean deleteAuthUser(Long id) {
-        return authUserRepository.deleteAuthUser(id);
+        return removeById(id);
     }
 
     @Override
     public boolean updateAuthUserStatus(GlobalAuthUser authUser, AuthUserStatusDTO authUserStatusDTO) {
         authUserStatusDTO.setUpdateUser(authUser.getId());
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserStatusDTO);
-        return authUserRepository.updateAuthUser(authUserDO);
+        return updateById(authUserDO);
     }
 
     @Override
@@ -83,7 +89,7 @@ public class AuthUserServiceImpl implements IAuthUserService {
 
     @Override
     public AuthUserDTO getAuthUser(Long id) {
-        AuthUser authUser = authUserRepository.selectById(id);
+        AuthUser authUser = getByIdCache(id);
         AuthUserDTO authUserDTO = AuthUserConvert.INSTANCE.convertAuthUserDTO(authUser);
         String sex = AuthorizationConstant.SEX_MAP.get(authUser.getSex());
         authUserDTO.setSex(sex);
@@ -96,7 +102,7 @@ public class AuthUserServiceImpl implements IAuthUserService {
         authUser.setId(id);
         authUser.setPasswordErrorNum(0);
         authUser.setPasswordErrorLastTime(null);
-        return authUserRepository.updateAuthUser(authUser);
+        return updateById(authUser);
     }
 
     @Override
@@ -105,7 +111,7 @@ public class AuthUserServiceImpl implements IAuthUserService {
         authUser.setAccount(account);
         authUser.setPasswordErrorNum(0);
         authUser.setPasswordErrorLastTime(null);
-        return authUserRepository.updateAuthUser(authUser);
+        return updateById(authUser);
     }
 
     @Override
@@ -137,5 +143,10 @@ public class AuthUserServiceImpl implements IAuthUserService {
             return new HashSet<>(userPermissions);
         }
         return Sets.newHashSet();
+    }
+
+    @Override
+    protected String getRegion() {
+        return CacheKey.USER;
     }
 }

@@ -2,11 +2,13 @@ package com.sparksys.authorization.application.service;
 
 import com.sparksys.commons.core.base.api.result.ApiPageResult;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
+import com.sparksys.commons.mybatis.service.SuperCacheService;
+import com.sparksys.commons.security.entity.AuthUserDetail;
+import com.sparksys.authorization.infrastructure.entity.AuthUser;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserStatusDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserUpdateDTO;
-import com.sparksys.commons.security.entity.AuthUserDetail;
 
 import java.util.Set;
 
@@ -17,7 +19,7 @@ import java.util.Set;
  * @author zhouxinlei
  * @date 2020-05-24 12:22:23
  */
-public interface IAuthUserService {
+public interface IAuthUserService extends SuperCacheService<AuthUser> {
 
 
     /**
@@ -106,18 +108,18 @@ public interface IAuthUserService {
     boolean incrPasswordErrorNum(String account);
 
     /**
+     * 获取用户信息
+     *
+     * @param username
+     * @return AuthUserDetail
+     */
+    AuthUserDetail getAuthUserDetail(String username);
+
+    /**
      * 获取用户权限集
      *
      * @param id
      * @return Set<String>
      */
     Set<String> getAuthUserPermissions(Long id);
-
-    /**
-     * 获取授权用户信息
-     *
-     * @param account
-     * @return
-     */
-    AuthUserDetail getAuthUserDetail(String account);
 }

@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
-import com.sparksys.commons.core.utils.crypto.MD5Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,24 +34,6 @@ public class AuthUserRepository implements IAuthUserRepository {
         queryWrapper.eq("account", account);
         queryWrapper.eq("status", 1);
         return authUserMapper.selectOne(queryWrapper);
-    }
-
-    @Override
-    public boolean saveAuthUser(AuthUser authUser) {
-        authUser.setStatus(true);
-        String password = MD5Utils.encrypt(authUser.getPassword());
-        authUser.setPassword(password);
-        return authUserMapper.insert(authUser) > 0;
-    }
-
-    @Override
-    public boolean updateAuthUser(AuthUser authUser) {
-        return authUserMapper.updateById(authUser) > 0;
-    }
-
-    @Override
-    public boolean deleteAuthUser(Long id) {
-        return authUserMapper.deleteById(id) > 0;
     }
 
     @Override

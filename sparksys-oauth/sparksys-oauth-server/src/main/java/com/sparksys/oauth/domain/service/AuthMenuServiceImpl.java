@@ -1,9 +1,12 @@
 package com.sparksys.oauth.domain.service;
 
+import com.sparksys.commons.core.cache.CacheKey;
+import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.IAuthMenuService;
 import com.sparksys.oauth.domain.repository.IAuthMenuRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthMenu;
 import com.sparksys.commons.mybatis.utils.TreeUtil;
+import com.sparksys.oauth.infrastructure.mapper.AuthMenuMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +18,7 @@ import java.util.List;
  * @date 2020-06-07 13:35:18
  */
 @Service
-public class AuthMenuServiceImpl implements IAuthMenuService {
+public class AuthMenuServiceImpl extends AbstractSuperCacheServiceImpl<AuthMenuMapper, AuthMenu> implements IAuthMenuService {
 
     private final IAuthMenuRepository authMenuRepository;
 
@@ -27,5 +30,10 @@ public class AuthMenuServiceImpl implements IAuthMenuService {
     public List<AuthMenu> findMenuTree() {
         List<AuthMenu> authMenuList = authMenuRepository.selectList();
         return TreeUtil.buildTree(authMenuList);
+    }
+
+    @Override
+    protected String getRegion() {
+        return CacheKey.MENU;
     }
 }

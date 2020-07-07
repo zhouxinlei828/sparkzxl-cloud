@@ -1,7 +1,7 @@
 package com.sparksys.authorization.infrastructure.mapper;
 
+import com.sparksys.commons.mybatis.mapper.SuperMapper;
 import com.sparksys.authorization.infrastructure.entity.AuthResource;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @date  2020-06-07 13:29:12
  */
 @Repository
-public interface AuthResourceMapper extends BaseMapper<AuthResource> {
+public interface AuthResourceMapper extends SuperMapper<AuthResource> {
 
 }

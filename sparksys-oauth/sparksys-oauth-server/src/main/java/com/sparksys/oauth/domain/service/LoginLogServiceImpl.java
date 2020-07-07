@@ -1,14 +1,16 @@
 package com.sparksys.oauth.domain.service;
 
 import cn.hutool.core.util.StrUtil;
+import com.sparksys.commons.core.cache.CacheKey;
+import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.ILoginLogService;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.domain.repository.ILoginLogRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.entity.LoginLog;
 import com.sparksys.oauth.infrastructure.entity.LoginLogCount;
-import com.sparksys.commons.redis.cache.CacheProviderService;
-import com.sparksys.commons.redis.constant.CacheKey;
+import com.sparksys.commons.core.cache.CacheProviderService;
+import com.sparksys.oauth.infrastructure.mapper.LoginLogMapper;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -19,14 +21,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/*
- * description：
+/**
+ * description：系统日志 服务实现类
  *
  * @author zhouxinlei
- * @date  2020/6/17 0017
+ * @date 2020/6/17 0017
  */
 @Service
-public class LoginLogServiceImpl implements ILoginLogService {
+public class LoginLogServiceImpl extends AbstractSuperCacheServiceImpl<LoginLogMapper, LoginLog> implements ILoginLogService {
 
     private final IAuthUserRepository authUserRepository;
     private final ILoginLogRepository loginLogRepository;
@@ -143,5 +145,10 @@ public class LoginLogServiceImpl implements ILoginLogService {
     @Override
     public boolean clearLog(LocalDateTime clearBeforeTime, Integer clearBeforeNum) {
         return loginLogRepository.clearLog(clearBeforeTime, clearBeforeNum);
+    }
+
+    @Override
+    protected String getRegion() {
+        return null;
     }
 }

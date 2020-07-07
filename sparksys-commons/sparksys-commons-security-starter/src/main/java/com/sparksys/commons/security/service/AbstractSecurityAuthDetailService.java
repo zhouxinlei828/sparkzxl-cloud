@@ -12,7 +12,7 @@ import com.sparksys.commons.web.component.SpringContextUtils;
 import com.sparksys.commons.core.constant.CoreConstant;
 import com.sparksys.commons.core.support.BusinessException;
 import com.sparksys.commons.core.utils.crypto.MD5Utils;
-import com.sparksys.commons.redis.cache.CacheProviderService;
+import com.sparksys.commons.core.cache.CacheProviderService;
 import com.sparksys.commons.redis.cache.RedisCacheProviderImpl;
 import com.sparksys.commons.security.entity.AuthToken;
 import com.sparksys.commons.security.request.AuthRequest;

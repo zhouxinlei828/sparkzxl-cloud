@@ -1,7 +1,7 @@
 package com.sparksys.oauth.application.service;
 
 import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.redis.cache.CacheProviderService;
+import com.sparksys.commons.core.cache.CacheProviderService;
 import com.sparksys.commons.web.service.AbstractAuthUserRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

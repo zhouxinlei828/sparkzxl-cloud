@@ -1,6 +1,6 @@
 package com.sparksys.oauth.infrastructure.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sparksys.commons.mybatis.mapper.SuperMapper;
 import com.sparksys.oauth.infrastructure.entity.CoreOrg;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @date  2020-06-07 13:29:56
  */
 @Repository
-public interface CoreOrgMapper extends BaseMapper<CoreOrg> {
+public interface CoreOrgMapper extends SuperMapper<CoreOrg> {
 
 }

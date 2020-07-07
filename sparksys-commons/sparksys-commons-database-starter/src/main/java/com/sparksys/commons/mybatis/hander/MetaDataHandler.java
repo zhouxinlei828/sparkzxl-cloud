@@ -83,13 +83,9 @@ public class MetaDataHandler implements MetaObjectHandler {
         }
     }
 
-    private void update(MetaObject metaObject, Entity entity) {
-        if (entity.getUpdateTime() == null) {
-            this.setFieldValByName(Entity.UPDATE_TIME, LocalDateTime.now(), metaObject);
-        }
-
+    private void update(MetaObject metaObject, Entity entity, String et) {
         if (entity.getUpdateUser() == null || entity.getUpdateUser().equals(0)) {
-            if ("java.lang.String".equals(metaObject.getGetterType(Entity.UPDATE_USER).getName())) {
+            if ("java.lang.String".equals(metaObject.getGetterType(et + "updateUser").getName())) {
                 String.valueOf(BaseContextHandler.getUserId());
             } else {
                 BaseContextHandler.getUserId();
@@ -98,8 +94,12 @@ public class MetaDataHandler implements MetaObjectHandler {
         }
 
         if (entity.getUpdateTime() == null) {
-            this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+            this.setFieldValByName(Entity.UPDATE_TIME, LocalDateTime.now(), metaObject);
         }
+    }
+
+    private void update(MetaObject metaObject, Entity entity) {
+        this.update(metaObject, entity, "");
     }
 
     @Override
@@ -108,6 +108,12 @@ public class MetaDataHandler implements MetaObjectHandler {
         if (metaObject.getOriginalObject() instanceof Entity) {
             Entity entity = (Entity) metaObject.getOriginalObject();
             this.update(metaObject, entity);
+        } else {
+            Object et = metaObject.getValue("et");
+            if (et != null && et instanceof Entity) {
+                Entity entity = (Entity) et;
+                this.update(metaObject, entity, "et.");
+            }
         }
     }
 

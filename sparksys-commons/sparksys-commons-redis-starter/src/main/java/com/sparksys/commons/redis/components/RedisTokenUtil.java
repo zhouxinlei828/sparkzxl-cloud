@@ -1,7 +1,7 @@
 package com.sparksys.commons.redis.components;
 
 import cn.hutool.core.util.IdUtil;
-import com.sparksys.commons.redis.cache.CacheProviderService;
+import com.sparksys.commons.core.cache.CacheProviderService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
