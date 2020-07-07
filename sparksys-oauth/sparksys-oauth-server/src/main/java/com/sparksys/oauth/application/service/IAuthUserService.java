@@ -1,6 +1,5 @@
 package com.sparksys.oauth.application.service;
 
-import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.mybatis.service.SuperCacheService;
 import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
@@ -25,20 +24,20 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 保存用户信息
      *
-     * @param authUser
+     * @param contextUserId
      * @param authUserSaveDTO
      * @return
      */
-    boolean saveAuthUser(GlobalAuthUser authUser, AuthUserSaveDTO authUserSaveDTO);
+    boolean saveAuthUser(Long contextUserId, AuthUserSaveDTO authUserSaveDTO);
 
     /**
      * 修改用户信息
      *
-     * @param authUser
+     * @param contextUserId
      * @param authUserUpdateDTO
      * @return
      */
-    boolean updateAuthUser(GlobalAuthUser authUser, AuthUserUpdateDTO authUserUpdateDTO);
+    boolean updateAuthUser(Long contextUserId, AuthUserUpdateDTO authUserUpdateDTO);
 
     /**
      * 删除用户信息
@@ -51,11 +50,11 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 修改用户账号状态
      *
-     * @param authUser
+     * @param contextUserId
      * @param authUserStatusDTO
      * @return
      */
-    boolean updateAuthUserStatus(GlobalAuthUser authUser, AuthUserStatusDTO authUserStatusDTO);
+    boolean updateAuthUserStatus(Long contextUserId, AuthUserStatusDTO authUserStatusDTO);
 
     /**
      * 分页查询用户列表

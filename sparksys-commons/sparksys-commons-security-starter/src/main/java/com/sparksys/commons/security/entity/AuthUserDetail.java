@@ -1,5 +1,6 @@
 package com.sparksys.commons.security.entity;
 
+import com.google.common.collect.Lists;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.utils.collection.ListUtils;
 import lombok.Getter;
@@ -29,7 +30,10 @@ public class AuthUserDetail implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList(ListUtils.listToString(authUser.getPermissions()));
+        if (ListUtils.isNotEmpty(authUser.getPermissions())){
+            return AuthorityUtils.createAuthorityList(ListUtils.listToString(authUser.getPermissions()));
+        }
+        return Lists.newArrayList();
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.sparksys.commons.security.service;
 
 import com.sparksys.commons.core.constant.AuthConstant;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.core.context.BaseContextHandler;
 import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.commons.security.event.LoginEvent;
 import com.sparksys.commons.security.entity.LoginStatus;
@@ -85,9 +84,6 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
     private void accessToken(AuthToken authToken, GlobalAuthUser authUser) {
         CacheProviderService cacheProviderService = SpringContextUtils.getBean(RedisCacheProviderImpl.class);
         String token = authToken.getToken();
-        BaseContextHandler.setAccount(authUser.getAccount());
-        BaseContextHandler.setUserId(authUser.getId());
-        BaseContextHandler.setName(authUser.getName());
         cacheProviderService.set(AuthConstant.AUTH_USER + token, authUser,
                 authToken.getExpiration());
     }

@@ -50,14 +50,14 @@ public class AuthUserController {
     @ApiOperation("保存用户信息")
     @PostMapping("/authUser")
     public boolean saveAuthUser(@ApiIgnore GlobalAuthUser authUser, @Validated @RequestBody AuthUserSaveDTO authUserSaveDTO) {
-        return authUserService.saveAuthUser(authUser, authUserSaveDTO);
+        return authUserService.saveAuthUser(authUser.getId(), authUserSaveDTO);
     }
 
 
     @ApiOperation("修改用户信息")
     @PutMapping("/authUser")
     public boolean updateAuthUser(@ApiIgnore GlobalAuthUser authUser, @Validated @RequestBody AuthUserUpdateDTO authUserUpdateDTO) {
-        return authUserService.updateAuthUser(authUser, authUserUpdateDTO);
+        return authUserService.updateAuthUser(authUser.getId(), authUserUpdateDTO);
     }
 
     @ApiOperation("删除用户信息")
@@ -69,7 +69,7 @@ public class AuthUserController {
     @ApiOperation("修改用户状态信息")
     @PatchMapping("/authUser")
     public boolean updateAuthUserStatus(@ApiIgnore GlobalAuthUser authUser, @Validated @RequestBody AuthUserStatusDTO authUserStatusDTO) {
-        return authUserService.updateAuthUserStatus(authUser, authUserStatusDTO);
+        return authUserService.updateAuthUserStatus(authUser.getId(), authUserStatusDTO);
     }
 
 

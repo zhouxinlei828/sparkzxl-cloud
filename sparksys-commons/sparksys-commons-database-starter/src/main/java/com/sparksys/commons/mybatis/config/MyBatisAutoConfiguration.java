@@ -6,11 +6,9 @@ import com.sparksys.commons.mybatis.hander.MetaDataHandler;
 import com.sparksys.commons.mybatis.properties.DataProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 
 /**
  * description: mybatis全局配置

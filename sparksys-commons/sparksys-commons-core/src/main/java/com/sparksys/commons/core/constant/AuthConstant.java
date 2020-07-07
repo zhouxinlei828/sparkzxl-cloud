@@ -12,5 +12,5 @@ public class AuthConstant {
     /**
      * 认证用户
      */
-    public static final String AUTH_USER = "authuser:";
+    public static final String AUTH_USER = "authUser:";
 }

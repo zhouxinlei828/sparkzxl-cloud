@@ -1,11 +1,16 @@
 package com.sparksys.oauth.domain.service;
 
+import com.sparksys.commons.core.cache.CacheProviderService;
+import com.sparksys.commons.core.constant.AuthConstant;
+import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.oauth.enums.GrantTypeEnum;
 import com.sparksys.commons.oauth.service.OauthService;
+import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.commons.security.event.LoginEvent;
 import com.sparksys.commons.security.entity.LoginStatus;
 import com.sparksys.commons.web.component.SpringContextUtils;
+import com.sparksys.oauth.application.service.IAuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -27,6 +32,10 @@ public class OauthServiceImpl implements OauthService {
 
     @Autowired
     private TokenEndpoint tokenEndpoint;
+    @Autowired
+    private CacheProviderService cacheProviderService;
+    @Autowired
+    private IAuthUserService authUserService;
 
     @Override
     public OAuth2AccessToken getAccessToken(Principal principal, Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
@@ -40,6 +49,8 @@ public class OauthServiceImpl implements OauthService {
             OAuth2AccessToken oAuth2AccessToken = oAuth2AccessTokenResponseEntity.getBody();
             if (GrantTypeEnum.PASSWORD.getType().equals(grantType)) {
                 String username = parameters.get("username");
+                assert oAuth2AccessToken != null;
+                accessToken(username, oAuth2AccessToken);
                 SpringContextUtils.publishEvent(new LoginEvent(LoginStatus.success(username)));
             }
             return oAuth2AccessToken;
@@ -57,4 +68,20 @@ public class OauthServiceImpl implements OauthService {
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity = tokenEndpoint.postAccessToken(principal, parameters);
         return loginEventAndBack(parameters, oAuth2AccessTokenResponseEntity);
     }
+
+    /**
+     * 设置accessToken缓存
+     *
+     * @param parameter         账户名
+     * @param oAuth2AccessToken 认证token
+     * @return void
+     */
+    private void accessToken(String parameter, OAuth2AccessToken oAuth2AccessToken) {
+        AuthUserDetail authUserDetail = authUserService.getAuthUserDetail(parameter);
+        GlobalAuthUser globalAuthUser = authUserDetail.getAuthUser();
+        String token = oAuth2AccessToken.getValue();
+        Long expiresIn = (long) oAuth2AccessToken.getExpiresIn();
+        cacheProviderService.set(AuthConstant.AUTH_USER + token, globalAuthUser, expiresIn);
+    }
+
 }
