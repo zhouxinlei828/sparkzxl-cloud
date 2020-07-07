@@ -52,7 +52,7 @@ public class MybatisPlusGenerator {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         /*gc.setOutputDir(projectPath + "/sparksys-business/sparksys-problem/src/main/java");*/
-        gc.setOutputDir(projectPath + "/sparksys-business/sparksys-authorization/src/main/java");
+        gc.setOutputDir(projectPath + "/sparksys-sharding-demo/src/main/java");
         gc.setFileOverride(true);
         gc.setSwagger2(true);
         gc.setDateType(DateType.TIME_PACK);
@@ -61,14 +61,13 @@ public class MybatisPlusGenerator {
         gc.setAuthor("zhouxinlei");
         gc.setMapperName("%sMapper");
         gc.setXmlName("%sMapper");
-        gc.setEntityName("%sDO");
         gc.setBaseResultMap(true);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl("jdbc:p6spy:mysql://rm-bp1cp68o8t1gq604p5o.mysql.rds.aliyuncs" +
-                ".com/sparksys_authorization?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8");
+                ".com/sparksys_order_0?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8");
         dsc.setDriverName("com.p6spy.engine.spy.P6SpyDriver");
         dsc.setUsername("zhouxinlei");
         dsc.setPassword("zxl298828");
@@ -76,12 +75,12 @@ public class MybatisPlusGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.sparksys.authorization");
+        pc.setParent("com.sparksys.sharding");
         pc.setController("interfaces.controller");
         pc.setService("application.service");
         pc.setServiceImpl("domain.service");
         pc.setMapper("infrastructure.mapper");
-        pc.setEntity("infrastructure.po");
+        pc.setEntity("infrastructure.entity");
         pc.setXml("mapper");
         mpg.setPackageInfo(pc);
 

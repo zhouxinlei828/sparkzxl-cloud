@@ -23,6 +23,8 @@
         <module>sparksys-commons-elasticsearch-starter</module>
         <module>sparksys-commons-activiti-starter</module>
         <module>sparksys-commons-oauth2-starter</module>
+        <module>sparksys-commons-sharding-jdbc-starter</module>
+        <module>sparksys-commons-logstash-starter</module>
     </modules>
 
 </project>
