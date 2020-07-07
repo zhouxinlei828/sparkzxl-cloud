@@ -33,8 +33,7 @@ public class RsaUtils {
 
 
     public static void main(String[] args) {
-        String content = "123456";
-        System.out.println(SystemUtil.getHostInfo());
+        String content = "Z9KzpZ5da2DWEUHmto1ksB2NChTRG9";
         String encryptHex = RsaUtils.encryptHex(content);
         System.out.println(encryptHex);
         System.out.println(RsaUtils.decryptStr(encryptHex));

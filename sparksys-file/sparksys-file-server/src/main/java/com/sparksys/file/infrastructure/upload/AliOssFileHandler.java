@@ -16,6 +16,7 @@ import com.aliyun.oss.model.PutObjectResult;
 import com.sparksys.commons.core.support.BusinessException;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.core.support.SparkSysExceptionAssert;
+import com.sparksys.commons.core.utils.crypto.RsaUtils;
 import com.sparksys.file.domain.constant.OssConstant;
 import com.sparksys.file.domain.dto.OssCallbackParam;
 import com.sparksys.file.domain.dto.OssPolicyResult;
@@ -247,9 +248,11 @@ public class AliOssFileHandler implements IFileHandler {
 
 
     private OSS getOssClient() {
+        String accessKeyId = RsaUtils.decryptStr(ossProperties.getAccessKeyId());
+        String accessKeySecret = RsaUtils.decryptStr(ossProperties.getAccessKeySecret());;
         return new OSSClientBuilder().build(ossProperties.getEndpoint(),
-                ossProperties.getAccessKeyId(),
-                ossProperties.getAccessKeySecret());
+                accessKeyId,
+                accessKeySecret);
     }
 }
 
