@@ -5,7 +5,6 @@ import com.google.common.collect.Sets;
 import com.sparksys.commons.core.cache.CacheKey;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.utils.collection.ListUtils;
-import com.sparksys.commons.core.utils.crypto.MD5Utils;
 import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.oauth.application.service.IAuthUserService;
