@@ -1,6 +1,6 @@
 package com.sparksys.commons.security.service;
 
-import com.sparksys.commons.cache.service.CacheProviderImpl;
+import com.sparksys.commons.cache.service.RedisCacheServiceImpl;
 import com.sparksys.commons.core.constant.AuthConstant;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.security.entity.AuthUserDetail;
@@ -13,7 +13,6 @@ import com.sparksys.commons.core.constant.CoreConstant;
 import com.sparksys.commons.core.support.BusinessException;
 import com.sparksys.commons.core.utils.crypto.MD5Utils;
 import com.sparksys.commons.core.cache.CacheProviderService;
-import com.sparksys.commons.cache.service.RedisCacheAdapter;
 import com.sparksys.commons.security.entity.AuthToken;
 import com.sparksys.commons.security.request.AuthRequest;
 import com.sparksys.commons.core.utils.jwt.JwtTokenUtil;
@@ -83,7 +82,7 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
      * @return void
      */
     private void accessToken(AuthToken authToken, GlobalAuthUser authUser) {
-        CacheProviderService cacheProviderService = SpringContextUtils.getBean(CacheProviderImpl.class);
+        CacheProviderService cacheProviderService = SpringContextUtils.getBean(RedisCacheServiceImpl.class);
         String token = authToken.getToken();
         cacheProviderService.set(AuthConstant.AUTH_USER + token, authUser,
                 authToken.getExpiration());

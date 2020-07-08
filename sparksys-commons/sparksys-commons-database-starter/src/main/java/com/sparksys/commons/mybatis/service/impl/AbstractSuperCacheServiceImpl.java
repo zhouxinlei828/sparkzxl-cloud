@@ -7,6 +7,7 @@ import com.sparksys.commons.mybatis.entity.SuperEntity;
 import com.sparksys.commons.mybatis.mapper.SuperMapper;
 import com.sparksys.commons.mybatis.service.SuperCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -21,6 +22,7 @@ import java.util.Collection;
 public abstract class AbstractSuperCacheServiceImpl<M extends SuperMapper<T>, T> extends SuperServiceImpl<M, T> implements SuperCacheService<T> {
 
     @Autowired
+    @Qualifier("redisCache")
     private CacheProviderService cacheProviderService;
 
     protected abstract String getRegion();

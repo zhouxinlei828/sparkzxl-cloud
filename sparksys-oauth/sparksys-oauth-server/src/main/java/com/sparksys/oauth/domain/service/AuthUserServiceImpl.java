@@ -22,6 +22,7 @@ import com.sparksys.commons.core.base.api.result.ApiPageResult;
 import com.sparksys.commons.mybatis.page.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,14 +41,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserMapper, AuthUser> implements IAuthUserService {
 
-    private final IAuthUserRepository authUserRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    public AuthUserServiceImpl(IAuthUserRepository authUserRepository, PasswordEncoder passwordEncoder) {
-        this.authUserRepository = authUserRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-
+    @Autowired
+    private IAuthUserRepository authUserRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public boolean saveAuthUser(Long contextUserId, AuthUserSaveDTO authUserSaveDTO) {

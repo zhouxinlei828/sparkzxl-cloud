@@ -3,7 +3,7 @@ package com.sparksys.commons.cache.service;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Maps;
-import com.sparksys.commons.core.cache.ICacheAdapter;
+import com.sparksys.commons.core.cache.CacheProviderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -24,8 +24,8 @@ import java.util.function.Supplier;
  * @date 2020/6/17 0017
  */
 @Slf4j
-@Component
-public class GuavaCacheAdapter implements ICacheAdapter {
+@Component("guavaCache")
+public class GuavaCacheServiceImpl implements CacheProviderService {
 
     private static final Map<String, Cache<String, Object>> CACHE_CONCURRENT_MAP = Maps.newConcurrentMap();
 

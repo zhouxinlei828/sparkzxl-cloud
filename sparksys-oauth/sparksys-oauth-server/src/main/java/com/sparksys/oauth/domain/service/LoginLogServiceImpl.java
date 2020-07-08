@@ -15,6 +15,8 @@ import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,17 +32,15 @@ import java.util.List;
 @Service
 public class LoginLogServiceImpl extends AbstractSuperCacheServiceImpl<LoginLogMapper, LoginLog> implements ILoginLogService {
 
-    private final IAuthUserRepository authUserRepository;
-    private final ILoginLogRepository loginLogRepository;
-    private final CacheProviderService cacheProviderService;
+    @Autowired
+    private IAuthUserRepository authUserRepository;
 
-    public LoginLogServiceImpl(IAuthUserRepository authUserRepository,
-                               ILoginLogRepository loginLogRepository,
-                               CacheProviderService cacheProviderService) {
-        this.authUserRepository = authUserRepository;
-        this.loginLogRepository = loginLogRepository;
-        this.cacheProviderService = cacheProviderService;
-    }
+    @Autowired
+    private ILoginLogRepository loginLogRepository;
+
+    @Autowired
+    @Qualifier("redisCache")
+    private CacheProviderService cacheProviderService;
 
     private final static String[] BROWSER = new String[]{
             "Chrome", "Firefox", "Microsoft Edge", "Safari", "Opera"
