@@ -18,7 +18,7 @@ sparksys-cloud
 ├──── sparksys-commons-mail-starter                 -- 邮件组件封装
 ├──── sparksys-commons-mybatis-starter              -- mybatis组件封装
 ├──── sparksys-commons-oauth2-starter               -- oauth2平台授权组件封装
-├──── sparksys-commons-redis-starter                -- redis组件封装
+├──── sparksys-commons-cache-starter                -- redis组件封装
 ├──── sparksys-commons-security-starter             -- 权限框架组件封装
 ├──── sparksys-commons-sentinel-starter             -- 限流组件封装
 ├──── sparksys-commons-web-starter                  -- web统一组件封装

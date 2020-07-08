@@ -1,8 +1,9 @@
-package com.sparksys.commons.redis.cache;
+package com.sparksys.commons.cache.service;
 
-import com.sparksys.commons.core.cache.CacheProviderService;
+import com.sparksys.commons.core.cache.ICacheAdapter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.ZSetOperations;
@@ -21,18 +22,16 @@ import java.util.function.Function;
  * @author zhouxinlei
  * @date 2020-05-24 13:28:55
  */
-@Component("redisCacheProvider")
+@Component
 @Slf4j
-public class RedisCacheProviderImpl implements CacheProviderService {
-    private final RedisTemplate<String, Object> redisTemplate;
+public class RedisCacheAdapter implements ICacheAdapter {
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     private ValueOperations<String, Object> valueOperations;
 
     private final static long CACHE_MINUTE = 60;
-
-    public RedisCacheProviderImpl(RedisTemplate<String, Object> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
 
     @PostConstruct
     public void initRedisOperation() {

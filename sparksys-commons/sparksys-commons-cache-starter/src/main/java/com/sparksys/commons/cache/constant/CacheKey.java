@@ -1,4 +1,4 @@
-package com.sparksys.commons.redis.constant;
+package com.sparksys.commons.cache.constant;
 
 import cn.hutool.core.util.StrUtil;
 import jodd.util.StringPool;

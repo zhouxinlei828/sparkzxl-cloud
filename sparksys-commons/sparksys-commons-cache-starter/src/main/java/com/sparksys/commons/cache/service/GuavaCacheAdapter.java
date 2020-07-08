@@ -1,8 +1,9 @@
-package com.sparksys.commons.redis.cache;
+package com.sparksys.commons.cache.service;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Maps;
+import com.sparksys.commons.core.cache.ICacheAdapter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -21,7 +22,7 @@ import java.util.function.Function;
  */
 @Slf4j
 @Component
-public class GuavaCache {
+public class GuavaCacheAdapter implements ICacheAdapter {
 
     private static final Map<String, Cache<String, Object>> CACHE_CONCURRENT_MAP = Maps.newConcurrentMap();
 
@@ -47,6 +48,7 @@ public class GuavaCache {
      *
      * @param key 缓存键 不可为空
      **/
+    @Override
     public <T> T get(String key) {
         return get(key, null, null, CACHE_MINUTE);
     }
@@ -57,6 +59,7 @@ public class GuavaCache {
      * @param key      缓存键 不可为空
      * @param function 如没有缓存，调用该callable函数返回对象 可为空
      **/
+    @Override
     public <T> T get(String key, Function<String, T> function) {
         return get(key, function, key, CACHE_MINUTE);
     }
@@ -68,6 +71,7 @@ public class GuavaCache {
      * @param function  如没有缓存，调用该callable函数返回对象 可为空
      * @param funcParam function函数的调用参数
      **/
+    @Override
     public <T, M> T get(String key, Function<M, T> function, M funcParam) {
         return get(key, function, funcParam, CACHE_MINUTE);
     }
@@ -79,6 +83,7 @@ public class GuavaCache {
      * @param function   如没有缓存，调用该callable函数返回对象 可为空
      * @param expireTime 过期时间（单位：毫秒） 可为空
      **/
+    @Override
     public <T> T get(String key, Function<String, T> function, Long expireTime) {
         return get(key, function, key, expireTime);
     }
@@ -91,6 +96,7 @@ public class GuavaCache {
      * @param funcParam   function函数的调用参数
      * @param expireTime 过期时间（单位：毫秒） 可为空
      **/
+    @Override
     public <T, M> T get(String key, Function<M, T> function, M funcParam, Long expireTime) {
         T obj = null;
         if (StringUtils.isEmpty(key)) {
@@ -116,6 +122,7 @@ public class GuavaCache {
      * @param key 缓存键 不可为空
      * @param obj 缓存值 不可为空
      **/
+    @Override
     public <T> void set(String key, T obj) {
         set(key, obj, CACHE_MINUTE);
     }
@@ -127,6 +134,7 @@ public class GuavaCache {
      * @param obj        缓存值 不可为空
      * @param expireTime 过期时间（单位：毫秒） 可为空
      **/
+    @Override
     public <T> void set(String key, T obj, Long expireTime) {
         if (StringUtils.isEmpty(key)) {
             return;
@@ -139,11 +147,27 @@ public class GuavaCache {
         cacheContainer.put(key, obj);
     }
 
+    @Override
+    public void expire(String key, Long expireTime) {
+
+    }
+
+    @Override
+    public Long increment(String key, long delta) {
+        return null;
+    }
+
+    @Override
+    public Long decrement(String key, long delta) {
+        return null;
+    }
+
     /**
      * 移除缓存
      *
      * @param key 缓存键 不可为空
      **/
+    @Override
     public void remove(String key) {
         if (StringUtils.isEmpty(key)) {
             return;
@@ -158,6 +182,7 @@ public class GuavaCache {
      *
      * @param key 缓存键 不可为空
      **/
+    @Override
     public boolean contains(String key) {
         boolean exists = false;
         if (StringUtils.isEmpty(key)) {
@@ -168,6 +193,36 @@ public class GuavaCache {
             exists = true;
         }
         return exists;
+    }
+
+    @Override
+    public <T> Boolean setZSet(String key, Long score, T value) {
+        return null;
+    }
+
+    @Override
+    public <T> Long get(String key, T value) {
+        return null;
+    }
+
+    @Override
+    public <T> T get(String key, Long score) {
+        return null;
+    }
+
+    @Override
+    public <K, V> void setHash(String key, K hashKey, V value) {
+
+    }
+
+    @Override
+    public <K> void removeHashEntity(String key, K hashKey) {
+
+    }
+
+    @Override
+    public Map getHash(String key) {
+        return null;
     }
 
 
@@ -209,4 +264,5 @@ public class GuavaCache {
         }
         return result;
     }
+
 }

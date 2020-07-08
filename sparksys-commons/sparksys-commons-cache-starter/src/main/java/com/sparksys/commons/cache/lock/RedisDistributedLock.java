@@ -1,4 +1,4 @@
-package com.sparksys.commons.redis.lock;
+package com.sparksys.commons.cache.lock;
 
 import com.sparksys.commons.core.lock.AbstractDistributedLock;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.sparksys.commons.redis.props;
+package com.sparksys.commons.cache.props;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

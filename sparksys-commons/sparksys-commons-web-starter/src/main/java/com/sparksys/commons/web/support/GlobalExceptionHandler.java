@@ -28,6 +28,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import javax.security.auth.login.AccountNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  * description: 全局异常处理
@@ -150,7 +151,7 @@ public class GlobalExceptionHandler {
         handleResponseResult();
         e.printStackTrace();
         log.error(e.getMessage());
-        return ApiResult.apiResult(ResponseResultStatus.INTERNAL_SERVER_ERROR);
+        return ApiResult.apiResult(ResponseResultStatus.FAILURE);
     }
 
     /**

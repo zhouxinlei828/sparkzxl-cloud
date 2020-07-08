@@ -7,7 +7,6 @@ import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
-import com.sparksys.commons.core.cache.CacheProviderService;
 import com.sparksys.commons.mybatis.entity.Entity;
 import com.sparksys.commons.mybatis.entity.SuperEntity;
 import lombok.extern.slf4j.Slf4j;
@@ -78,14 +77,10 @@ public class MetaDataHandler implements MetaObjectHandler {
         }
     }
 
-    private void update(MetaObject metaObject, Entity entity, String et) {
+    private void update(MetaObject metaObject, Entity entity) {
         if (entity.getUpdateTime() == null) {
             this.setFieldValByName(Entity.UPDATE_TIME, LocalDateTime.now(), metaObject);
         }
-    }
-
-    private void update(MetaObject metaObject, Entity entity) {
-        this.update(metaObject, entity, "");
     }
 
     @Override
@@ -98,7 +93,7 @@ public class MetaDataHandler implements MetaObjectHandler {
             Object et = metaObject.getValue("et");
             if (et != null && et instanceof Entity) {
                 Entity entity = (Entity) et;
-                this.update(metaObject, entity, "et.");
+                this.update(metaObject, entity);
             }
         }
     }

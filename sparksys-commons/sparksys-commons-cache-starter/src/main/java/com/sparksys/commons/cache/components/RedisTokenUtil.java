@@ -1,4 +1,4 @@
-package com.sparksys.commons.redis.components;
+package com.sparksys.commons.cache.components;
 
 import cn.hutool.core.util.IdUtil;
 import com.sparksys.commons.core.cache.CacheProviderService;
