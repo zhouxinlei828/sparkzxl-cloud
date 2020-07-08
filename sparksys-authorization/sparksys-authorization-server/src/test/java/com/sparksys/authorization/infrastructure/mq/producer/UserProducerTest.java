@@ -1,9 +1,7 @@
 package com.sparksys.authorization.infrastructure.mq.producer;
 
 import com.sparksys.authorization.AuthorizationApplication;
-import com.sparksys.commons.core.context.BaseContextHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +27,6 @@ public class UserProducerTest {
     @Autowired
     private UserProducer userProducer;
 
-    @Before
-    public void initBaseContextHandler(){
-        BaseContextHandler.setUserId(2222L);
-    }
     @Test
     public void syncSend() throws ExecutionException, InterruptedException {
         int id = (int) (System.currentTimeMillis() / 1000);
@@ -59,11 +53,5 @@ public class UserProducerTest {
 
         // 阻塞等待，保证消费
         new CountDownLatch(1).await();
-    }
-
-
-    @Test
-    public void getBaseContextHandler() {
-        log.info("BaseContextHandler get userId is {}",BaseContextHandler.getUserId());
     }
 }

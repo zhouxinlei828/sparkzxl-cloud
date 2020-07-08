@@ -2,16 +2,12 @@ package com.sparksys.commons.cache.service;
 
 import com.sparksys.commons.core.cache.CacheProviderService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -95,14 +91,7 @@ public class CacheProviderImpl implements CacheProviderService {
         if (obj == null) {
             return;
         }
-        expireTime = getExpireTime(expireTime);
-        valueOperations.set(key, obj);
-        expire(key, expireTime);
-    }
-
-    @Override
-    public void expire(String key, Long expireTime) {
-        redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
+        valueOperations.set(key, obj,expireTime,TimeUnit.SECONDS);
     }
 
     @Override
@@ -149,44 +138,4 @@ public class CacheProviderImpl implements CacheProviderService {
         return result;
     }
 
-
-    @Override
-    public <T> Boolean setZSet(String key, Long score, T value) {
-        return redisTemplate.opsForZSet().add(key, value, Double.longBitsToDouble(score));
-    }
-
-    @Override
-    public <T> Long get(String key, T value) {
-        Double score = redisTemplate.opsForZSet().score(key, value);
-        if (ObjectUtils.isNotEmpty(score)) {
-            return score.longValue();
-        }
-        return null;
-    }
-
-    @Override
-    public <T> T get(String key, Long score) {
-        Set<ZSetOperations.TypedTuple<Object>> valueSet = redisTemplate.opsForZSet().rangeByScoreWithScores(key, 0, -1);
-        for (ZSetOperations.TypedTuple<Object> objectTypedTuple : valueSet) {
-            if (objectTypedTuple.getScore().equals(Double.longBitsToDouble(score))) {
-                return (T) objectTypedTuple.getValue();
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public <K, V> void setHash(String key, K hashKey, V value) {
-        redisTemplate.opsForHash().put(key, hashKey, value);
-    }
-
-    @Override
-    public <K> void removeHashEntity(String key, K hashKey) {
-        redisTemplate.opsForHash().delete(key, hashKey);
-    }
-
-    @Override
-    public Map getHash(String key) {
-        return redisTemplate.opsForHash().entries(key);
-    }
 }

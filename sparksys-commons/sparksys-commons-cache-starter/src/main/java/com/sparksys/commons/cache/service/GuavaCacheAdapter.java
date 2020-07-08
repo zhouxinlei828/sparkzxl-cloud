@@ -9,10 +9,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.LongAdder;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * description：Guava Cache
@@ -148,18 +151,37 @@ public class GuavaCacheAdapter implements ICacheAdapter {
     }
 
     @Override
-    public void expire(String key, Long expireTime) {
-
-    }
-
-    @Override
     public Long increment(String key, long delta) {
-        return null;
+        Long expireTime = getExpireTime(CACHE_MINUTE);
+        Cache<String, Object> cacheContainer = getCacheContainer(expireTime);
+        Supplier<LongAdder> function = LongAdder::new;
+        LongAdder longAdder;
+        try {
+            longAdder = (LongAdder) cacheContainer.get(key, function::get);
+            longAdder.add(delta);
+            cacheContainer.put(key, longAdder);
+            return longAdder.longValue();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return 0L;
     }
 
     @Override
     public Long decrement(String key, long delta) {
-        return null;
+        Long expireTime = getExpireTime(CACHE_MINUTE);
+        Cache<String, Object> cacheContainer = getCacheContainer(expireTime);
+        Supplier<LongAdder> function = LongAdder::new;
+        LongAdder longAdder;
+        try {
+            longAdder = (LongAdder) cacheContainer.get(key, function::get);
+            longAdder.add(-delta);
+            cacheContainer.put(key, longAdder);
+            return longAdder.longValue();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return 0L;
     }
 
     /**
@@ -195,37 +217,6 @@ public class GuavaCacheAdapter implements ICacheAdapter {
         return exists;
     }
 
-    @Override
-    public <T> Boolean setZSet(String key, Long score, T value) {
-        return null;
-    }
-
-    @Override
-    public <T> Long get(String key, T value) {
-        return null;
-    }
-
-    @Override
-    public <T> T get(String key, Long score) {
-        return null;
-    }
-
-    @Override
-    public <K, V> void setHash(String key, K hashKey, V value) {
-
-    }
-
-    @Override
-    public <K> void removeHashEntity(String key, K hashKey) {
-
-    }
-
-    @Override
-    public Map getHash(String key) {
-        return null;
-    }
-
-
     private Cache<String, Object> getCacheContainer(Long expireTime) {
         Cache<String, Object> cacheContainer;
         if (expireTime == null) {
@@ -259,10 +250,9 @@ public class GuavaCacheAdapter implements ICacheAdapter {
      **/
     private Long getExpireTime(Long expireTime) {
         Long result = expireTime;
-        if (expireTime == null || expireTime < CACHE_MINUTE) {
+        if (expireTime == null || expireTime < CACHE_MINUTE / 10) {
             result = CACHE_MINUTE;
         }
         return result;
     }
-
 }
