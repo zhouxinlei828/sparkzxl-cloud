@@ -1,7 +1,8 @@
 package com.sparksys.oauth.domain.service;
 
 import cn.hutool.core.util.StrUtil;
-import com.sparksys.commons.core.cache.CacheKey;
+import com.sparksys.commons.core.constant.CacheKey;
+import com.sparksys.commons.core.repository.CacheRepository;
 import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.ILoginLogService;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
@@ -9,14 +10,13 @@ import com.sparksys.oauth.domain.repository.ILoginLogRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.entity.LoginLog;
 import com.sparksys.oauth.infrastructure.entity.LoginLogCount;
-import com.sparksys.commons.core.cache.CacheProviderService;
 import com.sparksys.oauth.infrastructure.mapper.LoginLogMapper;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -37,10 +37,6 @@ public class LoginLogServiceImpl extends AbstractSuperCacheServiceImpl<LoginLogM
 
     @Autowired
     private ILoginLogRepository loginLogRepository;
-
-    @Autowired
-    @Qualifier("redisCache")
-    private CacheProviderService cacheProviderService;
 
     private final static String[] BROWSER = new String[]{
             "Chrome", "Firefox", "Microsoft Edge", "Safari", "Opera"
@@ -96,49 +92,49 @@ public class LoginLogServiceImpl extends AbstractSuperCacheServiceImpl<LoginLogM
         loginLogRepository.saveLoginLog(loginLog);
         LocalDate now = LocalDate.now();
         LocalDate tenDays = now.plusDays(-9);
-        cacheProviderService.remove(CacheKey.LOGIN_LOG_TOTAL);
-        cacheProviderService.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY, now));
-        cacheProviderService.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY_IP, now));
-        cacheProviderService.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_BROWSER));
-        cacheProviderService.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_SYSTEM));
+        cacheRepository.remove(CacheKey.LOGIN_LOG_TOTAL);
+        cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY, now));
+        cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY_IP, now));
+        cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_BROWSER));
+        cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_SYSTEM));
         if (authUser != null) {
-            cacheProviderService.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TEN_DAY, tenDays, account));
+            cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TEN_DAY, tenDays, account));
         }
     }
 
     @Override
     public Long findTotalVisitCount() {
-        return cacheProviderService.get(CacheKey.LOGIN_LOG_TOTAL);
+        return cacheRepository.get(CacheKey.LOGIN_LOG_TOTAL);
     }
 
     @Override
     public Long findTodayVisitCount() {
         LocalDate now = LocalDate.now();
-        return cacheProviderService.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY, now));
+        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY, now));
     }
 
     @Override
     public Long findTodayIp() {
         LocalDate now = LocalDate.now();
-        return cacheProviderService.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY_IP, now));
+        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY_IP, now));
     }
 
     @Override
     public List<LoginLogCount> findLastTenDaysVisitCount(String account) {
         LocalDate tenDays = LocalDate.now().plusDays(-9);
-        return cacheProviderService.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_TEN_DAY, tenDays, account),
+        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_TEN_DAY, tenDays, account),
                 (key) -> loginLogRepository.findLastTenDaysVisitCount(tenDays, account));
     }
 
     @Override
     public List<LoginLogCount> findByBrowser() {
-        return cacheProviderService.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_BROWSER),
+        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_BROWSER),
                 (key) -> loginLogRepository.findByBrowser());
     }
 
     @Override
     public List<LoginLogCount> findByOperatingSystem() {
-        return cacheProviderService.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_SYSTEM),
+        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_SYSTEM),
                 (key) -> loginLogRepository.findByOperatingSystem());
     }
 

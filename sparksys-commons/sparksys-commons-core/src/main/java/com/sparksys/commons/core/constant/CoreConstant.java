@@ -8,7 +8,6 @@ package com.sparksys.commons.core.constant;
  */
 public class CoreConstant {
 
-
     /**
      * description: jwt常量
      *
@@ -39,5 +38,4 @@ public class CoreConstant {
 
         public static final String CLAIM_KEY_CREATED = "created";
     }
-
 }

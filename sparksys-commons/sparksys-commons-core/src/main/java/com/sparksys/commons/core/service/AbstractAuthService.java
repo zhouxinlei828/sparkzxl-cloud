@@ -1,6 +1,6 @@
-package com.sparksys.commons.web.service;
+package com.sparksys.commons.core.service;
 
-import com.sparksys.commons.core.constant.AuthConstant;
+import com.sparksys.commons.core.constant.CacheKey;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2020-05-24 13:44:10
  */
 @Slf4j
-public abstract class AbstractAuthUserRequest {
+public abstract class AbstractAuthService {
 
     /**
      * 根据token获取认证用户
@@ -25,8 +25,7 @@ public abstract class AbstractAuthUserRequest {
      */
     public GlobalAuthUser getUserInfo(String accessToken) {
         log.info("accessToken is {}", accessToken);
-        String cacheKey = AuthConstant.AUTH_USER.concat(accessToken);
-        GlobalAuthUser authUser = getCache(cacheKey);
+        GlobalAuthUser authUser = getCache(CacheKey.buildKey(CacheKey.AUTH_USER, accessToken));
         ResponseResultStatus.UN_AUTHORIZED.assertNotNull(authUser);
         return authUser;
     }

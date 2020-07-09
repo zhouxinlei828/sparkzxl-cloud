@@ -85,8 +85,6 @@ public class AddressUtil {
 
             config = new DbConfig();
             searcher = new DbSearcher(config, dbPath);
-            log.info("bean [{}]", config);
-            log.info("bean [{}]", searcher);
         } catch (Exception var5) {
             log.error("init ip region error:{}", var5);
         }

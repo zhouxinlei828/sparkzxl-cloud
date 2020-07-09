@@ -1,7 +1,7 @@
 package com.sparksys.commons.web.component;
 
 import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.web.service.AbstractAuthUserRequest;
+import com.sparksys.commons.core.service.AbstractAuthService;
 import com.sparksys.commons.web.utils.HttpResponseUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
 
-    private final AbstractAuthUserRequest abstractAuthUserRequest;
+    private final AbstractAuthService abstractAuthUserRequest;
 
-    public AuthUserArgumentResolver(AbstractAuthUserRequest abstractAuthUserRequest) {
+    public AuthUserArgumentResolver(AbstractAuthService abstractAuthUserRequest) {
         this.abstractAuthUserRequest = abstractAuthUserRequest;
     }
 

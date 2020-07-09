@@ -1,6 +1,6 @@
 package com.sparksys.oauth.domain.service;
 
-import com.sparksys.commons.core.cache.CacheKey;
+import com.sparksys.commons.core.constant.CacheKey;
 import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.ICoreStationService;
 import com.sparksys.oauth.infrastructure.entity.CoreStation;

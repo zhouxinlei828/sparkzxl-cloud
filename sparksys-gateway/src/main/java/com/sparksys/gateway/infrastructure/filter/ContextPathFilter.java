@@ -26,12 +26,12 @@ public class ContextPathFilter implements WebFilter {
     private ServerProperties serverProperties;
 
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain webFilterChain) {
         String contextPath = serverProperties.getServlet().getContextPath();
         String requestPath = exchange.getRequest().getPath().pathWithinApplication().value();
         if (contextPath != null && requestPath.startsWith(contextPath)) {
             requestPath = requestPath.substring(contextPath.length());
         }
-        return chain.filter(exchange.mutate().request(exchange.getRequest().mutate().path(requestPath).build()).build());
+        return webFilterChain.filter(exchange.mutate().request(exchange.getRequest().mutate().path(requestPath).build()).build());
     }
 }

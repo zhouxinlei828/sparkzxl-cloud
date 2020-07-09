@@ -1,13 +1,13 @@
 package com.sparksys.commons.mybatis.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.sparksys.commons.core.cache.CacheKey;
-import com.sparksys.commons.core.cache.CacheProviderService;
+import com.sparksys.commons.core.constant.CacheKey;
+import com.sparksys.commons.core.repository.CacheRepository;
 import com.sparksys.commons.mybatis.entity.SuperEntity;
 import com.sparksys.commons.mybatis.mapper.SuperMapper;
 import com.sparksys.commons.mybatis.service.SuperCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -22,21 +22,20 @@ import java.util.Collection;
 public abstract class AbstractSuperCacheServiceImpl<M extends SuperMapper<T>, T> extends SuperServiceImpl<M, T> implements SuperCacheService<T> {
 
     @Autowired
-    @Qualifier("redisCache")
-    private CacheProviderService cacheProviderService;
+    protected CacheRepository cacheRepository;
 
     protected abstract String getRegion();
 
     @Override
     public T getByIdCache(Serializable id) {
-        return this.cacheProviderService.get(this.getRegion(), (x) -> super.getById(id));
+        return this.cacheRepository.get(this.getRegion(), (x) -> super.getById(id));
     }
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public boolean removeById(Serializable id) {
         boolean bool = super.removeById(id);
-        this.cacheProviderService.remove(CacheKey.buildKey(this.getRegion(), id));
+        this.cacheRepository.remove(CacheKey.buildKey(this.getRegion(), id));
         return bool;
     }
 
@@ -47,7 +46,7 @@ public abstract class AbstractSuperCacheServiceImpl<M extends SuperMapper<T>, T>
             return true;
         } else {
             boolean flag = super.removeByIds(idList);
-            idList.forEach(id -> this.cacheProviderService.remove(CacheKey.buildKey(this.getRegion(), id)));
+            idList.forEach(id -> this.cacheRepository.remove(CacheKey.buildKey(this.getRegion(), id)));
             return flag;
         }
     }
@@ -58,7 +57,7 @@ public abstract class AbstractSuperCacheServiceImpl<M extends SuperMapper<T>, T>
         boolean result = super.save(model);
         if (model instanceof SuperEntity) {
             String key = CacheKey.buildKey(this.getRegion(), ((SuperEntity) model).getId());
-            this.cacheProviderService.set(key, model);
+            this.cacheRepository.set(key, model);
         }
         return result;
     }
@@ -68,7 +67,7 @@ public abstract class AbstractSuperCacheServiceImpl<M extends SuperMapper<T>, T>
     public boolean updateAllById(T model) {
         boolean updateBool = super.updateAllById(model);
         if (model instanceof SuperEntity) {
-            this.cacheProviderService.remove(CacheKey.buildKey(this.getRegion(), ((SuperEntity) model).getId()));
+            this.cacheRepository.remove(CacheKey.buildKey(this.getRegion(), ((SuperEntity) model).getId()));
         }
         return updateBool;
     }
@@ -78,7 +77,7 @@ public abstract class AbstractSuperCacheServiceImpl<M extends SuperMapper<T>, T>
     public boolean updateById(T model) {
         boolean updateBool = super.updateById(model);
         if (model instanceof SuperEntity) {
-            this.cacheProviderService.remove(CacheKey.buildKey(this.getRegion(), ((SuperEntity) model).getId()));
+            this.cacheRepository.remove(CacheKey.buildKey(this.getRegion(), ((SuperEntity) model).getId()));
         }
         return updateBool;
     }

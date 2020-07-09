@@ -114,12 +114,4 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * @return AuthUserDetail
      */
     AuthUserDetail getAuthUserDetail(String username);
-
-    /**
-     * 获取用户权限集
-     *
-     * @param id
-     * @return Set<String>
-     */
-    Set<String> getAuthUserPermissions(Long id);
 }

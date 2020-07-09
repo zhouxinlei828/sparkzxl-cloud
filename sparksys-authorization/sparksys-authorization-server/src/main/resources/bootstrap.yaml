@@ -16,7 +16,7 @@ spring:
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
-          - dataId: redis.yaml
+          - dataId: cache.yaml
             group: DEFAULT_GROUP
             refresh: false
           - dataId: kafka.yaml

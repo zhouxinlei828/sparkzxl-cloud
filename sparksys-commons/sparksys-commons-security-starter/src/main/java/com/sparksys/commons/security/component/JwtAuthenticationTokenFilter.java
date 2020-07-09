@@ -3,7 +3,7 @@ package com.sparksys.commons.security.component;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.commons.security.registry.SecurityRegistry;
-import com.sparksys.commons.security.service.AbstractSecurityAuthDetailService;
+import com.sparksys.commons.security.service.AbstractAuthSecurityService;
 import com.sparksys.commons.core.utils.jwt.JwtTokenUtil;
 import com.sparksys.commons.web.utils.HttpResponseUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Autowired
-    private AbstractSecurityAuthDetailService abstractSecurityAuthDetailService;
+    private AbstractAuthSecurityService abstractSecurityAuthDetailService;
 
     @Autowired
     private SecurityRegistry securityRegistry;

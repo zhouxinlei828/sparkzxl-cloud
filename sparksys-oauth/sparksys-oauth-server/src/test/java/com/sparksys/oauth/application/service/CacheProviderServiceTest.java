@@ -1,11 +1,13 @@
 package com.sparksys.oauth.application.service;
 
-import com.sparksys.commons.core.cache.CacheProviderService;
+
+import com.sparksys.commons.core.repository.CacheRepository;
 import com.sparksys.oauth.Oauth2Application;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -17,24 +19,23 @@ public class CacheProviderServiceTest {
 
 
     @Autowired
-    @Qualifier("redisCache")
-    private CacheProviderService redisCache;
+    private CacheRepository redisCacheRepository;
 
     @Autowired
-    @Qualifier("guavaCache")
-    private CacheProviderService guavaCache;
+    @Qualifier("caffeineCacheRepository")
+    private CacheRepository guavaCacheRepository;
     @Test
     public void redisCacheTest() {
-        redisCache.set("test", "datong");
-        String data = redisCache.get("test");
+        redisCacheRepository.set("test", "datong");
+        String data = redisCacheRepository.get("test");
         log.info("data is {}", data);
     }
 
 
     @Test
     public void guavaCacheTest() {
-        guavaCache.set("test", "datong");
-        String data = guavaCache.get("test");
+        guavaCacheRepository.set("test", "datong");
+        String data = guavaCacheRepository.get("test");
         log.info("data is {}", data);
     }
 

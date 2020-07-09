@@ -1,27 +1,25 @@
 package com.sparksys.commons.security.service;
 
-import com.sparksys.commons.cache.service.RedisCacheServiceImpl;
-import com.sparksys.commons.core.constant.AuthConstant;
+import com.sparksys.commons.core.constant.CacheKey;
+import com.sparksys.commons.core.repository.CacheRepository;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.commons.security.event.LoginEvent;
 import com.sparksys.commons.security.entity.LoginStatus;
-import com.sparksys.commons.web.service.AbstractAuthUserRequest;
+import com.sparksys.commons.core.service.AbstractAuthService;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.web.component.SpringContextUtils;
 import com.sparksys.commons.core.constant.CoreConstant;
 import com.sparksys.commons.core.support.BusinessException;
 import com.sparksys.commons.core.utils.crypto.MD5Utils;
-import com.sparksys.commons.core.cache.CacheProviderService;
 import com.sparksys.commons.security.entity.AuthToken;
 import com.sparksys.commons.security.request.AuthRequest;
 import com.sparksys.commons.core.utils.jwt.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.List;
 
 /**
  * description: 登录授权Service
@@ -30,7 +28,10 @@ import java.util.List;
  * @date 2020-05-24 13:39:06
  */
 @Slf4j
-public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUserRequest {
+public abstract class AbstractAuthSecurityService extends AbstractAuthService {
+
+    @Autowired
+    protected CacheRepository cacheRepository;
 
     /**
      * 登录
@@ -39,7 +40,7 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
      * @return java.lang.String
      * @throws Exception 异常
      */
-    public AuthToken login(AuthRequest authRequest){
+    public AuthToken login(AuthRequest authRequest) {
         String account = authRequest.getAccount();
         String password = authRequest.getPassword();
         String token;
@@ -82,9 +83,8 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
      * @return void
      */
     private void accessToken(AuthToken authToken, GlobalAuthUser authUser) {
-        CacheProviderService cacheProviderService = SpringContextUtils.getBean(RedisCacheServiceImpl.class);
         String token = authToken.getToken();
-        cacheProviderService.set(AuthConstant.AUTH_USER + token, authUser,
+        cacheRepository.set(CacheKey.buildKey(CacheKey.AUTH_USER, token), authUser,
                 authToken.getExpiration());
     }
 
@@ -96,15 +96,5 @@ public abstract class AbstractSecurityAuthDetailService extends AbstractAuthUser
      * @throws BusinessException 异常
      */
     public abstract AuthUserDetail getAuthUserDetail(String account);
-
-    /**
-     * 获取用户权限
-     *
-     * @param adminId 用户id
-     * @return List<String>
-     * @author zhouxinlei
-     * @date 2019-09-11 17:46:56
-     */
-    public abstract List<String> listOauthPermission(Long adminId);
 
 }

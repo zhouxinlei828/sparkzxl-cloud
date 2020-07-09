@@ -8,11 +8,11 @@ import org.redisson.api.RedissonClient;
 
 import java.util.concurrent.TimeUnit;
 
-/*
+/**
  * description：redis分布式锁
  *
  * @author zhouxinlei
- * @date  2020/6/10 0010
+ * @date 2020/6/10 0010
  */
 @Slf4j
 public class RedisDistributedLock extends AbstractDistributedLock {
@@ -55,7 +55,7 @@ public class RedisDistributedLock extends AbstractDistributedLock {
     /**
      * 递增
      *
-     * @param key
+     * @param key   key值
      * @param delta 要增加几(大于0)
      * @return int
      */

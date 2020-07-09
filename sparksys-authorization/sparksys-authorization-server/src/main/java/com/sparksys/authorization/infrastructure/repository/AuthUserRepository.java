@@ -77,6 +77,6 @@ public class AuthUserRepository implements IAuthUserRepository {
 
     @Override
     public List<String> getAuthUserPermissions(Long id) {
-        return null;
+        return authUserMapper.getAuthUserPermissions(id);
     }
 }

@@ -1,4 +1,4 @@
-package com.sparksys.commons.core.cache;
+package com.sparksys.commons.core.repository;
 
 import java.util.function.Function;
 
@@ -8,7 +8,7 @@ import java.util.function.Function;
  * @author zhouxinlei
  * @date 2020-05-24 13:25:06
  */
-public interface CacheProviderService {
+public interface CacheRepository {
 
     /**
      * 查询缓存
@@ -67,17 +67,25 @@ public interface CacheProviderService {
      * @param obj 缓存值 不可为空
      * @return void
      **/
-    <T> void set(String key, T obj);
+    void set(String key, Object obj);
 
     /**
      * 设置缓存键值
      *
      * @param key        缓存键 不可为空
-     * @param obj        缓存值 不可为空
+     * @param value      缓存值 不可为空
      * @param expireTime 过期时间（单位：毫秒） 可为空
      * @return void
      **/
-    <T> void set(String key, T obj, Long expireTime);
+    void set(String key, Object value, Long expireTime);
+
+    /**
+     * 自增长
+     *
+     * @param key   key值
+     * @return Long
+     */
+    Long increment(String key);
 
     /**
      * 自增长
@@ -87,6 +95,16 @@ public interface CacheProviderService {
      * @return Long
      */
     Long increment(String key, long delta);
+
+    /**
+     * 自减
+     *
+     * @param key   key值
+     * @return Long
+     * @author zhouxinlei
+     * @date 2019-10-11 16:23:58
+     */
+    Long decrement(String key);
 
     /**
      * 自减
@@ -102,10 +120,10 @@ public interface CacheProviderService {
     /**
      * 移除缓存
      *
-     * @param key 缓存键 不可为空
-     * @return void
-     **/
-    void remove(String key);
+     * @param keys 缓存键 不可为空
+     * @return Long
+     */
+    Long remove(String... keys);
 
     /**
      * 是否存在缓存
@@ -113,6 +131,14 @@ public interface CacheProviderService {
      * @param key 缓存键 不可为空
      * @return boolean
      **/
-    boolean contains(String key);
+    boolean exists(String key);
+
+    /**
+     * 刷新DB
+     *
+     * @return void
+     **/
+    void flushDb();
+
 
 }

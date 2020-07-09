@@ -1,8 +1,14 @@
-package com.sparksys.commons.core.cache;
+package com.sparksys.commons.core.constant;
 
 import cn.hutool.core.util.StrUtil;
 
 public class CacheKey {
+
+    /**
+     * 登录账户 前缀
+     * 完整key: authUser:{key} -> str
+     */
+    public static String AUTH_USER = "login_user";
 
     /**
      * 验证码 前缀
@@ -200,5 +206,6 @@ public class CacheKey {
     public static void main(String[] args) {
         System.out.println(buildKey(CacheKey.TOKEN, null));
         System.out.println(key("111", 222, 333));
+        System.out.println(CacheKey.buildKey(CacheKey.AUTH_USER, "11111"));
     }
 }

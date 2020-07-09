@@ -1,8 +1,7 @@
 package com.sparksys.commons.cache.components;
 
 import cn.hutool.core.util.IdUtil;
-import com.sparksys.commons.core.cache.CacheProviderService;
-import org.springframework.stereotype.Component;
+import com.sparksys.commons.core.repository.CacheRepository;
 import org.springframework.util.StringUtils;
 
 /**
@@ -11,27 +10,26 @@ import org.springframework.util.StringUtils;
  * @author zhouxinlei
  * @date 2020-05-24 13:29:13
  */
-@Component
-public class RedisTokenUtil {
+public class TokenUtil {
 
-    private final CacheProviderService cacheProviderService;
+    private final CacheRepository cacheRepository;
 
-    public RedisTokenUtil(CacheProviderService cacheProviderService) {
-        this.cacheProviderService = cacheProviderService;
+    public TokenUtil(CacheRepository cacheRepository) {
+        this.cacheRepository = cacheRepository;
     }
 
     public String getToken() {
         String token = "token".concat(IdUtil.simpleUUID());
         long expire = 60 * 60;
-        cacheProviderService.set(token, token, expire);
+        cacheRepository.set(token, token, expire);
         return token;
     }
 
 
     public boolean findToken(String token) {
-        String value = cacheProviderService.get(token);
+        String value = cacheRepository.get(token);
         if (!StringUtils.isEmpty(value)) {
-            cacheProviderService.remove(token);
+            cacheRepository.remove(token);
             return true;
         }
         return false;

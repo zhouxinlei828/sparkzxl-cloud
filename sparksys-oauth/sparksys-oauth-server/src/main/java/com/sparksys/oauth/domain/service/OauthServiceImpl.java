@@ -1,7 +1,8 @@
 package com.sparksys.oauth.domain.service;
 
-import com.sparksys.commons.core.cache.CacheProviderService;
-import com.sparksys.commons.core.constant.AuthConstant;
+import com.sparksys.commons.core.constant.CacheKey;
+import com.sparksys.commons.core.repository.CacheRepository;
+
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.support.ResponseResultStatus;
 import com.sparksys.commons.oauth.enums.GrantTypeEnum;
@@ -12,6 +13,7 @@ import com.sparksys.commons.security.entity.LoginStatus;
 import com.sparksys.commons.web.component.SpringContextUtils;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
@@ -33,7 +35,7 @@ public class OauthServiceImpl implements OauthService {
     @Autowired
     private TokenEndpoint tokenEndpoint;
     @Autowired
-    private CacheProviderService cacheProviderService;
+    private CacheRepository cacheRepository;
     @Autowired
     private IAuthUserService authUserService;
 
@@ -81,7 +83,7 @@ public class OauthServiceImpl implements OauthService {
         GlobalAuthUser globalAuthUser = authUserDetail.getAuthUser();
         String token = oAuth2AccessToken.getValue();
         Long expiresIn = (long) oAuth2AccessToken.getExpiresIn();
-        cacheProviderService.set(AuthConstant.AUTH_USER + token, globalAuthUser, expiresIn);
+        cacheRepository.set(CacheKey.buildKey(CacheKey.AUTH_USER, token), globalAuthUser, expiresIn);
     }
 
 }

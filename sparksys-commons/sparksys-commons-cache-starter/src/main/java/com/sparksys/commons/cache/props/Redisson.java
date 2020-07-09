@@ -1,20 +1,15 @@
+
 package com.sparksys.commons.cache.props;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
-/*
- * description：
+/**
+ * description:
  *
- * @author zhouxinlei
- * @date  2020/6/10 0010
- */
-
-@ConfigurationProperties(prefix = "redisson")
-@Component
+ * @author: zhouxinlei
+ * @date: 2020-07-09 11:31:52
+*/
 @Data
-public class RedissonProperties {
+public class Redisson {
 
     private int timeout;
 

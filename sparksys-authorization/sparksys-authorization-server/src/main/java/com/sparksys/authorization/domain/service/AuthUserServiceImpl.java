@@ -3,7 +3,7 @@ package com.sparksys.authorization.domain.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Sets;
 import com.sparksys.commons.core.base.api.result.ApiPageResult;
-import com.sparksys.commons.core.cache.CacheKey;
+import com.sparksys.commons.core.constant.CacheKey;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.utils.collection.ListUtils;
 import com.sparksys.commons.core.utils.crypto.MD5Utils;
@@ -134,15 +134,6 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
             return new AuthUserDetail(globalAuthUser);
         }
         return null;
-    }
-
-    @Override
-    public Set<String> getAuthUserPermissions(Long id) {
-        List<String> userPermissions = authUserRepository.getAuthUserPermissions(id);
-        if (ListUtils.isNotEmpty(userPermissions)) {
-            return new HashSet<>(userPermissions);
-        }
-        return Sets.newHashSet();
     }
 
     @Override

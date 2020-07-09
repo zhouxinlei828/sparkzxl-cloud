@@ -1,11 +1,11 @@
 package com.sparksys.oauth.application.service;
 
+import com.sparksys.commons.core.repository.CacheRepository;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.core.cache.CacheProviderService;
-import com.sparksys.commons.web.service.AbstractAuthUserRequest;
+import com.sparksys.commons.core.service.AbstractAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,15 +16,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class AuthUserSecurityService extends AbstractAuthUserRequest {
+public class AuthUserSecurityService extends AbstractAuthService {
 
     @Autowired
-    @Qualifier("redisCache")
-    private CacheProviderService cacheProviderService;
+    private CacheRepository cacheRepository;
 
 
     @Override
     protected GlobalAuthUser getCache(String key) {
-        return cacheProviderService.get(key);
+        return cacheRepository.get(key);
     }
 }

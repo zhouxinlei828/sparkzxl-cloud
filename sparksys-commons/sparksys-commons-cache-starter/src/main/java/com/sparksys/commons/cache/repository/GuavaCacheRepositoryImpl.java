@@ -1,13 +1,14 @@
-package com.sparksys.commons.cache.service;
+package com.sparksys.commons.cache.repository;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
-import com.sparksys.commons.core.cache.CacheProviderService;
+import com.sparksys.commons.core.repository.CacheRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -24,8 +25,7 @@ import java.util.function.Supplier;
  * @date 2020/6/17 0017
  */
 @Slf4j
-@Component("guavaCache")
-public class GuavaCacheServiceImpl implements CacheProviderService {
+public class GuavaCacheRepositoryImpl implements CacheRepository {
 
     private static final Map<String, Cache<String, Object>> CACHE_CONCURRENT_MAP = Maps.newConcurrentMap();
 
@@ -126,7 +126,7 @@ public class GuavaCacheServiceImpl implements CacheProviderService {
      * @param obj 缓存值 不可为空
      **/
     @Override
-    public <T> void set(String key, T obj) {
+    public void set(String key, Object obj) {
         set(key, obj, CACHE_MINUTE);
     }
 
@@ -138,7 +138,7 @@ public class GuavaCacheServiceImpl implements CacheProviderService {
      * @param expireTime 过期时间（单位：毫秒） 可为空
      **/
     @Override
-    public <T> void set(String key, T obj, Long expireTime) {
+    public void set(String key, Object obj, Long expireTime) {
         if (StringUtils.isEmpty(key)) {
             return;
         }
@@ -148,6 +148,23 @@ public class GuavaCacheServiceImpl implements CacheProviderService {
         expireTime = getExpireTime(expireTime);
         Cache<String, Object> cacheContainer = getCacheContainer(expireTime);
         cacheContainer.put(key, obj);
+    }
+
+    @Override
+    public Long increment(String key) {
+        Long expireTime = getExpireTime(CACHE_MINUTE);
+        Cache<String, Object> cacheContainer = getCacheContainer(expireTime);
+        Supplier<LongAdder> function = LongAdder::new;
+        LongAdder longAdder;
+        try {
+            longAdder = (LongAdder) cacheContainer.get(key, function::get);
+            longAdder.increment();
+            cacheContainer.put(key, longAdder);
+            return longAdder.longValue();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return 0L;
     }
 
     @Override
@@ -184,28 +201,37 @@ public class GuavaCacheServiceImpl implements CacheProviderService {
         return 0L;
     }
 
-    /**
-     * 移除缓存
-     *
-     * @param key 缓存键 不可为空
-     **/
     @Override
-    public void remove(String key) {
-        if (StringUtils.isEmpty(key)) {
-            return;
+    public Long decrement(String key) {
+        Long expireTime = getExpireTime(CACHE_MINUTE);
+        Cache<String, Object> cacheContainer = getCacheContainer(expireTime);
+        Supplier<LongAdder> function = LongAdder::new;
+        LongAdder longAdder;
+        try {
+            longAdder = (LongAdder) cacheContainer.get(key, function::get);
+            longAdder.decrement();
+            cacheContainer.put(key, longAdder);
+            return longAdder.longValue();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return 0L;
+    }
+
+    @Override
+    public Long remove(String... keys) {
+        Iterable iterable = Arrays.asList(keys);
+        if (Iterables.isEmpty(iterable)) {
+            return 0L;
         }
         long expireTime = getExpireTime(CACHE_MINUTE);
         Cache<String, Object> cacheContainer = getCacheContainer(expireTime);
-        cacheContainer.invalidate(key);
+        cacheContainer.invalidateAll(iterable);
+        return (long) keys.length;
     }
 
-    /**
-     * 是否存在缓存
-     *
-     * @param key 缓存键 不可为空
-     **/
     @Override
-    public boolean contains(String key) {
+    public boolean exists(String key) {
         boolean exists = false;
         if (StringUtils.isEmpty(key)) {
             return false;
@@ -215,6 +241,13 @@ public class GuavaCacheServiceImpl implements CacheProviderService {
             exists = true;
         }
         return exists;
+    }
+
+    @Override
+    public void flushDb() {
+        long expireTime = getExpireTime(CACHE_MINUTE);
+        Cache<String, Object> cacheContainer = getCacheContainer(expireTime);
+        cacheContainer.invalidateAll();
     }
 
     private Cache<String, Object> getCacheContainer(Long expireTime) {

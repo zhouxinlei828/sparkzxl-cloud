@@ -2,7 +2,7 @@ package com.sparksys.oauth.domain.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Sets;
-import com.sparksys.commons.core.cache.CacheKey;
+import com.sparksys.commons.core.constant.CacheKey;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.utils.collection.ListUtils;
 import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
