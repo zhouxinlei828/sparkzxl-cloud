@@ -1,16 +1,16 @@
 package com.sparksys.sharding.infrastructure.mapper;
 
+import com.sparksys.commons.mybatis.mapper.SuperMapper;
 import com.sparksys.sharding.infrastructure.entity.OmsOrder;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 /**
- * <p>
- * 订单表 Mapper 接口
- * </p>
+ * description: 订单表 Mapper 接口
  *
- * @author zhouxinlei
- * @since 2020-07-07
+ * @author: zhouxinlei
+ * @date: 2020-07-10 13:51:53
  */
-public interface OmsOrderMapper extends BaseMapper<OmsOrder> {
+@Repository
+public interface OmsOrderMapper extends SuperMapper<OmsOrder> {
 
 }

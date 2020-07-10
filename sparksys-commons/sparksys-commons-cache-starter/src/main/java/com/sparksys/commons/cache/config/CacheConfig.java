@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.RedisTemplate;
 
 /**
@@ -17,6 +18,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @date: 2020-07-09 12:05:47
  */
 @Configuration
+@Order(3)
 public class CacheConfig {
 
     @Bean

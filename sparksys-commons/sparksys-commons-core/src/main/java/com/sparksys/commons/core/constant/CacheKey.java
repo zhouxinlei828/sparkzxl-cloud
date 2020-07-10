@@ -174,6 +174,12 @@ public class CacheKey {
     // 消息服务缓存 end
 
     /**
+     * 订单服务 前缀
+     * 完整key: register:{注册类型}:{手机号}
+     */
+    public static String OMS_ORDER = "oms_order";
+
+    /**
      * 构建没有租户信息的key
      *
      * @param args

@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 /**
  * description：Redisson配置
@@ -23,6 +24,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnClass(Config.class)
 @ConditionalOnProperty(name = "cache.redisson.enable", havingValue = "true")
+@Order(2)
 public class RedissonConfig {
 
 

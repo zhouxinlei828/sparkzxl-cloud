@@ -16,7 +16,7 @@ spring:
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
-          - dataId: redis.yaml
+          - dataId: cache.yaml
             group: DEFAULT_GROUP
             refresh: false
           - dataId: actuator.yaml
@@ -31,3 +31,6 @@ spring:
         dashboard: 192.168.3.3:8858
       filter:
         url-patterns: /**
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true

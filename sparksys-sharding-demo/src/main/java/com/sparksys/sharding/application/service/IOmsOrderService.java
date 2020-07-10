@@ -1,16 +1,22 @@
 package com.sparksys.sharding.application.service;
 
+import com.sparksys.commons.mybatis.service.SuperCacheService;
 import com.sparksys.sharding.infrastructure.entity.OmsOrder;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * <p>
- * 订单表 服务类
- * </p>
+ * description: 订单 服务类
  *
- * @author zhouxinlei
- * @since 2020-07-07
+ * @author: zhouxinlei
+ * @date: 2020-07-10 13:53:34
  */
-public interface IOmsOrderService extends IService<OmsOrder> {
+public interface IOmsOrderService extends SuperCacheService<OmsOrder> {
 
+    /**
+     * 查询用户订单数据
+     *
+     * @param memberId 会员id
+     * @return
+     */
+    OmsOrder getByMemberId(Long memberId);
 }

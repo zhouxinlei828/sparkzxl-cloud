@@ -14,24 +14,22 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * <p>
- * 订单表
- * </p>
+ * description: 订单表
  *
- * @author zhouxinlei
- * @since 2020-07-07
- */
+ * @author: zhouxinlei
+ * @date: 2020-07-10 13:52:06
+*/
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("oms_order_0")
+@TableName("oms_order")
 @ApiModel(value="OmsOrder0对象", description="订单表")
 public class OmsOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "订单id")
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.INPUT)
     private Long id;
 
     @TableField("member_id")

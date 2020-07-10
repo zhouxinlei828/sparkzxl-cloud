@@ -21,7 +21,7 @@ import java.util.Collection;
  */
 public abstract class AbstractSuperCacheServiceImpl<M extends SuperMapper<T>, T> extends SuperServiceImpl<M, T> implements SuperCacheService<T> {
 
-    @Autowired
+    @Autowired(required = false)
     protected CacheRepository cacheRepository;
 
     protected abstract String getRegion();
