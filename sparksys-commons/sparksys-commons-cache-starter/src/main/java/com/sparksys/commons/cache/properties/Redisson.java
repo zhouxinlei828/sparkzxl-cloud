@@ -1,5 +1,5 @@
 
-package com.sparksys.commons.cache.props;
+package com.sparksys.commons.cache.properties;
 
 import lombok.Data;
 /**

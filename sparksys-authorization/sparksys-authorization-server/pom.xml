@@ -38,8 +38,8 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-commons-core</artifactId>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
@@ -58,8 +58,8 @@
             <artifactId>sparksys-commons-web-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>eu.bitwalker</groupId>
-            <artifactId>UserAgentUtils</artifactId>
+            <groupId>com.sparksys</groupId>
+            <artifactId>sparksys-commons-swagger-starter</artifactId>
         </dependency>
     </dependencies>
     <build>

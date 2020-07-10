@@ -1,7 +1,7 @@
 package com.sparksys.commons.cache.config;
 
 import com.sparksys.commons.cache.lock.RedisDistributedLock;
-import com.sparksys.commons.cache.props.CacheProperties;
+import com.sparksys.commons.cache.properties.CacheProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;

@@ -17,7 +17,6 @@
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-commons-core</artifactId>
         </dependency>
-
         <!-- elasticsearch -->
         <dependency>
             <groupId>org.elasticsearch</groupId>

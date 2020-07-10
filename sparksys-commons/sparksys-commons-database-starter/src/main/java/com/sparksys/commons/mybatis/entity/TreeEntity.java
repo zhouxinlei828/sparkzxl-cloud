@@ -2,7 +2,6 @@ package com.sparksys.commons.mybatis.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.google.common.collect.Lists;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,16 +14,27 @@ import java.util.List;
  */
 public class TreeEntity<E, T extends Serializable> extends Entity<T> {
 
-    @ApiModelProperty("名称")
+    /**
+     * 名称
+     */
     @TableField(value = "label", condition = "%s LIKE CONCAT('%%',#{%s},'%%')")
     protected String label;
-    @ApiModelProperty("父ID")
+
+    /**
+     * 父ID
+     */
     @TableField("parent_id")
     protected T parentId;
-    @ApiModelProperty("排序号")
+
+    /**
+     * 排序号
+     */
     @TableField("sort_value")
     protected Integer sortValue;
-    @ApiModelProperty(value = "子节点", hidden = true)
+
+    /**
+     * 子节点
+     */
     @TableField(exist = false)
     protected List<E> children;
 
@@ -74,6 +84,7 @@ public class TreeEntity<E, T extends Serializable> extends Entity<T> {
         return this;
     }
 
+    @Override
     public String toString() {
         return "TreeEntity(super=" + super.toString() + ", label=" + this.getLabel() + ", parentId=" + this.getParentId() + ", sortValue=" + this.getSortValue() + ", children=" + this.getChildren() + ")";
     }
