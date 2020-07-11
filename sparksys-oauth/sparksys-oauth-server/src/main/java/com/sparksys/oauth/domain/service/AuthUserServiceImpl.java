@@ -1,5 +1,6 @@
 package com.sparksys.oauth.domain.service;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Sets;
 import com.sparksys.commons.core.constant.CacheKey;
@@ -110,10 +111,11 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     @Override
     public boolean resetPassErrorNum(String account) {
         AuthUser authUser = new AuthUser();
-        authUser.setAccount(account);
         authUser.setPasswordErrorNum(0);
         authUser.setPasswordErrorLastTime(null);
-        return updateById(authUser);
+        UpdateWrapper<AuthUser> userUpdateWrapper = new UpdateWrapper<>();
+        userUpdateWrapper.eq("account", account);
+        return update(authUser, userUpdateWrapper);
     }
 
     @Override

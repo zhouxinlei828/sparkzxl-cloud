@@ -26,7 +26,8 @@
         <knife4j.version>2.0.3</knife4j.version>
 
         <!-- datasource-->
-        <mybatis-plus.version>3.3.0</mybatis-plus.version>
+        <mybatis-plus.version>3.3.2</mybatis-plus.version>
+        <p6spy.version>3.9.0</p6spy.version>
         <logstash.version>5.3</logstash.version>
         <freemarker.version>2.3.28</freemarker.version>
         <!-- common组件-->
@@ -331,6 +332,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>${p6spy.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>

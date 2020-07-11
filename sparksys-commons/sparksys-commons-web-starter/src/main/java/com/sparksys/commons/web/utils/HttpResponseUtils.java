@@ -1,11 +1,9 @@
 package com.sparksys.commons.web.utils;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparksys.commons.core.base.api.result.ApiResult;
 import com.sparksys.commons.core.constant.CoreConstant;
 import com.sparksys.commons.core.support.ResponseResultStatus;
-import com.sparksys.commons.web.component.SpringContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -28,11 +26,10 @@ public class HttpResponseUtils {
     }
 
     public static void unauthorized(HttpServletResponse response) {
-        ObjectMapper objectMapper = SpringContextUtils.getBean(ObjectMapper.class);
         try {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
-            response.getWriter().println(objectMapper.writeValueAsString(ApiResult.apiResult(ResponseResultStatus.UN_AUTHORIZED)));
+            response.getWriter().println(JacksonUtils.writeJsonAsString(ApiResult.apiResult(ResponseResultStatus.UN_AUTHORIZED)));
             response.getWriter().flush();
         } catch (IOException e) {
             log.error(e.getMessage());
@@ -40,11 +37,10 @@ public class HttpResponseUtils {
     }
 
     public static void forbidden(HttpServletResponse response) {
-        ObjectMapper objectMapper = SpringContextUtils.getBean(ObjectMapper.class);
         try {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
-            response.getWriter().println(objectMapper.writeValueAsString(ApiResult.apiResult(ResponseResultStatus.REQ_REJECT)));
+            response.getWriter().println(JacksonUtils.writeJsonAsString(ApiResult.apiResult(ResponseResultStatus.REQ_REJECT)));
             response.getWriter().flush();
         } catch (Exception e) {
             log.error(e.getMessage());

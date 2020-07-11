@@ -1,20 +1,14 @@
 package com.sparksys.commons.cache.utils;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,8 +18,13 @@ import java.time.format.DateTimeFormatter;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.sparksys.commons.core.converter.EnumDeserializer;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
+/**
+ * description: redis value json 序列化
+ *
+ * @author: zhouxinlei
+ * @date: 2020-07-11 13:35:39
+ */
 public class RedisObjectSerializer extends Jackson2JsonRedisSerializer<Object> {
 
     public RedisObjectSerializer() {

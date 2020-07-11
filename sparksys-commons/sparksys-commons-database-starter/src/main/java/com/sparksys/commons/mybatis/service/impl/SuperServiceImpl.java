@@ -30,10 +30,6 @@ public class SuperServiceImpl<M extends SuperMapper<T>, T> extends ServiceImpl<M
         }
     }
 
-    protected String key(Object... args) {
-        return buildKey(args);
-    }
-
     @Override
     public boolean save(T model) {
         return super.save(model);
