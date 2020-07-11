@@ -39,8 +39,7 @@ public class SecurityRegistry {
             "/**/*.ico",
             "/webjars/springfox-swagger-ui/**",
             "/doc.html",
-            "/actuator/**",
-            "/druid/**"
+            "/actuator/**"
     );
 
     public SecurityRegistry(IgnoreUrlsProperties ignoreUrlsProperties) {

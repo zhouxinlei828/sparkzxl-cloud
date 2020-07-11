@@ -25,7 +25,7 @@ import java.net.UnknownHostException;
 @EnableFeignClients({"com.sparksys"})
 public class GatewayApplication {
 
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);
     }
 

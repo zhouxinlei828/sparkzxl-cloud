@@ -61,7 +61,7 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     public boolean updateAuthUser(Long contextUserId, AuthUserUpdateDTO authUserUpdateDTO) {
         AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserUpdateDTO);
         authUser.setUpdateUser(contextUserId);
-        return updateAllById(authUser);
+        return updateById(authUser);
     }
 
     @Override

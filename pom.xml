@@ -125,7 +125,18 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+                <exclusions>
+                    <!-- 移除tomcat -->
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-tomcat</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
             <!-- sparksys-commons 组件-->
             <dependency>
                 <groupId>com.sparksys</groupId>
@@ -192,7 +203,7 @@
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-logstash-starter</artifactId>
+                <artifactId>sparksys-commons-log-starter</artifactId>
                 <version>${sparksys-project.version}</version>
                 <exclusions>
                     <exclusion>

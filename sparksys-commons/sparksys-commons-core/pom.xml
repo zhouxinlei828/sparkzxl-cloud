@@ -88,7 +88,7 @@
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-commons-logstash-starter</artifactId>
+            <artifactId>sparksys-commons-log-starter</artifactId>
         </dependency>
     </dependencies>
     <profiles>

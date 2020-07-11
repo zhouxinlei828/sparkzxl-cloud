@@ -31,15 +31,12 @@ public class ApplicationRunner implements CommandLineRunner {
                         "Java Version: {} \n\t" +
                         "运行环境: {} \n\t" +
                         "应用: {} 运行成功! 访问连接:\n\t" +
-                        "Swagger文档: \t\thttp://{}:{}/doc.html\n\t" +
-                        "数据库监控: \t\thttp://{}:{}/druid\n" +
+                        "Swagger文档: \t\thttp://{}:{}/doc.html\n" +
                         "--------------------------------------------------------------",
                 SystemUtil.getJavaInfo().getVersion(),
                 SystemUtil.getOsInfo().getName(),
                 env.getProperty("spring.application.name"),
                 InetAddress.getLocalHost().getHostAddress(),
-                env.getProperty("server.port"),
-                "127.0.0.1",
                 env.getProperty("server.port"));
     }
 }

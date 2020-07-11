@@ -1,8 +1,6 @@
 spring:
   application:
     name: sparksys-gateway
-  main:
-    allow-bean-definition-overriding: on
   cloud:
     nacos:
       discovery:
@@ -19,4 +17,6 @@ spring:
             refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
-
+logging:
+  file:
+    path: /Users/zhouxinlei/logs

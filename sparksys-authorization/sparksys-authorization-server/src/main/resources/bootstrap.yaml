@@ -1,10 +1,6 @@
 spring:
   application:
     name: sparksys-authorization
-  profiles:
-    active: dev #默认为开发环境
-  main:
-    allow-bean-definition-overriding: true
   cloud:
     nacos:
       discovery:
@@ -16,21 +12,22 @@ spring:
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
+          - dataId: sentinel.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+          - dataId: actuator.yaml
+            group: DEFAULT_GROUP
+            refresh: false
           - dataId: cache.yaml
             group: DEFAULT_GROUP
             refresh: false
           - dataId: kafka.yaml
             group: DEFAULT_GROUP
             refresh: false
-          - dataId: actuator.yaml
-            group: DEFAULT_GROUP
-            refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
-    sentinel:
-      enabled: true
-      eager: true
-      transport:
-        dashboard: 192.168.3.3:8858
-      filter:
-        url-patterns: /**
+logging:
+  level:
+    com.sparksys.authorization.infrastructure.mapper: debug
+  file:
+    path: /Users/zhouxinlei/logs

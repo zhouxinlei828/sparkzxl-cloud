@@ -1,10 +1,4 @@
 spring:
-  application:
-    name: sparksys-sharding-demo
-  profiles:
-    active: dev #默认为开发环境
-  main:
-    allow-bean-definition-overriding: true
   cloud:
     nacos:
       discovery:
@@ -16,21 +10,19 @@ spring:
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
-          - dataId: cache.yaml
+          - dataId: sentinel.yaml
             group: DEFAULT_GROUP
             refresh: false
           - dataId: actuator.yaml
             group: DEFAULT_GROUP
             refresh: false
+          - dataId: cache.yaml
+            group: DEFAULT_GROUP
+            refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
-    sentinel:
-      enabled: true
-      eager: true
-      transport:
-        dashboard: 192.168.3.3:8858
-      filter:
-        url-patterns: /**
-mybatis-plus:
-  configuration:
-    map-underscore-to-camel-case: true
+logging:
+  level:
+    com.sparksys.sharding.infrastructure.mapper: debug
+  file:
+    path: /Users/zhouxinlei/logs

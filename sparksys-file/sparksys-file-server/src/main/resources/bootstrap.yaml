@@ -1,10 +1,6 @@
 spring:
   application:
     name: sparksys-file
-  profiles:
-    active: dev #默认为开发环境
-  main:
-    allow-bean-definition-overriding: true
   cloud:
     nacos:
       discovery:
@@ -15,10 +11,17 @@ spring:
         namespace: e026cfa9-330a-4ec8-8544-87bd279e6f23
         file-extension: yaml
         prefix: ${spring.application.name}
-        enabled: true
         shared-configs:
+          - dataId: sentinel.yaml
+            group: DEFAULT_GROUP
+            refresh: false
           - dataId: actuator.yaml
             group: DEFAULT_GROUP
             refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
+logging:
+  level:
+    com.sparksys.file.infrastructure.mapper: debug
+  file:
+    path: /Users/zhouxinlei/logs
