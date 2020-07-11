@@ -64,16 +64,6 @@ public abstract class AbstractSuperCacheServiceImpl<M extends SuperMapper<T>, T>
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public boolean updateAllById(T model) {
-        boolean updateBool = super.updateAllById(model);
-        if (model instanceof SuperEntity) {
-            this.cacheRepository.remove(CacheKey.buildKey(this.getRegion(), ((SuperEntity) model).getId()));
-        }
-        return updateBool;
-    }
-
-    @Override
-    @Transactional(rollbackFor = {Exception.class})
     public boolean updateById(T model) {
         boolean updateBool = super.updateById(model);
         if (model instanceof SuperEntity) {

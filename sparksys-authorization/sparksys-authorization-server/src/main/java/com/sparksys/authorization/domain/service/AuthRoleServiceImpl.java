@@ -55,7 +55,7 @@ public class AuthRoleServiceImpl extends AbstractSuperCacheServiceImpl<AuthRoleM
     public boolean updateAuthRole(GlobalAuthUser authUser, AuthRoleUpdateDTO authRoleUpdateDTO) {
         AuthRole authRole = AuthRoleConvert.INSTANCE.convertAuthRoleDO(authRoleUpdateDTO);
         authRole.setUpdateUser(authUser.getId());
-        return updateAllById(authRole);
+        return updateById(authRole);
     }
 
     @Override

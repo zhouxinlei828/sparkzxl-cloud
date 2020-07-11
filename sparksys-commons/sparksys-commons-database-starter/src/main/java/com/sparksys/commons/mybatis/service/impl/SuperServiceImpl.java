@@ -17,28 +17,9 @@ public class SuperServiceImpl<M extends SuperMapper<T>, T> extends ServiceImpl<M
     public SuperServiceImpl() {
     }
 
-    public SuperMapper getSuperMapper() {
-        ResponseResultStatus.SERVICE_MAPPER_ERROR.assertNotNull(this.baseMapper);
-        return this.baseMapper;
-    }
-
-    protected static String buildKey(Object... args) {
-        if (args.length == 1) {
-            return String.valueOf(args[0]);
-        } else {
-            return args.length > 0 ? StrUtil.join(":", args) : "";
-        }
-    }
-
     @Override
     public boolean save(T model) {
         return super.save(model);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public boolean updateAllById(T model) {
-        return SqlHelper.retBool(this.getSuperMapper().updateAllById(model));
     }
 
     @Override

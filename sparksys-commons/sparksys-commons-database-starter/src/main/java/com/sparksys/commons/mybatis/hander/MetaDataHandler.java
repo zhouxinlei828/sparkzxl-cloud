@@ -2,17 +2,12 @@ package com.sparksys.commons.mybatis.hander;
 
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.baomidou.mybatisplus.core.metadata.TableInfo;
-import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.sparksys.commons.mybatis.entity.Entity;
 import com.sparksys.commons.mybatis.entity.SuperEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 
-import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 
 /**
@@ -52,27 +47,12 @@ public class MetaDataHandler implements MetaObjectHandler {
             Entity entity = (Entity) metaObject.getOriginalObject();
             this.update(metaObject, entity);
         }
-
         if (flag) {
-            Snowflake snowflake = IdUtil.getSnowflake(this.workerId, this.dataCenterId);
+            Snowflake snowflake = IdUtil.createSnowflake(this.workerId, this.dataCenterId);
             Long id = snowflake.nextId();
             if (metaObject.hasGetter(SuperEntity.FIELD_ID)) {
                 idVal = "java.lang.String".equals(metaObject.getGetterType(SuperEntity.FIELD_ID).getName()) ? String.valueOf(id) : id;
                 this.setFieldValByName("id", idVal, metaObject);
-            } else {
-                TableInfo tableInfo = metaObject.hasGetter("MP_OPTLOCK_ET_ORIGINAL") ? TableInfoHelper.getTableInfo(metaObject.getValue("MP_OPTLOCK_ET_ORIGINAL").getClass()) : TableInfoHelper.getTableInfo(metaObject.getOriginalObject().getClass());
-                if (tableInfo != null) {
-                    Class<?> keyType = tableInfo.getKeyType();
-                    if (keyType != null) {
-                        String keyProperty = tableInfo.getKeyProperty();
-                        Field idField = ReflectUtil.getField(metaObject.getOriginalObject().getClass(), keyProperty);
-                        Object fieldValue = ReflectUtil.getFieldValue(metaObject.getOriginalObject(), idField);
-                        if (!ObjectUtil.isNotEmpty(fieldValue)) {
-                            idVal = "java.lang.String".equalsIgnoreCase(keyType.getName()) ? String.valueOf(id) : id;
-                            this.setFieldValByName(keyProperty, idVal, metaObject);
-                        }
-                    }
-                }
             }
         }
     }
@@ -89,12 +69,6 @@ public class MetaDataHandler implements MetaObjectHandler {
         if (metaObject.getOriginalObject() instanceof Entity) {
             Entity entity = (Entity) metaObject.getOriginalObject();
             this.update(metaObject, entity);
-        } else {
-            Object et = metaObject.getValue("et");
-            if (et != null && et instanceof Entity) {
-                Entity entity = (Entity) et;
-                this.update(metaObject, entity);
-            }
         }
     }
 

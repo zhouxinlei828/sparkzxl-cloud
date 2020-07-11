@@ -31,12 +31,4 @@ public interface SuperService<T> extends IService<T> {
         return false;
     }
 
-    /**
-     * 更新实体对象
-     *
-     * @param var1
-     * @return
-     */
-    boolean updateAllById(T var1);
-
 }

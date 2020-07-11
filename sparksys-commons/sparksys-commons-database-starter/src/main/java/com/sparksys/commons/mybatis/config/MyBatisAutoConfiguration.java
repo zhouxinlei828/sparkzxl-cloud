@@ -3,6 +3,7 @@ package com.sparksys.commons.mybatis.config;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 import com.sparksys.commons.mybatis.hander.MetaDataHandler;
+import com.sparksys.commons.mybatis.injector.BaseSqlInjector;
 import com.sparksys.commons.mybatis.properties.DataProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -24,6 +25,7 @@ public class MyBatisAutoConfiguration {
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        paginationInterceptor.setOverflow(false);
         paginationInterceptor.setLimit(500);
         // 开启 count 的 join 优化,只针对部分 left join
         paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
@@ -34,5 +36,11 @@ public class MyBatisAutoConfiguration {
     @ConditionalOnMissingBean
     public MetaDataHandler metaDateHandler(DataProperties dataProperties) {
         return new MetaDataHandler(dataProperties.getWorkerId(), dataProperties.getDataCenterId());
+    }
+
+
+    @Bean
+    public BaseSqlInjector sqlInjector() {
+        return new BaseSqlInjector();
     }
 }
