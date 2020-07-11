@@ -1,5 +1,6 @@
 package com.sparksys.commons.core.utils.common;
 
+import cn.hutool.core.util.RandomUtil;
 import org.springframework.lang.Nullable;
 import org.springframework.util.NumberUtils;
 
@@ -104,5 +105,14 @@ public class NumberUtil extends NumberUtils {
         int finishedCount = personCount - unfinishedCount;
         DecimalFormat decimalFormat = new DecimalFormat("0.000");
         return Double.parseDouble(decimalFormat.format(finishedCount / (double) personCount)) * 100;
+    }
+
+
+    public static String getRandom(int length) {
+        StringBuilder val = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            val.append(RandomUtil.randomLong(10));
+        }
+        return val.toString();
     }
 }

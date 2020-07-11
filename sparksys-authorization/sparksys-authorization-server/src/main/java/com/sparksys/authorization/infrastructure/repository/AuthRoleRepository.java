@@ -2,12 +2,14 @@ package com.sparksys.authorization.infrastructure.repository;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.authorization.domain.repository.IAuthRoleRepository;
 import com.sparksys.authorization.infrastructure.entity.AuthRole;
 import com.sparksys.authorization.infrastructure.mapper.AuthRoleMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
 
 /**
  * description: 角色 仓储层实现类
@@ -26,12 +28,12 @@ public class AuthRoleRepository implements IAuthRoleRepository {
 
 
     @Override
-    public Page<AuthRole> listByPage(Page page, String name) {
-        QueryWrapper<AuthRole> roleDOQueryWrapper = new QueryWrapper<>();
+    public List<AuthRole> listByName(String name) {
+        QueryWrapper<AuthRole> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name) && !"null".equalsIgnoreCase(name)) {
-            roleDOQueryWrapper.like("name", name);
+            queryWrapper.likeRight("name", name);
         }
-        return authRoleMapper.selectPage(page, roleDOQueryWrapper);
+        return authRoleMapper.selectList(queryWrapper);
     }
 
     @Override

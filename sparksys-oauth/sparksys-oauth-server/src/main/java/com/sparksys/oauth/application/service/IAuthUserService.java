@@ -1,5 +1,6 @@
 package com.sparksys.oauth.application.service;
 
+import com.github.pagehelper.PageInfo;
 import com.sparksys.commons.mybatis.service.SuperCacheService;
 import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
@@ -7,7 +8,6 @@ import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserStatusDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserUpdateDTO;
-import com.sparksys.commons.core.base.api.result.ApiPageResult;
 
 import java.util.Set;
 
@@ -24,8 +24,8 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 保存用户信息
      *
-     * @param contextUserId
-     * @param authUserSaveDTO
+     * @param contextUserId   当前登录用户id
+     * @param authUserSaveDTO 保存dto对象
      * @return
      */
     boolean saveAuthUser(Long contextUserId, AuthUserSaveDTO authUserSaveDTO);
@@ -33,7 +33,7 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 修改用户信息
      *
-     * @param contextUserId
+     * @param contextUserId     当前登录用户id
      * @param authUserUpdateDTO
      * @return
      */
@@ -42,7 +42,7 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 删除用户信息
      *
-     * @param id
+     * @param id 用户id
      * @return
      */
     boolean deleteAuthUser(Long id);
@@ -50,7 +50,7 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 修改用户账号状态
      *
-     * @param contextUserId
+     * @param contextUserId     当前登录用户id
      * @param authUserStatusDTO
      * @return
      */
@@ -59,17 +59,17 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 分页查询用户列表
      *
-     * @param pageNum
-     * @param pageSize
-     * @param name
-     * @return
+     * @param pageNum  当前页
+     * @param pageSize 分页大小
+     * @param name     姓名
+     * @return PageInfo<AuthUserDTO>
      */
-    ApiPageResult listByPage(Integer pageNum, Integer pageSize, String name);
+    PageInfo<AuthUserDTO> listByPage(Integer pageNum, Integer pageSize, String name);
 
     /**
      * 获取用户信息
      *
-     * @param id
+     * @param id 用户id
      * @return
      */
     AuthUserDTO getAuthUser(Long id);
@@ -77,15 +77,15 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 重置密码错误次数
      *
-     * @param id
-     * @return
+     * @param id 用户id
+     * @return boolean
      */
     boolean resetPassErrorNum(Long id);
 
     /**
      * 重置密码错误次数
      *
-     * @param account
+     * @param account 账户
      * @return
      */
     boolean resetPassErrorNum(String account);
@@ -93,7 +93,7 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 增加密码错误次数
      *
-     * @param id
+     * @param id 用户id
      * @return boolean
      */
     boolean incrPasswordErrorNum(Long id);
@@ -101,7 +101,7 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 增加密码错误次数
      *
-     * @param account
+     * @param account 账户
      * @return boolean
      */
     boolean incrPasswordErrorNum(String account);
@@ -109,7 +109,7 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 获取用户信息
      *
-     * @param username
+     * @param username 账户
      * @return AuthUserDetail
      */
     AuthUserDetail getAuthUserDetail(String username);
@@ -117,7 +117,7 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 获取用户权限集
      *
-     * @param id
+     * @param id 用户id
      * @return Set<String>
      */
     Set<String> getAuthUserPermissions(Long id);

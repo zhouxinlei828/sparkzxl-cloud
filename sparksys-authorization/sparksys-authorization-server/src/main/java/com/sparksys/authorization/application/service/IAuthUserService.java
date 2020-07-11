@@ -1,6 +1,6 @@
 package com.sparksys.authorization.application.service;
 
-import com.sparksys.commons.core.base.api.result.ApiPageResult;
+import com.github.pagehelper.PageInfo;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.mybatis.service.SuperCacheService;
 import com.sparksys.commons.security.entity.AuthUserDetail;
@@ -51,8 +51,8 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 修改用户账号状态
      *
-     * @param authUser
-     * @param authUserStatusDTO
+     * @param authUser          用户
+     * @param authUserStatusDTO 用户状态dto
      * @return
      */
     boolean updateAuthUserStatus(GlobalAuthUser authUser, AuthUserStatusDTO authUserStatusDTO);
@@ -60,12 +60,12 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 分页查询用户列表
      *
-     * @param pageNum
-     * @param pageSize
-     * @param name
-     * @return
+     * @param pageNum  当前页
+     * @param pageSize 分页大小
+     * @param name     姓名
+     * @return PageInfo<AuthUserDTO>
      */
-    ApiPageResult listByPage(Integer pageNum, Integer pageSize, String name);
+    PageInfo<AuthUserDTO> listByPage(Integer pageNum, Integer pageSize, String name);
 
     /**
      * 获取用户信息

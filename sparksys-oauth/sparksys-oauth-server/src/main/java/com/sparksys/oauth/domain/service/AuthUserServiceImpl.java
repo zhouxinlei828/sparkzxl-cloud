@@ -1,12 +1,14 @@
 package com.sparksys.oauth.domain.service;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Sets;
 import com.sparksys.commons.core.constant.CacheKey;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.utils.collection.ListUtils;
 import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.commons.mybatis.utils.PageInfoUtils;
 import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.domain.constant.AuthorizationConstant;
@@ -18,8 +20,6 @@ import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserStatusDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserUpdateDTO;
-import com.sparksys.commons.core.base.api.result.ApiPageResult;
-import com.sparksys.commons.mybatis.page.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,23 +71,23 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Override
     public boolean updateAuthUserStatus(Long contextUserId, AuthUserStatusDTO authUserStatusDTO) {
-        authUserStatusDTO.setUpdateUser(contextUserId);
-        AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserStatusDTO);
-        return updateById(authUserDO);
+        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserStatusDTO);
+        authUser.setUpdateUser(contextUserId);
+        return updateById(authUser);
     }
 
     @Override
-    public ApiPageResult listByPage(Integer pageNum, Integer pageSize, String name) {
-        Page<AuthUser> userDOIPage = authUserRepository.listByPage(new Page(pageNum, pageSize), name);
-        List<AuthUser> authUserList = userDOIPage.getRecords();
-        List<AuthUserDTO> authUserDTOS =
+    public PageInfo<AuthUserDTO> listByPage(Integer pageNum, Integer pageSize, String name) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<AuthUser> authUserList = authUserRepository.listByName(name);
+        List<AuthUserDTO> authUsers =
                 authUserList.stream().map(authUserDO -> {
                     AuthUserDTO authUserDTO = AuthUserConvert.INSTANCE.convertAuthUserDTO(authUserDO);
                     String sex = AuthorizationConstant.SEX_MAP.get(authUserDO.getSex());
                     authUserDTO.setSex(sex);
                     return authUserDTO;
                 }).collect(Collectors.toList());
-        return PageResult.resetPage(userDOIPage, authUserDTOS);
+        return PageInfoUtils.pageInfo(authUsers);
     }
 
     @Override

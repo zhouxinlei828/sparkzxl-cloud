@@ -1,13 +1,13 @@
 package com.sparksys.oauth.application.service;
 
 
+import com.github.pagehelper.PageInfo;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.mybatis.service.SuperCacheService;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleUpdateDTO;
-import com.sparksys.commons.core.base.api.result.ApiPageResult;
 
 /**
  * description: 角色 服务类
@@ -18,14 +18,14 @@ import com.sparksys.commons.core.base.api.result.ApiPageResult;
 public interface IAuthRoleService extends SuperCacheService<AuthRole> {
 
     /**
-     * 查询角色列表
+     * 根据角色名称模糊查询角色列表
      *
      * @param pageNum
      * @param pageSize
-     * @param name
-     * @return
+     * @param name 角色名称
+     * @return PageInfo<AuthRole>
      */
-    ApiPageResult listByPage(Integer pageNum, Integer pageSize, String name);
+    PageInfo<AuthRole> listByPage(Integer pageNum, Integer pageSize, String name);
 
     /**
      * 查询角色信息

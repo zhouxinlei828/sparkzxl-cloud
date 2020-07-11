@@ -9,6 +9,8 @@ import com.sparksys.oauth.infrastructure.mapper.AuthRoleMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * description: 角色 仓储层实现类
  *
@@ -26,12 +28,12 @@ public class AuthRoleRepository implements IAuthRoleRepository {
 
 
     @Override
-    public Page<AuthRole> listByPage(Page page, String name) {
-        QueryWrapper<AuthRole> roleDOQueryWrapper = new QueryWrapper<>();
+    public List<AuthRole> listByName(String name) {
+        QueryWrapper<AuthRole> authRoleQueryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name) && !"null".equalsIgnoreCase(name)) {
-            roleDOQueryWrapper.like("name", name);
+            authRoleQueryWrapper.likeRight("name", name);
         }
-        return authRoleMapper.selectPage(page, roleDOQueryWrapper);
+        return authRoleMapper.selectList(authRoleQueryWrapper);
     }
 
     @Override

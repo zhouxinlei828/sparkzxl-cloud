@@ -1,9 +1,11 @@
 package com.sparksys.oauth.domain.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sparksys.commons.core.constant.CacheKey;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.commons.mybatis.utils.PageInfoUtils;
 import com.sparksys.oauth.application.service.IAuthRoleService;
 import com.sparksys.oauth.domain.repository.IAuthRoleRepository;
 import com.sparksys.oauth.infrastructure.convert.AuthRoleConvert;
@@ -12,9 +14,9 @@ import com.sparksys.oauth.infrastructure.mapper.AuthRoleMapper;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleUpdateDTO;
-import com.sparksys.commons.core.base.api.result.ApiPageResult;
-import com.sparksys.commons.mybatis.page.PageResult;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * description: 角色 服务实现类
@@ -32,9 +34,10 @@ public class AuthRoleServiceImpl extends AbstractSuperCacheServiceImpl<AuthRoleM
     }
 
     @Override
-    public ApiPageResult listByPage(Integer pageNum, Integer pageSize, String name) {
-        Page<AuthRole> roleDOPage = authRoleRepository.listByPage(new Page(pageNum, pageSize), name);
-        return PageResult.resetPage(roleDOPage);
+    public PageInfo<AuthRole> listByPage(Integer pageNum, Integer pageSize, String name) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<AuthRole> authRoles = authRoleRepository.listByName(name);
+        return PageInfoUtils.pageInfo(authRoles);
     }
 
     @Override

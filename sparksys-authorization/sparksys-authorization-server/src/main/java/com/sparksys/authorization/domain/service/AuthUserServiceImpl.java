@@ -1,14 +1,12 @@
 package com.sparksys.authorization.domain.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.google.common.collect.Sets;
-import com.sparksys.commons.core.base.api.result.ApiPageResult;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sparksys.commons.core.constant.CacheKey;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.core.utils.collection.ListUtils;
 import com.sparksys.commons.core.utils.crypto.MD5Utils;
-import com.sparksys.commons.mybatis.page.PageResult;
 import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.commons.mybatis.utils.PageInfoUtils;
 import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.authorization.application.service.IAuthUserService;
 import com.sparksys.authorization.domain.constant.AuthorizationConstant;
@@ -24,9 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -74,17 +70,17 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     }
 
     @Override
-    public ApiPageResult listByPage(Integer pageNum, Integer pageSize, String name) {
-        Page<AuthUser> userDOIPage = authUserRepository.listByPage(new Page(pageNum, pageSize), name);
-        List<AuthUser> authUserList = userDOIPage.getRecords();
-        List<AuthUserDTO> authUserDTOS =
+    public PageInfo<AuthUserDTO> listByPage(Integer pageNum, Integer pageSize, String name) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<AuthUser> authUserList = authUserRepository.listByName(name);
+        List<AuthUserDTO> authUsers =
                 authUserList.stream().map(authUserDO -> {
                     AuthUserDTO authUserDTO = AuthUserConvert.INSTANCE.convertAuthUserDTO(authUserDO);
                     String sex = AuthorizationConstant.SEX_MAP.get(authUserDO.getSex());
                     authUserDTO.setSex(sex);
                     return authUserDTO;
                 }).collect(Collectors.toList());
-        return PageResult.resetPage(userDOIPage, authUserDTOS);
+        return PageInfoUtils.pageInfo(authUsers);
     }
 
     @Override

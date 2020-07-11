@@ -1,7 +1,7 @@
 package com.sparksys.authorization.application.service;
 
 
-import com.sparksys.commons.core.base.api.result.ApiPageResult;
+import com.github.pagehelper.PageInfo;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.mybatis.service.SuperCacheService;
 import com.sparksys.authorization.infrastructure.entity.AuthRole;
@@ -20,12 +20,12 @@ public interface IAuthRoleService extends SuperCacheService<AuthRole> {
     /**
      * 查询角色列表
      *
-     * @param pageNum
-     * @param pageSize
-     * @param name
-     * @return
+     * @param pageNum  当前页
+     * @param pageSize 分页大小
+     * @param name     角色名称
+     * @return PageInfo<AuthRole>
      */
-    ApiPageResult listByPage(Integer pageNum, Integer pageSize, String name);
+    PageInfo<AuthRole> listByPage(Integer pageNum, Integer pageSize, String name);
 
     /**
      * 查询角色信息

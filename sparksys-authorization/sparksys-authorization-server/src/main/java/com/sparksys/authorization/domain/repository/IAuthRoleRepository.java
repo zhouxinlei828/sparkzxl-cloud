@@ -1,8 +1,9 @@
 package com.sparksys.authorization.domain.repository;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.authorization.infrastructure.entity.AuthRole;
+
+import java.util.List;
 
 /**
  * description: 角色 仓储类
@@ -12,7 +13,7 @@ import com.sparksys.authorization.infrastructure.entity.AuthRole;
  */
 public interface IAuthRoleRepository {
 
-    Page<AuthRole> listByPage(Page page, String name);
+    List<AuthRole> listByName(String name);
 
     AuthRole getAuthRole(Long id);
 

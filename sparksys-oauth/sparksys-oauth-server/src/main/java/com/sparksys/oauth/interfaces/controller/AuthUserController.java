@@ -1,12 +1,12 @@
 package com.sparksys.oauth.interfaces.controller;
 
 
+import com.github.pagehelper.PageInfo;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserStatusDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserUpdateDTO;
-import com.sparksys.commons.core.base.api.result.ApiPageResult;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
@@ -37,7 +37,8 @@ public class AuthUserController {
 
     @ApiOperation("查询用户列表")
     @GetMapping("/authUser/page")
-    public ApiPageResult listByPage(Integer pageNum, Integer pageSize, @RequestParam(value = "name",required = false) String name) {
+    public PageInfo<AuthUserDTO> listByPage(Integer pageNum, Integer pageSize, @RequestParam(value = "name", required =
+            false) String name) {
         return authUserService.listByPage(pageNum, pageSize, name);
     }
 

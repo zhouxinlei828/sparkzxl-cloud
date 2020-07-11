@@ -2,10 +2,12 @@ package com.sparksys.authorization.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageInfo;
 import com.sparksys.authorization.infrastructure.entity.AuthUser;
 import com.sparksys.authorization.infrastructure.mapper.AuthUserMapper;
 import com.sparksys.authorization.domain.repository.IAuthUserRepository;
 import com.sparksys.commons.core.utils.crypto.MD5Utils;
+import com.sparksys.commons.mybatis.utils.PageInfoUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -57,12 +59,12 @@ public class AuthUserRepository implements IAuthUserRepository {
     }
 
     @Override
-    public Page<AuthUser> listByPage(Page authUserDOPage, String name) {
-        QueryWrapper<AuthUser> authUserDOQueryWrapper = new QueryWrapper<>();
+    public List<AuthUser> listByName(String name) {
+        QueryWrapper<AuthUser> authUserQueryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name) && !"null".equalsIgnoreCase(name)) {
-            authUserDOQueryWrapper.like("name", name);
+            authUserQueryWrapper.likeRight("name", name);
         }
-        return authUserMapper.selectPage(authUserDOPage, authUserDOQueryWrapper);
+        return authUserMapper.selectList(authUserQueryWrapper);
     }
 
     @Override

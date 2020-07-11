@@ -1,7 +1,6 @@
 package com.sparksys.oauth.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
@@ -21,7 +20,7 @@ import java.util.List;
 public class AuthUserRepository implements IAuthUserRepository {
 
     @Autowired
-    private AuthUserMapper authUserMapper;
+    public AuthUserMapper authUserMapper;
 
     @Override
     public AuthUser selectById(Long id) {
@@ -37,12 +36,12 @@ public class AuthUserRepository implements IAuthUserRepository {
     }
 
     @Override
-    public Page<AuthUser> listByPage(Page authUserDOPage, String name) {
-        QueryWrapper<AuthUser> authUserDOQueryWrapper = new QueryWrapper<>();
+    public List<AuthUser> listByName(String name) {
+        QueryWrapper<AuthUser> userQueryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name) && !"null".equalsIgnoreCase(name)) {
-            authUserDOQueryWrapper.like("name", name);
+            userQueryWrapper.likeRight("name", name);
         }
-        return authUserMapper.selectPage(authUserDOPage, authUserDOQueryWrapper);
+        return authUserMapper.selectList(userQueryWrapper);
     }
 
     @Override

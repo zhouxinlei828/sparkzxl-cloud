@@ -1,6 +1,5 @@
 package com.sparksys.oauth.domain.repository;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 
 import java.util.List;
@@ -31,13 +30,12 @@ public interface IAuthUserRepository {
     AuthUser selectByAccount(String account);
 
     /**
-     * 分页查询用户信息
+     * 根据姓名模糊分页查询用户信息
      *
-     * @param authUserDOPage
-     * @param name
-     * @return Page<AuthUserDO>
+     * @param name 姓名
+     * @return List<AuthUser>
      */
-    Page<AuthUser> listByPage(Page authUserDOPage, String name);
+    List<AuthUser> listByName(String name);
 
     /**
      * 密码输错自增

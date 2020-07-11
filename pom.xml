@@ -27,6 +27,7 @@
 
         <!-- datasource-->
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
+        <pagehelper-spring-boot-starter.version>1.2.13</pagehelper-spring-boot-starter.version>
         <p6spy.version>3.9.0</p6spy.version>
         <logstash.version>5.3</logstash.version>
         <freemarker.version>2.3.28</freemarker.version>
@@ -343,6 +344,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>1.2.13</version>
             </dependency>
             <dependency>
                 <groupId>p6spy</groupId>
