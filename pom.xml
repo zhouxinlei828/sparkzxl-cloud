@@ -206,12 +206,6 @@
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-log-starter</artifactId>
                 <version>${sparksys-project.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>

@@ -89,6 +89,20 @@
         <dependency>
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-commons-log-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cn.hutool</groupId>
+                    <artifactId>hutool-all</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-aop</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     <profiles>
