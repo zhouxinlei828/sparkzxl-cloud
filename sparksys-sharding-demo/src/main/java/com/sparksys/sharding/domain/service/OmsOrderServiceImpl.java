@@ -1,7 +1,7 @@
 package com.sparksys.sharding.domain.service;
 
 import com.sparksys.commons.core.constant.CacheKey;
-import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.commons.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.sharding.domain.repository.IOrderRepository;
 import com.sparksys.sharding.infrastructure.entity.OmsOrder;
 import com.sparksys.sharding.infrastructure.mapper.OmsOrderMapper;

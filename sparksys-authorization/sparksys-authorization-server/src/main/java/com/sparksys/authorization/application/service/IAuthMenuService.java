@@ -1,7 +1,7 @@
 package com.sparksys.authorization.application.service;
 
 
-import com.sparksys.commons.mybatis.service.SuperCacheService;
+import com.sparksys.commons.database.service.SuperCacheService;
 import com.sparksys.authorization.infrastructure.entity.AuthMenu;
 
 import java.util.List;

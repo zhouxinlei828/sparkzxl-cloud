@@ -1,6 +1,6 @@
 package com.sparksys.sharding.infrastructure.mapper;
 
-import com.sparksys.commons.mybatis.mapper.SuperMapper;
+import com.sparksys.commons.database.mapper.SuperMapper;
 import com.sparksys.sharding.infrastructure.entity.OmsOrder;
 import org.springframework.stereotype.Repository;
 

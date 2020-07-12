@@ -20,10 +20,6 @@
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-file-common</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-commons-core</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

@@ -1,6 +1,6 @@
 package com.sparksys.sharding.application.service;
 
-import com.sparksys.commons.mybatis.service.SuperCacheService;
+import com.sparksys.commons.database.service.SuperCacheService;
 import com.sparksys.sharding.infrastructure.entity.OmsOrder;
 import com.baomidou.mybatisplus.extension.service.IService;
 

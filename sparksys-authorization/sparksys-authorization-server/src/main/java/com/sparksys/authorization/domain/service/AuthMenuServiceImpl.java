@@ -1,8 +1,8 @@
 package com.sparksys.authorization.domain.service;
 
 import com.sparksys.commons.core.constant.CacheKey;
-import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
-import com.sparksys.commons.mybatis.utils.TreeUtil;
+import com.sparksys.commons.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.commons.database.utils.TreeUtil;
 import com.sparksys.authorization.application.service.IAuthMenuService;
 import com.sparksys.authorization.domain.repository.IAuthMenuRepository;
 import com.sparksys.authorization.infrastructure.entity.AuthMenu;

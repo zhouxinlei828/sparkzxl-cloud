@@ -1,7 +1,7 @@
 package com.sparksys.oauth.application.service;
 
 
-import com.sparksys.commons.mybatis.service.SuperCacheService;
+import com.sparksys.commons.database.service.SuperCacheService;
 import com.sparksys.oauth.infrastructure.entity.CoreOrg;
 
 /**

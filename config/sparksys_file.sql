@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80016
  Source Host           : rm-bp1cp68o8t1gq604p5o.mysql.rds.aliyuncs.com:3306
- Source Schema         : sparksys-file
+ Source Schema         : sparksys_file
 
  Target Server Type    : MySQL
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 27/05/2020 20:41:03
+ Date: 12/07/2020 19:49:39
 */
 
 SET NAMES utf8mb4;

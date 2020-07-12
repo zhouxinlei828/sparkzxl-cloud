@@ -3,7 +3,7 @@ package com.sparksys.oauth.application.service;
 
 import com.github.pagehelper.PageInfo;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.mybatis.service.SuperCacheService;
+import com.sparksys.commons.database.service.SuperCacheService;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleSaveDTO;

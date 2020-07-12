@@ -49,7 +49,7 @@ public class SwaggerForwardedHeadersFilter implements HttpHeadersFilter, Ordered
 
         if (originalUris != null && requestUri != null) {
 
-            originalUris.stream().forEach(originalUri -> {
+            originalUris.forEach(originalUri -> {
                 if (originalUri != null && originalUri.getPath() != null) {
                     String prefix;
                     String originalUriPath = stripTrailingSlash(originalUri);

@@ -7,7 +7,7 @@ import com.sparksys.authorization.infrastructure.entity.AuthUser;
 import com.sparksys.authorization.infrastructure.mapper.AuthUserMapper;
 import com.sparksys.authorization.domain.repository.IAuthUserRepository;
 import com.sparksys.commons.core.utils.crypto.MD5Utils;
-import com.sparksys.commons.mybatis.utils.PageInfoUtils;
+import com.sparksys.commons.database.utils.PageInfoUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 

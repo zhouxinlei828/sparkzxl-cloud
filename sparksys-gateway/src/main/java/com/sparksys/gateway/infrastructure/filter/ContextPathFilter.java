@@ -1,12 +1,13 @@
 package com.sparksys.gateway.infrastructure.filter;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
+
+import javax.annotation.Resource;
 
 /**
  * description: 为了解决 历史遗留问题！
@@ -20,9 +21,10 @@ import reactor.core.publisher.Mono;
  * @date 2020-05-24 12:15:34
  */
 @Component
+
 public class ContextPathFilter implements WebFilter {
 
-    @Autowired
+    @Resource
     private ServerProperties serverProperties;
 
     @Override

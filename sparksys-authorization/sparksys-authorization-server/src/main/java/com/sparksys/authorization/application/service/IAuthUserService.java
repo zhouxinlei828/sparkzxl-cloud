@@ -2,7 +2,7 @@ package com.sparksys.authorization.application.service;
 
 import com.github.pagehelper.PageInfo;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.mybatis.service.SuperCacheService;
+import com.sparksys.commons.database.service.SuperCacheService;
 import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.authorization.infrastructure.entity.AuthUser;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserDTO;

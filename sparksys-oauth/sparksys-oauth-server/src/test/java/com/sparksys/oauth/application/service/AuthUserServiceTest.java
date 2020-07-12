@@ -5,7 +5,7 @@ import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sparksys.commons.core.utils.common.NumberUtil;
-import com.sparksys.commons.mybatis.utils.PageInfoUtils;
+import com.sparksys.commons.database.utils.PageInfoUtils;
 import com.sparksys.commons.web.utils.JacksonUtils;
 import com.sparksys.oauth.Oauth2Application;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;

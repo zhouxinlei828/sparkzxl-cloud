@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 
-import com.sparksys.commons.mybatis.entity.TreeEntity;
+import com.sparksys.commons.database.entity.TreeEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

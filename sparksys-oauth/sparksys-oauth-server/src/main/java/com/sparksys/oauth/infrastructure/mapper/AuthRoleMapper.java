@@ -1,6 +1,6 @@
 package com.sparksys.oauth.infrastructure.mapper;
 
-import com.sparksys.commons.mybatis.mapper.SuperMapper;
+import com.sparksys.commons.database.mapper.SuperMapper;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import org.springframework.stereotype.Repository;
 

@@ -13,7 +13,7 @@ import org.springframework.web.reactive.result.view.Rendering;
  * @date 2020-05-24 12:18:02
  */
 @Controller
-public class GeneratorController {
+public class SwaggerController {
 
     @Value("${server.servlet.context-path:}")
     private String contextPath;

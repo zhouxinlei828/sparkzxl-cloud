@@ -10,7 +10,7 @@ import com.sparksys.authorization.infrastructure.entity.LoginLog;
 import com.sparksys.authorization.infrastructure.entity.LoginLogCount;
 import com.sparksys.authorization.infrastructure.mapper.LoginLogMapper;
 import com.sparksys.commons.core.entity.UserAgentEntity;
-import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.commons.database.service.impl.AbstractSuperCacheServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;

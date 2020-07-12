@@ -2,7 +2,7 @@ package com.sparksys.oauth.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sparksys.commons.mybatis.entity.TreeEntity;
+import com.sparksys.commons.database.entity.TreeEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

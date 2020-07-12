@@ -1,6 +1,6 @@
 package com.sparksys.authorization.infrastructure.mapper;
 
-import com.sparksys.commons.mybatis.mapper.SuperMapper;
+import com.sparksys.commons.database.mapper.SuperMapper;
 import com.sparksys.authorization.infrastructure.entity.CoreStation;
 import org.springframework.stereotype.Repository;
 

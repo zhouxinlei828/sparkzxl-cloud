@@ -2,7 +2,7 @@ package com.sparksys.authorization.application.service;
 
 
 import com.sparksys.commons.core.entity.UserAgentEntity;
-import com.sparksys.commons.mybatis.service.SuperCacheService;
+import com.sparksys.commons.database.service.SuperCacheService;
 import com.sparksys.authorization.infrastructure.entity.LoginLog;
 import com.sparksys.authorization.infrastructure.entity.LoginLogCount;
 
