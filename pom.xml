@@ -19,6 +19,7 @@
         <spring-cloud-alibaba-dependencies.version>2.2.0.RELEASE</spring-cloud-alibaba-dependencies.version>
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
         <spring-cloud-dependencies.version>Hoxton.SR5</spring-cloud-dependencies.version>
+        <admin-server.version>2.2.3</admin-server.version>
 
         <sparksys-commons.version>1.0</sparksys-commons.version>
 
@@ -45,9 +46,25 @@
         <module>sparksys-gateway</module>
         <module>sparksys-oauth</module>
         <module>sparksys-sharding-demo</module>
+        <module>sparksys-admin-server</module>
     </modules>
 
     <repositories>
+        <repository>
+            <id>aliyun-repos</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>alfresco</id>
+            <name>Activiti Releases</name>
+            <url>https://artifacts.alfresco.com/nexus/content/repositories/activiti-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
         <repository>
             <id>maven-releases</id>
             <name>maven-releases-repository</name>
@@ -83,6 +100,16 @@
                 <version>${spring-cloud-alibaba-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${admin-server.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-server-ui</artifactId>
+                <version>${admin-server.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>

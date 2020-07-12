@@ -1,0 +1,15 @@
+server:
+  port: 8904
+  undertow:
+    buffer-size: 1024
+    direct-buffers: on
+spring:
+  profiles:
+    active: dev #默认为开发环境
+  application:
+    name: admin-server
+  main:
+    allow-bean-definition-overriding: true
+logging:
+  file:
+    path: /Users/zhouxinlei/logs
