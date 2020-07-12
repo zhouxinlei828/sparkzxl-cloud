@@ -77,25 +77,6 @@
         <module>sparksys-oauth</module>
         <module>sparksys-sharding-demo</module>
     </modules>
-
-    <repositories>
-        <repository>
-            <id>aliyun-repos</id>
-            <url>https://maven.aliyun.com/repository/public</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>alfresco</id>
-            <name>Activiti Releases</name>
-            <url>https://artifacts.alfresco.com/nexus/content/repositories/activiti-releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -551,12 +532,17 @@
                 <artifactId>UserAgentUtils</artifactId>
                 <version>${userAgent.version}</version>
             </dependency>
+            <!-- skywalking-apm-toolkit-logback-1.x -->
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-logback-1.x</artifactId>
+                <version>${apm-toolkit-trace.version}</version>
+            </dependency>
             <!-- skywalking-apm-toolkit-trace -->
             <dependency>
                 <groupId>org.apache.skywalking</groupId>
                 <artifactId>apm-toolkit-trace</artifactId>
                 <version>${apm-toolkit-trace.version}</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.lionsoul</groupId>
@@ -569,7 +555,6 @@
                 <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
                 <version>${sharding-jdbc.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine -->
             <dependency>
                 <groupId>com.github.ben-manes.caffeine</groupId>
                 <artifactId>caffeine</artifactId>
