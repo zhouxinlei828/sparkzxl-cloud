@@ -48,9 +48,7 @@ public class LoginListener {
         }
         loginLogService.save(loginStatus.getId(),
                 loginStatus.getAccount(),
-                loginStatus.getUa(),
-                loginStatus.getIp(),
-                loginStatus.getLocation(),
+                loginStatus.getUserAgentEntity(),
                 loginStatus.getDescription());
     }
 

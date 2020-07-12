@@ -12,23 +12,6 @@
     <artifactId>sparksys-oauth-server</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <!-- Micrometer 对 Prometheus 的支持 -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-        </dependency>
         <!-- skywalking-apm-toolkit-trace -->
         <dependency>
             <groupId>org.apache.skywalking</groupId>
@@ -39,12 +22,8 @@
             <artifactId>spring-kafka</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>eu.bitwalker</groupId>
-            <artifactId>UserAgentUtils</artifactId>
+            <groupId>com.sparksys</groupId>
+            <artifactId>sparksys-commons-cloud-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
@@ -69,6 +48,10 @@
         <dependency>
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-commons-swagger-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sparksys</groupId>
+            <artifactId>sparksys-file-api</artifactId>
         </dependency>
     </dependencies>
     <build>

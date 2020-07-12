@@ -1,6 +1,7 @@
 package com.sparksys.oauth.application.service;
 
 
+import com.sparksys.commons.core.entity.UserAgentEntity;
 import com.sparksys.commons.mybatis.service.SuperCacheService;
 import com.sparksys.oauth.infrastructure.entity.LoginLog;
 import com.sparksys.oauth.infrastructure.entity.LoginLogCount;
@@ -19,14 +20,12 @@ public interface ILoginLogService extends SuperCacheService<LoginLog> {
     /**
      * 记录登录日志
      *
-     * @param userId      用户id
-     * @param account     账号
-     * @param ua          浏览器
-     * @param ip          客户端IP
-     * @param location    客户端地址
-     * @param description 登陆描述消息
+     * @param userId          用户id
+     * @param account         账号
+     * @param userAgentEntity 用户代理
+     * @param description     登陆描述消息
      */
-    void save(Long userId, String account, String ua, String ip, String location, String description);
+    void save(Long userId, String account, UserAgentEntity userAgentEntity, String description);
 
     /**
      * 获取系统总访问次数

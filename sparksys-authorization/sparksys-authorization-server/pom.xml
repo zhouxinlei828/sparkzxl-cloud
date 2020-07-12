@@ -38,10 +38,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
         <dependency>
-            <groupId>eu.bitwalker</groupId>
-            <artifactId>UserAgentUtils</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-commons-cache-starter</artifactId>
         </dependency>

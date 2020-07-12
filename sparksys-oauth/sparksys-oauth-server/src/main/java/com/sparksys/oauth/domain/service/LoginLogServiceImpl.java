@@ -2,6 +2,7 @@ package com.sparksys.oauth.domain.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.sparksys.commons.core.constant.CacheKey;
+import com.sparksys.commons.core.entity.UserAgentEntity;
 import com.sparksys.commons.core.repository.CacheRepository;
 import com.sparksys.commons.mybatis.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.ILoginLogService;
@@ -11,10 +12,6 @@ import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.entity.LoginLog;
 import com.sparksys.oauth.infrastructure.entity.LoginLogCount;
 import com.sparksys.oauth.infrastructure.mapper.LoginLogMapper;
-import eu.bitwalker.useragentutils.Browser;
-import eu.bitwalker.useragentutils.OperatingSystem;
-import eu.bitwalker.useragentutils.UserAgent;
-import eu.bitwalker.useragentutils.Version;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -64,26 +61,21 @@ public class LoginLogServiceImpl extends AbstractSuperCacheServiceImpl<LoginLogM
     }
 
     @Override
-    public void save(Long userId, String account, String ua, String ip, String location, String description) {
+    public void save(Long userId, String account, UserAgentEntity userAgentEntity, String description) {
         AuthUser authUser;
         if (userId != null) {
             authUser = authUserRepository.selectById(userId);
         } else {
             authUser = authUserRepository.selectByAccount(account);
         }
-        UserAgent userAgent = UserAgent.parseUserAgentString(ua);
-        Browser browser = userAgent.getBrowser();
-        Version browserVersion = userAgent.getBrowserVersion();
-        String version = browserVersion != null ? browserVersion.getVersion() : null;
-        OperatingSystem operatingSystem = userAgent.getOperatingSystem();
         LoginLog loginLog = LoginLog.builder()
-                .location(location)
+                .location(userAgentEntity.getLocation())
                 .loginDate(LocalDate.now())
                 .description(description)
-                .requestIp(ip).ua(ua)
-                .browser(simplifyBrowser(browser.getName()))
-                .browserVersion(version)
-                .operatingSystem(simplifyOperatingSystem(operatingSystem.getName()))
+                .requestIp(userAgentEntity.getRequestIp()).ua(userAgentEntity.getUa())
+                .browser(userAgentEntity.getBrowser())
+                .browserVersion(userAgentEntity.getBrowserVersion())
+                .operatingSystem(userAgentEntity.getOperatingSystem())
                 .build();
         if (authUser != null) {
             loginLog.setAccount(authUser.getAccount()).setUserId(authUser.getId()).setUserName(authUser.getName())

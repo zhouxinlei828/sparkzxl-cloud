@@ -17,66 +17,43 @@
         <java.version>1.8</java.version>
         <!-- spring-cloud-->
         <spring-cloud-alibaba-dependencies.version>2.2.0.RELEASE</spring-cloud-alibaba-dependencies.version>
-        <spring-boot-dependencies.version>2.3.0.RELEASE</spring-boot-dependencies.version>
+        <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
         <spring-cloud-dependencies.version>Hoxton.SR5</spring-cloud-dependencies.version>
+
+        <sparksys-commons.version>1.0</sparksys-commons.version>
+
         <!-- maven -->
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-        <spring-boot-maven-plugin.version>2.3.0.RELEASE</spring-boot-maven-plugin.version>
-        <knife4j.version>2.0.3</knife4j.version>
 
         <!-- datasource-->
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
-        <pagehelper-spring-boot-starter.version>1.2.13</pagehelper-spring-boot-starter.version>
-        <p6spy.version>3.9.0</p6spy.version>
-        <logstash.version>5.3</logstash.version>
         <freemarker.version>2.3.28</freemarker.version>
-        <!-- common组件-->
-        <commons-lang3.version>3.9</commons-lang3.version>
-        <commons-collections4.version>4.4</commons-collections4.version>
-        <commons-io.version>2.7</commons-io.version>
-        <bcprov-jdk16.version>1.46</bcprov-jdk16.version>
-        <spring-data-commos.version>2.2.6.RELEASE</spring-data-commos.version>
-        <!-- jwt组件-->
-        <jwt.version>0.9.1</jwt.version>
 
         <aliyun-sdk-oss.version>3.8.1</aliyun-sdk-oss.version>
-        <!-- google-->
-        <zxing.core.version>3.3.3</zxing.core.version>
-        <guava.version>28.2-jre</guava.version>
-        <hutool.version>5.3.7</hutool.version>
-        <!-- redisson -->
-        <redisson-spring-boot-starter.version>3.12.4</redisson-spring-boot-starter.version>
-        <zookeeper.version>3.5.6</zookeeper.version>
-        <curator.version>2.12.0</curator.version>
 
-        <jasypt.version>2.1.1</jasypt.version>
-        <elasticsearch.version>7.3.0</elasticsearch.version>
-        <html2pdf.version>1.0.2</html2pdf.version>
-        <pdfbox.version>2.0.17</pdfbox.version>
-        <itext.version>7.0.5</itext.version>
-        <!-- 工作流 -->
-        <activiti.version>6.0.0</activiti.version>
-        <apache.xmlgraphics.version>1.7</apache.xmlgraphics.version>
-
-        <xstream.version>1.4.11.1</xstream.version>
         <mapstruct.version>1.3.0.Final</mapstruct.version>
         <lombok.version>1.18.8</lombok.version>
-        <userAgent.version>1.21</userAgent.version>
         <apm-toolkit-trace.version>8.0.1</apm-toolkit-trace.version>
-        <ip2region.version>1.7.2</ip2region.version>
         <sharding-jdbc.version>4.0.0-RC2</sharding-jdbc.version>
-        <caffeine.version>2.8.5</caffeine.version>
     </properties>
 
     <modules>
         <module>sparksys-authorization</module>
+        <module>sparksys-code-generator</module>
         <module>sparksys-file</module>
-        <module>sparksys-commons</module>
         <module>sparksys-gateway</module>
         <module>sparksys-oauth</module>
         <module>sparksys-sharding-demo</module>
     </modules>
+
+    <repositories>
+        <repository>
+            <id>maven-releases</id>
+            <name>maven-releases-repository</name>
+            <url>http://47.116.52.58:8085/repository/maven-releases/</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -89,7 +66,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot-dependencies.version}</version>
+                <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -108,22 +85,28 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring-boot-dependencies.version}</version>
-                <exclusions>
-                    <!-- 移除tomcat -->
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-tomcat</artifactId>
-                    </exclusion>
-                </exclusions>
+                <groupId>com.sparksys</groupId>
+                <artifactId>sparksys-commons</artifactId>
+                <version>${sparksys-commons.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <!-- sparksys-commons 组件-->
             <dependency>
                 <groupId>com.sparksys</groupId>
+                <artifactId>sparksys-commons-cloud-starter</artifactId>
+                <version>${sparksys-commons.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>javax.servlet-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-activiti-starter</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -134,7 +117,7 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-cache-starter</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -149,7 +132,7 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-core</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -160,7 +143,7 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-database-starter</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -171,7 +154,7 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-elasticsearch-starter</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -186,12 +169,12 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-log-starter</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-commons.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-mail-starter</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -206,7 +189,7 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-oauth2-starter</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -229,7 +212,7 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-security-starter</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -248,7 +231,7 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-swagger-starter</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -267,7 +250,7 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-web-starter</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -282,7 +265,7 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-zookeeper-starter</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -314,240 +297,11 @@
                 <artifactId>sparksys-file-api</artifactId>
                 <version>${sparksys-project.version}</version>
             </dependency>
-            <!-- mybatis-plus -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>1.2.13</version>
-            </dependency>
-            <dependency>
-                <groupId>p6spy</groupId>
-                <artifactId>p6spy</artifactId>
-                <version>${p6spy.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-dependencies</artifactId>
-                <version>${knife4j.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.aliyun.oss</groupId>
-                <artifactId>aliyun-sdk-oss</artifactId>
-                <version>${aliyun-sdk-oss.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-generator</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.logstash.logback</groupId>
-                <artifactId>logstash-logback-encoder</artifactId>
-                <version>${logstash.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>${freemarker.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${commons-lang3.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-collections4</artifactId>
-                <version>${commons-collections4.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk16</artifactId>
-                <version>${bcprov-jdk16.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jwt.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.zxing</groupId>
-                <artifactId>core</artifactId>
-                <version>${zxing.core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
-            </dependency>
-            <!-- hutool工具类 -->
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>${redisson-spring-boot-starter.version}</version>
-            </dependency>
-            <!-- zookeeper -->
-            <dependency>
-                <groupId>org.apache.zookeeper</groupId>
-                <artifactId>zookeeper</artifactId>
-                <version>${zookeeper.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>log4j</artifactId>
-                        <groupId>log4j</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.curator</groupId>
-                <artifactId>curator-framework</artifactId>
-                <version>${curator.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.curator</groupId>
-                <artifactId>curator-recipes</artifactId>
-                <version>${curator.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.github.ulisesbocchio</groupId>
-                <artifactId>jasypt-spring-boot-starter</artifactId>
-                <version>${jasypt.version}</version>
-            </dependency>
-
-            <!-- elasticsearch -->
-            <dependency>
-                <groupId>org.elasticsearch</groupId>
-                <artifactId>elasticsearch</artifactId>
-                <version>${elasticsearch.version}</version>
-            </dependency>
-
-            <!-- elasticsearch-rest-client -->
-            <dependency>
-                <groupId>org.elasticsearch.client</groupId>
-                <artifactId>elasticsearch-rest-client</artifactId>
-                <version>${elasticsearch.version}</version>
-            </dependency>
-
-            <!-- elasticsearch-rest-high-level-client -->
-            <dependency>
-                <groupId>org.elasticsearch.client</groupId>
-                <artifactId>elasticsearch-rest-high-level-client</artifactId>
-                <version>${elasticsearch.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.elasticsearch.client</groupId>
-                        <artifactId>elasticsearch-rest-client</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.elasticsearch</groupId>
-                        <artifactId>elasticsearch</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <!-- pdfHTML -->
-            <dependency>
-                <groupId>com.itextpdf</groupId>
-                <artifactId>html2pdf</artifactId>
-                <version>${html2pdf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.pdfbox</groupId>
-                <artifactId>pdfbox</artifactId>
-                <version>${pdfbox.version}</version>
-            </dependency>
-            <!-- iText 7 -->
-            <dependency>
-                <groupId>com.itextpdf</groupId>
-                <artifactId>itext7-core</artifactId>
-                <version>${itext.version}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.activiti</groupId>
-                <artifactId>activiti-spring-boot-starter-basic</artifactId>
-                <version>${activiti.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.mybatis</groupId>
-                        <artifactId>mybatis</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.thoughtworks.xstream</groupId>
-                <artifactId>xstream</artifactId>
-                <version>${xstream.version}</version>
-            </dependency>
-            <!-- use mapstruct-jdk8 for Java 8 or higher -->
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-jdk8</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>eu.bitwalker</groupId>
-                <artifactId>UserAgentUtils</artifactId>
-                <version>${userAgent.version}</version>
-            </dependency>
-            <!-- skywalking-apm-toolkit-logback-1.x -->
-            <dependency>
-                <groupId>org.apache.skywalking</groupId>
-                <artifactId>apm-toolkit-logback-1.x</artifactId>
-                <version>${apm-toolkit-trace.version}</version>
-            </dependency>
             <!-- skywalking-apm-toolkit-trace -->
             <dependency>
                 <groupId>org.apache.skywalking</groupId>
                 <artifactId>apm-toolkit-trace</artifactId>
                 <version>${apm-toolkit-trace.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lionsoul</groupId>
-                <artifactId>ip2region</artifactId>
-                <version>${ip2region.version}</version>
             </dependency>
             <!-- 实现对 Sharding-JDBC 的自动化配置 -->
             <dependency>
@@ -556,9 +310,24 @@
                 <version>${sharding-jdbc.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.ben-manes.caffeine</groupId>
-                <artifactId>caffeine</artifactId>
-                <version>${caffeine.version}</version>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun-sdk-oss.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -572,6 +341,13 @@
                 </includes>
                 <filtering>true</filtering>
             </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
         </resources>
 
         <pluginManagement>
@@ -582,8 +358,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <source>${java.version}</source> <!-- or higher, depending on your project -->
-                        <target>${java.version}</target> <!-- or higher, depending on your project -->
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
                         <annotationProcessorPaths>
                             <path>
                                 <groupId>org.mapstruct</groupId>
@@ -638,5 +414,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
 </project>
