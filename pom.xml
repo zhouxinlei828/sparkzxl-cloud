@@ -19,7 +19,7 @@
         <spring-cloud-alibaba-dependencies.version>2.2.0.RELEASE</spring-cloud-alibaba-dependencies.version>
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
         <spring-cloud-dependencies.version>Hoxton.SR5</spring-cloud-dependencies.version>
-        <admin-server.version>2.2.3</admin-server.version>
+        <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
 
         <sparksys-commons.version>1.0</sparksys-commons.version>
 
@@ -104,12 +104,12 @@
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-server</artifactId>
-                <version>${admin-server.version}</version>
+                <version>${spring-boot-admin.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-server-ui</artifactId>
-                <version>${admin-server.version}</version>
+                <version>${spring-boot-admin.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
