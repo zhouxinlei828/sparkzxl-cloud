@@ -2,7 +2,7 @@ package com.sparksys.authorization.infrastructure.config;
 
 import com.sparksys.authorization.domain.service.AuthUserDetailsService;
 import com.sparksys.commons.security.config.AbstractSecurityConfig;
-import com.sparksys.commons.security.props.IgnoreUrlsProperties;
+import com.sparksys.commons.security.properties.IgnoreUrlsProperties;
 import com.sparksys.commons.security.registry.SecurityRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

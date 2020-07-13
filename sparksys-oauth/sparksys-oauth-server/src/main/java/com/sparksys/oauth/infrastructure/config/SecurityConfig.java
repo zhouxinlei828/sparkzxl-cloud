@@ -1,7 +1,7 @@
 package com.sparksys.oauth.infrastructure.config;
 
 import com.sparksys.commons.security.config.AbstractSecurityConfig;
-import com.sparksys.commons.security.props.IgnoreUrlsProperties;
+import com.sparksys.commons.security.properties.IgnoreUrlsProperties;
 import com.sparksys.commons.security.registry.SecurityRegistry;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
