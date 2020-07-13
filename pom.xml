@@ -32,6 +32,7 @@
         <freemarker.version>2.3.28</freemarker.version>
 
         <aliyun-sdk-oss.version>3.8.1</aliyun-sdk-oss.version>
+        <knife4j.version>2.0.3</knife4j.version>
 
         <mapstruct.version>1.3.0.Final</mapstruct.version>
         <lombok.version>1.18.8</lombok.version>
@@ -48,25 +49,6 @@
         <module>sparksys-sharding-demo</module>
         <module>sparksys-admin-server</module>
     </modules>
-
-    <repositories>
-        <repository>
-            <id>maven-releases</id>
-            <url>http://101.200.80.154:8081/repository/maven-releases/</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>maven-releases</id>
-            <url>http://101.200.80.154:8081/repository/maven-releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -347,6 +329,11 @@
                 <groupId>com.aliyun.oss</groupId>
                 <artifactId>aliyun-sdk-oss</artifactId>
                 <version>${aliyun-sdk-oss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
