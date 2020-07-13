@@ -23,10 +23,6 @@ public class AuthUserDetailsService extends AbstractAuthSecurityService {
     @Autowired
     private IAuthUserService authUserService;
 
-    @Override
-    protected GlobalAuthUser getCache(String key) {
-        return cacheRepository.get(key);
-    }
 
     @Override
     public AuthUserDetail getAuthUserDetail(String account) {
