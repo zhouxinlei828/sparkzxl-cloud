@@ -51,11 +51,9 @@
 
     <repositories>
         <repository>
-            <id>aliyun-repos</id>
-            <url>https://maven.aliyun.com/repository/public</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
+            <id>maven-releases</id>
+            <name>maven-releases-repository</name>
+            <url>http://101.200.80.154:8081/repository/maven-releases/</url>
         </repository>
         <repository>
             <id>alfresco</id>
@@ -64,11 +62,6 @@
             <releases>
                 <enabled>true</enabled>
             </releases>
-        </repository>
-        <repository>
-            <id>maven-releases</id>
-            <name>maven-releases-repository</name>
-            <url>http://101.200.80.154:8081/repository/maven-releases/</url>
         </repository>
     </repositories>
     <dependencies>
@@ -418,11 +411,11 @@
                         </nonFilteredFileExtensions>
                     </configuration>
                 </plugin>
-
                 <!-- 打包 -->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
                     <executions>
                         <execution>
                             <goals>
