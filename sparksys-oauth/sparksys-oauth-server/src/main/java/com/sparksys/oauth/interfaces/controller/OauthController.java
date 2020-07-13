@@ -1,8 +1,8 @@
 package com.sparksys.oauth.interfaces.controller;
 
+import com.sparksys.commons.core.utils.ResponseResultUtils;
 import com.sparksys.commons.oauth.service.OauthService;
 import com.sparksys.commons.web.annotation.ResponseResult;
-import com.sparksys.commons.web.utils.HttpResponseUtils;
 import io.jsonwebtoken.Jwts;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -53,7 +53,7 @@ public class OauthController {
     @GetMapping("/getCurrentUser")
     @ApiOperation("获取当前用户")
     public Object getCurrentUser(HttpServletRequest httpRequest) {
-        String token = HttpResponseUtils.getAuthHeader(httpRequest);
+        String token = ResponseResultUtils.getAuthHeader(httpRequest);
         return Jwts.parser()
                 .setSigningKey("sparksys".getBytes(StandardCharsets.UTF_8))
                 .parseClaimsJws(token)

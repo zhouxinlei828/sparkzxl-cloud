@@ -21,7 +21,7 @@
         <spring-cloud-dependencies.version>Hoxton.SR5</spring-cloud-dependencies.version>
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
 
-        <sparksys-commons.version>1.0-RELEASES</sparksys-commons.version>
+        <sparksys-commons.version>1.1.0.RELEASE</sparksys-commons.version>
 
         <!-- maven -->
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -103,17 +103,6 @@
                 <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>javax.servlet</groupId>
-                        <artifactId>javax.servlet-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-activiti-starter</artifactId>
-                <version>${sparksys-commons.version}</version>
-                <exclusions>
-                    <exclusion>
                         <groupId>org.projectlombok</groupId>
                         <artifactId>lombok</artifactId>
                     </exclusion>
@@ -127,10 +116,6 @@
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
                         <artifactId>lombok</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sparksys</groupId>
-                        <artifactId>sparksys-commons-core</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -158,36 +143,12 @@
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-elasticsearch-starter</artifactId>
-                <version>${sparksys-commons.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sparksys</groupId>
-                        <artifactId>sparksys-commons-core</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons-log-starter</artifactId>
                 <version>${sparksys-commons.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-mail-starter</artifactId>
-                <version>${sparksys-commons.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
                         <artifactId>lombok</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sparksys</groupId>
-                        <artifactId>sparksys-commons-core</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -200,18 +161,6 @@
                         <groupId>org.projectlombok</groupId>
                         <artifactId>lombok</artifactId>
                     </exclusion>
-                    <exclusion>
-                        <groupId>com.sparksys</groupId>
-                        <artifactId>sparksys-commons-cache-starter</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sparksys</groupId>
-                        <artifactId>sparksys-commons-database-starter</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sparksys</groupId>
-                        <artifactId>sparksys-commons-web-starter</artifactId>
-                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -223,13 +172,16 @@
                         <groupId>org.projectlombok</groupId>
                         <artifactId>lombok</artifactId>
                     </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.sparksys</groupId>
+                <artifactId>sparksys-commons-user-starter</artifactId>
+                <version>${sparksys-commons.version}</version>
+                <exclusions>
                     <exclusion>
-                        <groupId>com.sparksys</groupId>
-                        <artifactId>sparksys-commons-web-starter</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sparksys</groupId>
-                        <artifactId>sparksys-commons-database-starter</artifactId>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -242,14 +194,6 @@
                         <groupId>org.projectlombok</groupId>
                         <artifactId>lombok</artifactId>
                     </exclusion>
-                    <exclusion>
-                        <groupId>com.sparksys</groupId>
-                        <artifactId>sparksys-commons-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-web</artifactId>
-                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -260,25 +204,6 @@
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
                         <artifactId>lombok</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sparksys</groupId>
-                        <artifactId>sparksys-commons-core</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-zookeeper-starter</artifactId>
-                <version>${sparksys-commons.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sparksys</groupId>
-                        <artifactId>sparksys-commons-core</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -297,6 +222,12 @@
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-file-api</artifactId>
                 <version>${sparksys-project.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- skywalking-apm-toolkit-trace -->
             <dependency>

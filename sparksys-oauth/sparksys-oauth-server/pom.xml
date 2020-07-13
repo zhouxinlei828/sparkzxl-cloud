@@ -24,6 +24,12 @@
         <dependency>
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-commons-cloud-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
@@ -32,6 +38,12 @@
         <dependency>
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-commons-cache-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.objenesis</groupId>
+                    <artifactId>objenesis</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
@@ -43,11 +55,21 @@
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
+            <artifactId>sparksys-commons-user-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sparksys</groupId>
             <artifactId>sparksys-commons-web-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-commons-swagger-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.javassist</groupId>
+                    <artifactId>javassist</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
