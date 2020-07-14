@@ -3,8 +3,9 @@ package com.sparksys.authorization.interfaces.controller;
 import com.sparksys.authorization.domain.service.AuthUserDetailsService;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.utils.ResponseResultUtils;
+import com.sparksys.commons.security.dto.LoginDTO;
 import com.sparksys.commons.security.entity.AuthToken;
-import com.sparksys.commons.security.request.AuthRequest;
+import com.sparksys.commons.security.properties.SecurityProperties;
 import com.sparksys.commons.user.service.IGlobalUserService;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
@@ -12,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -30,12 +32,15 @@ public class OauthController {
     private AuthUserDetailsService authUserDetailsService;
 
     @Autowired
+    private SecurityProperties securityProperties;
+
+    @Autowired
     private IGlobalUserService globalUserService;
 
     @ApiOperation("系统登录")
     @PostMapping("/login")
-    public AuthToken login(@Validated @RequestBody AuthRequest authRequest) {
-        return authUserDetailsService.login(authRequest);
+    public AuthToken login(@Validated @RequestBody LoginDTO loginDto) {
+        return authUserDetailsService.login(loginDto);
     }
 
     @ApiOperation("获取登录用户信息")
@@ -43,5 +48,11 @@ public class OauthController {
     public GlobalAuthUser getUserInfo(HttpServletRequest httpServletRequest) {
         String accessToken = ResponseResultUtils.getAuthHeader(httpServletRequest);
         return globalUserService.getUserInfo(accessToken);
+    }
+
+    @ApiOperation("获取配置信息")
+    @GetMapping("/getSecurityProperties")
+    public SecurityProperties getSecurityProperties() {
+        return securityProperties;
     }
 }
