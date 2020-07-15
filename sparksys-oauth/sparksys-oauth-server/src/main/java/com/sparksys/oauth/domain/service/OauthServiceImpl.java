@@ -5,12 +5,12 @@ import com.sparksys.commons.core.repository.CacheRepository;
 
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.support.ResponseResultStatus;
+import com.sparksys.commons.core.utils.SpringContextUtils;
 import com.sparksys.commons.oauth.enums.GrantTypeEnum;
 import com.sparksys.commons.oauth.service.OauthService;
 import com.sparksys.commons.security.entity.AuthUserDetail;
 import com.sparksys.commons.security.event.LoginEvent;
 import com.sparksys.commons.security.entity.LoginStatus;
-import com.sparksys.commons.web.component.SpringContextUtils;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 

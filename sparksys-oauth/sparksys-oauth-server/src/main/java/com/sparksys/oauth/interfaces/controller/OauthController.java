@@ -1,9 +1,9 @@
 package com.sparksys.oauth.interfaces.controller;
 
 import com.nimbusds.jose.JWSObject;
-import com.sparksys.commons.core.entity.JwtUserInfo;
+import com.sparksys.commons.jwt.entity.JwtUserInfo;
 import com.sparksys.commons.core.utils.ResponseResultUtils;
-import com.sparksys.commons.core.utils.jwt.JwtTokenUtils;
+import com.sparksys.commons.jwt.service.JwtTokenService;
 import com.sparksys.commons.oauth.service.OauthService;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
@@ -34,9 +34,11 @@ import java.util.Map;
 public class OauthController {
 
     private final OauthService oauthService;
+    private final JwtTokenService jwtTokenService;
 
-    public OauthController(OauthService oauthService) {
+    public OauthController(OauthService oauthService, JwtTokenService jwtTokenService) {
         this.oauthService = oauthService;
+        this.jwtTokenService = jwtTokenService;
     }
 
     @GetMapping("/token")
@@ -58,7 +60,7 @@ public class OauthController {
     public Object getCurrentUser(HttpServletRequest httpRequest) throws ParseException {
         String token = ResponseResultUtils.getAuthHeader(httpRequest);
         JWSObject jwsObject = JWSObject.parse(token);
-        return jwsObject.getPayload();
+        return jwsObject.getPayload().toJSONObject();
     }
 
     @ApiOperation("获取非对称加密（RSA）算法公钥")
@@ -72,7 +74,7 @@ public class OauthController {
                 .username("zhouxinlei")
                 .expire(3600L)
                 .build();
-        return JwtTokenUtils.createTokenByRsa(jwtUserInfo);
+        return jwtTokenService.createTokenByRsa(jwtUserInfo);
     }
 
 }

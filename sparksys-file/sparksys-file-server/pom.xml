@@ -15,28 +15,14 @@
         <dependency>
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-commons-cloud-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.code.findbugs</groupId>
-                    <artifactId>jsr305</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.sparksys</groupId>
+            <artifactId>sparksys-commons-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-file-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-commons-database-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-commons-web-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-commons-swagger-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.aliyun.oss</groupId>

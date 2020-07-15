@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: sparksys-sharding-demo
   profiles:
     active: dev #默认为开发环境
   main:
