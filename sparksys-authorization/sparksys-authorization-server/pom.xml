@@ -46,10 +46,6 @@
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-commons-jwt-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sparksys</groupId>
             <artifactId>sparksys-commons-user-starter</artifactId>
         </dependency>
         <dependency>

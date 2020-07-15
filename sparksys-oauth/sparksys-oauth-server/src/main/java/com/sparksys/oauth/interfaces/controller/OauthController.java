@@ -1,14 +1,16 @@
 package com.sparksys.oauth.interfaces.controller;
 
 import com.nimbusds.jose.JWSObject;
+import com.sparksys.commons.core.entity.JwtUserInfo;
 import com.sparksys.commons.core.utils.ResponseResultUtils;
-import com.sparksys.commons.jwt.config.service.JwtTokenService;
+import com.sparksys.commons.core.utils.jwt.JwtTokenUtils;
 import com.sparksys.commons.oauth.service.OauthService;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.skywalking.apm.toolkit.trace.ActiveSpan;
 import org.apache.skywalking.apm.toolkit.trace.Trace;
+import org.assertj.core.util.Lists;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
@@ -32,11 +34,9 @@ import java.util.Map;
 public class OauthController {
 
     private final OauthService oauthService;
-    private final JwtTokenService jwtTokenService;
 
-    public OauthController(OauthService oauthService, JwtTokenService jwtTokenService) {
+    public OauthController(OauthService oauthService) {
         this.oauthService = oauthService;
-        this.jwtTokenService = jwtTokenService;
     }
 
     @GetMapping("/token")
@@ -59,5 +59,19 @@ public class OauthController {
         String token = ResponseResultUtils.getAuthHeader(httpRequest);
         JWSObject jwsObject = JWSObject.parse(token);
         return jwsObject.getPayload();
+    }
+
+    @ApiOperation("获取非对称加密（RSA）算法公钥")
+    @GetMapping(value = "/createTokenByRsa")
+    @ResponseBody
+    public String createTokenByRsa() {
+        JwtUserInfo jwtUserInfo = JwtUserInfo.builder()
+                .sub("zhouxinlei")
+                .iat(System.currentTimeMillis())
+                .authorities(Lists.newArrayList())
+                .username("zhouxinlei")
+                .expire(3600L)
+                .build();
+        return JwtTokenUtils.createTokenByRsa(jwtUserInfo);
     }
 }
