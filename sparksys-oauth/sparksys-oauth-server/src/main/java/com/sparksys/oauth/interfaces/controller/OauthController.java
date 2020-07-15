@@ -74,4 +74,5 @@ public class OauthController {
                 .build();
         return JwtTokenUtils.createTokenByRsa(jwtUserInfo);
     }
+
 }
