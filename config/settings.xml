@@ -21,16 +21,6 @@
 			<username>admin</username>
 			<password>123456</password>
 		</server>
-        <server>
-            <id>rdc-releases</id>
-            <username>5f0c245499d2094b1a5ee9a0</username>
-            <password>wNdyZR3NfHDT</password>
-        </server>
-        <server>
-            <id>rdc-snapshots</id>
-            <username>5f0c245499d2094b1a5ee9a0</username>
-            <password>wNdyZR3NfHDT</password>
-        </server>
     </servers>
     <profiles>
         <profile>
@@ -58,7 +48,7 @@
                 </repository>
                 <repository>
                     <id>maven-releases</id>
-                    <url>http://101.200.80.154:8081/repository/maven-snapshots/</url>
+                    <url>http://101.200.80.154:8081/repository/maven-releases/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -68,7 +58,7 @@
                 </repository>
                 <repository>
                     <id>maven-snapshots</id>
-                    <url>http://101.200.80.154:8081/repository/maven-releases/</url>
+                    <url>http://101.200.80.154:8081/repository/maven-snapshots/</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>
@@ -100,7 +90,7 @@
                 </pluginRepository>
                 <pluginRepository>
 				    <id>maven-releases</id>
-                    <url>http://101.200.80.154:8081/repository/maven-snapshots/</url>
+                    <url>http://101.200.80.154:8081/repository/maven-releases/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -110,7 +100,7 @@
                 </pluginRepository>
                 <pluginRepository>
                     <id>maven-snapshots</id>
-                    <url>http://101.200.80.154:8081/repository/maven-releases/</url>
+                    <url>http://101.200.80.154:8081/repository/maven-snapshots/</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>
