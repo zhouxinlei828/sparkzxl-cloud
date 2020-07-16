@@ -14,15 +14,15 @@
     <dependencies>
         <dependency>
             <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-commons-cloud-starter</artifactId>
+            <artifactId>sparksys-cloud-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-commons-boot-starter</artifactId>
+            <artifactId>sparksys-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-commons-cache-starter</artifactId>
+            <artifactId>sparksys-cache-starter</artifactId>
         </dependency>
         <!-- 实现对 Sharding-JDBC 的自动化配置 -->
         <dependency>

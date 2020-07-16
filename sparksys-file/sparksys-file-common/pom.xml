@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-commons-core</artifactId>
+            <artifactId>sparksys-core</artifactId>
         </dependency>
     </dependencies>
 

@@ -21,7 +21,7 @@
         <spring-cloud-dependencies.version>Hoxton.SR5</spring-cloud-dependencies.version>
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
 
-        <sparksys-commons.version>1.2.0.RELEASE</sparksys-commons.version>
+        <sparksys.version>1.2.0.RELEASE</sparksys.version>
 
         <!-- maven -->
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -115,15 +115,15 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons</artifactId>
-                <version>${sparksys-commons.version}</version>
+                <version>${sparksys.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <!-- sparksys-commons 组件-->
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-cloud-starter</artifactId>
-                <version>${sparksys-commons.version}</version>
+                <artifactId>sparksys-cloud-starter</artifactId>
+                <version>${sparksys.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -133,13 +133,13 @@
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-boot-starter</artifactId>
-                <version>${sparksys-commons.version}</version>
+                <artifactId>sparksys-boot-starter</artifactId>
+                <version>${sparksys.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-cache-starter</artifactId>
-                <version>${sparksys-commons.version}</version>
+                <artifactId>sparksys-cache-starter</artifactId>
+                <version>${sparksys.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -149,8 +149,8 @@
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-core</artifactId>
-                <version>${sparksys-commons.version}</version>
+                <artifactId>sparksys-core</artifactId>
+                <version>${sparksys.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -160,8 +160,8 @@
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-oauth2-starter</artifactId>
-                <version>${sparksys-commons.version}</version>
+                <artifactId>sparksys-oauth2-starter</artifactId>
+                <version>${sparksys.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -171,8 +171,8 @@
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-security-starter</artifactId>
-                <version>${sparksys-commons.version}</version>
+                <artifactId>sparksys-security-starter</artifactId>
+                <version>${sparksys.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -182,8 +182,8 @@
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons-user-starter</artifactId>
-                <version>${sparksys-commons.version}</version>
+                <artifactId>sparksys-user-starter</artifactId>
+                <version>${sparksys.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
