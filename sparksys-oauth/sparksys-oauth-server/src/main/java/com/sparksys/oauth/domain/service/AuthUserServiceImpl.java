@@ -6,7 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Sets;
 import com.sparksys.commons.core.constant.CacheKey;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.core.utils.collection.ListUtils;
+import com.sparksys.commons.core.utils.ListUtils;
 import com.sparksys.commons.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.commons.database.utils.PageInfoUtils;
 import com.sparksys.commons.security.entity.AuthUserDetail;

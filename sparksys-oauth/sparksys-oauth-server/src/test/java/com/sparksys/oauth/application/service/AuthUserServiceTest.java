@@ -1,10 +1,10 @@
 package com.sparksys.oauth.application.service;
 
 
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sparksys.commons.core.utils.common.NumberUtil;
 import com.sparksys.commons.database.utils.PageInfoUtils;
 import com.sparksys.commons.web.utils.JacksonUtils;
 import com.sparksys.oauth.Oauth2Application;
@@ -51,7 +51,6 @@ public class AuthUserServiceTest {
             authUser.setSex(1);
             authUser.setStationId(645200151886964289L);
             authUser.setEmail(RandomUtil.randomNumbers(9).concat("@qq.com"));
-            authUser.setMobile(NumberUtil.getRandom(11));
             authUser.setStatus(Boolean.TRUE);
             authUser.setPassword(passwordEncoder.encode("123456"));
             authUser.setCreateUser(1248084109452902400L);

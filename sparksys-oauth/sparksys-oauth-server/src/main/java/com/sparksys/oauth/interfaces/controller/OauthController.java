@@ -1,9 +1,10 @@
 package com.sparksys.oauth.interfaces.controller;
 
 import com.nimbusds.jose.JWSObject;
+import com.sparksys.commons.core.base.api.ResponseResultUtils;
 import com.sparksys.commons.jwt.entity.JwtUserInfo;
-import com.sparksys.commons.core.utils.ResponseResultUtils;
 import com.sparksys.commons.jwt.service.JwtTokenService;
+import com.sparksys.commons.log.annotation.WebLog;
 import com.sparksys.commons.oauth.service.OauthService;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
@@ -14,7 +15,7 @@ import org.assertj.core.util.Lists;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
-
+import com.sparksys.commons.log.annotation.WebLog;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.text.ParseException;
@@ -30,6 +31,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/oauth")
 @ResponseResult
+@WebLog
 @Api(tags = "授权登录管理")
 public class OauthController {
 
