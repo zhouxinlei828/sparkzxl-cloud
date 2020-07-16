@@ -38,6 +38,8 @@
         <lombok.version>1.18.8</lombok.version>
         <apm-toolkit-trace.version>8.0.1</apm-toolkit-trace.version>
         <sharding-jdbc.version>4.0.0-RC2</sharding-jdbc.version>
+        <activiti.boot.version>6.0.0</activiti.boot.version>
+        <apache.xmlgraphics.version>1.7</apache.xmlgraphics.version>
     </properties>
 
     <modules>
@@ -48,6 +50,7 @@
         <module>sparksys-oauth</module>
         <module>sparksys-sharding-demo</module>
         <module>sparksys-admin-server</module>
+        <module>sparksys-activiti-design</module>
     </modules>
 
     <repositories>
@@ -160,6 +163,17 @@
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
+                <artifactId>sparksys-activiti-starter</artifactId>
+                <version>${sparksys.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-oauth2-starter</artifactId>
                 <version>${sparksys.version}</version>
                 <exclusions>
@@ -250,6 +264,28 @@
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.xmlgraphics</groupId>
+                <artifactId>batik-codec</artifactId>
+                <version>${apache.xmlgraphics.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.xmlgraphics</groupId>
+                <artifactId>batik-css</artifactId>
+                <version>${apache.xmlgraphics.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.xmlgraphics</groupId>
+                <artifactId>batik-svg-dom</artifactId>
+                <version>${apache.xmlgraphics.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.xmlgraphics</groupId>
+                <artifactId>batik-svggen</artifactId>
+                <version>${apache.xmlgraphics.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
