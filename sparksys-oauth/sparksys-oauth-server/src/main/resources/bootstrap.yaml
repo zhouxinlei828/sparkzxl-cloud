@@ -32,4 +32,5 @@ logging:
   level:
     com.sparksys.oauth.infrastructure.mapper: debug
   file:
+    #path: /Users/zhouxinlei/logs
     path: C:\logs
