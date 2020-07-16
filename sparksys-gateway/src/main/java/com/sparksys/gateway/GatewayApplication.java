@@ -13,11 +13,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @author zhouxinlei
  * @date 2020-05-24 12:18:18
  */
-@SpringBootApplication(scanBasePackages = {"com.sparksys"})
+@SpringBootApplication(scanBasePackages = {"com.sparksys.gateway"})
 @Slf4j
 @EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
 @EnableDiscoveryClient
-@EnableFeignClients({"com.sparksys"})
+@EnableFeignClients({"com.sparksys.gateway"})
 public class GatewayApplication {
 
     public static void main(String[] args) {

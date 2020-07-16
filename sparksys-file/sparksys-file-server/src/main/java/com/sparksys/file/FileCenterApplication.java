@@ -12,9 +12,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @author zhouxinlei
  * @date 2020-05-24 12:42:02
  */
-@SpringBootApplication(scanBasePackages = {"com.sparksys"})
+@SpringBootApplication(scanBasePackages = {"com.sparksys.file"})
 @EnableDiscoveryClient
-@EnableFeignClients({"com.sparksys"})
+@EnableFeignClients({"com.sparksys.file"})
 public class FileCenterApplication extends SparkBootApplication {
 
     public static void main(String[] args) {
