@@ -1,6 +1,7 @@
 package com.sparksys.authorization.interfaces.controller;
 
 
+import com.sparksys.commons.log.annotation.WebLog;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/resource")
 @ResponseResult
+@WebLog
 public class AuthResourceController {
 
 }

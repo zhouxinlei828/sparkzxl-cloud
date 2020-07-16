@@ -1,5 +1,6 @@
 package com.sparksys.oauth.interfaces.controller;
 
+import com.sparksys.commons.log.annotation.WebLog;
 import com.sparksys.oauth.application.service.ILoginLogService;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/loginLog")
 @ResponseResult
+@WebLog
 @Api(value = "LoginLog", tags = "登录日志")
 public class LoginLogController {
 

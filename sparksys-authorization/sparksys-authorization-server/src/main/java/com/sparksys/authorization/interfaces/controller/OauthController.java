@@ -3,6 +3,7 @@ package com.sparksys.authorization.interfaces.controller;
 import com.sparksys.authorization.domain.service.AuthUserDetailsService;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
 import com.sparksys.commons.core.utils.ResponseResultUtils;
+import com.sparksys.commons.log.annotation.WebLog;
 import com.sparksys.commons.security.dto.LoginDTO;
 import com.sparksys.commons.security.entity.AuthToken;
 import com.sparksys.commons.security.properties.SecurityProperties;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/oauth")
 @ResponseResult
+@WebLog
 @Api(tags = "登录管理")
 public class OauthController {
 

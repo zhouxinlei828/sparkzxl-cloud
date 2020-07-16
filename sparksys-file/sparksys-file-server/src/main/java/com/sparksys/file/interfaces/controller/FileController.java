@@ -1,5 +1,6 @@
 package com.sparksys.file.interfaces.controller;
 
+import com.sparksys.commons.log.annotation.WebLog;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import com.sparksys.file.application.service.IFileService;
 import com.sparksys.file.domain.dto.OssPolicyResult;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @ResponseResult
+@WebLog
 @RequestMapping("/file")
 @Api(tags = "文件管理")
 public class FileController {

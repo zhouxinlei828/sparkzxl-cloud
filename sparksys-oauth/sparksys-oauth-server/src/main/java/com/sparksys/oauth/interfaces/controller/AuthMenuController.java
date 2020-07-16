@@ -1,6 +1,7 @@
 package com.sparksys.oauth.interfaces.controller;
 
 
+import com.sparksys.commons.log.annotation.WebLog;
 import com.sparksys.oauth.application.service.IAuthMenuService;
 import com.sparksys.oauth.infrastructure.entity.AuthMenu;
 import com.sparksys.commons.web.annotation.ResponseResult;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/menu")
 @ResponseResult
+@WebLog
 @Api(tags = "菜单管理")
 public class AuthMenuController {
 

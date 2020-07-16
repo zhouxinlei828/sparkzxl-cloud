@@ -1,6 +1,7 @@
 package com.sparksys.oauth.interfaces.controller;
 
 
+import com.sparksys.commons.log.annotation.WebLog;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/org")
 @ResponseResult
+@WebLog
 public class OrgController {
 
 }

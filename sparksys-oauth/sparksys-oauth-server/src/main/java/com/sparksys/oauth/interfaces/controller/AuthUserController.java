@@ -2,6 +2,7 @@ package com.sparksys.oauth.interfaces.controller;
 
 
 import com.github.pagehelper.PageInfo;
+import com.sparksys.commons.log.annotation.WebLog;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;
@@ -24,6 +25,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @ResponseResult
+@WebLog
 @RequestMapping("/user")
 @Api(tags = "用户管理")
 public class AuthUserController {

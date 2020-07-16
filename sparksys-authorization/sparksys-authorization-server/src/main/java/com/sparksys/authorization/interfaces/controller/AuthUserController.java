@@ -8,6 +8,7 @@ import com.sparksys.authorization.interfaces.dto.user.AuthUserSaveDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserStatusDTO;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserUpdateDTO;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
+import com.sparksys.commons.log.annotation.WebLog;
 import com.sparksys.commons.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +25,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @ResponseResult
+@WebLog
 @RequestMapping("/user")
 @Api(tags = "用户管理")
 public class AuthUserController {

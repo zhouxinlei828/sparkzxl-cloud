@@ -2,6 +2,7 @@ package com.sparksys.oauth.interfaces.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.sparksys.commons.core.entity.GlobalAuthUser;
+import com.sparksys.commons.log.annotation.WebLog;
 import com.sparksys.oauth.application.service.IAuthRoleService;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleDTO;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/role")
 @ResponseResult
+@WebLog
 @Api(tags = "角色管理")
 public class AuthRoleController {
 
