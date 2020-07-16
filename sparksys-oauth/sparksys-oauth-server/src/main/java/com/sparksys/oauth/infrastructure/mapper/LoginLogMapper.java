@@ -1,6 +1,6 @@
 package com.sparksys.oauth.infrastructure.mapper;
 
-import com.sparksys.commons.database.mapper.SuperMapper;
+import com.sparksys.database.mapper.SuperMapper;
 import com.sparksys.oauth.infrastructure.entity.LoginLog;
 import com.sparksys.oauth.infrastructure.entity.LoginLogCount;
 import org.apache.ibatis.annotations.Delete;

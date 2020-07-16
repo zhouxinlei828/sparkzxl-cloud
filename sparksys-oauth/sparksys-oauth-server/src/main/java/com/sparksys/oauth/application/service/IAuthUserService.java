@@ -1,8 +1,8 @@
 package com.sparksys.oauth.application.service;
 
 import com.github.pagehelper.PageInfo;
-import com.sparksys.commons.database.service.SuperCacheService;
-import com.sparksys.commons.security.entity.AuthUserDetail;
+import com.sparksys.database.service.SuperCacheService;
+import com.sparksys.security.entity.AuthUserDetail;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;

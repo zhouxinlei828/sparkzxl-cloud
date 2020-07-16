@@ -1,6 +1,6 @@
 package com.sparksys.oauth.infrastructure.convert;
 
-import com.sparksys.commons.core.entity.GlobalAuthUser;
+import com.sparksys.core.entity.GlobalAuthUser;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;

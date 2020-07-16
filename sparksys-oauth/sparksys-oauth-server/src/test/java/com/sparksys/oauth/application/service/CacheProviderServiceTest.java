@@ -1,7 +1,7 @@
 package com.sparksys.oauth.application.service;
 
 
-import com.sparksys.commons.core.repository.CacheRepository;
+import com.sparksys.core.repository.CacheRepository;
 import com.sparksys.oauth.Oauth2Application;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

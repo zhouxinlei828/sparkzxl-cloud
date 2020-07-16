@@ -1,8 +1,8 @@
 package com.sparksys.authorization.interfaces.controller;
 
 import com.sparksys.authorization.application.service.ILoginLogService;
-import com.sparksys.commons.log.annotation.WebLog;
-import com.sparksys.commons.web.annotation.ResponseResult;
+import com.sparksys.log.annotation.WebLog;
+import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.DeleteMapping;

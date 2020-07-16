@@ -2,10 +2,10 @@ package com.sparksys.oauth.domain.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sparksys.commons.core.constant.CacheKey;
-import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.database.service.impl.AbstractSuperCacheServiceImpl;
-import com.sparksys.commons.database.utils.PageInfoUtils;
+import com.sparksys.core.constant.CacheKey;
+import com.sparksys.core.entity.GlobalAuthUser;
+import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.utils.PageInfoUtils;
 import com.sparksys.oauth.application.service.IAuthRoleService;
 import com.sparksys.oauth.domain.repository.IAuthRoleRepository;
 import com.sparksys.oauth.infrastructure.convert.AuthRoleConvert;

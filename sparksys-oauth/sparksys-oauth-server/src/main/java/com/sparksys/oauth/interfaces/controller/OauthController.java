@@ -1,12 +1,12 @@
 package com.sparksys.oauth.interfaces.controller;
 
 import com.nimbusds.jose.JWSObject;
-import com.sparksys.commons.core.base.api.ResponseResultUtils;
-import com.sparksys.commons.jwt.entity.JwtUserInfo;
-import com.sparksys.commons.jwt.service.JwtTokenService;
-import com.sparksys.commons.log.annotation.WebLog;
-import com.sparksys.commons.oauth.service.OauthService;
-import com.sparksys.commons.web.annotation.ResponseResult;
+import com.sparksys.core.base.api.ResponseResultUtils;
+import com.sparksys.jwt.entity.JwtUserInfo;
+import com.sparksys.jwt.service.JwtTokenService;
+import com.sparksys.log.annotation.WebLog;
+import com.sparksys.oauth.service.OauthService;
+import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.skywalking.apm.toolkit.trace.ActiveSpan;
@@ -15,7 +15,7 @@ import org.assertj.core.util.Lists;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
-import com.sparksys.commons.log.annotation.WebLog;
+import com.sparksys.log.annotation.WebLog;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.text.ParseException;

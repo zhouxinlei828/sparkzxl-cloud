@@ -1,6 +1,6 @@
 package com.sparksys.file.api;
 
-import com.sparksys.commons.core.base.api.result.ApiResult;
+import com.sparksys.core.base.api.result.ApiResult;
 import com.sparksys.file.common.domain.dto.FileDTO;
 import com.sparksys.file.hystrix.FileFeignApiFallback;
 import org.springframework.cloud.openfeign.FeignClient;

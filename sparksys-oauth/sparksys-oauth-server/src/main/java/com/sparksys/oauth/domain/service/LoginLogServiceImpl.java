@@ -1,10 +1,10 @@
 package com.sparksys.oauth.domain.service;
 
 import cn.hutool.core.util.StrUtil;
-import com.sparksys.commons.core.constant.CacheKey;
-import com.sparksys.commons.core.entity.UserAgentEntity;
-import com.sparksys.commons.core.repository.CacheRepository;
-import com.sparksys.commons.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.core.constant.CacheKey;
+import com.sparksys.core.entity.UserAgentEntity;
+import com.sparksys.core.repository.CacheRepository;
+import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.ILoginLogService;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.domain.repository.ILoginLogRepository;

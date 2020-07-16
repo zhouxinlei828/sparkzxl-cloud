@@ -1,6 +1,6 @@
 package com.sparksys.gateway.interfaces.controller;
 
-import com.sparksys.commons.core.base.api.result.ApiResult;
+import com.sparksys.core.base.api.result.ApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

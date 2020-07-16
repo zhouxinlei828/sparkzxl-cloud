@@ -1,6 +1,6 @@
 package com.sparksys.sharding;
 
-import com.sparksys.commons.boot.SparkBootApplication;
+import com.sparksys.boot.SparkBootApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

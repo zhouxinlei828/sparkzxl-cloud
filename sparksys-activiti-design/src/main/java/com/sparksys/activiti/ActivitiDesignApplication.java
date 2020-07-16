@@ -1,18 +1,20 @@
-package com.sparksys.oauth;
+package com.sparksys.activiti;
 
 import com.sparksys.boot.SparkBootApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * description: 授权认证启动类
+ * description: activiti工作流引擎启动类
  *
- * @author zhouxinlei
- * @date 2020-05-24 12:21:13
+ * @author: zhouxinlei
+ * @date: 2020-07-16 20:01:10
  */
 @SpringBootApplication(scanBasePackages = {"com.sparksys"})
-public class Oauth2Application extends SparkBootApplication {
+public class ActivitiDesignApplication extends SparkBootApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(Oauth2Application.class, args);
+        SpringApplication.run(ActivitiDesignApplication.class, args);
     }
+
 }

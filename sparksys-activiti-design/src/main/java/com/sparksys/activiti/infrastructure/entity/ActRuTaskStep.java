@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 
-import java.io.Serializable;
-
 import com.sparksys.database.entity.Entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,10 +24,6 @@ import lombok.EqualsAndHashCode;
 public class ActRuTaskStep extends Entity<Long> {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "id")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private Long id;
 
     @ApiModelProperty(value = "任务id")
     @TableField("task_id")

@@ -1,7 +1,7 @@
 package com.sparksys.file.interfaces.controller;
 
-import com.sparksys.commons.log.annotation.WebLog;
-import com.sparksys.commons.web.annotation.ResponseResult;
+import com.sparksys.log.annotation.WebLog;
+import com.sparksys.web.annotation.ResponseResult;
 import com.sparksys.file.application.service.IFileService;
 import com.sparksys.file.domain.dto.OssPolicyResult;
 import com.sparksys.file.domain.dto.FileDTO;

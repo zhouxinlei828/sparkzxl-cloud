@@ -1,8 +1,8 @@
 package com.sparksys.oauth.interfaces.controller;
 
 
-import com.sparksys.commons.log.annotation.WebLog;
-import com.sparksys.commons.web.annotation.ResponseResult;
+import com.sparksys.log.annotation.WebLog;
+import com.sparksys.web.annotation.ResponseResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

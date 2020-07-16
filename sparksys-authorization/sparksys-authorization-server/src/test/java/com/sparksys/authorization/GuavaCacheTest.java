@@ -1,7 +1,7 @@
 package com.sparksys.authorization;
 
 
-import com.sparksys.commons.core.repository.CacheRepository;
+import com.sparksys.core.repository.CacheRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

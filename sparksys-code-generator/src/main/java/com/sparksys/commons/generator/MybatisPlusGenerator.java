@@ -1,4 +1,4 @@
-package com.sparksys.commons.generator;
+package com.sparksys.generator;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;

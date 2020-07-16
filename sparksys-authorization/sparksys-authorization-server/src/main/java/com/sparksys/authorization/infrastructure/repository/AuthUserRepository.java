@@ -1,13 +1,10 @@
 package com.sparksys.authorization.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.pagehelper.PageInfo;
 import com.sparksys.authorization.infrastructure.entity.AuthUser;
 import com.sparksys.authorization.infrastructure.mapper.AuthUserMapper;
 import com.sparksys.authorization.domain.repository.IAuthUserRepository;
-import com.sparksys.commons.core.utils.crypto.MD5Utils;
-import com.sparksys.commons.database.utils.PageInfoUtils;
+import com.sparksys.core.utils.MD5Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 

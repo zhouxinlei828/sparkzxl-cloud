@@ -1,14 +1,14 @@
 package com.sparksys.oauth.interfaces.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.log.annotation.WebLog;
+import com.sparksys.core.entity.GlobalAuthUser;
+import com.sparksys.log.annotation.WebLog;
 import com.sparksys.oauth.application.service.IAuthRoleService;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleUpdateDTO;
-import com.sparksys.commons.web.annotation.ResponseResult;
+import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;

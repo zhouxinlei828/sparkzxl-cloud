@@ -1,7 +1,7 @@
 package com.sparksys.authorization.domain.service;
 
 import cn.hutool.core.util.StrUtil;
-import com.sparksys.commons.core.constant.CacheKey;
+import com.sparksys.core.constant.CacheKey;
 import com.sparksys.authorization.application.service.ILoginLogService;
 import com.sparksys.authorization.domain.repository.IAuthUserRepository;
 import com.sparksys.authorization.domain.repository.ILoginLogRepository;
@@ -9,8 +9,8 @@ import com.sparksys.authorization.infrastructure.entity.AuthUser;
 import com.sparksys.authorization.infrastructure.entity.LoginLog;
 import com.sparksys.authorization.infrastructure.entity.LoginLogCount;
 import com.sparksys.authorization.infrastructure.mapper.LoginLogMapper;
-import com.sparksys.commons.core.entity.UserAgentEntity;
-import com.sparksys.commons.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.core.entity.UserAgentEntity;
+import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;

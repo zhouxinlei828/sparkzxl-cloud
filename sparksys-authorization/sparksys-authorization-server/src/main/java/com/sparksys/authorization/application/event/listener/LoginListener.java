@@ -1,7 +1,7 @@
 package com.sparksys.authorization.application.event.listener;
 
-import com.sparksys.commons.security.event.LoginEvent;
-import com.sparksys.commons.security.entity.LoginStatus;
+import com.sparksys.security.event.LoginEvent;
+import com.sparksys.security.entity.LoginStatus;
 import com.sparksys.authorization.application.service.IAuthUserService;
 import com.sparksys.authorization.application.service.ILoginLogService;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package com.sparksys.authorization.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.sparksys.commons.database.entity.Entity;
+import com.sparksys.database.entity.Entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

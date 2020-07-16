@@ -1,6 +1,6 @@
 package com.sparksys.sharding.application.service;
 
-import com.sparksys.commons.database.service.SuperCacheService;
+import com.sparksys.database.service.SuperCacheService;
 import com.sparksys.sharding.infrastructure.entity.OmsOrder;
 
 /**

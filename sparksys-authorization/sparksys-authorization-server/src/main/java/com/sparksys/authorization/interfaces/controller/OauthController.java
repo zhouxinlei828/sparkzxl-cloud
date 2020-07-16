@@ -1,14 +1,14 @@
 package com.sparksys.authorization.interfaces.controller;
 
 import com.sparksys.authorization.domain.service.AuthUserDetailsService;
-import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.core.utils.ResponseResultUtils;
-import com.sparksys.commons.log.annotation.WebLog;
-import com.sparksys.commons.security.dto.LoginDTO;
-import com.sparksys.commons.security.entity.AuthToken;
-import com.sparksys.commons.security.properties.SecurityProperties;
-import com.sparksys.commons.user.service.IGlobalUserService;
-import com.sparksys.commons.web.annotation.ResponseResult;
+import com.sparksys.core.base.api.ResponseResultUtils;
+import com.sparksys.core.entity.GlobalAuthUser;
+import com.sparksys.log.annotation.WebLog;
+import com.sparksys.security.dto.LoginDTO;
+import com.sparksys.security.entity.AuthToken;
+import com.sparksys.security.properties.SecurityProperties;
+import com.sparksys.user.service.IGlobalUserService;
+import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

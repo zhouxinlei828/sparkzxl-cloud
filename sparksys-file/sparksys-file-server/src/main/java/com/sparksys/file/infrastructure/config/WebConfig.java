@@ -1,6 +1,6 @@
 package com.sparksys.file.infrastructure.config;
 
-import com.sparksys.commons.web.config.GlobalWebConfig;
+import com.sparksys.web.config.GlobalWebConfig;
 import org.springframework.context.annotation.Configuration;
 
 /**

@@ -2,7 +2,7 @@ package com.sparksys.oauth.domain.service;
 
 import com.sparksys.oauth.domain.repository.IAuthResourceRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthResource;
-import com.sparksys.commons.security.service.DynamicSecurityService;
+import com.sparksys.security.service.DynamicSecurityService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;

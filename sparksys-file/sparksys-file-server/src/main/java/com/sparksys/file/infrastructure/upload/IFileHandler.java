@@ -1,7 +1,7 @@
 package com.sparksys.file.infrastructure.upload;
 
 import com.aliyun.oss.model.OSSObject;
-import com.sparksys.commons.core.support.BusinessException;
+import com.sparksys.core.support.BusinessException;
 import com.sparksys.file.domain.dto.OssPolicyResult;
 import com.sparksys.file.domain.entity.UploadResult;
 import org.springframework.http.MediaType;

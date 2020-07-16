@@ -1,7 +1,7 @@
 package com.sparksys.oauth.domain.service;
 
-import com.sparksys.commons.core.constant.CacheKey;
-import com.sparksys.commons.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.core.constant.CacheKey;
+import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.ICoreStationService;
 import com.sparksys.oauth.infrastructure.entity.CoreStation;
 import com.sparksys.oauth.infrastructure.mapper.CoreStationMapper;

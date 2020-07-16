@@ -2,12 +2,12 @@ package com.sparksys.authorization.domain.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sparksys.commons.core.constant.CacheKey;
-import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.core.utils.crypto.MD5Utils;
-import com.sparksys.commons.database.service.impl.AbstractSuperCacheServiceImpl;
-import com.sparksys.commons.database.utils.PageInfoUtils;
-import com.sparksys.commons.security.entity.AuthUserDetail;
+import com.sparksys.core.constant.CacheKey;
+import com.sparksys.core.entity.GlobalAuthUser;
+import com.sparksys.core.utils.MD5Utils;
+import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.utils.PageInfoUtils;
+import com.sparksys.security.entity.AuthUserDetail;
 import com.sparksys.authorization.application.service.IAuthUserService;
 import com.sparksys.authorization.domain.constant.AuthorizationConstant;
 import com.sparksys.authorization.domain.repository.IAuthUserRepository;

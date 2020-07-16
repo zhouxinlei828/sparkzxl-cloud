@@ -1,8 +1,8 @@
 package com.sparksys.sharding.interfaces.controller;
 
 
-import com.sparksys.commons.log.annotation.WebLog;
-import com.sparksys.commons.web.annotation.ResponseResult;
+import com.sparksys.log.annotation.WebLog;
+import com.sparksys.web.annotation.ResponseResult;
 import com.sparksys.sharding.application.service.IOmsOrderService;
 import com.sparksys.sharding.infrastructure.entity.OmsOrder;
 import io.swagger.annotations.Api;

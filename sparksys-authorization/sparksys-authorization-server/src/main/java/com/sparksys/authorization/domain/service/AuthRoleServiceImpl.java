@@ -2,9 +2,9 @@ package com.sparksys.authorization.domain.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sparksys.commons.core.constant.CacheKey;
-import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.core.constant.CacheKey;
+import com.sparksys.core.entity.GlobalAuthUser;
+import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.authorization.application.service.IAuthRoleService;
 import com.sparksys.authorization.domain.repository.IAuthRoleRepository;
 import com.sparksys.authorization.infrastructure.convert.AuthRoleConvert;
@@ -13,7 +13,7 @@ import com.sparksys.authorization.infrastructure.mapper.AuthRoleMapper;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleUpdateDTO;
-import com.sparksys.commons.database.utils.PageInfoUtils;
+import com.sparksys.database.utils.PageInfoUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

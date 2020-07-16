@@ -1,16 +1,16 @@
 package com.sparksys.oauth.domain.service;
 
-import com.sparksys.commons.core.constant.CacheKey;
-import com.sparksys.commons.core.repository.CacheRepository;
+import com.sparksys.core.constant.CacheKey;
+import com.sparksys.core.repository.CacheRepository;
 
-import com.sparksys.commons.core.entity.GlobalAuthUser;
-import com.sparksys.commons.core.support.ResponseResultStatus;
-import com.sparksys.commons.core.utils.SpringContextUtils;
-import com.sparksys.commons.oauth.enums.GrantTypeEnum;
-import com.sparksys.commons.oauth.service.OauthService;
-import com.sparksys.commons.security.entity.AuthUserDetail;
-import com.sparksys.commons.security.event.LoginEvent;
-import com.sparksys.commons.security.entity.LoginStatus;
+import com.sparksys.core.entity.GlobalAuthUser;
+import com.sparksys.core.support.ResponseResultStatus;
+import com.sparksys.core.utils.SpringContextUtils;
+import com.sparksys.oauth.enums.GrantTypeEnum;
+import com.sparksys.oauth.service.OauthService;
+import com.sparksys.security.entity.AuthUserDetail;
+import com.sparksys.security.event.LoginEvent;
+import com.sparksys.security.entity.LoginStatus;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 

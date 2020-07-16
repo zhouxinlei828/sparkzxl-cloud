@@ -1,9 +1,9 @@
 package com.sparksys.authorization.domain.service;
 
 import com.sparksys.authorization.application.service.IAuthUserService;
-import com.sparksys.commons.core.support.ResponseResultStatus;
-import com.sparksys.commons.security.entity.AuthUserDetail;
-import com.sparksys.commons.security.service.AbstractAuthSecurityService;
+import com.sparksys.core.support.ResponseResultStatus;
+import com.sparksys.security.entity.AuthUserDetail;
+import com.sparksys.security.service.AbstractAuthSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
