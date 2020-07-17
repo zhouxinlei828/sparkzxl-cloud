@@ -1,11 +1,9 @@
 package com.sparksys.activiti.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+
+import com.sparksys.database.entity.Entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,13 +19,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("process_dataset")
 @ApiModel(value="ProcessDataset对象", description="数据集")
-public class ProcessDataset implements Serializable {
+public class ProcessDataset extends Entity<Long> {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "主键ID")
-    @TableId(value = "id", type = IdType.INPUT)
-    private Integer id;
 
     @ApiModelProperty(value = "数据集申请人")
     @TableField("creator")
@@ -52,14 +46,5 @@ public class ProcessDataset implements Serializable {
     @ApiModelProperty(value = "申请任务的优先级")
     @TableField("priority")
     private Integer priority;
-
-    @ApiModelProperty(value = "创建日期")
-    @TableField("create_time")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "更新日期")
-    @TableField("update_time")
-    private LocalDateTime updateTime;
-
 
 }

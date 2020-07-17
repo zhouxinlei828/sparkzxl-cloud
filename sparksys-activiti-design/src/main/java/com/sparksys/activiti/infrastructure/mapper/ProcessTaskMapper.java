@@ -1,16 +1,29 @@
 package com.sparksys.activiti.infrastructure.mapper;
 
 import com.sparksys.activiti.infrastructure.entity.ProcessTask;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sparksys.database.mapper.SuperMapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
- * <p>
- * 任务处理记录 Mapper 接口
- * </p>
+ * description: 任务处理记录 Mapper 接口
  *
- * @author zhouxinlei
- * @since 2020-07-16
+ * @author: zhouxinlei
+ * @date: 2020-07-17 13:18:58
  */
-public interface ProcessTaskMapper extends BaseMapper<ProcessTask> {
+@Repository
+public interface ProcessTaskMapper extends SuperMapper<ProcessTask> {
+
+    /**
+     * 根据流程实例ID查询审批历史记录
+     *
+     * @param processInstanceId 流程实例ID
+     * @return List<ProcessTask>
+     */
+    @Select("select * from process_task where proc_inst_id = #{processInstanceId,jdbcType=VARCHAR}")
+    List<ProcessTask> selectByProcessInstanceId(@Param("processInstanceId") String processInstanceId);
 
 }

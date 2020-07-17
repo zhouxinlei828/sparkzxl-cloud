@@ -6,15 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 数据集 前端控制器
- * </p>
+ * description: 数据集 前端控制器
  *
- * @author zhouxinlei
- * @since 2020-07-16
+ * @author: zhouxinlei
+ * @date: 2020-07-17 13:42:57
  */
 @RestController
-@RequestMapping("//process-dataset")
+@RequestMapping("/process-dataset")
 public class ProcessDatasetController {
 
 }

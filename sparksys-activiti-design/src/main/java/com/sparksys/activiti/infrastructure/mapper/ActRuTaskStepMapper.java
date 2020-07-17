@@ -1,16 +1,16 @@
 package com.sparksys.activiti.infrastructure.mapper;
 
 import com.sparksys.activiti.infrastructure.entity.ActRuTaskStep;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sparksys.database.mapper.SuperMapper;
+import org.springframework.stereotype.Repository;
 
 /**
- * <p>
- *  Mapper 接口
- * </p>
+ * description: 流程状态记录Mapper 接口
  *
- * @author zhouxinlei
- * @since 2020-07-16
- */
-public interface ActRuTaskStepMapper extends BaseMapper<ActRuTaskStep> {
+ * @author: zhouxinlei
+ * @date: 2020-07-17 13:18:25
+*/
+@Repository
+public interface ActRuTaskStepMapper extends SuperMapper<ActRuTaskStep> {
 
 }

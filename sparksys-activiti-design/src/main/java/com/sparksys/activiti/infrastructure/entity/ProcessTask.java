@@ -1,15 +1,12 @@
 package com.sparksys.activiti.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 
-import java.io.Serializable;
-
+import com.sparksys.database.entity.Entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,13 +22,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("process_task")
 @ApiModel(value = "ProcessTask对象", description = "任务处理记录")
-public class ProcessTask implements Serializable {
+public class ProcessTask extends Entity<Long> {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "主键ID")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
 
     @ApiModelProperty(value = "taskid")
     @TableField("task_id")
@@ -60,14 +53,5 @@ public class ProcessTask implements Serializable {
     @ApiModelProperty(value = "处理时间")
     @TableField("approval_time")
     private LocalDateTime approvalTime;
-
-    @ApiModelProperty(value = "创建日期")
-    @TableField("create_time")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "更新日期")
-    @TableField("update_time")
-    private LocalDateTime updateTime;
-
 
 }

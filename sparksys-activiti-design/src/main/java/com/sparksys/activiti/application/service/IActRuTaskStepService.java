@@ -1,16 +1,14 @@
 package com.sparksys.activiti.application.service;
 
 import com.sparksys.activiti.infrastructure.entity.ActRuTaskStep;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.sparksys.database.service.SuperCacheService;
 
 /**
- * <p>
- *  服务类
- * </p>
+ * description: 流程状态记录 服务类
  *
- * @author zhouxinlei
- * @since 2020-07-16
+ * @author: zhouxinlei
+ * @date: 2020-07-17 13:21:47
  */
-public interface IActRuTaskStepService extends IService<ActRuTaskStep> {
+public interface IActRuTaskStepService extends SuperCacheService<ActRuTaskStep> {
 
 }
