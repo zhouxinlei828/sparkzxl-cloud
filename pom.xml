@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <sparksys-project.version>1.0</sparksys-project.version>
+        <sparksys-cloud.version>1.0</sparksys-cloud.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -208,7 +208,7 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-file-common</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-cloud.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
@@ -219,7 +219,7 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-file-api</artifactId>
-                <version>${sparksys-project.version}</version>
+                <version>${sparksys-cloud.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>

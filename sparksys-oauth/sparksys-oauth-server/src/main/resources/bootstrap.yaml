@@ -17,9 +17,6 @@ spring:
           - dataId: admin.yaml
             group: DEFAULT_GROUP
             refresh: false
-          - dataId: sentinel.yaml
-            group: DEFAULT_GROUP
-            refresh: false
           - dataId: actuator.yaml
             group: DEFAULT_GROUP
             refresh: false
@@ -32,5 +29,5 @@ logging:
   level:
     com.sparksys.oauth.infrastructure.mapper: debug
   file:
-    path: /Users/zhouxinlei/logs
-    #path: C:\logs
+    #path: /Users/zhouxinlei/logs
+    path: C:\logs
