@@ -74,7 +74,7 @@ public class MybatisPlusGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.sparksys.activiti");
+        pc.setParent("com.sparksys.oauth");
         pc.setController("interfaces.controller");
         pc.setService("application.service");
         pc.setServiceImpl("domain.service");

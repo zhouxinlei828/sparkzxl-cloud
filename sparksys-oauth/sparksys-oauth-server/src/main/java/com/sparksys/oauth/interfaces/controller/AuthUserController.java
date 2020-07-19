@@ -75,5 +75,4 @@ public class AuthUserController {
         return authUserService.updateAuthUserStatus(authUser.getId(), authUserStatusDTO);
     }
 
-
 }

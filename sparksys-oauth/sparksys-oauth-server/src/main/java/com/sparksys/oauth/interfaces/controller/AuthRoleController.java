@@ -8,6 +8,7 @@ import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleUpdateDTO;
+import com.sparksys.oauth.interfaces.dto.role.RoleUserDTO;
 import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -73,4 +74,8 @@ public class AuthRoleController {
                                         @RequestParam(value = "status") Boolean status) {
         return authRoleService.updateAuthRoleStatus(authUserInfo.getId(), id, status);
     }
+
+
+
+
 }

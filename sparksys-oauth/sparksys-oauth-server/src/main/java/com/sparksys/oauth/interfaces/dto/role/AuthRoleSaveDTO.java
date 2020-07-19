@@ -5,11 +5,11 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 
-/*
+/**
  * description：
  *
  * @author zhouxinlei
- * @date  2020/6/16 0016
+ * @date 2020/6/16 0016
  */
 @Data
 public class AuthRoleSaveDTO {

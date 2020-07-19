@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: sparksys-oauth
+  cloud:
+    nacos:
+      discovery:
+        #server-addr: 192.168.3.3:8848
+        server-addr: 47.116.52.58:8086
+        namespace: e026cfa9-330a-4ec8-8544-87bd279e6f23
+      config:
+        #server-addr: 192.168.3.3:8848
+        server-addr: 47.116.52.58:8086
+        namespace: e026cfa9-330a-4ec8-8544-87bd279e6f23
+        file-extension: yaml
+        prefix: ${spring.application.name}
+        shared-configs:
+          - dataId: admin.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+          - dataId: actuator.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+          - dataId: cache.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+        enable-remote-sync-config: true
+        refresh-enabled: true
+logging:
+  level:
+    com.sparksys.oauth.infrastructure.mapper: debug
+  file:
+    #path: /Users/zhouxinlei/logs
+    path: C:\logs

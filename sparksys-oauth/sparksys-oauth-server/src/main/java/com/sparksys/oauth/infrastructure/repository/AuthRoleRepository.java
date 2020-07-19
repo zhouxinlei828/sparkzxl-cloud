@@ -2,10 +2,12 @@ package com.sparksys.oauth.infrastructure.repository;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sparksys.oauth.domain.repository.IAuthRoleRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import com.sparksys.oauth.infrastructure.mapper.AuthRoleMapper;
+import com.sparksys.oauth.infrastructure.mapper.RoleAuthorityMapper;
+import com.sparksys.oauth.infrastructure.mapper.RoleOrgMapper;
+import com.sparksys.oauth.infrastructure.mapper.UserRoleMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
@@ -21,9 +23,15 @@ import java.util.List;
 public class AuthRoleRepository implements IAuthRoleRepository {
 
     private final AuthRoleMapper authRoleMapper;
+    private final UserRoleMapper userRoleMapper;
+    private final RoleOrgMapper roleOrgMapper;
+    private final RoleAuthorityMapper roleAuthorityMapper;
 
-    public AuthRoleRepository(AuthRoleMapper authRoleMapper) {
+    public AuthRoleRepository(AuthRoleMapper authRoleMapper, UserRoleMapper userRoleMapper, RoleOrgMapper roleOrgMapper, RoleAuthorityMapper roleAuthorityMapper) {
         this.authRoleMapper = authRoleMapper;
+        this.userRoleMapper = userRoleMapper;
+        this.roleOrgMapper = roleOrgMapper;
+        this.roleAuthorityMapper = roleAuthorityMapper;
     }
 
 
@@ -53,9 +61,9 @@ public class AuthRoleRepository implements IAuthRoleRepository {
 
     @Override
     public boolean deleteAuthRole(Long id) {
-        authRoleMapper.deleteUserRoleRelation(id);
-        authRoleMapper.deleteRoleAuthorityRelation(id);
-        authRoleMapper.deleteRoleOrgRelation(id);
+        userRoleMapper.deleteByRoleId(id);
+        roleOrgMapper.deleteByRoleId(id);
+        roleAuthorityMapper.deleteByRoleId(id);
         return authRoleMapper.deleteById(id) == 1;
     }
 }

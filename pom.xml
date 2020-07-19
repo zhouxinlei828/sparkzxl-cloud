@@ -50,7 +50,7 @@
         <module>sparksys-oauth</module>
         <module>sparksys-sharding-demo</module>
         <module>sparksys-admin-server</module>
-        <module>sparksys-activiti-design</module>
+        <module>sparksys-activiti</module>
     </modules>
 
     <repositories>

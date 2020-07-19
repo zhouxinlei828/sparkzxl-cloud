@@ -34,7 +34,7 @@ public class AuthRoleServiceImpl extends AbstractSuperCacheServiceImpl<AuthRoleM
 
     @Override
     public PageInfo<AuthRole> listByPage(Integer pageNum, Integer pageSize, String name) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<AuthRole> authRoles = authRoleRepository.listByName(name);
         return PageInfoUtils.pageInfo(authRoles);
     }

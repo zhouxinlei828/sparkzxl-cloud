@@ -7,6 +7,7 @@ import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleUpdateDTO;
+import com.sparksys.oauth.interfaces.dto.role.RoleUserDTO;
 
 /**
  * description: 角色 服务类
@@ -21,7 +22,7 @@ public interface IAuthRoleService extends SuperCacheService<AuthRole> {
      *
      * @param pageNum
      * @param pageSize
-     * @param name 角色名称
+     * @param name     角色名称
      * @return PageInfo<AuthRole>
      */
     PageInfo<AuthRole> listByPage(Integer pageNum, Integer pageSize, String name);

@@ -3,7 +3,9 @@ package com.sparksys.oauth.domain.repository;
 
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * description: 角色 仓储类
