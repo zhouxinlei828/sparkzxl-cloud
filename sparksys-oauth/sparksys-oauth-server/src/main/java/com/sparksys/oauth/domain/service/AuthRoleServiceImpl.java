@@ -3,7 +3,6 @@ package com.sparksys.oauth.domain.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sparksys.core.constant.CacheKey;
-import com.sparksys.core.entity.GlobalAuthUser;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.PageInfoUtils;
 import com.sparksys.oauth.application.service.IAuthRoleService;
@@ -47,17 +46,17 @@ public class AuthRoleServiceImpl extends AbstractSuperCacheServiceImpl<AuthRoleM
     }
 
     @Override
-    public boolean saveAuthRole(GlobalAuthUser authUser, AuthRoleSaveDTO authRoleSaveDTO) {
+    public boolean saveAuthRole(Long userId, AuthRoleSaveDTO authRoleSaveDTO) {
         AuthRole authRole = AuthRoleConvert.INSTANCE.convertAuthRoleDO(authRoleSaveDTO);
-        authRole.setCreateUser(authUser.getId());
-        authRole.setUpdateUser(authUser.getId());
+        authRole.setCreateUser(userId);
+        authRole.setUpdateUser(userId);
         return save(authRole);
     }
 
     @Override
-    public boolean updateAuthRole(GlobalAuthUser authUser, AuthRoleUpdateDTO authRoleUpdateDTO) {
+    public boolean updateAuthRole(Long userId, AuthRoleUpdateDTO authRoleUpdateDTO) {
         AuthRole authRole = AuthRoleConvert.INSTANCE.convertAuthRoleDO(authRoleUpdateDTO);
-        authRole.setUpdateUser(authUser.getId());
+        authRole.setUpdateUser(userId);
         return updateById(authRole);
     }
 

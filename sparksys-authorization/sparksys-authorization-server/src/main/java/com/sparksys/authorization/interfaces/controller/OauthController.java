@@ -2,12 +2,12 @@ package com.sparksys.authorization.interfaces.controller;
 
 import com.sparksys.authorization.domain.service.AuthUserDetailsService;
 import com.sparksys.core.base.api.ResponseResultUtils;
-import com.sparksys.core.entity.GlobalAuthUser;
+import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.log.annotation.WebLog;
 import com.sparksys.security.dto.LoginDTO;
 import com.sparksys.security.entity.AuthToken;
 import com.sparksys.security.properties.SecurityProperties;
-import com.sparksys.user.service.IGlobalUserService;
+import com.sparksys.user.service.IAuthUserInfoService;
 import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +37,7 @@ public class OauthController {
     private SecurityProperties securityProperties;
 
     @Autowired
-    private IGlobalUserService globalUserService;
+    private IAuthUserInfoService authUserInfoService;
 
     @ApiOperation("系统登录")
     @PostMapping("/login")
@@ -47,9 +47,9 @@ public class OauthController {
 
     @ApiOperation("获取登录用户信息")
     @GetMapping("/getAuthUserInfo")
-    public GlobalAuthUser getUserInfo(HttpServletRequest httpServletRequest) {
+    public AuthUserInfo getUserInfo(HttpServletRequest httpServletRequest) {
         String accessToken = ResponseResultUtils.getAuthHeader(httpServletRequest);
-        return globalUserService.getUserInfo(accessToken);
+        return authUserInfoService.getUserInfo(accessToken);
     }
 
     @ApiOperation("获取配置信息")

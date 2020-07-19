@@ -5,14 +5,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Sets;
 import com.sparksys.core.constant.CacheKey;
-import com.sparksys.core.entity.GlobalAuthUser;
+import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.utils.ListUtils;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.PageInfoUtils;
 import com.sparksys.oauth.infrastructure.entity.*;
 import com.sparksys.security.entity.AuthUserDetail;
 import com.sparksys.oauth.application.service.IAuthUserService;
-import com.sparksys.oauth.domain.constant.AuthorizationConstant;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.convert.AuthUserConvert;
 import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
@@ -122,10 +121,10 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     public AuthUserDetail getAuthUserDetail(String username) {
         AuthUser authUser = authUserRepository.selectByAccount(username);
         if (ObjectUtils.isNotEmpty(authUser)) {
-            GlobalAuthUser globalAuthUser = AuthUserConvert.INSTANCE.convertGlobalAuthUser(authUser);
+            AuthUserInfo authUserInfo = AuthUserConvert.INSTANCE.convertAuthUserInfo(authUser);
             List<String> userPermissions = authUserRepository.getAuthUserPermissions(authUser.getId());
-            globalAuthUser.setPermissions(userPermissions);
-            return new AuthUserDetail(globalAuthUser);
+            authUserInfo.setAuthorityList(userPermissions);
+            return new AuthUserDetail(authUserInfo);
         }
         return null;
     }

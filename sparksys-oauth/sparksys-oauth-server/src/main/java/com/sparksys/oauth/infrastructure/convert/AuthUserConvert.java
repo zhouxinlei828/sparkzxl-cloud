@@ -1,6 +1,6 @@
 package com.sparksys.oauth.infrastructure.convert;
 
-import com.sparksys.core.entity.GlobalAuthUser;
+import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.entity.UserInfo;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
@@ -29,7 +29,7 @@ public interface AuthUserConvert {
 
     AuthUser convertAuthUserDO(AuthUserStatusDTO authUserStatusDTO);
 
-    GlobalAuthUser convertGlobalAuthUser(AuthUser authUser);
+    AuthUserInfo convertAuthUserInfo(AuthUser authUser);
 
     AuthUserDTO convertAuthUserDTO(AuthUser authUser);
 

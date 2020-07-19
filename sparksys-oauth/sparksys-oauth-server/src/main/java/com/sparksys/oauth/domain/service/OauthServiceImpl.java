@@ -3,7 +3,7 @@ package com.sparksys.oauth.domain.service;
 import com.sparksys.core.constant.CacheKey;
 import com.sparksys.core.repository.CacheRepository;
 
-import com.sparksys.core.entity.GlobalAuthUser;
+import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.support.ResponseResultStatus;
 import com.sparksys.core.utils.SpringContextUtils;
 import com.sparksys.oauth.enums.GrantTypeEnum;
@@ -80,10 +80,10 @@ public class OauthServiceImpl implements OauthService {
      */
     private void accessToken(String parameter, OAuth2AccessToken oAuth2AccessToken) {
         AuthUserDetail authUserDetail = authUserService.getAuthUserDetail(parameter);
-        GlobalAuthUser globalAuthUser = authUserDetail.getAuthUser();
+        AuthUserInfo authUserInfo = authUserDetail.getAuthUserInfo();
         String token = oAuth2AccessToken.getValue();
         Long expiresIn = (long) oAuth2AccessToken.getExpiresIn();
-        cacheRepository.set(CacheKey.buildKey(CacheKey.AUTH_USER, token), globalAuthUser, expiresIn);
+        cacheRepository.set(CacheKey.buildKey(CacheKey.AUTH_USER, token), authUserInfo, expiresIn);
     }
 
 }

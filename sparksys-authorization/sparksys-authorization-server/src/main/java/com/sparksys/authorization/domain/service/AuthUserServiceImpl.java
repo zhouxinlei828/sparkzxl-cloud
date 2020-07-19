@@ -3,7 +3,7 @@ package com.sparksys.authorization.domain.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sparksys.core.constant.CacheKey;
-import com.sparksys.core.entity.GlobalAuthUser;
+import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.utils.MD5Utils;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.PageInfoUtils;
@@ -43,17 +43,20 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
 
     @Override
-    public boolean saveAuthUser(GlobalAuthUser authUser, AuthUserSaveDTO authUserSaveDTO) {
+    public boolean saveAuthUser(Long contextUserId, AuthUserSaveDTO authUserSaveDTO) {
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserSaveDTO);
-        authUser.setStatus(true);
-        String password = MD5Utils.encrypt(authUser.getPassword());
-        authUser.setPassword(password);
+        authUserDO.setStatus(true);
+        String password = MD5Utils.encrypt(authUserDO.getPassword());
+        authUserDO.setPassword(password);
+        authUserDO.setCreateUser(contextUserId);
+        authUserDO.setUpdateUser(contextUserId);
         return save(authUserDO);
     }
 
     @Override
-    public boolean updateAuthUser(GlobalAuthUser authUser, AuthUserUpdateDTO authUserUpdateDTO) {
+    public boolean updateAuthUser(Long contextUserId, AuthUserUpdateDTO authUserUpdateDTO) {
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserUpdateDTO);
+        authUserDO.setUpdateUser(contextUserId);
         return updateById(authUserDO);
     }
 
@@ -63,9 +66,9 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     }
 
     @Override
-    public boolean updateAuthUserStatus(GlobalAuthUser authUser, AuthUserStatusDTO authUserStatusDTO) {
-        authUserStatusDTO.setUpdateUser(authUser.getId());
+    public boolean updateAuthUserStatus(Long contextUserId, AuthUserStatusDTO authUserStatusDTO) {
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserStatusDTO);
+        authUserDO.setUpdateUser(contextUserId);
         return updateById(authUserDO);
     }
 
@@ -124,10 +127,10 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     public AuthUserDetail getAuthUserDetail(String username) {
         AuthUser authUser = authUserRepository.selectByAccount(username);
         if (ObjectUtils.isNotEmpty(authUser)) {
-            GlobalAuthUser globalAuthUser = AuthUserConvert.INSTANCE.convertGlobalAuthUser(authUser);
+            AuthUserInfo authUserInfo = AuthUserConvert.INSTANCE.convertAuthUserInfo(authUser);
             List<String> userPermissions = authUserRepository.getAuthUserPermissions(authUser.getId());
-            globalAuthUser.setPermissions(userPermissions);
-            return new AuthUserDetail(globalAuthUser);
+            authUserInfo.setAuthorityList(userPermissions);
+            return new AuthUserDetail(authUserInfo);
         }
         return null;
     }

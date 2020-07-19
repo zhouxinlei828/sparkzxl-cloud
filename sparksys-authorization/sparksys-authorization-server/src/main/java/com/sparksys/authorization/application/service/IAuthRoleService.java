@@ -2,7 +2,6 @@ package com.sparksys.authorization.application.service;
 
 
 import com.github.pagehelper.PageInfo;
-import com.sparksys.core.entity.GlobalAuthUser;
 import com.sparksys.database.service.SuperCacheService;
 import com.sparksys.authorization.infrastructure.entity.AuthRole;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleDTO;
@@ -38,20 +37,20 @@ public interface IAuthRoleService extends SuperCacheService<AuthRole> {
     /**
      * 保存角色信息
      *
-     * @param authUser
+     * @param userId
      * @param authRoleSaveDTO
      * @return
      */
-    boolean saveAuthRole(GlobalAuthUser authUser, AuthRoleSaveDTO authRoleSaveDTO);
+    boolean saveAuthRole(Long userId, AuthRoleSaveDTO authRoleSaveDTO);
 
     /**
      * 更新角色信息
      *
-     * @param authUser
+     * @param userId
      * @param authRoleUpdateDTO
      * @return
      */
-    boolean updateAuthRole(GlobalAuthUser authUser, AuthRoleUpdateDTO authRoleUpdateDTO);
+    boolean updateAuthRole(Long userId, AuthRoleUpdateDTO authRoleUpdateDTO);
 
     /**
      * 删除角色信息
