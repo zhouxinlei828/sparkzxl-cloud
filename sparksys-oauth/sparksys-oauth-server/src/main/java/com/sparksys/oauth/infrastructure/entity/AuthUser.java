@@ -4,14 +4,20 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.sparksys.database.annonation.InjectionField;
 import com.sparksys.database.entity.Entity;
+import com.sparksys.database.model.RemoteData;
+import com.sparksys.oauth.infrastructure.enums.SexEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+
+import static com.sparksys.oauth.infrastructure.constant.InjectionFieldConstants.*;
 
 /**
  * description: 用户信息
@@ -20,6 +26,7 @@ import java.time.LocalDateTime;
  * @date 2020-05-24 12:24:03
  */
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("c_auth_user")
@@ -42,11 +49,14 @@ public class AuthUser extends Entity<Long> {
 
     @ApiModelProperty(value = "组织ID")
     @TableField("org_id")
-    private Long orgId;
+    @InjectionField(api = ORG_ID_CLASS, method = ORG_ID_METHOD, beanClass = CoreOrg.class)
+    private RemoteData<Long,CoreOrg> org;
+
 
     @ApiModelProperty(value = "岗位ID")
     @TableField("station_id")
-    private Long stationId;
+    @InjectionField(api = STATION_ID_CLASS, method = STATION_ID_NAME_METHOD)
+    private RemoteData<Long, CoreStation> station;
 
     @ApiModelProperty(value = "邮箱")
     @TableField("email")
@@ -58,7 +68,7 @@ public class AuthUser extends Entity<Long> {
 
     @ApiModelProperty(value = "性别")
     @TableField("sex")
-    private Integer sex;
+    private SexEnum sex;
 
     @ApiModelProperty(value = "状态 1启用 0禁用")
     @TableField("status")

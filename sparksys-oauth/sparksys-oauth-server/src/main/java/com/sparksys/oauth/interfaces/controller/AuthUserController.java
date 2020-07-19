@@ -39,7 +39,7 @@ public class AuthUserController {
 
     @ApiOperation("查询用户列表")
     @GetMapping("/authUser/page")
-    public PageInfo<AuthUserDTO> listByPage(Integer pageNum, Integer pageSize, @RequestParam(value = "name", required =
+    public PageInfo<AuthUserDTO> listByPage(int pageNum, int pageSize, @RequestParam(value = "name", required =
             false) String name) {
         return authUserService.listByPage(pageNum, pageSize, name);
     }

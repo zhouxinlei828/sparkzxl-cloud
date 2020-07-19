@@ -1,5 +1,7 @@
 package com.sparksys.oauth.infrastructure.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,8 +19,10 @@ public enum SexEnum {
     WOMAN(2, "女"),
     NONE(0, "未知");
 
+    @EnumValue
+    @JsonValue
     private int code;
 
-    private String value;
+    private String desc;
 
 }

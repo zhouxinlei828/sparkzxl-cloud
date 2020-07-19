@@ -1,6 +1,7 @@
 package com.sparksys.oauth.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.sparksys.database.annonation.InjectionResult;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
@@ -28,6 +29,7 @@ public class AuthUserRepository implements IAuthUserRepository {
     }
 
     @Override
+    @InjectionResult
     public AuthUser selectByAccount(String account) {
         QueryWrapper<AuthUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("account", account);
@@ -36,6 +38,7 @@ public class AuthUserRepository implements IAuthUserRepository {
     }
 
     @Override
+    @InjectionResult
     public List<AuthUser> listByName(String name) {
         QueryWrapper<AuthUser> userQueryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(name) && !"null".equalsIgnoreCase(name)) {

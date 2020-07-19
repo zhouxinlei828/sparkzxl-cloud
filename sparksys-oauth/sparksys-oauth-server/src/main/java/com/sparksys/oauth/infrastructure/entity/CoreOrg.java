@@ -26,10 +26,6 @@ public class CoreOrg extends Entity<Long> {
 
     private static final long serialVersionUID = -7652204940090864043L;
 
-    @ApiModelProperty(value = "ID")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private Long id;
-
     @ApiModelProperty(value = "名称")
     @TableField("label")
     private String label;

@@ -24,10 +24,6 @@ import lombok.experimental.Accessors;
 @ApiModel(value="CCoreStationDO对象", description="岗位")
 public class CoreStation extends Entity<Long> {
 
-    @ApiModelProperty(value = "ID")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private Long id;
-
     @ApiModelProperty(value = "名称")
     @TableField("name")
     private String name;

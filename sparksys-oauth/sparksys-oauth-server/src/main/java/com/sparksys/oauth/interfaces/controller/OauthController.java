@@ -5,17 +5,21 @@ import com.sparksys.core.base.api.ResponseResultUtils;
 import com.sparksys.jwt.entity.JwtUserInfo;
 import com.sparksys.jwt.service.JwtTokenService;
 import com.sparksys.log.annotation.WebLog;
+import com.sparksys.oauth.application.service.IAuthUserService;
+import com.sparksys.oauth.infrastructure.entity.AuthUser;
+import com.sparksys.oauth.infrastructure.entity.UserInfo;
 import com.sparksys.oauth.service.OauthService;
 import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.minidev.json.JSONObject;
 import org.apache.skywalking.apm.toolkit.trace.ActiveSpan;
 import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.assertj.core.util.Lists;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
-import com.sparksys.log.annotation.WebLog;
+
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.text.ParseException;
@@ -37,10 +41,12 @@ public class OauthController {
 
     private final OauthService oauthService;
     private final JwtTokenService jwtTokenService;
+    private final IAuthUserService authUserService;
 
-    public OauthController(OauthService oauthService, JwtTokenService jwtTokenService) {
+    public OauthController(OauthService oauthService, JwtTokenService jwtTokenService, IAuthUserService authUserService) {
         this.oauthService = oauthService;
         this.jwtTokenService = jwtTokenService;
+        this.authUserService = authUserService;
     }
 
     @GetMapping("/token")
@@ -59,10 +65,12 @@ public class OauthController {
 
     @GetMapping("/getCurrentUser")
     @ApiOperation("获取当前用户")
-    public Object getCurrentUser(HttpServletRequest httpRequest) throws ParseException {
+    public UserInfo getCurrentUser(HttpServletRequest httpRequest) throws ParseException {
         String token = ResponseResultUtils.getAuthHeader(httpRequest);
         JWSObject jwsObject = JWSObject.parse(token);
-        return jwsObject.getPayload().toJSONObject();
+        JSONObject jsonObject = jwsObject.getPayload().toJSONObject();
+        String username = jsonObject.getAsString("user_name");
+        return authUserService.getCurrentUser(username);
     }
 
     @ApiOperation("获取非对称加密（RSA）算法公钥")

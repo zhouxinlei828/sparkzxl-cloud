@@ -1,12 +1,17 @@
 package com.sparksys.oauth.interfaces.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sparksys.database.model.RemoteData;
+import com.sparksys.oauth.infrastructure.entity.CoreOrg;
+import com.sparksys.oauth.infrastructure.entity.CoreStation;
+import com.sparksys.oauth.infrastructure.enums.SexEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+
 
 /**
  * description: 用户信息
@@ -29,11 +34,12 @@ public class AuthUserDTO {
     @ApiModelProperty(value = "姓名")
     private String name;
 
-    @ApiModelProperty(value = "组织ID")
-    private Long orgId;
+    @ApiModelProperty(value = "组织")
+    private RemoteData<Long,CoreOrg> org;
 
-    @ApiModelProperty(value = "岗位ID")
-    private Long stationId;
+
+    @ApiModelProperty(value = "岗位")
+    private RemoteData<Long, CoreStation> station;
 
     @ApiModelProperty(value = "邮箱")
     private String email;
@@ -79,5 +85,10 @@ public class AuthUserDTO {
     @ApiModelProperty(value = "更新时间")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime updateTime;
+
+
+    public void setSex(SexEnum sex) {
+        this.sex = sex.getDesc();
+    }
 
 }

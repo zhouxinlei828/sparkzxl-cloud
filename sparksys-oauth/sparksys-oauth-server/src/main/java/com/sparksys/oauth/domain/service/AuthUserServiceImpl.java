@@ -9,12 +9,12 @@ import com.sparksys.core.entity.GlobalAuthUser;
 import com.sparksys.core.utils.ListUtils;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.PageInfoUtils;
+import com.sparksys.oauth.infrastructure.entity.*;
 import com.sparksys.security.entity.AuthUserDetail;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.domain.constant.AuthorizationConstant;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.convert.AuthUserConvert;
-import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;
@@ -26,9 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -78,25 +76,17 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Override
     public PageInfo<AuthUserDTO> listByPage(Integer pageNum, Integer pageSize, String name) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<AuthUser> authUserList = authUserRepository.listByName(name);
         List<AuthUserDTO> authUsers =
-                authUserList.stream().map(authUserDO -> {
-                    AuthUserDTO authUserDTO = AuthUserConvert.INSTANCE.convertAuthUserDTO(authUserDO);
-                    String sex = AuthorizationConstant.SEX_MAP.get(authUserDO.getSex());
-                    authUserDTO.setSex(sex);
-                    return authUserDTO;
-                }).collect(Collectors.toList());
+                authUserList.stream().map(AuthUserConvert.INSTANCE::convertAuthUserDTO).collect(Collectors.toList());
         return PageInfoUtils.pageInfo(authUsers);
     }
 
     @Override
     public AuthUserDTO getAuthUser(Long id) {
         AuthUser authUser = getByIdCache(id);
-        AuthUserDTO authUserDTO = AuthUserConvert.INSTANCE.convertAuthUserDTO(authUser);
-        String sex = AuthorizationConstant.SEX_MAP.get(authUser.getSex());
-        authUserDTO.setSex(sex);
-        return authUserDTO;
+        return AuthUserConvert.INSTANCE.convertAuthUserDTO(authUser);
     }
 
     @Override
@@ -152,5 +142,45 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     @Override
     protected String getRegion() {
         return CacheKey.USER;
+    }
+
+    @Override
+    public UserInfo getCurrentUser(String username) {
+        AuthUser authUser = authUserRepository.selectByAccount(username);
+        UserInfo userInfo = AuthUserConvert.INSTANCE.converUserInfo(authUser);
+        List<Map<String, Object>> tagList = new ArrayList<>();
+        Map<String, Object> tagMap = new HashMap<>(2);
+        tagMap.put("key", 1);
+        tagMap.put("label", "很有想法的");
+        tagList.add(tagMap);
+        userInfo.setTags(tagList);
+
+        Map<String, Object> tagMap2 = new HashMap<>(2);
+        tagMap2.put("key", 1);
+        tagMap2.put("label", "专注设计");
+        tagList.add(tagMap2);
+        userInfo.setTags(tagList);
+
+        Map<String, Object> tagMap3 = new HashMap<>(2);
+        tagMap3.put("key", 1);
+        tagMap3.put("label", "海纳百川");
+        tagList.add(tagMap3);
+        userInfo.setTags(tagList);
+
+        City city = new City();
+        city.setId(330100L);
+        city.setName("杭州市");
+        Province province = new Province();
+        province.setId(330000L);
+        province.setName("浙江省");
+
+        Geographic geographic = new Geographic();
+        geographic.setProvince(province);
+        geographic.setCity(city);
+        userInfo.setGeographic(geographic);
+
+        userInfo.setNotifyCount(20L);
+        userInfo.setUnreadCount(12L);
+        return userInfo;
     }
 }

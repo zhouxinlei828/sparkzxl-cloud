@@ -16,9 +16,9 @@ public class AuthorizationConstant {
 
     public static final Map<Integer, String> SEX_MAP = new HashMap<Integer, String>(3) {
         {
-            put(SexEnum.MAN.getCode(),SexEnum.MAN.getValue());
-            put(SexEnum.MAN.getCode(),SexEnum.MAN.getValue());
-            put(SexEnum.MAN.getCode(),SexEnum.MAN.getValue());
+            put(SexEnum.MAN.getCode(),SexEnum.MAN.getDesc());
+            put(SexEnum.WOMAN.getCode(),SexEnum.WOMAN.getDesc());
+            put(SexEnum.NONE.getCode(),SexEnum.NONE.getDesc());
         }
     };
 

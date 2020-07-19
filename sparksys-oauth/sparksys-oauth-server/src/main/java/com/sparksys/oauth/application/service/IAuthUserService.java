@@ -2,6 +2,7 @@ package com.sparksys.oauth.application.service;
 
 import com.github.pagehelper.PageInfo;
 import com.sparksys.database.service.SuperCacheService;
+import com.sparksys.oauth.infrastructure.entity.UserInfo;
 import com.sparksys.security.entity.AuthUserDetail;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
@@ -121,4 +122,6 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * @return Set<String>
      */
     Set<String> getAuthUserPermissions(Long id);
+
+    UserInfo getCurrentUser(String username);
 }
