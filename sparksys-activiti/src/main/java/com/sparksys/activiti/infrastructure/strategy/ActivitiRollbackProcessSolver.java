@@ -48,6 +48,8 @@ public class ActivitiRollbackProcessSolver extends AbstractActivitiSolver {
         ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
         List<HistoricActivityInstance> historicActivityInstances =
                 processHistoryService.getHistoricActivityInstance(processInstance.getProcessInstanceId());
+        Map<String, Object> hiVariables = processRuntimeService.getVariables(historicActivityInstances.get(0).getExecutionId());
+        hiVariables.get("applyUserId");
         return actWorkApiService.promoteProcess(userId, processInstance.getProcessInstanceId(), driveProcess.getActType(), driveProcess.getComment(), variables);
     }
 

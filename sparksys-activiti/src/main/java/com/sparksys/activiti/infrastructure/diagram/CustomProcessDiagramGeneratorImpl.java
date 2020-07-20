@@ -37,10 +37,10 @@ public class CustomProcessDiagramGeneratorImpl extends DefaultProcessDiagramGene
                                                              Color[] colors, Set<String> currIds) {
 
         if (null == highLightedActivities) {
-            highLightedActivities = Collections.<String>emptyList();
+            highLightedActivities = Collections.emptyList();
         }
         if (null == highLightedFlows) {
-            highLightedFlows = Collections.<String>emptyList();
+            highLightedFlows = Collections.emptyList();
         }
 
         prepareBpmnModel(bpmnModel);
