@@ -1,6 +1,5 @@
 package com.sparksys.activiti.interfaces.controller;
 
-import com.sparksys.log.annotation.WebLog;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,6 @@ import java.util.Properties;
  * @date: 2020-07-17 17:32:23
  */
 @Controller
-@WebLog
 @Slf4j
 @Api(tags = "首页管理")
 public class IndexController {

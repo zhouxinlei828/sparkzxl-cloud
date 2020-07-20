@@ -18,10 +18,6 @@
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-cloud-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sparksys</groupId>
             <artifactId>sparksys-cache-starter</artifactId>
         </dependency>
         <dependency>
