@@ -49,7 +49,7 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
     }
 
     @Override
-    public Integer[] supports() {
-        return new Integer[WorkflowConstants.WorkflowAction.START];
+    public Integer support() {
+        return WorkflowConstants.WorkflowAction.START;
     }
 }

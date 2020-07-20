@@ -26,9 +26,7 @@ public class ActivitiSolverChooser implements ApplicationContextAware {
     public void register() {
         Map<String, AbstractActivitiSolver> solverMap = applicationContext.getBeansOfType(AbstractActivitiSolver.class);
         for (AbstractActivitiSolver solver : solverMap.values()) {
-            for (Integer support : solver.supports()) {
-                activitiSolverMap.put(support, solver);
-            }
+            activitiSolverMap.put(solver.support(), solver);
         }
     }
 

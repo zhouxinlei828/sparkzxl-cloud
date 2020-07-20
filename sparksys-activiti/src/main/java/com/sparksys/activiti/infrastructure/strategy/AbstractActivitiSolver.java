@@ -22,5 +22,5 @@ public abstract class AbstractActivitiSolver {
      *
      * @return Integer[]
      */
-    public abstract Integer[] supports();
+    public abstract Integer support();
 }
