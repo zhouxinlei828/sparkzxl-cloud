@@ -110,6 +110,13 @@ public interface IProcessRepositoryService {
     Model getModelByModelId(String modelId);
 
     /**
+     * 查询所有的模型列表
+     *
+     * @return
+     */
+    List<Model> getModelList();
+
+    /**
      * 根据modelId获取模型定义信息
      *
      * @param modelId 模型id

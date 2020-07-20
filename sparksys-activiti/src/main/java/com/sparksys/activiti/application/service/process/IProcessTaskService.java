@@ -17,6 +17,14 @@ import java.util.Map;
 public interface IProcessTaskService {
 
     /**
+     * 认领任务
+     *
+     * @param taskId 任务id
+     * @param userId 用户id
+     */
+    void claimTask(String taskId, String userId);
+
+    /**
      * 完成任务
      *
      * @param taskId    任务id
@@ -38,7 +46,16 @@ public interface IProcessTaskService {
      * @param taskId 任务id
      * @param userId 用户id
      */
-    public void assigneeTask(String taskId, String userId);
+    void assigneeTask(String taskId, String userId);
+
+    /**
+     * 添加评论
+     *
+     * @param taskId            任务id
+     * @param processInstanceId 流程实例id
+     * @param comment           评论内容
+     */
+    void addComment(String taskId, String processInstanceId, String comment);
 
 
     /**
@@ -64,6 +81,14 @@ public interface IProcessTaskService {
      * @return List<Task>
      */
     List<Task> getTaskByProInstId(String processInstanceId);
+
+    /**
+     * 根据流程实例id获取最新任务实例
+     *
+     * @param processInstanceId
+     * @return Task
+     */
+    Task getLatestTaskByProInstId(String processInstanceId);
 
     /**
      * 读取直接分配给当前人的任务

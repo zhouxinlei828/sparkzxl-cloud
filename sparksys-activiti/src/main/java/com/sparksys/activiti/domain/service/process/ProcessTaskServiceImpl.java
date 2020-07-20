@@ -26,6 +26,11 @@ public class ProcessTaskServiceImpl implements IProcessTaskService {
     private TaskService taskService;
 
     @Override
+    public void claimTask(String taskId, String userId) {
+        taskService.claim(taskId, userId);
+    }
+
+    @Override
     public void completeTask(String taskId, Map<String, Object> variables) {
         if (ObjectUtils.isNotEmpty(variables)) {
             taskService.complete(taskId, variables);
@@ -45,9 +50,13 @@ public class ProcessTaskServiceImpl implements IProcessTaskService {
     }
 
     @Override
+    public void addComment(String taskId, String processInstanceId, String comment) {
+        taskService.addComment(taskId, processInstanceId, comment);
+    }
+
+    @Override
     public List<Comment> getComments(String processInstanceId) {
-        List<Comment> comments = taskService.getProcessInstanceComments(processInstanceId);
-        return comments;
+        return taskService.getProcessInstanceComments(processInstanceId);
     }
 
     @Override
@@ -58,6 +67,11 @@ public class ProcessTaskServiceImpl implements IProcessTaskService {
     @Override
     public List<Task> getTaskByProInstId(String processInstanceId) {
         return taskService.createTaskQuery().processInstanceId(processInstanceId).orderByTaskCreateTime().desc().list();
+    }
+
+    @Override
+    public Task getLatestTaskByProInstId(String processInstanceId) {
+        return taskService.createTaskQuery().processInstanceId(processInstanceId).orderByTaskCreateTime().desc().singleResult();
     }
 
     @Override

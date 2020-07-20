@@ -1,17 +1,16 @@
 package com.sparksys.activiti.interfaces.controller.model;
 
-import com.sparksys.activiti.application.service.IModelerService;
+import com.sparksys.activiti.application.service.model.IModelerService;
 import com.sparksys.log.annotation.WebLog;
+import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * description:流程控制器
@@ -19,7 +18,8 @@ import javax.servlet.http.HttpServletRequest;
  * @author: zhouxinlei
  * @date: 2020-07-17 14:46:24
  */
-@Controller
+@RestController
+@ResponseResult
 @WebLog
 @Slf4j
 @Api(tags = "流程控制器管理")
@@ -33,10 +33,10 @@ public class ModelerController {
     }
 
     @ApiOperation("创建模型")
-    @RequestMapping("/create")
-    public void create(HttpServletRequest request,@ApiParam("模型名称") String name,
+    @GetMapping("/create")
+    public String create(@ApiParam("模型名称") String name,
                        @ApiParam("模型key") String key) {
-        modelerService.createModel(name, key);
+        return modelerService.createModel(name, key);
     }
 
     @ApiOperation("发布流程")

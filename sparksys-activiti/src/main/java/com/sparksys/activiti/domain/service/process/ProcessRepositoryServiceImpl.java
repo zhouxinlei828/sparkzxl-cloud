@@ -100,6 +100,10 @@ public class ProcessRepositoryServiceImpl implements IProcessRepositoryService {
         return repositoryService.getModel(modelId);
     }
 
+    @Override
+    public List<Model> getModelList() {
+        return repositoryService.createModelQuery().list();
+    }
 
     @Override
     public byte[] getModelEditorSourceByModelId(String modelId) {

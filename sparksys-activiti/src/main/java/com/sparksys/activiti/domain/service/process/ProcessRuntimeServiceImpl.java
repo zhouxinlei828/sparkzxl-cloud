@@ -30,6 +30,11 @@ public class ProcessRuntimeServiceImpl implements IProcessRuntimeService {
     }
 
     @Override
+    public ProcessInstance startProcessInstanceByKey(String bpmnId, String businessId, Map<String, Object> variables) {
+        return runtimeService.startProcessInstanceByKey(bpmnId, businessId, variables);
+    }
+
+    @Override
     public ProcessInstance startProcessInstanceByProDefId(String processDefinitionId) {
         return runtimeService.startProcessInstanceById(processDefinitionId);
     }
@@ -38,6 +43,12 @@ public class ProcessRuntimeServiceImpl implements IProcessRuntimeService {
     public ProcessInstance getProcessInstance(String processInstanceId) {
         return runtimeService.createProcessInstanceQuery()
                 .processInstanceId(processInstanceId).singleResult();
+    }
+
+    @Override
+    public ProcessInstance getProcessInstanceByBusinessId(String businessId) {
+        return runtimeService.createProcessInstanceQuery()
+                .processInstanceBusinessKey(businessId).singleResult();
     }
 
     @Override

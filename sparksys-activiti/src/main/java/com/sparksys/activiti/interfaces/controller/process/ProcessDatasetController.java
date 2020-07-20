@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date: 2020-07-17 13:42:57
  */
 @RestController
-@RequestMapping("/process-dataset")
+@RequestMapping("/process/dataset")
 public class ProcessDatasetController {
 
 }

@@ -24,6 +24,16 @@ public interface IProcessRuntimeService {
     ProcessInstance startProcessInstanceByKey(String definitionKey);
 
     /**
+     * 启动流程实例
+     *
+     * @param bpmnId     流程图id
+     * @param businessId 业务主键
+     * @param variables  流程变量
+     * @return ProcessInstance
+     */
+    ProcessInstance startProcessInstanceByKey(String bpmnId, String businessId, Map<String, Object> variables);
+
+    /**
      * 通过流程定义id启动流程
      *
      * @param processDefinitionId 流程定义id
@@ -38,6 +48,14 @@ public interface IProcessRuntimeService {
      * @return ProcessInstance
      */
     ProcessInstance getProcessInstance(String processInstanceId);
+
+    /**
+     * 通过业务主键id获取流程实例
+     *
+     * @param businessId 业务主键id
+     * @return ProcessInstance
+     */
+    ProcessInstance getProcessInstanceByBusinessId(String businessId);
 
     /**
      * 获取活动节点信息
