@@ -2,6 +2,7 @@ package com.sparksys.oauth.application.service;
 
 
 import cn.hutool.json.JSONUtil;
+import com.sparksys.oauth.interfaces.dto.user.AuthUserPageDTO;
 import com.sparksys.web.utils.JacksonUtils;
 import com.sparksys.oauth.Oauth2Application;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Oauth2Application.class)
+@SpringBootTest(classes = Oauth2Application.class,webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @Slf4j
 public class AuthUserServiceTest {
 
@@ -23,7 +24,9 @@ public class AuthUserServiceTest {
 
     @Test
     public void authUserPageHelperTest() {
-        log.info("data：{}", JacksonUtils.writeJsonAsString(authUserService.listByPage(10,10,null)));
+        AuthUserPageDTO authUserPageDTO = new AuthUserPageDTO();
+        authUserPageDTO.setAccount("zhouxinlei");
+        log.info("data：{}", JacksonUtils.writeJsonAsString(authUserService.listByPage(authUserPageDTO)));
     }
 
     @Test

@@ -3,12 +3,9 @@ package com.sparksys.oauth.application.service;
 import com.github.pagehelper.PageInfo;
 import com.sparksys.database.service.SuperCacheService;
 import com.sparksys.oauth.infrastructure.entity.UserInfo;
+import com.sparksys.oauth.interfaces.dto.user.*;
 import com.sparksys.security.entity.AuthUserDetail;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserStatusDTO;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserUpdateDTO;
 
 import java.util.Set;
 
@@ -60,12 +57,10 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 分页查询用户列表
      *
-     * @param pageNum  当前页
-     * @param pageSize 分页大小
-     * @param name     姓名
+     * @param authUserPageDTO  分页查询参数
      * @return PageInfo<AuthUserDTO>
      */
-    PageInfo<AuthUserDTO> listByPage(Integer pageNum, Integer pageSize, String name);
+    PageInfo<AuthUserDTO> listByPage(AuthUserPageDTO authUserPageDTO);
 
     /**
      * 获取用户信息

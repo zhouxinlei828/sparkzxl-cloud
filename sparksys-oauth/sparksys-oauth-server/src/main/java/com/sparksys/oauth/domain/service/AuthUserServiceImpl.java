@@ -9,16 +9,14 @@ import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.utils.ListUtils;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.PageInfoUtils;
+import com.sparksys.oauth.domain.bo.AuthUserBO;
 import com.sparksys.oauth.infrastructure.entity.*;
+import com.sparksys.oauth.interfaces.dto.user.*;
 import com.sparksys.security.entity.AuthUserDetail;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.convert.AuthUserConvert;
 import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserStatusDTO;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserUpdateDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +43,7 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Override
     public boolean saveAuthUser(Long contextUserId, AuthUserSaveDTO authUserSaveDTO) {
-        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserSaveDTO);
+        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserSaveDTO);
         authUser.setStatus(true);
         String password = passwordEncoder.encode(authUserSaveDTO.getPassword());
         authUser.setPassword(password);
@@ -56,7 +54,7 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Override
     public boolean updateAuthUser(Long contextUserId, AuthUserUpdateDTO authUserUpdateDTO) {
-        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserUpdateDTO);
+        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserUpdateDTO);
         authUser.setUpdateUser(contextUserId);
         return updateById(authUser);
     }
@@ -68,15 +66,16 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Override
     public boolean updateAuthUserStatus(Long contextUserId, AuthUserStatusDTO authUserStatusDTO) {
-        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserStatusDTO);
+        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserStatusDTO);
         authUser.setUpdateUser(contextUserId);
         return updateById(authUser);
     }
 
     @Override
-    public PageInfo<AuthUserDTO> listByPage(Integer pageNum, Integer pageSize, String name) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<AuthUser> authUserList = authUserRepository.listByName(name);
+    public PageInfo<AuthUserDTO> listByPage(AuthUserPageDTO authUserPageDTO) {
+        PageHelper.startPage(authUserPageDTO.getPageNum(), authUserPageDTO.getPageSize());
+        AuthUserBO authUserBO = AuthUserConvert.INSTANCE.convertAuthUserBO(authUserPageDTO);
+        List<AuthUser> authUserList = authUserRepository.findAuthUserList(authUserBO);
         List<AuthUserDTO> authUsers =
                 authUserList.stream().map(AuthUserConvert.INSTANCE::convertAuthUserDTO).collect(Collectors.toList());
         return PageInfoUtils.pageInfo(authUsers);
