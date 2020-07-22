@@ -1,9 +1,10 @@
 package com.sparksys.activiti.infrastructure.strategy;
 
+import com.google.common.collect.Maps;
 import com.sparksys.activiti.application.service.process.IProcessRuntimeService;
 import com.sparksys.activiti.domain.service.ActWorkApiService;
 import com.sparksys.activiti.infrastructure.constant.WorkflowConstants;
-import com.sparksys.activiti.infrastructure.entity.model.DriveProcess;
+import com.sparksys.activiti.domain.entity.DriveProcess;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.lang3.StringUtils;
@@ -33,18 +34,17 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
         String businessId = driveProcess.getBusinessId();
         String applyUserId = driveProcess.getApplyUserId();
         String userId = driveProcess.getUserId();
-        int actType = driveProcess.getActType();
-        Map<String, Object> variables = new HashMap<>();
+        Map<String, Object> variables = Maps.newHashMap();
         if (StringUtils.isNotEmpty(applyUserId)) {
-            variables.put("applyUserId", applyUserId);
+            variables.put("assignee", applyUserId);
         }
-        variables.put("actType", actType);
+        variables.put("actType", driveProcess.getActType());
         ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
         return actWorkApiService.promoteProcess(userId, processInstance.getProcessInstanceId(), driveProcess.getActType(), driveProcess.getComment(), variables);
     }
 
     @Override
-    public Integer support() {
-        return WorkflowConstants.WorkflowAction.SUBMIT;
+    public Integer[] supports() {
+        return new Integer[]{WorkflowConstants.WorkflowAction.SUBMIT};
     }
 }

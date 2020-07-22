@@ -130,5 +130,5 @@ public interface IProcessRepositoryService {
      * @param processDefinitionId 流程定义id
      * @return BpmnModel
      */
-    BpmnModel getModel(String processDefinitionId);
+    BpmnModel getBpmnModel(String processDefinitionId);
 }

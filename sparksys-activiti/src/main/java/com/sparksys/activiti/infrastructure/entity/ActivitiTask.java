@@ -1,6 +1,5 @@
 package com.sparksys.activiti.infrastructure.entity;
 
-import com.sparksys.activiti.infrastructure.entity.ProcessDataset;
 import lombok.*;
 import org.activiti.engine.task.Task;
 

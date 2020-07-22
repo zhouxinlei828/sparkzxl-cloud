@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * description: 流程跳转规则Mapper 接口
  *
@@ -30,4 +32,17 @@ public interface ProcessTaskRuleMapper extends SuperMapper<ProcessTaskRule> {
     ProcessTaskRule findActRuTaskRule(@Param("processDefinitionKey") String processDefinitionKey,
                                       @Param("sourceTaskDefKey") String sourceTaskDefKey,
                                       @Param("actType") Integer actType);
+
+    /**
+     * 查询流程跳转规则
+     *
+     * @param processId  流程定义key
+     * @param taskDefKey 任务定义key
+     * @return List<ProcessTaskRule>
+     */
+    @Select("SELECT pd.process_id, pd.process_name, pd.task_def_key sourceTaskDefKey,pd.task_name sourceTaskName, ptr.id,"
+            + " ptr.process_detail_id,ptr.task_def_key targetTaskDefKey, ptr.task_name targetTaskName,ptr.act_type"
+            + " FROM process_detail pd INNER JOIN process_task_rule ptr ON pd.id = ptr.process_detail_id"
+            + " WHERE pd.process_id = #{processId} AND pd.task_def_key = #{taskDefKey} ")
+    List<ProcessTaskRule> getProcessTaskRule(@Param("processId") String processId, @Param("processId") String taskDefKey);
 }

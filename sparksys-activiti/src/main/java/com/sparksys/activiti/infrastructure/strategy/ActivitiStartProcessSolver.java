@@ -1,9 +1,10 @@
 package com.sparksys.activiti.infrastructure.strategy;
 
+import com.google.common.collect.Maps;
 import com.sparksys.activiti.application.service.process.IProcessRuntimeService;
 import com.sparksys.activiti.domain.service.ActWorkApiService;
 import com.sparksys.activiti.infrastructure.constant.WorkflowConstants;
-import com.sparksys.activiti.infrastructure.entity.model.DriveProcess;
+import com.sparksys.activiti.domain.entity.DriveProcess;
 import com.sparksys.core.support.ResponseResultStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.IdentityService;
@@ -11,7 +12,6 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -36,8 +36,8 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
         String businessId = driveProcess.getBusinessId();
         String userId = driveProcess.getApplyUserId();
         ResponseResultStatus.FAILURE.assertNotTrue(processRuntimeService.getProcessInstanceByBusinessId(businessId) == null);
-        Map<String, Object> variables = new HashMap<>(2);
-        variables.put("applyUserId", userId);
+        Map<String, Object> variables = Maps.newHashMap();
+        variables.put("assignee", userId);
         variables.put("actType", driveProcess.getActType());
         identityService.setAuthenticatedUserId(String.valueOf(userId));
         ProcessInstance processInstance = processRuntimeService.startProcessInstanceByKey(driveProcess.getProcessDefinitionKey(),
@@ -45,11 +45,12 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
                 variables);
         String processInstanceId = processInstance.getProcessInstanceId();
         log.info("启动activiti流程------++++++ProcessInstanceId：{}------++++++", processInstanceId);
-        return actWorkApiService.promoteProcess(userId, processInstanceId, driveProcess.getActType(), driveProcess.getComment(), variables);
+        variables.put("actType", WorkflowConstants.WorkflowAction.SUBMIT);
+        return actWorkApiService.promoteProcess(userId, processInstanceId, WorkflowConstants.WorkflowAction.SUBMIT, driveProcess.getComment(), variables);
     }
 
     @Override
-    public Integer support() {
-        return WorkflowConstants.WorkflowAction.START;
+    public Integer[] supports() {
+        return new Integer[]{WorkflowConstants.WorkflowAction.START};
     }
 }

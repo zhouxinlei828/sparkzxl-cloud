@@ -86,7 +86,7 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
             String processDefinitionId = processInstance.getProcessDefinitionId();
 
             // 获取流程定义信息
-            BpmnModel bpmnModel = processRepositoryService.getModel(processDefinitionId);
+            BpmnModel bpmnModel = processRepositoryService.getBpmnModel(processDefinitionId);
 
             ProcessDefinitionEntity definitionEntity = processRepositoryService.getProcessDefinitionEntity(processDefinitionId);
 

@@ -21,4 +21,11 @@ public interface IProcessDetailRepository {
      */
     List<ProcessDetail> getProcessDetailList(String name);
 
+    /**
+     * 查询流程节点信息
+     *
+     * @param modelId 模型id
+     * @return List<ProcessDetailDTO>
+     */
+    List<ProcessDetail> getProcessDetail(String modelId);
 }

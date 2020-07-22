@@ -40,6 +40,7 @@
         <sharding-jdbc.version>4.0.0-RC2</sharding-jdbc.version>
         <activiti.boot.version>6.0.0</activiti.boot.version>
         <apache.xmlgraphics.version>1.7</apache.xmlgraphics.version>
+        <fel.version>0.8</fel.version>
     </properties>
 
     <modules>
@@ -285,7 +286,11 @@
                 <artifactId>batik-svggen</artifactId>
                 <version>${apache.xmlgraphics.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.eweb4j</groupId>
+                <artifactId>fel</artifactId>
+                <version>${fel.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

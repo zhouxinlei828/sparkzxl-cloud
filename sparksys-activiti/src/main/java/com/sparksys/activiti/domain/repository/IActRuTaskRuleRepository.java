@@ -2,6 +2,8 @@ package com.sparksys.activiti.domain.repository;
 
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskRule;
 
+import java.util.List;
+
 /**
  * description: 流程控制规则 仓储类
  *
@@ -19,4 +21,13 @@ public interface IActRuTaskRuleRepository {
      * @return ProcessTaskRule
      */
     ProcessTaskRule findActRuTaskRule(String processDefinitionKey, String sourceTaskDefKey, Integer actType);
+
+    /**
+     * 查询流程跳转规则
+     *
+     * @param processId  流程定义key
+     * @param taskDefKey 任务定义key
+     * @return List<ProcessTaskRule>
+     */
+    List<ProcessTaskRule> getProcessTaskRule(String processId, String taskDefKey);
 }

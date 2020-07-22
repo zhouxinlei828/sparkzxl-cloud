@@ -111,7 +111,7 @@ public class ProcessRepositoryServiceImpl implements IProcessRepositoryService {
     }
 
     @Override
-    public BpmnModel getModel(String processDefinitionId) {
+    public BpmnModel getBpmnModel(String processDefinitionId) {
         return repositoryService.getBpmnModel(processDefinitionId);
     }
 }

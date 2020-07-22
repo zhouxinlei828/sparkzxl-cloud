@@ -2,8 +2,6 @@ package com.sparksys.activiti.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.TableField;
 
 import com.sparksys.database.entity.Entity;
@@ -41,5 +39,9 @@ public class ProcessDetail extends Entity<Long> {
     @ApiModelProperty(value = "任务定义key")
     @TableField("task_def_key")
     private String taskDefKey;
+
+    @ApiModelProperty(value = "任务名称")
+    @TableField("task_name")
+    private String taskName;
 
 }

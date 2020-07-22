@@ -1,6 +1,7 @@
 package com.sparksys.activiti.domain.service.model;
 
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -97,20 +98,28 @@ public class ModelServiceImpl implements IModelService {
             String processId = propertiesNode.get("process_id").asText();
             List<ProcessDetail> processDetails = new ArrayList<>();
             if (ObjectUtils.isNotEmpty(jsonNodes)) {
+                processDetailService.remove(new QueryWrapper<ProcessDetail>().lambda().eq(ProcessDetail::getModelId, modelId));
                 for (JsonNode node : jsonNodes) {
                     JsonNode stencilNode = node.get("stencil");
+                    if ("StartNoneEvent".equals(stencilNode.get("id").asText())) {
+                        continue;
+                    }
+                    if ("EndNoneEvent".equals(stencilNode.get("id").asText())) {
+                        continue;
+                    }
                     if ("SequenceFlow".equals(stencilNode.get("id").asText())) {
                         continue;
                     }
                     JsonNode properties = node.get("properties");
-                    log.info("childShapes->propertie：{}", JSONUtil.toJsonPrettyStr(properties));
                     String overrideId = properties.get("overrideid").asText();
+                    String taskName = properties.get("name").asText();
                     System.out.println("overrideId:" + overrideId);
                     ProcessDetail processDetail = new ProcessDetail();
                     processDetail.setModelId(modelId);
                     processDetail.setProcessId(processId);
                     processDetail.setProcessName(name);
                     processDetail.setTaskDefKey(overrideId);
+                    processDetail.setTaskName(taskName);
                     processDetails.add(processDetail);
                 }
                 processDetailService.saveBatch(processDetails);

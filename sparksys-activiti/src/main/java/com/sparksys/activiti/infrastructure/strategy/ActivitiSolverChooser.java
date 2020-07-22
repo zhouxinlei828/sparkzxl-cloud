@@ -1,5 +1,6 @@
 package com.sparksys.activiti.infrastructure.strategy;
 
+import com.google.common.collect.Maps;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -19,14 +20,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ActivitiSolverChooser implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
-    private Map<Integer, AbstractActivitiSolver> activitiSolverMap = new ConcurrentHashMap<>();
+    private final Map<Integer, AbstractActivitiSolver> activitiSolverMap = Maps.newConcurrentMap();
 
 
     @PostConstruct
     public void register() {
         Map<String, AbstractActivitiSolver> solverMap = applicationContext.getBeansOfType(AbstractActivitiSolver.class);
         for (AbstractActivitiSolver solver : solverMap.values()) {
-            activitiSolverMap.put(solver.support(), solver);
+            for (Integer support : solver.supports()) {
+                activitiSolverMap.put(support, solver);
+            }
         }
     }
 

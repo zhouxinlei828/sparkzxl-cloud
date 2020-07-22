@@ -1,24 +1,35 @@
 package com.sparksys.activiti.domain.service.model;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sparksys.activiti.application.service.model.IModelerService;
+import com.sparksys.activiti.application.service.process.IProcessDetailService;
+import com.sparksys.activiti.application.service.process.IProcessRepositoryService;
+import com.sparksys.activiti.application.service.process.IProcessTaskRuleService;
+import com.sparksys.activiti.infrastructure.entity.ProcessDetail;
+import com.sparksys.activiti.infrastructure.entity.ProcessTaskRule;
+import com.sparksys.core.support.SparkSysExceptionAssert;
+import com.sparksys.core.utils.ListUtils;
+import com.sparksys.database.entity.SuperEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
-import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * description:模型控制 服务实现类
@@ -35,13 +46,18 @@ public class ModelerServiceImpl implements IModelerService {
     private RepositoryService repositoryService;
 
     @Autowired
-    private HistoryService historyService;
-
+    private IProcessRepositoryService processRepositoryService;
     @Autowired
     private RuntimeService runtimeService;
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private IProcessDetailService processDetailService;
+
+    @Autowired
+    private IProcessTaskRuleService taskRuleService;
 
     @Override
     public String createModel(String name, String key) {
@@ -127,9 +143,20 @@ public class ModelerServiceImpl implements IModelerService {
             try {
                 ProcessInstance pi = runtimeService.createProcessInstanceQuery().processDefinitionKey(modelData.getKey()).singleResult();
                 if (null != pi) {
-                    runtimeService.deleteProcessInstance(pi.getId(), "");
-                    historyService.deleteHistoricProcessInstance(pi.getId());
+                    SparkSysExceptionAssert.businessFail("该流程正在运作，请勿删除");
                 }
+                if (StringUtils.isNotEmpty(modelData.getDeploymentId())) {
+                    repositoryService.deleteDeployment(modelData.getDeploymentId());
+                }
+                List<ProcessDetail> processDetails =
+                        processDetailService.list(new QueryWrapper<ProcessDetail>().lambda().eq(ProcessDetail::getModelId, modelId));
+                List<Long> processDetailIds = processDetails.stream().map(SuperEntity::getId).collect(Collectors.toList());
+                if (ListUtils.isNotEmpty(processDetailIds)) {
+                    taskRuleService.remove(new QueryWrapper<ProcessTaskRule>().lambda().in(ProcessTaskRule::getProcessDetailId,
+                            processDetailIds));
+                    processDetailService.removeByIds(processDetailIds);
+                }
+                repositoryService.deleteModel(modelId);
                 return true;
             } catch (Exception e) {
                 log.error("删除流程实例服务异常：{}", e.getMessage());

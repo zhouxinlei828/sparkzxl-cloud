@@ -2,7 +2,8 @@ package com.sparksys.activiti.application.service.process;
 
 import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.infrastructure.entity.ProcessDetail;
-import com.sparksys.activiti.interfaces.dto.ProcessDetailDTO;
+import com.sparksys.activiti.interfaces.dto.process.ProcessDetailDTO;
+import com.sparksys.activiti.interfaces.dto.process.ProcessDetailPageDTO;
 import com.sparksys.database.dto.PageDTO;
 import com.sparksys.database.service.SuperService;
 
@@ -27,9 +28,8 @@ public interface IProcessDetailService extends SuperService<ProcessDetail> {
     /**
      * 分页查询流程列表
      *
-     * @param pageDTO  分页参数
-     * @param name     流程名称
+     * @param processDetailPageDTO 分页查询参数
      * @return PageInfo<ProcessDetail>
      */
-    PageInfo<ProcessDetail> getProcessDetailList(PageDTO pageDTO, String name);
+    PageInfo<ProcessDetail> getProcessDetailList(ProcessDetailPageDTO processDetailPageDTO);
 }

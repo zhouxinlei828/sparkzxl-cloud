@@ -1,5 +1,6 @@
 package com.sparksys.activiti.infrastructure.strategy;
 
+import com.google.common.collect.Maps;
 import com.sparksys.activiti.application.service.process.IProcessRepositoryService;
 import com.sparksys.activiti.application.service.process.IProcessRuntimeService;
 import com.sparksys.activiti.application.service.process.IProcessTaskRuleService;
@@ -9,7 +10,8 @@ import com.sparksys.activiti.infrastructure.act.DeleteTaskCmd;
 import com.sparksys.activiti.infrastructure.act.SetFlowNodeAndGoCmd;
 import com.sparksys.activiti.infrastructure.constant.WorkflowConstants;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskRule;
-import com.sparksys.activiti.infrastructure.entity.model.DriveProcess;
+import com.sparksys.activiti.domain.entity.DriveProcess;
+import com.sparksys.activiti.infrastructure.utils.ActivitiUtils;
 import com.sparksys.core.support.SparkSysExceptionAssert;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.*;
@@ -17,12 +19,12 @@ import org.activiti.bpmn.model.Process;
 import org.activiti.engine.ManagementService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -53,27 +55,27 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
         String businessId = driveProcess.getBusinessId();
         String applyUserId = driveProcess.getApplyUserId();
         String userId = driveProcess.getUserId();
-        String processDefinitionKey = driveProcess.getProcessDefinitionKey();
         int actType = driveProcess.getActType();
-        Map<String, Object> variables = new HashMap<>();
+        Map<String, Object> variables = Maps.newHashMap();
         if (StringUtils.isNotEmpty(applyUserId)) {
-            variables.put("applyUserId", applyUserId);
+            variables.put("assignee", applyUserId);
         }
         variables.put("actType", actType);
         ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
+        String processDefinitionKey = processInstance.getProcessDefinitionKey();
         Task currentTask = taskService.getTasksByAssigneeAndBusKey(applyUserId, businessId);
-        BpmnModel bpmnModel = repositoryService.getModel(currentTask.getProcessDefinitionId());
+        BpmnModel bpmnModel = repositoryService.getBpmnModel(currentTask.getProcessDefinitionId());
         // 获取流程定义
         Process process = bpmnModel.getMainProcess();
         //获取所有的FlowElement信息
         Collection<FlowElement> flowElements = process.getFlowElements();
         // 获取目标节点task定义key
         ProcessTaskRule actRuTaskRule = processTaskRuleService.findActRuTaskRule(processDefinitionKey, currentTask.getTaskDefinitionKey(), actType);
-        String taskDefKey = actRuTaskRule.getTaskDefKey();
-        if (StringUtils.isEmpty(taskDefKey)) {
+        if (ObjectUtils.isEmpty(actRuTaskRule)) {
             SparkSysExceptionAssert.businessFail("请设置流程跳转规则");
         }
-        FlowElement flowElement = getFlowElementById(taskDefKey, flowElements);
+        String taskDefKey = actRuTaskRule.getTaskDefKey();
+        FlowElement flowElement = ActivitiUtils.getFlowElementById(taskDefKey, flowElements);
         // 获取目标节点定义
         assert flowElement != null;
         FlowNode targetNode = (FlowNode) process.getFlowElement(flowElement.getId());
@@ -89,35 +91,7 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
     }
 
     @Override
-    public Integer support() {
-        return WorkflowConstants.WorkflowAction.SUBMIT;
-    }
-
-    private FlowElement getFlowElementById(String Id, Collection<FlowElement> flowElements) {
-        for (FlowElement flowElement : flowElements) {
-            if (flowElement.getId().equals(Id)) {
-                //如果是子任务，则查询出子任务的开始节点
-                if (flowElement instanceof SubProcess) {
-                    return getStartFlowElement(((SubProcess) flowElement).getFlowElements());
-                }
-                return flowElement;
-            }
-            if (flowElement instanceof SubProcess) {
-                FlowElement flowElement1 = getFlowElementById(Id, ((SubProcess) flowElement).getFlowElements());
-                if (flowElement1 != null) {
-                    return flowElement1;
-                }
-            }
-        }
-        return null;
-    }
-
-    private FlowElement getStartFlowElement(Collection<FlowElement> flowElements) {
-        for (FlowElement flowElement : flowElements) {
-            if (flowElement instanceof StartEvent) {
-                return flowElement;
-            }
-        }
-        return null;
+    public Integer[] supports() {
+        return new Integer[]{WorkflowConstants.WorkflowAction.ROLLBACK, WorkflowConstants.WorkflowAction.JUMP};
     }
 }

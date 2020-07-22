@@ -1,6 +1,6 @@
 package com.sparksys.activiti.infrastructure.strategy;
 
-import com.sparksys.activiti.infrastructure.entity.model.DriveProcess;
+import com.sparksys.activiti.domain.entity.DriveProcess;
 
 /**
  * description: 抽象业务处理器
@@ -22,5 +22,5 @@ public abstract class AbstractActivitiSolver {
      *
      * @return Integer[]
      */
-    public abstract Integer support();
+    public abstract Integer[] supports();
 }

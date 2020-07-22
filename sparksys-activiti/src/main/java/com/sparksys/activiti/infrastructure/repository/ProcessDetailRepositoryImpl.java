@@ -22,9 +22,14 @@ public class ProcessDetailRepositoryImpl implements IProcessDetailRepository {
     private ProcessDetailMapper processDetailMapper;
 
     @Override
-    public List<ProcessDetail> getProcessDetailList(String name) {
+    public List<ProcessDetail> getProcessDetailList(String processName) {
         return processDetailMapper.selectList(new QueryWrapper<ProcessDetail>().lambda()
-                .likeRight(ProcessDetail::getProcessName, name)
+                .likeRight(ProcessDetail::getProcessName, processName)
                 .groupBy(ProcessDetail::getModelId));
+    }
+
+    @Override
+    public List<ProcessDetail> getProcessDetail(String modelId) {
+        return processDetailMapper.selectList(new QueryWrapper<ProcessDetail>().lambda().eq(ProcessDetail::getModelId, modelId));
     }
 }

@@ -44,7 +44,7 @@ public final class WorkflowConstants {
         /**
          * 分发
          */
-        public static final int CLAIM = 2;
+        public static final int JUMP = 2;
         /**
          * 退回分发
          */

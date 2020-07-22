@@ -1,17 +1,16 @@
 package com.sparksys.activiti.interfaces.controller.act;
 
-import com.sparksys.activiti.application.service.driver.IActivitiDriverService;
+import cn.hutool.json.JSONUtil;
 import com.sparksys.activiti.application.service.process.IProcessRepositoryService;
-import com.sparksys.activiti.interfaces.dto.DriveProcessDTO;
-import com.sparksys.core.entity.AuthUserInfo;
+import com.sparksys.activiti.application.service.process.IProcessTaskService;
 import com.sparksys.log.annotation.WebLog;
 import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.repository.ProcessDefinition;
-import org.springframework.validation.annotation.Validated;
+import org.activiti.engine.task.Task;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -23,21 +22,37 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/activiti/test/")
-@ResponseResult
 @WebLog
 @Api(tags = "流程查询管理")
+@Slf4j
 public class ActivitiTestController {
 
     private final IProcessRepositoryService repositoryService;
+    private final IProcessTaskService processTaskService;
 
-    public ActivitiTestController(IProcessRepositoryService repositoryService) {
+    public ActivitiTestController(IProcessRepositoryService repositoryService, IProcessTaskService processTaskService) {
         this.repositoryService = repositoryService;
+        this.processTaskService = processTaskService;
     }
 
     @ApiOperation(value = "根据流程定义key获取相关流程定义对象列表")
-    @GetMapping("applyDataSet")
-    public List<ProcessDefinition> driveProcess(String processDefinitionKey) {
+    @ResponseResult
+    @GetMapping("processDefinitionsByKey")
+    public List<ProcessDefinition> processDefinitionsByKey(String processDefinitionKey) {
         return repositoryService.getProcessDefinitionsByKey(processDefinitionKey);
+    }
+
+    @ApiOperation(value = "读取直接分配给当前人的任务")
+    @GetMapping("getTasksByAssigneeAndBusKey")
+    public void getTasksByAssigneeAndBusKey(String applyUserId, String businessId) {
+        Task task = processTaskService.getTasksByAssigneeAndBusKey(applyUserId, businessId);
+        log.info("当前人的任务为：{}", JSONUtil.toJsonPrettyStr(task));
+    }
+
+    @ApiOperation(value = "获取任务变量")
+    @GetMapping("getTaskVariable")
+    public Object getTaskVariable(String taskId, String key) {
+        return processTaskService.getVariable(taskId, key);
     }
 
 }

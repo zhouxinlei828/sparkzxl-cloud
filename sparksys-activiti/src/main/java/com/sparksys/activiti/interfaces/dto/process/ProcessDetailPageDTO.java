@@ -1,32 +1,30 @@
-package com.sparksys.activiti.interfaces.dto;
+package com.sparksys.activiti.interfaces.dto.process;
 
+import com.sparksys.database.dto.PageDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
- * description:
+ * description:ProcessDetail显示层对象
  *
  * @author: zhouxinlei
  * @date: 2020-07-21 14:56:57
  */
+
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "ProcessDetail显示层对象", description = "")
-public class ProcessDetailDTO {
+public class ProcessDetailPageDTO extends PageDTO {
 
     @ApiModelProperty(value = "主键")
     protected Long id;
-
-    @ApiModelProperty(value = "模型id")
-    private String modelId;
 
     @ApiModelProperty(value = "流程定义key")
     private String processId;
 
     @ApiModelProperty(value = "流程名称")
     private String processName;
-
-    @ApiModelProperty(value = "任务定义key")
-    private String taskDefKey;
 
 }

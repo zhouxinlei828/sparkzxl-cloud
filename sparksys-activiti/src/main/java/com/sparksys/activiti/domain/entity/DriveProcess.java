@@ -1,8 +1,6 @@
-package com.sparksys.activiti.infrastructure.entity.model;
+package com.sparksys.activiti.domain.entity;
 
 import lombok.Data;
-
-import java.util.Map;
 
 /**
  * description: 流程驱动model

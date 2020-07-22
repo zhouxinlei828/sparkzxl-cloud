@@ -1,6 +1,10 @@
 package com.sparksys.activiti.application.service.driver;
 
 import com.sparksys.activiti.interfaces.dto.DriveProcessDTO;
+import com.sparksys.activiti.interfaces.dto.process.ProcessNextTaskDTO;
+import com.sparksys.activiti.interfaces.dto.process.UserNextTask;
+
+import java.util.List;
 
 /**
  * description: 流程驱动 服务类
@@ -13,9 +17,17 @@ public interface IActivitiDriverService {
     /**
      * activiti流程驱动接口
      *
-     * @param userId
      * @param driveProcessDTO
-     * @return
+     * @return boolean
      */
-    boolean driveProcess(Long userId, DriveProcessDTO driveProcessDTO);
+    boolean driveProcess(DriveProcessDTO driveProcessDTO);
+
+    /**
+     * 获取下一步任务详情
+     *
+     * @param processNextTaskDTO 查询下一步入参
+     * @return List<UserNextTask>
+     */
+    List<UserNextTask> getNextUserTask(ProcessNextTaskDTO processNextTaskDTO);
+
 }
