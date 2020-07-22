@@ -55,4 +55,17 @@ public class ActivitiTestController {
         return processTaskService.getVariable(taskId, key);
     }
 
+    @ApiOperation(value = "根据流程实例id获取最新任务实例")
+    @GetMapping("getLatestTaskByProInstId")
+    public void getLatestTaskByProInstId(String processInstanceId) {
+        Task task = processTaskService.getLatestTaskByProInstId(processInstanceId);
+        log.info("task is {},{},{}", task.getId(), task.getName(), task.getAssignee());
+    }
+
+    @ApiOperation(value = "根据流程实例id获取任务实例")
+    @GetMapping("getTaskByProInstId")
+    public void getTaskByProInstId(String processInstanceId) {
+        List<Task> tasks = processTaskService.getTaskByProInstId(processInstanceId);
+        tasks.forEach(item-> log.info("task is {},{},{}", item.getId(), item.getName(), item.getAssignee()));
+    }
 }

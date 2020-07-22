@@ -77,7 +77,7 @@ public interface IProcessTaskService {
     /**
      * 根据流程实例id获取任务实例
      *
-     * @param processInstanceId
+     * @param processInstanceId 流程实例id
      * @return List<Task>
      */
     List<Task> getTaskByProInstId(String processInstanceId);
@@ -85,7 +85,7 @@ public interface IProcessTaskService {
     /**
      * 根据流程实例id获取最新任务实例
      *
-     * @param processInstanceId
+     * @param processInstanceId 流程实例id
      * @return Task
      */
     Task getLatestTaskByProInstId(String processInstanceId);
