@@ -1,12 +1,10 @@
 package com.sparksys.oauth.infrastructure.convert;
 
 import com.sparksys.core.entity.AuthUserInfo;
+import com.sparksys.oauth.domain.bo.AuthUserBO;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.entity.UserInfo;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserSaveDTO;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserStatusDTO;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserUpdateDTO;
+import com.sparksys.oauth.interfaces.dto.user.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -23,11 +21,13 @@ public interface AuthUserConvert {
 
     AuthUserConvert INSTANCE = Mappers.getMapper(AuthUserConvert.class);
 
-    AuthUser convertAuthUserDO(AuthUserSaveDTO authUserSaveDTO);
+    AuthUser convertAuthUser(AuthUserSaveDTO authUserSaveDTO);
 
-    AuthUser convertAuthUserDO(AuthUserUpdateDTO authUserUpdateDTO);
+    AuthUser convertAuthUser(AuthUserUpdateDTO authUserUpdateDTO);
 
-    AuthUser convertAuthUserDO(AuthUserStatusDTO authUserStatusDTO);
+    AuthUser convertAuthUser(AuthUserStatusDTO authUserStatusDTO);
+
+    AuthUserBO convertAuthUserBO(AuthUserPageDTO authUserPageDTO);
 
     AuthUserInfo convertAuthUserInfo(AuthUser authUser);
 

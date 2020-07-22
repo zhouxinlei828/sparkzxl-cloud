@@ -2,6 +2,7 @@ package com.sparksys.oauth.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sparksys.database.annonation.InjectionResult;
+import com.sparksys.oauth.domain.bo.AuthUserBO;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * description：用户仓储层实现类
@@ -39,11 +42,20 @@ public class AuthUserRepository implements IAuthUserRepository {
 
     @Override
     @InjectionResult
-    public List<AuthUser> listByName(String name) {
+    public List<AuthUser> findAuthUserList(AuthUserBO authUserBO) {
         QueryWrapper<AuthUser> userQueryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(name) && !"null".equalsIgnoreCase(name)) {
-            userQueryWrapper.likeRight("name", name);
-        }
+        Optional<String> accountOptional = Optional.ofNullable(authUserBO.getAccount());
+        Optional<String> nameOptional = Optional.ofNullable(authUserBO.getName());
+        Optional<String> emailOptional = Optional.ofNullable(authUserBO.getEmail());
+        Optional<String> mobileOptional = Optional.ofNullable(authUserBO.getMobile());
+        Optional<Integer> sexOptional = Optional.ofNullable(authUserBO.getSex());
+        Optional<Boolean> statusOptional = Optional.ofNullable(authUserBO.getStatus());
+        accountOptional.ifPresent((value) -> userQueryWrapper.eq("account", authUserBO.getAccount()));
+        nameOptional.ifPresent((value) -> userQueryWrapper.likeRight("name", authUserBO.getName()));
+        emailOptional.ifPresent((value) -> userQueryWrapper.eq("email", authUserBO.getEmail()));
+        mobileOptional.ifPresent((value) -> userQueryWrapper.eq("mobile", authUserBO.getMobile()));
+        sexOptional.ifPresent((value) -> userQueryWrapper.eq("sex", authUserBO.getSex()));
+        statusOptional.ifPresent((value) -> userQueryWrapper.eq("status", authUserBO.getStatus()));
         return authUserMapper.selectList(userQueryWrapper);
     }
 

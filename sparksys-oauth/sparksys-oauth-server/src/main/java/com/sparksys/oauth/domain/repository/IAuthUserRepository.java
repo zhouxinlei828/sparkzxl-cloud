@@ -1,5 +1,6 @@
 package com.sparksys.oauth.domain.repository;
 
+import com.sparksys.oauth.domain.bo.AuthUserBO;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 
 import java.util.List;
@@ -30,12 +31,12 @@ public interface IAuthUserRepository {
     AuthUser selectByAccount(String account);
 
     /**
-     * 根据姓名模糊分页查询用户信息
+     * 根据条件页查询用户信息
      *
-     * @param name 姓名
+     * @param authUserBO authUserBO对象
      * @return List<AuthUser>
      */
-    List<AuthUser> listByName(String name);
+    List<AuthUser> findAuthUserList(AuthUserBO authUserBO);
 
     /**
      * 密码输错自增
