@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -38,9 +39,9 @@ public class ProcessDetailController {
         this.processDetailService = processDetailService;
     }
 
-    @GetMapping("/processDetail")
+    @GetMapping("/processDetail/{modelId}")
     @ApiOperation("查询流程节点信息")
-    public List<ProcessDetailDTO> getProcessDetail(@ApiParam("模型id") String modelId) {
+    public List<ProcessDetailDTO> getProcessDetail(@ApiParam("模型id") @PathVariable("modelId") String modelId) {
         return processDetailService.getProcessDetail(modelId);
     }
 

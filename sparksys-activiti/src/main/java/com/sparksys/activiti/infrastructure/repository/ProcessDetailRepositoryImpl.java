@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * description:流程详细节点 仓储实现类
@@ -23,9 +24,11 @@ public class ProcessDetailRepositoryImpl implements IProcessDetailRepository {
 
     @Override
     public List<ProcessDetail> getProcessDetailList(String processName) {
-        return processDetailMapper.selectList(new QueryWrapper<ProcessDetail>().lambda()
-                .likeRight(ProcessDetail::getProcessName, processName)
-                .groupBy(ProcessDetail::getModelId));
+        QueryWrapper<ProcessDetail> detailQueryWrapper = new QueryWrapper<>();
+        Optional<String> processNameOptional = Optional.ofNullable(processName);
+        processNameOptional.ifPresent((value) -> detailQueryWrapper.eq("process_name", processName));
+        detailQueryWrapper.groupBy("model_id");
+        return processDetailMapper.selectList(detailQueryWrapper);
     }
 
     @Override
