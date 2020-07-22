@@ -34,7 +34,6 @@ public class ProcessDetailController {
 
     private final IProcessDetailService processDetailService;
 
-
     public ProcessDetailController(IProcessDetailService processDetailService) {
         this.processDetailService = processDetailService;
     }
