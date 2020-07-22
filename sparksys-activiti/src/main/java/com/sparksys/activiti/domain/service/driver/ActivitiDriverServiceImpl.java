@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.sparksys.activiti.application.service.driver.IActivitiDriverService;
 import com.sparksys.activiti.application.service.process.IProcessRepositoryService;
 import com.sparksys.activiti.domain.entity.DriveProcess;
-import com.sparksys.activiti.infrastructure.convert.UserTaskConvert;
 import com.sparksys.activiti.infrastructure.strategy.AbstractActivitiSolver;
 import com.sparksys.activiti.infrastructure.strategy.ActivitiSolverChooser;
 import com.sparksys.activiti.infrastructure.utils.ActivitiUtils;
@@ -12,6 +11,7 @@ import com.sparksys.activiti.interfaces.dto.DriveProcessDTO;
 import com.sparksys.activiti.interfaces.dto.process.ProcessNextTaskDTO;
 import com.sparksys.activiti.interfaces.dto.process.UserNextTask;
 import com.sparksys.core.utils.ListUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * description: 流程驱动 服务 实现类
@@ -32,6 +31,7 @@ import java.util.stream.Collectors;
  * @date: 2020-07-17 16:27:58
  */
 @Service
+@Slf4j
 @Transactional(transactionManager = "transactionManager", rollbackFor = Exception.class)
 public class ActivitiDriverServiceImpl implements IActivitiDriverService {
 
@@ -63,9 +63,20 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
         //获取当前节点信息
         FlowElement flowElement = ActivitiUtils.getFlowElementById(processNextTaskDTO.getTaskDefKey(), flowElements);
         ActivitiUtils.getNextNode(flowElements, flowElement, processNextTaskDTO.getVariables(), userTasks);
+        log.info("userTasks = {}", userTasks);
         List<UserNextTask> userNextTasks = Lists.newArrayList();
         if (ListUtils.isNotEmpty(userTasks)) {
-            userNextTasks = userTasks.stream().map(UserTaskConvert.INSTANCE::convertUserNextTask).collect(Collectors.toList());
+            userTasks.forEach(item -> userNextTasks.add(UserNextTask.builder()
+                    .assignee(item.getAssignee())
+                    .owner(item.getOwner())
+                    .priority(item.getPriority())
+                    .dueDate(item.getDueDate())
+                    .businessCalendarName(item.getBusinessCalendarName())
+                    .candidateUsers(item.getCandidateUsers())
+                    .candidateGroups(item.getCandidateGroups())
+                    .taskName(item.getName())
+                    .taskDefKey(item.getId())
+                    .build()));
         }
         return userNextTasks;
     }
