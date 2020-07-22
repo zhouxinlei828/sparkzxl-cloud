@@ -52,7 +52,7 @@ public class MybatisPlusGenerator {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         /*gc.setOutputDir(projectPath + "/sparksys-business/sparksys-problem/src/main/java");*/
-        gc.setOutputDir(projectPath + "/sparksys-oauth/sparksys-oauth-server/src/main/java");
+        gc.setOutputDir(projectPath + "/sparksys-activiti/src/main/java");
         gc.setFileOverride(true);
         gc.setSwagger2(true);
         gc.setDateType(DateType.TIME_PACK);
@@ -66,7 +66,7 @@ public class MybatisPlusGenerator {
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl("jdbc:mysql://rm-bp1cp68o8t1gq604p5o.mysql.rds.aliyuncs" +
-                ".com/sparksys_authorization?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8");
+                ".com/activiti?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("zhouxinlei");
         dsc.setPassword("zxl298828");
@@ -74,7 +74,7 @@ public class MybatisPlusGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.sparksys.oauth");
+        pc.setParent("com.sparksys.activiti");
         pc.setController("interfaces.controller");
         pc.setService("application.service");
         pc.setServiceImpl("domain.service");

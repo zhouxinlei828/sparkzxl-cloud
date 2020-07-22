@@ -1,14 +1,18 @@
-package com.sparksys.activiti.domain.repository;
+package com.sparksys.activiti.application.service.process;
 
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskRule;
+import com.sparksys.database.service.SuperCacheService;
+
+import java.util.List;
 
 /**
- * description: 流程控制规则 仓储类
+ * description: 流程跳转控制 服务类
  *
  * @author: zhouxinlei
- * @date: 2020-07-20 18:19:15
+ * @date: 2020-07-17 13:20:37
  */
-public interface IActRuTaskRuleRepository {
+public interface IProcessTaskRuleService extends SuperCacheService<ProcessTaskRule> {
+
 
     /**
      * 查询任务流程控制规则

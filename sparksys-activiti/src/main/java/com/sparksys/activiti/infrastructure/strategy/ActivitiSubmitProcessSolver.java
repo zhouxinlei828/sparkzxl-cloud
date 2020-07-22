@@ -35,7 +35,6 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
         String userId = driveProcess.getUserId();
         int actType = driveProcess.getActType();
         Map<String, Object> variables = new HashMap<>();
-
         if (StringUtils.isNotEmpty(applyUserId)) {
             variables.put("applyUserId", applyUserId);
         }

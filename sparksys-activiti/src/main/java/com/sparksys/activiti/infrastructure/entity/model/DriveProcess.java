@@ -14,9 +14,9 @@ import java.util.Map;
 public class DriveProcess {
 
     /**
-     * 流程图id
+     * 流程定义key
      */
-    private String bpmnId;
+    private String processDefinitionKey;
 
     /**
      * 业务主键

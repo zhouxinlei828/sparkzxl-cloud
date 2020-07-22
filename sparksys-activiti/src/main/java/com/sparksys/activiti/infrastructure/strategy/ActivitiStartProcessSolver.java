@@ -40,7 +40,7 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
         variables.put("applyUserId", userId);
         variables.put("actType", driveProcess.getActType());
         identityService.setAuthenticatedUserId(String.valueOf(userId));
-        ProcessInstance processInstance = processRuntimeService.startProcessInstanceByKey(driveProcess.getBpmnId(),
+        ProcessInstance processInstance = processRuntimeService.startProcessInstanceByKey(driveProcess.getProcessDefinitionKey(),
                 driveProcess.getBusinessId(),
                 variables);
         String processInstanceId = processInstance.getProcessInstanceId();

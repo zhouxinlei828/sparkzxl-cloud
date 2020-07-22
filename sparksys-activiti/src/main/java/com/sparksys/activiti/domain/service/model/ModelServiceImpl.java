@@ -1,8 +1,13 @@
 package com.sparksys.activiti.domain.service.model;
 
+import cn.hutool.json.JSONUtil;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.sparksys.activiti.application.service.process.IProcessDetailService;
 import com.sparksys.activiti.application.service.model.IModelService;
+import com.sparksys.activiti.infrastructure.entity.ProcessDetail;
 import com.sparksys.core.support.SparkSysExceptionAssert;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.editor.constants.ModelDataJsonConstants;
@@ -12,17 +17,22 @@ import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
+@Transactional(transactionManager = "transactionManager", rollbackFor = Exception.class)
 public class ModelServiceImpl implements IModelService {
 
     @Autowired
@@ -30,6 +40,9 @@ public class ModelServiceImpl implements IModelService {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private IProcessDetailService processDetailService;
 
     @Override
     public ObjectNode getEditorJson(String modelId) {
@@ -65,8 +78,8 @@ public class ModelServiceImpl implements IModelService {
             model.setMetaInfo(modelJson.toString());
             model.setName(name);
             repositoryService.saveModel(model);
-            repositoryService.addModelEditorSource(model.getId(), json_xml.getBytes("utf-8"));
-            InputStream svgStream = new ByteArrayInputStream(svg_xml.getBytes("utf-8"));
+            repositoryService.addModelEditorSource(model.getId(), json_xml.getBytes(StandardCharsets.UTF_8));
+            InputStream svgStream = new ByteArrayInputStream(svg_xml.getBytes(StandardCharsets.UTF_8));
             TranscoderInput input = new TranscoderInput(svgStream);
             PNGTranscoder transcoder = new PNGTranscoder();
             // Setup output
@@ -76,6 +89,32 @@ public class ModelServiceImpl implements IModelService {
             transcoder.transcode(input, output);
             final byte[] result = outStream.toByteArray();
             repositoryService.addModelEditorSourceExtra(model.getId(), result);
+            JsonNode jsonNode = objectMapper.readTree(json_xml);
+
+            JSONUtil.parse(json_xml);
+            ArrayNode jsonNodes = jsonNode.withArray("childShapes");
+            JsonNode propertiesNode = jsonNode.get("properties");
+            String processId = propertiesNode.get("process_id").asText();
+            List<ProcessDetail> processDetails = new ArrayList<>();
+            if (ObjectUtils.isNotEmpty(jsonNodes)) {
+                for (JsonNode node : jsonNodes) {
+                    JsonNode stencilNode = node.get("stencil");
+                    if ("SequenceFlow".equals(stencilNode.get("id").asText())) {
+                        continue;
+                    }
+                    JsonNode properties = node.get("properties");
+                    log.info("childShapes->propertie：{}", JSONUtil.toJsonPrettyStr(properties));
+                    String overrideId = properties.get("overrideid").asText();
+                    System.out.println("overrideId:" + overrideId);
+                    ProcessDetail processDetail = new ProcessDetail();
+                    processDetail.setModelId(modelId);
+                    processDetail.setProcessId(processId);
+                    processDetail.setProcessName(name);
+                    processDetail.setTaskDefKey(overrideId);
+                    processDetails.add(processDetail);
+                }
+                processDetailService.saveBatch(processDetails);
+            }
             outStream.close();
         } catch (Exception e) {
             log.error("Error saving model", e);

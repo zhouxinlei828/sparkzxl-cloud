@@ -21,8 +21,8 @@ import java.util.Map;
 public class DriveProcessDTO {
 
 
-    @ApiModelProperty(value = "流程图id", required = true)
-    private String bpmnId;
+    @ApiModelProperty(value = "流程定义key", required = true)
+    private String processDefinitionKey;
 
     @ApiModelProperty(value = "流程变量")
     Map<String, Object> variables;
@@ -30,9 +30,20 @@ public class DriveProcessDTO {
     @ApiModelProperty(value = "业务主键")
     protected String businessId;
 
-    @ApiModelProperty(value = "流程走向条件")
+    @ApiModelProperty(value = "流程动作类型")
     private int actType;
 
+    @ApiModelProperty(value = "审核审批内容")
     private String comment;
+
+    @ApiModelProperty(value = "任务处理人")
+    private String applyUserId;
+
+    @ApiModelProperty(value = "用户id")
+    private String userId;
+
+    @ApiModelProperty(value = "任务id")
+    private String taskId;
+
 
 }

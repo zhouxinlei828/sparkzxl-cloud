@@ -16,6 +16,7 @@ import org.activiti.engine.repository.Model;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
 
@@ -27,6 +28,7 @@ import java.nio.charset.StandardCharsets;
  */
 @Service
 @Slf4j
+@Transactional(transactionManager = "transactionManager", rollbackFor = Exception.class)
 public class ModelerServiceImpl implements IModelerService {
 
     @Autowired

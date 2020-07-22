@@ -16,14 +16,6 @@ server:
 spring:
   application:
     name: sparksys-activiti
-  messages:
-    encoding: UTF-8
-  thymeleaf:
-    mode: LEGACYHTML5
-    encoding: UTF-8
-    servlet:
-      content-type: text/html
-    cache: false
   # 数据库配置
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
@@ -38,12 +30,6 @@ spring:
     #activiti7 添加这个配置，才会生成25张表，否则只有17张
     #activiti6可以不添加，但是第一次启动只有16张表，启动两次才有26张表
     #db-history-used: true
-  #freemarker模板配置
-  freemarker:
-    #内容类别,可不用配置
-    content-type: text/html
-    #开发配置为false,避免修改模板还要重启服务器
-    cache: false
   redis:
     host: 47.114.40.129
     port: 6379
@@ -67,9 +53,6 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-# 启动工程部署流程标识
-process:
-  deploy: false
 logging:
   level:
     com.sparksys.activiti.infrastructure.mapper: debug

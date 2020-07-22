@@ -99,6 +99,15 @@ public interface IProcessTaskService {
     List<Task> getTasksByUserId(String taskAssignee);
 
     /**
+     * 读取直接分配给当前人的任务
+     *
+     * @param taskAssignee 用户id
+     * @param businessKey  业务主键
+     * @return Task
+     */
+    Task getTasksByAssigneeAndBusKey(String taskAssignee, String businessKey);
+
+    /**
      * 获取用户任务数量
      *
      * @param taskAssignee 用户id

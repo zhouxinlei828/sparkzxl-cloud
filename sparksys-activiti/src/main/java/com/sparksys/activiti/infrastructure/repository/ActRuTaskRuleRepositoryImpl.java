@@ -2,8 +2,8 @@ package com.sparksys.activiti.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sparksys.activiti.domain.repository.IActRuTaskRuleRepository;
-import com.sparksys.activiti.infrastructure.entity.ActRuTaskRule;
-import com.sparksys.activiti.infrastructure.mapper.ActRuTaskRuleMapper;
+import com.sparksys.activiti.infrastructure.entity.ProcessTaskRule;
+import com.sparksys.activiti.infrastructure.mapper.ProcessTaskRuleMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,14 +11,14 @@ import java.util.List;
 @Repository
 public class ActRuTaskRuleRepositoryImpl implements IActRuTaskRuleRepository {
 
-    private final ActRuTaskRuleMapper actRuTaskRuleMapper;
+    private final ProcessTaskRuleMapper actRuTaskRuleMapper;
 
-    public ActRuTaskRuleRepositoryImpl(ActRuTaskRuleMapper actRuTaskRuleMapper) {
+    public ActRuTaskRuleRepositoryImpl(ProcessTaskRuleMapper actRuTaskRuleMapper) {
         this.actRuTaskRuleMapper = actRuTaskRuleMapper;
     }
 
     @Override
-    public List<ActRuTaskRule> findActRuTaskRuleByTaskId(String taskId) {
-        return actRuTaskRuleMapper.selectList(new QueryWrapper<ActRuTaskRule>().lambda().eq(ActRuTaskRule::getTaskId,taskId));
+    public ProcessTaskRule findActRuTaskRule(String processDefinitionKey, String sourceTaskDefKey, Integer actType) {
+        return actRuTaskRuleMapper.findActRuTaskRule(processDefinitionKey, sourceTaskDefKey, actType);
     }
 }

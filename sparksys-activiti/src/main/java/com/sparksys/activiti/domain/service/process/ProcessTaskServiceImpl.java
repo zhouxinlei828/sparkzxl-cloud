@@ -80,6 +80,11 @@ public class ProcessTaskServiceImpl implements IProcessTaskService {
     }
 
     @Override
+    public Task getTasksByAssigneeAndBusKey(String taskAssignee, String businessKey) {
+        return taskService.createTaskQuery().taskAssignee(taskAssignee).processInstanceBusinessKey(businessKey).singleResult();
+    }
+
+    @Override
     public long getTaskCount(String taskAssignee) {
         return taskService.createTaskQuery().taskAssignee(taskAssignee).count();
     }

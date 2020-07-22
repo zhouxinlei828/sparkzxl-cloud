@@ -40,10 +40,8 @@ public class ActivitiConfig extends AbstractProcessEngineAutoConfiguration {
         SpringProcessEngineConfiguration springProcessEngineConfiguration = this
                 .baseSpringProcessEngineConfiguration(dataSource, transactionManager,
                         springAsyncExecutor);
-
         //close job executor
         springProcessEngineConfiguration.setAsyncExecutorActivate(false);
-
         //自定义流程图样式
         springProcessEngineConfiguration.setProcessDiagramGenerator(customProcessDiagramGenerator);
         return springProcessEngineConfiguration;

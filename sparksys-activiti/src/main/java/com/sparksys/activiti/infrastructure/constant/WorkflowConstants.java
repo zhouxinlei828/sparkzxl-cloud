@@ -7,11 +7,6 @@ import java.awt.*;
  */
 public final class WorkflowConstants {
 
-    // 默认流程信息
-    public static final String DEFAULT_DS_PROCESS = "processes/Default_Dataset_Process.bpmn";
-    public static final String DEFAULT_DS_PROCESS_NAME = "Default Dataset Process";
-    public static final String DEFAULT_DS_PROCESS_KEY = "Default_Dataset_Process_Key";
-
     /**
      * 审批结果_流程变量名
      */
