@@ -2,10 +2,6 @@ package com.sparksys.activiti.interfaces.dto.process;
 
 import lombok.Builder;
 import lombok.Data;
-import org.activiti.bpmn.model.ActivitiListener;
-import org.activiti.bpmn.model.CustomProperty;
-import org.activiti.bpmn.model.FormProperty;
-
 import java.util.*;
 
 /**
