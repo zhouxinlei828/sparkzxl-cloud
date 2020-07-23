@@ -24,4 +24,5 @@ spring:
         refresh-enabled: true
 logging:
   file:
-    path: /Users/zhouxinlei/logs
+    # path: /Users/zhouxinlei/logs
+    path: C:\logs

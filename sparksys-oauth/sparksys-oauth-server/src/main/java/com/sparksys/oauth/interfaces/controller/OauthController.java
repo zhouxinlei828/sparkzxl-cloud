@@ -58,7 +58,7 @@ public class OauthController {
 
     @PostMapping("/token")
     @Trace(operationName = "oauth_post_token_trace")
-    public OAuth2AccessToken postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+    public OAuth2AccessToken postAccessToken(Principal principal, @RequestBody Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         ActiveSpan.tag("postAccessToken", "post授权登录");
         return oauthService.postAccessToken(principal, parameters);
     }
