@@ -11,4 +11,11 @@ import com.sparksys.database.service.SuperCacheService;
  */
 public interface IProcessTaskStatusService extends SuperCacheService<ProcessTaskStatus> {
 
+    /**
+     * 获取流程状态
+     *
+     * @param processInstanceId 流程实例id
+     * @return ProcessTaskStatus
+     */
+    ProcessTaskStatus getProcessTaskStatus(String processInstanceId);
 }

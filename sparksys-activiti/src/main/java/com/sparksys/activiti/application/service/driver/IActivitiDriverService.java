@@ -1,6 +1,6 @@
 package com.sparksys.activiti.application.service.driver;
 
-import com.sparksys.activiti.interfaces.dto.DriveProcessDTO;
+import com.sparksys.activiti.interfaces.dto.driver.DriveProcessDTO;
 import com.sparksys.activiti.interfaces.dto.process.ProcessNextTaskDTO;
 import com.sparksys.activiti.interfaces.dto.process.UserNextTask;
 

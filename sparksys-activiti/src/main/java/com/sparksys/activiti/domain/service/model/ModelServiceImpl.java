@@ -1,6 +1,8 @@
 package com.sparksys.activiti.domain.service.model;
 
 import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -79,6 +81,7 @@ public class ModelServiceImpl implements IModelService {
             model.setMetaInfo(modelJson.toString());
             model.setName(name);
             repositoryService.saveModel(model);
+            saveProcessDetail(modelId, name, json_xml);
             repositoryService.addModelEditorSource(model.getId(), json_xml.getBytes(StandardCharsets.UTF_8));
             InputStream svgStream = new ByteArrayInputStream(svg_xml.getBytes(StandardCharsets.UTF_8));
             TranscoderInput input = new TranscoderInput(svgStream);
@@ -90,40 +93,6 @@ public class ModelServiceImpl implements IModelService {
             transcoder.transcode(input, output);
             final byte[] result = outStream.toByteArray();
             repositoryService.addModelEditorSourceExtra(model.getId(), result);
-            JsonNode jsonNode = objectMapper.readTree(json_xml);
-
-            JSONUtil.parse(json_xml);
-            ArrayNode jsonNodes = jsonNode.withArray("childShapes");
-            JsonNode propertiesNode = jsonNode.get("properties");
-            String processId = propertiesNode.get("process_id").asText();
-            List<ProcessDetail> processDetails = new ArrayList<>();
-            if (ObjectUtils.isNotEmpty(jsonNodes)) {
-                processDetailService.remove(new QueryWrapper<ProcessDetail>().lambda().eq(ProcessDetail::getModelId, modelId));
-                for (JsonNode node : jsonNodes) {
-                    JsonNode stencilNode = node.get("stencil");
-                    if ("StartNoneEvent".equals(stencilNode.get("id").asText())) {
-                        continue;
-                    }
-                    if ("EndNoneEvent".equals(stencilNode.get("id").asText())) {
-                        continue;
-                    }
-                    if ("SequenceFlow".equals(stencilNode.get("id").asText())) {
-                        continue;
-                    }
-                    JsonNode properties = node.get("properties");
-                    String overrideId = properties.get("overrideid").asText();
-                    String taskName = properties.get("name").asText();
-                    System.out.println("overrideId:" + overrideId);
-                    ProcessDetail processDetail = new ProcessDetail();
-                    processDetail.setModelId(modelId);
-                    processDetail.setProcessId(processId);
-                    processDetail.setProcessName(name);
-                    processDetail.setTaskDefKey(overrideId);
-                    processDetail.setTaskName(taskName);
-                    processDetails.add(processDetail);
-                }
-                processDetailService.saveBatch(processDetails);
-            }
             outStream.close();
         } catch (Exception e) {
             log.error("Error saving model", e);
@@ -131,6 +100,47 @@ public class ModelServiceImpl implements IModelService {
         }
         return true;
     }
+
+    private void saveProcessDetail(String modelId, String name, String json_xml) {
+        JSONObject jsonObject = JSONObject.parseObject(json_xml);
+        JSONArray jsonNodes = jsonObject.getJSONArray("childShapes");
+        JSONObject propertiesNode = jsonObject.getJSONObject("properties");
+        String processId = propertiesNode.getString("process_id");
+        List<ProcessDetail> processDetails = new ArrayList<>();
+        if (ObjectUtils.isNotEmpty(jsonNodes)) {
+            processDetailService.remove(new QueryWrapper<ProcessDetail>().lambda().eq(ProcessDetail::getModelId, modelId));
+            for (Object object : jsonNodes) {
+                JSONObject jsonNode = (JSONObject) object;
+                JSONObject stencilNode = jsonNode.getJSONObject("stencil");
+                String type = stencilNode.getString("id");
+                if ("SequenceFlow".equals(type)) {
+                    continue;
+                }
+                JSONObject properties = jsonNode.getJSONObject("properties");
+                String overrideId = properties.getString("overrideid");
+                String taskName = properties.getString("name");
+                System.out.println("overrideId:" + overrideId);
+                if ("StartNoneEvent".equals(type)) {
+                    overrideId = "startEvent";
+                    taskName = "开始";
+                }
+                if ("EndNoneEvent".equals(type)) {
+                    overrideId = "endEvent";
+                    taskName = "结束";
+                }
+                ProcessDetail processDetail = new ProcessDetail();
+                processDetail.setModelId(modelId);
+                processDetail.setProcessId(processId);
+                processDetail.setProcessName(name);
+                processDetail.setTaskDefKey(overrideId);
+                processDetail.setTaskName(taskName);
+                processDetail.setType(type);
+                processDetails.add(processDetail);
+            }
+            processDetailService.saveBatch(processDetails);
+        }
+    }
+
 
     @Override
     public String getProcessJson() {

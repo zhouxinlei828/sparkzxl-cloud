@@ -1,6 +1,8 @@
 package com.sparksys.activiti.interfaces.controller.process;
 
 import com.sparksys.activiti.application.service.process.IProcessHistoryService;
+import com.sparksys.activiti.infrastructure.entity.ProcessHistory;
+import com.sparksys.activiti.interfaces.dto.process.ProcessHistoryDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -19,7 +21,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/process/history")
+@RequestMapping("/process")
 @Api(tags = "历史流程管理")
 public class ProcessHistoryController {
 
@@ -30,15 +32,15 @@ public class ProcessHistoryController {
     }
 
     @ApiOperation("获取流程图并显示")
-    @GetMapping("/getProcessImg/{processInstanceId}")
-    public void getProcessImg(@ApiParam("流程定义id") @PathVariable String processInstanceId, HttpServletResponse response) {
+    @GetMapping("/history/processImg/{processInstanceId}")
+    public void getProcessImg(@ApiParam("流程实例id") @PathVariable String processInstanceId, HttpServletResponse response) {
         processHistoryService.getProcessImage(processInstanceId, response);
     }
 
-    @ApiOperation("获取流程执行历史")
-    @GetMapping("/getProcessHistory/{processInstanceId}")
-    public List<HistoricActivityInstance> getProcessHistoricActivityInstance(@ApiParam("流程定义id") @PathVariable String processInstanceId) {
-        return processHistoryService.getHistoricActivityInstance(processInstanceId);
+    @ApiOperation("获取流程历史")
+    @GetMapping("/histories/{processInstanceId}")
+    public List<ProcessHistory> getProcessHistory(@ApiParam("流程实例id") @PathVariable String processInstanceId) {
+        return processHistoryService.getProcessHistory(processInstanceId);
     }
 
 }

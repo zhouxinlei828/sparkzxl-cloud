@@ -3,14 +3,12 @@ package com.sparksys.activiti.infrastructure.constant;
 import java.awt.*;
 
 /**
- * 流程常量
+ * description: 流程常量
+ *
+ * @author: zhouxinlei
+ * @date: 2020-07-23 13:25:17
  */
 public final class WorkflowConstants {
-
-    /**
-     * 审批结果_流程变量名
-     */
-    public static final String APPROVAL_RESULT_VARIABLE_NAME = "approval_result";
 
     /**
      * 流程图颜色定义
@@ -36,27 +34,28 @@ public final class WorkflowConstants {
          * 提交
          */
         public static final int SUBMIT = 1;
-
         /**
-         * 驳回
+         * 同意
          */
-        public static final int ROLLBACK = -1;
+        public static final int AGREE = 2;
         /**
-         * 分发
+         * 跳转
          */
-        public static final int JUMP = 2;
-        /**
-         * 退回分发
-         */
-        public static final int CANCEL_CLAIM = -2;
+        public static final int JUMP = 3;
         /**
          * 流程挂起
          */
         public static final int SUSPEND = 3;
+
         /**
-         * 直接提交至被分发者
+         * 流程结束
          */
-        public static final int ROUND_CLAIM = 4;
+        public static final int END = 4;
+        /**
+         * 驳回
+         */
+        public static final int ROLLBACK = -1;
     }
+
 
 }

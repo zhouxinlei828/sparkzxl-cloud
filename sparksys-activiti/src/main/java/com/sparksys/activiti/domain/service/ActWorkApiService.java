@@ -1,11 +1,17 @@
 package com.sparksys.activiti.domain.service;
 
+import com.sparksys.activiti.application.service.process.IActHiTaskStatusService;
+import com.sparksys.activiti.application.service.process.IProcessRuntimeService;
 import com.sparksys.activiti.application.service.process.IProcessTaskStatusService;
 import com.sparksys.activiti.application.service.process.IProcessTaskService;
+import com.sparksys.activiti.infrastructure.entity.ActHiTaskStatus;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskStatus;
+import com.sparksys.activiti.infrastructure.enums.ProcessStatusEnum;
+import com.sparksys.activiti.infrastructure.enums.TaskStatusEnum;
 import com.sparksys.core.support.ResponseResultStatus;
 import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.task.Task;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,48 +30,80 @@ public class ActWorkApiService {
     @Autowired
     private IProcessTaskService processTaskService;
     @Autowired
-    private IProcessTaskStatusService actHiTaskStatusService;
+    private IProcessRuntimeService processRuntimeService;
+    @Autowired
+    private IProcessTaskStatusService processTaskStatusService;
+    @Autowired
+    private IActHiTaskStatusService actHiTaskStatusService;
 
     public boolean promoteProcess(String userId, String processInstanceId, int actType, String message,
                                   Map<String, Object> variables) {
         Task task = processTaskService.getLatestTaskByProInstId(processInstanceId);
         String taskId = task.getId();
+        String taskDefinitionKey = task.getTaskDefinitionKey();
         ResponseResultStatus.FAILURE.assertNotNull(task);
+        Object assignee = variables.get("assignee");
         //添加审核人
-        Authentication.setAuthenticatedUserId(String.valueOf(userId));
+        Authentication.setAuthenticatedUserId(String.valueOf(assignee));
         if (StringUtils.isNotEmpty(message)) {
             processTaskService.addComment(taskId, processInstanceId, message);
         }
-        processTaskService.claimTask(taskId, String.valueOf(userId));
+        processTaskService.claimTask(taskId, String.valueOf(assignee));
         processTaskService.completeTask(taskId, variables);
-        String taskDefinitionKey = task.getTaskDefinitionKey();
-        return saveProcessTaskStatus(userId, processInstanceId, actType, taskDefinitionKey);
+        String processStatus;
+        if (processRuntimeService.processIsEnd(processInstanceId)) {
+            processStatus = ProcessStatusEnum.END.getDesc();
+        } else {
+            processStatus = ProcessStatusEnum.SUBMIT.getDesc();
+        }
+        saveProcessTaskStatus(userId, processInstanceId, processStatus);
+        saveActHiTaskStatus(userId, processInstanceId, taskId, taskDefinitionKey, TaskStatusEnum.getValue(actType));
+        return true;
     }
 
+
+    /**
+     * 保存任务历史记录
+     *
+     * @param userId            用户id
+     * @param processInstanceId 流程实例id
+     * @param taskId            任务id
+     * @param taskDefinitionKey 任务定义key
+     * @param taskStatus        任务状态
+     */
+    public void saveActHiTaskStatus(String userId, String processInstanceId, String taskId, String taskDefinitionKey, String taskStatus) {
+        ActHiTaskStatus actHiTaskStatus = new ActHiTaskStatus();
+        actHiTaskStatus.setProcessInstanceId(processInstanceId);
+        actHiTaskStatus.setTaskId(taskId);
+        actHiTaskStatus.setTaskDefKey(taskDefinitionKey);
+        actHiTaskStatus.setCreateUser(Long.valueOf(userId));
+        actHiTaskStatus.setUpdateUser(Long.valueOf(userId));
+        actHiTaskStatus.setTaskStatus(taskStatus);
+        actHiTaskStatusService.save(actHiTaskStatus);
+    }
 
     /**
      * 记录当前任务流程状态
      *
      * @param userId            用户id
      * @param processInstanceId 流程实例id
-     * @param actType           流程动作类型
-     * @param taskDefinitionKey 任务定义key
-     * @return boolean
+     * @param processStatus     流程状态
      */
-    public boolean saveProcessTaskStatus(String userId, String processInstanceId, int actType, String taskDefinitionKey) {
-        Task task = processTaskService.getLatestTaskByProInstId(processInstanceId);
-        String taskId = task.getId();
-        ResponseResultStatus.FAILURE.assertNotNull(task);
+    public void saveProcessTaskStatus(String userId, String processInstanceId, String processStatus) {
+
+        ProcessTaskStatus actHiTaskStatus = processTaskStatusService.getProcessTaskStatus(processInstanceId);
         //记录当前任务流程状态
-        ProcessTaskStatus actHiTaskStatus = new ProcessTaskStatus();
-        actHiTaskStatus.setProcessInstanceId(processInstanceId);
-        actHiTaskStatus.setTaskId(taskId);
-        actHiTaskStatus.setProcessStatus(actType);
-        actHiTaskStatus.setCreateUser(Long.valueOf(userId));
-        actHiTaskStatus.setUpdateUser(Long.valueOf(userId));
-        actHiTaskStatus.setTaskDefKey(taskDefinitionKey);
-        actHiTaskStatusService.save(actHiTaskStatus);
-        return true;
+        if (ObjectUtils.isNotEmpty(actHiTaskStatus)) {
+            actHiTaskStatus.setProcessStatus(processStatus);
+            actHiTaskStatus.setUpdateUser(Long.valueOf(userId));
+        } else {
+            actHiTaskStatus = new ProcessTaskStatus();
+            actHiTaskStatus.setProcessInstanceId(processInstanceId);
+            actHiTaskStatus.setProcessStatus(processStatus);
+            actHiTaskStatus.setCreateUser(Long.valueOf(userId));
+            actHiTaskStatus.setUpdateUser(Long.valueOf(userId));
+        }
+        processTaskStatusService.saveOrUpdate(actHiTaskStatus);
     }
 
 }

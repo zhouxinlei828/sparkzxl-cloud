@@ -1,4 +1,4 @@
-package com.sparksys.activiti.interfaces.dto;
+package com.sparksys.activiti.interfaces.dto.driver;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

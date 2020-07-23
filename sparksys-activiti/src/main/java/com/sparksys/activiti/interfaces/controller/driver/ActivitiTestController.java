@@ -1,4 +1,4 @@
-package com.sparksys.activiti.interfaces.controller.act;
+package com.sparksys.activiti.interfaces.controller.driver;
 
 import cn.hutool.json.JSONUtil;
 import com.sparksys.activiti.application.service.process.IProcessRepositoryService;
@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,6 +67,15 @@ public class ActivitiTestController {
     @GetMapping("getTaskByProInstId")
     public void getTaskByProInstId(String processInstanceId) {
         List<Task> tasks = processTaskService.getTaskByProInstId(processInstanceId);
-        tasks.forEach(item-> log.info("task is {},{},{}", item.getId(), item.getName(), item.getAssignee()));
+        tasks.forEach(item -> log.info("task is {},{},{}", item.getId(), item.getName(), item.getAssignee()));
     }
+
+    @ApiOperation(value = "根据流程实例id获取评论信息")
+    @GetMapping("getComments")
+    public void getComments(String processInstanceId) {
+        List<Comment> commentList = processTaskService.getComments(processInstanceId);
+        commentList.forEach(item -> log.info("Comment is {}", item.getFullMessage()));
+    }
+
+
 }

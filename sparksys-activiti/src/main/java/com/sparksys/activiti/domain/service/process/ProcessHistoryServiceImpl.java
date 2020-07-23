@@ -1,10 +1,12 @@
 package com.sparksys.activiti.domain.service.process;
 
-import com.sparksys.activiti.application.service.process.IProcessHistoryService;
-import com.sparksys.activiti.application.service.process.IProcessRepositoryService;
-import com.sparksys.activiti.application.service.process.IProcessRuntimeService;
+import com.google.common.collect.Lists;
+import com.sparksys.activiti.application.service.process.*;
 import com.sparksys.activiti.infrastructure.constant.WorkflowConstants;
 import com.sparksys.activiti.infrastructure.diagram.CustomProcessDiagramGeneratorImpl;
+import com.sparksys.activiti.infrastructure.entity.ActHiTaskStatus;
+import com.sparksys.activiti.infrastructure.entity.ProcessHistory;
+import com.sparksys.activiti.infrastructure.enums.TaskStatusEnum;
 import com.sparksys.activiti.infrastructure.utils.CloseableUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.BpmnModel;
@@ -14,7 +16,7 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
-import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
+import org.activiti.engine.runtime.Execution;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -49,15 +52,16 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
     @Autowired
     private IProcessRuntimeService processRuntimeService;
 
+    @Autowired
+    private IActHiTaskStatusService actHiTaskStatusService;
 
     @Autowired
     private CustomProcessDiagramGeneratorImpl processDiagramGenerator;
 
     @Override
     public HistoricProcessInstance getHistoricProcessInstance(String processInstanceId) {
-        HistoricProcessInstance historicProcessInstance = historyService.createHistoricProcessInstanceQuery()
+        return historyService.createHistoricProcessInstanceQuery()
                 .processInstanceId(processInstanceId).singleResult();
-        return historicProcessInstance;
     }
 
     @Override
@@ -66,6 +70,55 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
     }
 
     @Override
+    public List<HistoricTaskInstance> getHistoricTasksByProcessInstanceId(String processInstanceId) {
+        return historyService.createHistoricTaskInstanceQuery().processInstanceId(processInstanceId).orderByTaskId().list();
+    }
+
+    @Override
+    public List<ProcessHistory> getProcessHistory(String processInstanceId) {
+        List<ActHiTaskStatus> actHiTaskStatusList = actHiTaskStatusService.getProcessHistory(processInstanceId);
+        List<HistoricActivityInstance> historicActivityInstances = getHistoricActivityInstance(processInstanceId);
+        List<HistoricTaskInstance> historicTaskInstances = getHistoricTasksByProcessInstanceId(processInstanceId);
+        List<ProcessHistory> processHistories = Lists.newArrayList();
+        List<HistoricActivityInstance> specialHistoricActivityInstances =
+                historicActivityInstances.stream().filter(item -> "startEvent".equals(item.getActivityType()) || "endEvent".equals(item.getActivityType()))
+                        .collect(Collectors.toList());
+        specialHistoricActivityInstances.forEach(historicActivityInstance -> {
+            ProcessHistory processHistory = new ProcessHistory();
+            processHistory.setProcessInstanceId(processInstanceId);
+            processHistory.setStartTime(historicActivityInstance.getStartTime());
+            processHistory.setEndTime(historicActivityInstance.getEndTime());
+            processHistory.setDuration(historicActivityInstance.getDurationInMillis());
+            processHistory.setAssignee(historicActivityInstance.getAssignee());
+            if ("startEvent".equals(historicActivityInstance.getActivityType())) {
+                processHistory.setTaskStatus(TaskStatusEnum.START.getDesc());
+                processHistory.setTaskName("启动流程");
+            }
+            if ("endEvent".equals(historicActivityInstance.getActivityType())) {
+                processHistory.setTaskStatus(TaskStatusEnum.END.getDesc());
+                processHistory.setTaskName("完成流程");
+            }
+            processHistories.add(processHistory);
+        });
+        historicTaskInstances.forEach(historicTaskInstance -> {
+            ProcessHistory processHistory = new ProcessHistory();
+            processHistory.setProcessInstanceId(processInstanceId);
+            processHistory.setTaskName(historicTaskInstance.getName());
+            processHistory.setStartTime(historicTaskInstance.getStartTime());
+            processHistory.setEndTime(historicTaskInstance.getEndTime());
+            processHistory.setDuration(historicTaskInstance.getDurationInMillis());
+            processHistory.setAssignee(historicTaskInstance.getAssignee());
+            processHistory.setDueDate(historicTaskInstance.getDueDate());
+            processHistory.setTaskStatus(TaskStatusEnum.START.getDesc());
+            Optional<ActHiTaskStatus> actHiTaskStatusOptional =
+                    actHiTaskStatusList.stream().filter(item -> StringUtils.equals(historicTaskInstance.getTaskDefinitionKey(),
+                            item.getTaskDefKey())).findFirst();
+            actHiTaskStatusOptional.ifPresent(value -> processHistory.setTaskStatus(value.getTaskStatus()));
+            // todo 新加评论表
+        });
+        return processHistories;
+    }
+
     public List<HistoricActivityInstance> getHistoricActivityInstance(String processInstanceId) {
         return historyService.createHistoricActivityInstanceQuery().processInstanceId(processInstanceId)
                 .orderByHistoricActivityInstanceId().asc().list();
@@ -88,8 +141,6 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
             // 获取流程定义信息
             BpmnModel bpmnModel = processRepositoryService.getBpmnModel(processDefinitionId);
 
-            ProcessDefinitionEntity definitionEntity = processRepositoryService.getProcessDefinitionEntity(processDefinitionId);
-
             // 获取流程历史中已执行节点
             List<HistoricActivityInstance> historicActivityInstance = getHistoricActivityInstance(processInstanceId);
 
@@ -104,7 +155,7 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
             List<String> highLightedFlows = getHighLightedFlows(bpmnModel, historicActivityInstance);
 
             Set<String> currIds =
-                    processRuntimeService.getExecutionByProcInsId(processInstanceId).stream().map(e -> e.getActivityId()).collect(Collectors.toSet());
+                    processRuntimeService.getExecutionByProcInsId(processInstanceId).stream().map(Execution::getActivityId).collect(Collectors.toSet());
 
             imageStream = processDiagramGenerator.generateDiagram(bpmnModel, "png", highLightedActivitis,
                     highLightedFlows, "宋体", "宋体", "宋体",

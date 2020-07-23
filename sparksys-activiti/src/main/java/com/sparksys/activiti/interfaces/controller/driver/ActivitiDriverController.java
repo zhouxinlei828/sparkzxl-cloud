@@ -1,7 +1,7 @@
-package com.sparksys.activiti.interfaces.controller.act;
+package com.sparksys.activiti.interfaces.controller.driver;
 
 import com.sparksys.activiti.application.service.driver.IActivitiDriverService;
-import com.sparksys.activiti.interfaces.dto.DriveProcessDTO;
+import com.sparksys.activiti.interfaces.dto.driver.DriveProcessDTO;
 import com.sparksys.activiti.interfaces.dto.process.ProcessNextTaskDTO;
 import com.sparksys.activiti.interfaces.dto.process.UserNextTask;
 import com.sparksys.log.annotation.WebLog;

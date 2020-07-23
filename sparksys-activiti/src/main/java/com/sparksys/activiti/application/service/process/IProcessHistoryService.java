@@ -1,5 +1,7 @@
 package com.sparksys.activiti.application.service.process;
 
+import com.sparksys.activiti.infrastructure.entity.ProcessHistory;
+import com.sparksys.activiti.interfaces.dto.process.ProcessHistoryDTO;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -32,12 +34,20 @@ public interface IProcessHistoryService {
     List<HistoricTaskInstance> getHistoricTasksByAssigneeId(String assignee);
 
     /**
-     * 获取流程历史中已执行节点
+     * 根据流程实例id获取历史任务列表
      *
      * @param processInstanceId 流程实例id
-     * @return List<HistoricActivityInstance>
+     * @return List<HistoricTaskInstance>
      */
-    List<HistoricActivityInstance> getHistoricActivityInstance(String processInstanceId);
+    List<HistoricTaskInstance> getHistoricTasksByProcessInstanceId(String processInstanceId);
+
+    /**
+     * 获取流程历史
+     *
+     * @param processInstanceId 流程实例id
+     * @return List<ProcessHistory>
+     */
+    List<ProcessHistory> getProcessHistory(String processInstanceId);
 
     /**
      * 获取流程图

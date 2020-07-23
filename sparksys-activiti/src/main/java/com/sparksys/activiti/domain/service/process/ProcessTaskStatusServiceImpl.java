@@ -1,5 +1,6 @@
 package com.sparksys.activiti.domain.service.process;
 
+import com.sparksys.activiti.domain.repository.IProcessTaskStatusRepository;
 import com.sparksys.activiti.infrastructure.constant.ActivitiCache;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskStatus;
 import com.sparksys.activiti.infrastructure.mapper.ProcessTaskStatusMapper;
@@ -15,6 +16,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ProcessTaskStatusServiceImpl extends AbstractSuperCacheServiceImpl<ProcessTaskStatusMapper, ProcessTaskStatus> implements IProcessTaskStatusService {
+
+    private final IProcessTaskStatusRepository taskStatusRepository;
+
+    public ProcessTaskStatusServiceImpl(IProcessTaskStatusRepository taskStatusRepository) {
+        this.taskStatusRepository = taskStatusRepository;
+    }
+
+    @Override
+    public ProcessTaskStatus getProcessTaskStatus(String processInstanceId) {
+        return taskStatusRepository.getProcessTaskStatus(processInstanceId);
+    }
 
     @Override
     protected String getRegion() {

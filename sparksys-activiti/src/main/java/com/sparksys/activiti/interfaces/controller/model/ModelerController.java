@@ -1,7 +1,7 @@
 package com.sparksys.activiti.interfaces.controller.model;
 
 import com.sparksys.activiti.application.service.model.IModelerService;
-import com.sparksys.activiti.interfaces.dto.ModelSaveDTO;
+import com.sparksys.activiti.interfaces.dto.model.ModelSaveDTO;
 import com.sparksys.log.annotation.WebLog;
 import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
@@ -52,7 +52,7 @@ public class ModelerController {
         return modelerService.revokePublish(modelId);
     }
 
-    @ApiOperation("删除流程实例")
+    @ApiOperation("删除流程")
     @DeleteMapping("/processInstance/{modelId}")
     public Object deleteProcessInstance(@ApiParam("模型ID") @PathVariable("modelId") String modelId) {
         return modelerService.deleteProcessInstance(modelId);

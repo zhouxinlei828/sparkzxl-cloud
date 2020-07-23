@@ -45,6 +45,6 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
 
     @Override
     public Integer[] supports() {
-        return new Integer[]{WorkflowConstants.WorkflowAction.SUBMIT};
+        return new Integer[]{WorkflowConstants.WorkflowAction.SUBMIT, WorkflowConstants.WorkflowAction.AGREE};
     }
 }

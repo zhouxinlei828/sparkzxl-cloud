@@ -14,6 +14,10 @@
     <dependencies>
         <dependency>
             <groupId>com.sparksys</groupId>
+            <artifactId>sparksys-cloud-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sparksys</groupId>
             <artifactId>sparksys-boot-starter</artifactId>
         </dependency>
         <dependency>

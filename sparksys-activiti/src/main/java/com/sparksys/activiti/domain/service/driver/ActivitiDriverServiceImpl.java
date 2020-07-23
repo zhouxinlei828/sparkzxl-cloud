@@ -7,7 +7,7 @@ import com.sparksys.activiti.domain.entity.DriveProcess;
 import com.sparksys.activiti.infrastructure.strategy.AbstractActivitiSolver;
 import com.sparksys.activiti.infrastructure.strategy.ActivitiSolverChooser;
 import com.sparksys.activiti.infrastructure.utils.ActivitiUtils;
-import com.sparksys.activiti.interfaces.dto.DriveProcessDTO;
+import com.sparksys.activiti.interfaces.dto.driver.DriveProcessDTO;
 import com.sparksys.activiti.interfaces.dto.process.ProcessNextTaskDTO;
 import com.sparksys.activiti.interfaces.dto.process.UserNextTask;
 import com.sparksys.core.utils.ListUtils;

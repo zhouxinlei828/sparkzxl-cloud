@@ -44,4 +44,8 @@ public class ProcessDetail extends Entity<Long> {
     @TableField("task_name")
     private String taskName;
 
+    @ApiModelProperty(value = "任务类型")
+    @TableField("type")
+    private String type;
+
 }
