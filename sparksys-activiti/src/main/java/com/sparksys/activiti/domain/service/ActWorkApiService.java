@@ -1,9 +1,8 @@
 package com.sparksys.activiti.domain.service;
 
-import com.sparksys.activiti.application.service.process.IActHiTaskStatusService;
-import com.sparksys.activiti.application.service.process.IProcessRuntimeService;
-import com.sparksys.activiti.application.service.process.IProcessTaskStatusService;
-import com.sparksys.activiti.application.service.process.IProcessTaskService;
+import com.sparksys.activiti.application.service.act.IProcessRuntimeService;
+import com.sparksys.activiti.application.service.act.IProcessTaskService;
+import com.sparksys.activiti.application.service.process.*;
 import com.sparksys.activiti.infrastructure.entity.ActHiTaskStatus;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskStatus;
 import com.sparksys.activiti.infrastructure.enums.ProcessStatusEnum;
@@ -17,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * description: 流程核心API接口
@@ -56,8 +56,11 @@ public class ActWorkApiService {
         } else {
             processStatus = ProcessStatusEnum.SUBMIT.getDesc();
         }
-        saveProcessTaskStatus(userId, processInstanceId, processStatus);
-        saveActHiTaskStatus(userId, processInstanceId, taskId, taskDefinitionKey, TaskStatusEnum.getValue(actType));
+        CompletableFuture.runAsync(() -> saveProcessTaskStatus(userId,
+                processInstanceId,
+                processStatus));
+        CompletableFuture.runAsync(() -> saveActHiTaskStatus(userId, processInstanceId,
+                taskId, taskDefinitionKey, TaskStatusEnum.getValue(actType)));
         return true;
     }
 

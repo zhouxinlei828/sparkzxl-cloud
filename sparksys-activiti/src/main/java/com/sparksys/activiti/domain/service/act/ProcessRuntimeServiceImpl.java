@@ -1,7 +1,7 @@
-package com.sparksys.activiti.domain.service.process;
+package com.sparksys.activiti.domain.service.act;
 
-import com.sparksys.activiti.application.service.process.IProcessRuntimeService;
-import com.sparksys.activiti.application.service.process.IProcessTaskService;
+import com.sparksys.activiti.application.service.act.IProcessRuntimeService;
+import com.sparksys.activiti.application.service.act.IProcessTaskService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.runtime.Execution;

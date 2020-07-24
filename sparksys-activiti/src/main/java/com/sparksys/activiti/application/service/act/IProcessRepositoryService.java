@@ -1,4 +1,4 @@
-package com.sparksys.activiti.application.service.process;
+package com.sparksys.activiti.application.service.act;
 
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;

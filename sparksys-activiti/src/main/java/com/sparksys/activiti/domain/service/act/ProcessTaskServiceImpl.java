@@ -1,6 +1,7 @@
-package com.sparksys.activiti.domain.service.process;
+package com.sparksys.activiti.domain.service.act;
 
-import com.sparksys.activiti.application.service.process.IProcessTaskService;
+import com.google.common.collect.Lists;
+import com.sparksys.activiti.application.service.act.IProcessTaskService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Comment;
@@ -57,6 +58,18 @@ public class ProcessTaskServiceImpl implements IProcessTaskService {
     @Override
     public List<Comment> getComments(String processInstanceId) {
         return taskService.getProcessInstanceComments(processInstanceId);
+    }
+
+    @Override
+    public List<Comment> getTaskComments(List<String> taskIds, String type) {
+        List<Comment> commentList = Lists.newArrayList();
+        taskIds.forEach(item -> commentList.addAll(getTaskComments(item, type)));
+        return commentList;
+    }
+
+    @Override
+    public List<Comment> getTaskComments(String taskId, String type) {
+        return taskService.getTaskComments(taskId, type);
     }
 
     @Override

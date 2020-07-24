@@ -1,7 +1,7 @@
-package com.sparksys.activiti.domain.service.process;
+package com.sparksys.activiti.domain.service.act;
 
-import com.sparksys.activiti.application.service.process.IProcessRepositoryService;
-import com.sparksys.activiti.application.service.process.IProcessTaskService;
+import com.sparksys.activiti.application.service.act.IProcessRepositoryService;
+import com.sparksys.activiti.application.service.act.IProcessTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.RepositoryService;

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sparksys.activiti.application.service.model.IModelerService;
 import com.sparksys.activiti.application.service.process.IProcessDetailService;
-import com.sparksys.activiti.application.service.process.IProcessRepositoryService;
+import com.sparksys.activiti.application.service.act.IProcessRepositoryService;
 import com.sparksys.activiti.application.service.process.IProcessTaskRuleService;
 import com.sparksys.activiti.infrastructure.entity.ProcessDetail;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskRule;

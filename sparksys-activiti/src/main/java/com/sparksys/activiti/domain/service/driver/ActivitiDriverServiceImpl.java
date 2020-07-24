@@ -2,7 +2,7 @@ package com.sparksys.activiti.domain.service.driver;
 
 import com.google.common.collect.Lists;
 import com.sparksys.activiti.application.service.driver.IActivitiDriverService;
-import com.sparksys.activiti.application.service.process.IProcessRepositoryService;
+import com.sparksys.activiti.application.service.act.IProcessRepositoryService;
 import com.sparksys.activiti.domain.entity.DriveProcess;
 import com.sparksys.activiti.infrastructure.strategy.AbstractActivitiSolver;
 import com.sparksys.activiti.infrastructure.strategy.ActivitiSolverChooser;

@@ -2,9 +2,11 @@ package com.sparksys.activiti.infrastructure.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * description: 流程历史
@@ -13,6 +15,7 @@ import java.util.Date;
  * @date: 2020-07-23 14:14:49
  */
 @Data
+@Builder
 @ApiModel(value = "ProcessHistory对象", description = "")
 public class ProcessHistory {
 
@@ -44,6 +47,6 @@ public class ProcessHistory {
     private String taskStatus;
 
     @ApiModelProperty(value = "备注/意见")
-    private String comment;
+    private List<String> comment;
 
 }

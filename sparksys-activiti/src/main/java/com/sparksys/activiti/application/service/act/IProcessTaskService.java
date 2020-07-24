@@ -1,4 +1,4 @@
-package com.sparksys.activiti.application.service.process;
+package com.sparksys.activiti.application.service.act;
 
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Comment;
@@ -65,6 +65,25 @@ public interface IProcessTaskService {
      * @return List<Comment>
      */
     List<Comment> getComments(String processInstanceId);
+
+
+    /**
+     * 获取历史评论信息
+     *
+     * @param taskIds 历史任务实例id
+     * @param type    意见记录类型: event（事件） comment（意见）
+     * @return List<Comment>
+     */
+    List<Comment> getTaskComments(List<String> taskIds, String type);
+
+    /**
+     * 获取历史评论信息
+     *
+     * @param taskId 历史任务实例id
+     * @param type    意见记录类型: event（事件） comment（意见）
+     * @return List<Comment>
+     */
+    List<Comment> getTaskComments(String taskId, String type);
 
     /**
      * 根据任务id获取任务实例

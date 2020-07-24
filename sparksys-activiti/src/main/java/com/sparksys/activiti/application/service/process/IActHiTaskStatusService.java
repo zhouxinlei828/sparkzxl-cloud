@@ -1,7 +1,7 @@
 package com.sparksys.activiti.application.service.process;
 
 import com.sparksys.activiti.infrastructure.entity.ActHiTaskStatus;
-import com.sparksys.database.service.SuperService;
+import com.sparksys.database.service.SuperCacheService;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @author: zhouxinlei
  * @date: 2020-07-23 14:40:51
  */
-public interface IActHiTaskStatusService extends SuperService<ActHiTaskStatus> {
+public interface IActHiTaskStatusService extends SuperCacheService<ActHiTaskStatus> {
     /**
      * 查询任务历史
      *

@@ -1,4 +1,4 @@
-package com.sparksys.activiti.application.service.process;
+package com.sparksys.activiti.application.service.act;
 
 import com.sparksys.activiti.infrastructure.entity.ProcessHistory;
 import com.sparksys.activiti.interfaces.dto.process.ProcessHistoryDTO;
@@ -8,6 +8,7 @@ import org.activiti.engine.history.HistoricTaskInstance;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * description: 历史流程 服务类
@@ -42,12 +43,20 @@ public interface IProcessHistoryService {
     List<HistoricTaskInstance> getHistoricTasksByProcessInstanceId(String processInstanceId);
 
     /**
+     * 根据流程实例id获取历史任务列表
+     *
+     * @param taskId 任务id
+     * @return HistoricTaskInstance
+     */
+    HistoricTaskInstance getHistoricTasksByTaskId(String taskId);
+
+    /**
      * 获取流程历史
      *
      * @param processInstanceId 流程实例id
      * @return List<ProcessHistory>
      */
-    List<ProcessHistory> getProcessHistory(String processInstanceId);
+    List<ProcessHistory> getProcessHistory(String processInstanceId) throws ExecutionException, InterruptedException;
 
     /**
      * 获取流程图

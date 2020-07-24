@@ -2,7 +2,7 @@ package com.sparksys.activiti.interfaces.controller.model;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sparksys.activiti.application.service.model.IModelService;
-import com.sparksys.activiti.application.service.process.IProcessRepositoryService;
+import com.sparksys.activiti.application.service.act.IProcessRepositoryService;
 import com.sparksys.log.annotation.WebLog;
 import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;

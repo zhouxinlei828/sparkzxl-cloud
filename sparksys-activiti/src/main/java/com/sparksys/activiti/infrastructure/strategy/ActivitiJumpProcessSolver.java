@@ -1,9 +1,9 @@
 package com.sparksys.activiti.infrastructure.strategy;
 
-import com.sparksys.activiti.application.service.process.IProcessRepositoryService;
-import com.sparksys.activiti.application.service.process.IProcessRuntimeService;
+import com.sparksys.activiti.application.service.act.IProcessRepositoryService;
+import com.sparksys.activiti.application.service.act.IProcessRuntimeService;
 import com.sparksys.activiti.application.service.process.IProcessTaskRuleService;
-import com.sparksys.activiti.application.service.process.IProcessTaskService;
+import com.sparksys.activiti.application.service.act.IProcessTaskService;
 import com.sparksys.activiti.domain.service.ActWorkApiService;
 import com.sparksys.activiti.infrastructure.act.DeleteTaskCmd;
 import com.sparksys.activiti.infrastructure.act.SetFlowNodeAndGoCmd;
@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * description: 推动activiti流程
@@ -89,8 +90,11 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
             processStatus = ProcessStatusEnum.SUBMIT.getDesc();
         }
         String processInstanceId = processInstance.getProcessInstanceId();
-        actWorkApiService.saveProcessTaskStatus(userId, processInstance.getProcessInstanceId(), processStatus);
-        actWorkApiService.saveActHiTaskStatus(userId, processInstanceId, taskId, taskDefinitionKey, TaskStatusEnum.getValue(actType));
+        CompletableFuture.runAsync(() -> actWorkApiService.saveProcessTaskStatus(userId,
+                processInstanceId,
+                processStatus));
+        CompletableFuture.runAsync(() -> actWorkApiService.saveActHiTaskStatus(userId, processInstanceId,
+                taskId, taskDefinitionKey, TaskStatusEnum.getValue(actType)));
         return true;
     }
 

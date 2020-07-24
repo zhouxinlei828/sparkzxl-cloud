@@ -1,6 +1,10 @@
-package com.sparksys.activiti.domain.service.process;
+package com.sparksys.activiti.domain.service.act;
 
 import com.google.common.collect.Lists;
+import com.sparksys.activiti.application.service.act.IProcessHistoryService;
+import com.sparksys.activiti.application.service.act.IProcessRepositoryService;
+import com.sparksys.activiti.application.service.act.IProcessRuntimeService;
+import com.sparksys.activiti.application.service.act.IProcessTaskService;
 import com.sparksys.activiti.application.service.process.*;
 import com.sparksys.activiti.infrastructure.constant.WorkflowConstants;
 import com.sparksys.activiti.infrastructure.diagram.CustomProcessDiagramGeneratorImpl;
@@ -8,6 +12,7 @@ import com.sparksys.activiti.infrastructure.entity.ActHiTaskStatus;
 import com.sparksys.activiti.infrastructure.entity.ProcessHistory;
 import com.sparksys.activiti.infrastructure.enums.TaskStatusEnum;
 import com.sparksys.activiti.infrastructure.utils.CloseableUtils;
+import com.sparksys.core.utils.ListUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowNode;
@@ -17,6 +22,8 @@ import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.runtime.Execution;
+import org.activiti.engine.task.Comment;
+import org.activiti.engine.task.TaskInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,10 +34,10 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 /**
@@ -48,6 +55,9 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
 
     @Autowired
     private IProcessRepositoryService processRepositoryService;
+
+    @Autowired
+    private IProcessTaskService processTaskService;
 
     @Autowired
     private IProcessRuntimeService processRuntimeService;
@@ -71,50 +81,104 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
 
     @Override
     public List<HistoricTaskInstance> getHistoricTasksByProcessInstanceId(String processInstanceId) {
-        return historyService.createHistoricTaskInstanceQuery().processInstanceId(processInstanceId).orderByTaskId().list();
+        return historyService.createHistoricTaskInstanceQuery().processInstanceId(processInstanceId).orderByTaskId().asc().list();
     }
 
     @Override
-    public List<ProcessHistory> getProcessHistory(String processInstanceId) {
-        List<ActHiTaskStatus> actHiTaskStatusList = actHiTaskStatusService.getProcessHistory(processInstanceId);
-        List<HistoricActivityInstance> historicActivityInstances = getHistoricActivityInstance(processInstanceId);
-        List<HistoricTaskInstance> historicTaskInstances = getHistoricTasksByProcessInstanceId(processInstanceId);
+    public HistoricTaskInstance getHistoricTasksByTaskId(String taskId) {
+        return historyService.createHistoricTaskInstanceQuery().taskId(taskId).singleResult();
+    }
+
+    @Override
+    public List<ProcessHistory> getProcessHistory(String processInstanceId) throws ExecutionException, InterruptedException {
+
+        CompletableFuture<List<ProcessHistory>> hiActInsCompletableFuture =
+                CompletableFuture.supplyAsync(() -> buildActivityProcessHistory(processInstanceId));
+
+        CompletableFuture<List<ProcessHistory>> hiTaskInsCompletableFuture =
+                CompletableFuture.supplyAsync(() -> buildTaskProcessHistory(processInstanceId));
+
+        CompletableFuture<List<ProcessHistory>> processHistoryCompletableFuture = hiActInsCompletableFuture
+                .thenCombine(hiTaskInsCompletableFuture, org.apache.commons.collections4.ListUtils::union);
+        List<ProcessHistory> processHistories = processHistoryCompletableFuture.get();
+        processHistories.sort(Comparator.comparing(ProcessHistory::getStartTime));
+        return processHistories;
+    }
+
+
+    private List<ProcessHistory> buildTaskProcessHistory(String processInstanceId) {
         List<ProcessHistory> processHistories = Lists.newArrayList();
+        try {
+            // 异步获取历史任务状态
+            CompletableFuture<List<ActHiTaskStatus>> hiTaskStatusCompletableFuture =
+                    CompletableFuture.supplyAsync(() -> actHiTaskStatusService.getProcessHistory(processInstanceId));
+            CompletableFuture<List<HistoricTaskInstance>> hiTakInsCompletableFuture =
+                    CompletableFuture.supplyAsync(() -> getHistoricTasksByProcessInstanceId(processInstanceId));
+            CompletableFuture<List<Comment>> completableFuture =
+                    hiTakInsCompletableFuture(processInstanceId).thenCompose(historicTaskInstance -> {
+                        List<String> taskIds = historicTaskInstance.stream().map(TaskInfo::getId).collect(Collectors.toList());
+                        return hiCommentCompletableFuture(taskIds, "comment");
+                    });
+            List<ActHiTaskStatus> actHiTaskStatusList = hiTaskStatusCompletableFuture.get();
+            List<HistoricTaskInstance> historicTaskInstances = hiTakInsCompletableFuture.get();
+            List<Comment> commentList = completableFuture.get();
+            historicTaskInstances.forEach(historicTaskInstance -> {
+                ProcessHistory processHistory = ProcessHistory.builder()
+                        .processInstanceId(processInstanceId)
+                        .taskName(historicTaskInstance.getName())
+                        .startTime(historicTaskInstance.getStartTime())
+                        .endTime(historicTaskInstance.getEndTime())
+                        .duration(historicTaskInstance.getDurationInMillis())
+                        .assignee(historicTaskInstance.getAssignee())
+                        .dueDate(historicTaskInstance.getDueDate())
+                        .build();
+                Optional<ActHiTaskStatus> actHiTaskStatusOptional =
+                        actHiTaskStatusList.stream().filter(item -> StringUtils.equals(historicTaskInstance.getTaskDefinitionKey(),
+                                item.getTaskDefKey())).findFirst();
+                actHiTaskStatusOptional.ifPresent(value -> processHistory.setTaskStatus(value.getTaskStatus()));
+                if (ListUtils.isNotEmpty(commentList)) {
+                    processHistory.setComment(commentList.stream().filter(item -> historicTaskInstance.getId().equals(item.getTaskId())).map(Comment::getFullMessage).collect(Collectors.toList()));
+                }
+                processHistories.add(processHistory);
+            });
+        } catch (Exception e) {
+            log.error("查询任务历史发生异常 Exception {}", e.getMessage());
+        }
+        return processHistories;
+    }
+
+    public CompletableFuture<List<HistoricTaskInstance>> hiTakInsCompletableFuture(String processInstanceId) {
+        return CompletableFuture.supplyAsync(() -> getHistoricTasksByProcessInstanceId(processInstanceId));
+    }
+
+    public CompletableFuture<List<Comment>> hiCommentCompletableFuture(List<String> taskIds, String type) {
+        return CompletableFuture.supplyAsync(() -> processTaskService.getTaskComments(taskIds, type));
+    }
+
+    private List<ProcessHistory> buildActivityProcessHistory(String processInstanceId) {
+        List<ProcessHistory> processHistories = Lists.newArrayList();
+        List<HistoricActivityInstance> historicActivityInstances = getHistoricActivityInstance(processInstanceId);
         List<HistoricActivityInstance> specialHistoricActivityInstances =
-                historicActivityInstances.stream().filter(item -> "startEvent".equals(item.getActivityType()) || "endEvent".equals(item.getActivityType()))
+                historicActivityInstances.stream().filter(item -> WorkflowConstants.ActType.START_EVENT.equals(item.getActivityType())
+                        || WorkflowConstants.ActType.END_EVENT.equals(item.getActivityType()))
                         .collect(Collectors.toList());
         specialHistoricActivityInstances.forEach(historicActivityInstance -> {
-            ProcessHistory processHistory = new ProcessHistory();
-            processHistory.setProcessInstanceId(processInstanceId);
-            processHistory.setStartTime(historicActivityInstance.getStartTime());
-            processHistory.setEndTime(historicActivityInstance.getEndTime());
-            processHistory.setDuration(historicActivityInstance.getDurationInMillis());
-            processHistory.setAssignee(historicActivityInstance.getAssignee());
-            if ("startEvent".equals(historicActivityInstance.getActivityType())) {
+            ProcessHistory processHistory = ProcessHistory.builder()
+                    .processInstanceId(processInstanceId)
+                    .startTime(historicActivityInstance.getStartTime())
+                    .endTime(historicActivityInstance.getEndTime())
+                    .duration(historicActivityInstance.getDurationInMillis())
+                    .assignee(historicActivityInstance.getAssignee())
+                    .build();
+            if (WorkflowConstants.ActType.START_EVENT.equals(historicActivityInstance.getActivityType())) {
                 processHistory.setTaskStatus(TaskStatusEnum.START.getDesc());
                 processHistory.setTaskName("启动流程");
             }
-            if ("endEvent".equals(historicActivityInstance.getActivityType())) {
+            if (WorkflowConstants.ActType.END_EVENT.equals(historicActivityInstance.getActivityType())) {
                 processHistory.setTaskStatus(TaskStatusEnum.END.getDesc());
                 processHistory.setTaskName("完成流程");
             }
             processHistories.add(processHistory);
-        });
-        historicTaskInstances.forEach(historicTaskInstance -> {
-            ProcessHistory processHistory = new ProcessHistory();
-            processHistory.setProcessInstanceId(processInstanceId);
-            processHistory.setTaskName(historicTaskInstance.getName());
-            processHistory.setStartTime(historicTaskInstance.getStartTime());
-            processHistory.setEndTime(historicTaskInstance.getEndTime());
-            processHistory.setDuration(historicTaskInstance.getDurationInMillis());
-            processHistory.setAssignee(historicTaskInstance.getAssignee());
-            processHistory.setDueDate(historicTaskInstance.getDueDate());
-            processHistory.setTaskStatus(TaskStatusEnum.START.getDesc());
-            Optional<ActHiTaskStatus> actHiTaskStatusOptional =
-                    actHiTaskStatusList.stream().filter(item -> StringUtils.equals(historicTaskInstance.getTaskDefinitionKey(),
-                            item.getTaskDefKey())).findFirst();
-            actHiTaskStatusOptional.ifPresent(value -> processHistory.setTaskStatus(value.getTaskStatus()));
-            // todo 新加评论表
         });
         return processHistories;
     }

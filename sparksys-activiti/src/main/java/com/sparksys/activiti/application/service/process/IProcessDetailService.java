@@ -4,8 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.infrastructure.entity.ProcessDetail;
 import com.sparksys.activiti.interfaces.dto.process.ProcessDetailDTO;
 import com.sparksys.activiti.interfaces.dto.process.ProcessDetailPageDTO;
-import com.sparksys.database.dto.PageDTO;
-import com.sparksys.database.service.SuperService;
+import com.sparksys.database.service.SuperCacheService;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
  * @author: zhouxinlei
  * @date: 2020-07-21 14:22:03
  */
-public interface IProcessDetailService extends SuperService<ProcessDetail> {
+public interface IProcessDetailService extends SuperCacheService<ProcessDetail> {
 
     /**
      * 查询流程节点信息

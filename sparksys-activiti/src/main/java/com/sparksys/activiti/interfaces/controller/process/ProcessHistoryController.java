@@ -1,17 +1,17 @@
 package com.sparksys.activiti.interfaces.controller.process;
 
-import com.sparksys.activiti.application.service.process.IProcessHistoryService;
+import com.sparksys.activiti.application.service.act.IProcessHistoryService;
 import com.sparksys.activiti.infrastructure.entity.ProcessHistory;
-import com.sparksys.activiti.interfaces.dto.process.ProcessHistoryDTO;
+import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import org.activiti.engine.history.HistoricActivityInstance;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * description: 历史流程前端控制器
@@ -39,7 +39,8 @@ public class ProcessHistoryController {
 
     @ApiOperation("获取流程历史")
     @GetMapping("/histories/{processInstanceId}")
-    public List<ProcessHistory> getProcessHistory(@ApiParam("流程实例id") @PathVariable String processInstanceId) {
+    @ResponseResult
+    public List<ProcessHistory> getProcessHistory(@ApiParam("流程实例id") @PathVariable String processInstanceId) throws ExecutionException, InterruptedException {
         return processHistoryService.getProcessHistory(processInstanceId);
     }
 

@@ -57,5 +57,12 @@ public final class WorkflowConstants {
         public static final int ROLLBACK = -1;
     }
 
+    public static class ActType{
+
+        public static final String START_EVENT = "startEvent";
+
+        public static final String END_EVENT = "endEvent";
+    }
+
 
 }
