@@ -2,7 +2,7 @@ package com.sparksys.activiti.infrastructure.strategy;
 
 import com.google.common.collect.Maps;
 import com.sparksys.activiti.application.service.act.IProcessRuntimeService;
-import com.sparksys.activiti.domain.service.ActWorkApiService;
+import com.sparksys.activiti.domain.service.act.ActWorkApiService;
 import com.sparksys.activiti.infrastructure.constant.WorkflowConstants;
 import com.sparksys.activiti.domain.entity.DriveProcess;
 import lombok.extern.slf4j.Slf4j;

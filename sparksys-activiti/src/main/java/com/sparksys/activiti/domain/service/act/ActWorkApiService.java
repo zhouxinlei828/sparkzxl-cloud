@@ -1,4 +1,4 @@
-package com.sparksys.activiti.domain.service;
+package com.sparksys.activiti.domain.service.act;
 
 import com.sparksys.activiti.application.service.act.IProcessRuntimeService;
 import com.sparksys.activiti.application.service.act.IProcessTaskService;

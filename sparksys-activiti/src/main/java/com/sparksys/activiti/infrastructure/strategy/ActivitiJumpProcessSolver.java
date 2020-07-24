@@ -4,7 +4,7 @@ import com.sparksys.activiti.application.service.act.IProcessRepositoryService;
 import com.sparksys.activiti.application.service.act.IProcessRuntimeService;
 import com.sparksys.activiti.application.service.process.IProcessTaskRuleService;
 import com.sparksys.activiti.application.service.act.IProcessTaskService;
-import com.sparksys.activiti.domain.service.ActWorkApiService;
+import com.sparksys.activiti.domain.service.act.ActWorkApiService;
 import com.sparksys.activiti.infrastructure.act.DeleteTaskCmd;
 import com.sparksys.activiti.infrastructure.act.SetFlowNodeAndGoCmd;
 import com.sparksys.activiti.infrastructure.constant.WorkflowConstants;

@@ -25,8 +25,8 @@
             <artifactId>sparksys-cache-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-activiti-starter</artifactId>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring-boot-starter-basic</artifactId>
         </dependency>
         <dependency>
             <groupId>org.activiti</groupId>
