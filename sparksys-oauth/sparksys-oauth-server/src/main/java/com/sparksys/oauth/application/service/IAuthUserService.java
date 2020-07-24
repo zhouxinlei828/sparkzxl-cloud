@@ -3,10 +3,13 @@ package com.sparksys.oauth.application.service;
 import com.github.pagehelper.PageInfo;
 import com.sparksys.database.service.SuperCacheService;
 import com.sparksys.oauth.infrastructure.entity.UserInfo;
+import com.sparksys.oauth.infrastructure.entity.UserNotices;
+import com.sparksys.oauth.infrastructure.entity.UserActivities;
 import com.sparksys.oauth.interfaces.dto.user.*;
 import com.sparksys.security.entity.AuthUserDetail;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -119,4 +122,9 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     Set<String> getAuthUserPermissions(Long id);
 
     UserInfo getCurrentUser(String username);
+
+    List<UserNotices> getUserNotices();
+
+    List<UserActivities> activities();
+
 }
