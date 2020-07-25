@@ -1,8 +1,12 @@
 package com.sparksys.activiti.interfaces.controller.model;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.pagehelper.PageInfo;
+import com.sparksys.activiti.application.service.act.IActReModelService;
 import com.sparksys.activiti.application.service.model.IModelService;
 import com.sparksys.activiti.application.service.act.IProcessRepositoryService;
+import com.sparksys.activiti.infrastructure.entity.ActReModel;
+import com.sparksys.activiti.interfaces.dto.act.ModelPageDTO;
 import com.sparksys.log.annotation.WebLog;
 import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
@@ -28,17 +32,18 @@ import java.util.List;
 public class ModelEditorController implements ModelDataJsonConstants {
 
     private final IModelService modelEditorService;
-    private final IProcessRepositoryService processRepositoryService;
-    public ModelEditorController(IModelService modelEditorService, IProcessRepositoryService processRepositoryService) {
+    private final IActReModelService actReModelService;
+
+    public ModelEditorController(IModelService modelEditorService, IActReModelService actReModelService) {
         this.modelEditorService = modelEditorService;
-        this.processRepositoryService = processRepositoryService;
+        this.actReModelService = actReModelService;
     }
 
     @ApiOperation("查询模型列表")
     @GetMapping("model/list")
     @ResponseResult
-    public List<Model> modelList() {
-        return processRepositoryService.getModelList();
+    public PageInfo<ActReModel> modelList(ModelPageDTO modelPageDTO) {
+        return actReModelService.actReModelList(modelPageDTO);
     }
 
     @ApiOperation("获取流程json信息")
