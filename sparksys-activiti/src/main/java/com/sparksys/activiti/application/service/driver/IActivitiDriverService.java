@@ -33,12 +33,4 @@ public interface IActivitiDriverService {
      * @return List<UserNextTask>
      */
     List<UserNextTask> getNextUserTask(ProcessNextTaskDTO processNextTaskDTO);
-
-    /**
-     * 分页查询流程实例列表
-     *
-     * @param instancePageDTO 流程实例查询入参
-     * @return PageInfo<ProcessInstanceDTO>
-     */
-    PageInfo<ProcessInstanceDTO> getProcessInstanceList(InstancePageDTO instancePageDTO);
 }

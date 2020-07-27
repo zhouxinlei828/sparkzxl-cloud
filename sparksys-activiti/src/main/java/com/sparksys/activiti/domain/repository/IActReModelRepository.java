@@ -1,5 +1,6 @@
 package com.sparksys.activiti.domain.repository;
 
+import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.infrastructure.entity.ActReModel;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface IActReModelRepository {
      *
      * @param key  模型key
      * @param name 模型名称
-     * @return List<ActReModel>
+     * @return PageInfo<ActReModel>
      */
-    List<ActReModel> actReModelList(String key, String name);
+    PageInfo<ActReModel> actReModelList(String key, String name);
 }

@@ -1,5 +1,7 @@
 package com.sparksys.activiti.domain.service.process;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.domain.repository.IProcessTaskStatusRepository;
 import com.sparksys.activiti.infrastructure.constant.ActivitiCache;
 import com.sparksys.activiti.infrastructure.convert.ProcessInstanceConvert;
@@ -7,9 +9,11 @@ import com.sparksys.activiti.infrastructure.entity.ProcessInstance;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskStatus;
 import com.sparksys.activiti.infrastructure.mapper.ProcessTaskStatusMapper;
 import com.sparksys.activiti.application.service.process.IProcessTaskStatusService;
+import com.sparksys.activiti.interfaces.dto.act.InstancePageDTO;
 import com.sparksys.activiti.interfaces.dto.act.ProcessInstanceDTO;
 import com.sparksys.core.utils.DateUtils;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.utils.PageInfoUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,13 +40,15 @@ public class ProcessTaskStatusServiceImpl extends AbstractSuperCacheServiceImpl<
     }
 
     @Override
-    public List<ProcessInstanceDTO> getProcessInstanceList(String name) {
-        List<ProcessInstance> processInstances = taskStatusRepository.getProcessInstanceList(name);
-        return processInstances.stream().map(item -> {
-            ProcessInstanceDTO processInstanceDTO = ProcessInstanceConvert.INSTANCE.convertProcessInstanceDTO(item);
-            processInstanceDTO.setDueTime(DateUtils.getDatePoor(item.getDuration()));
-            return processInstanceDTO;
-        }).collect(Collectors.toList());
+    public PageInfo<ProcessInstance> getProcessInstanceList(InstancePageDTO instancePageDTO) {
+        PageInfo<ProcessInstance> processInstancePageInfo = taskStatusRepository.getProcessInstanceList(instancePageDTO.getPageNum(),
+                instancePageDTO.getPageSize(), instancePageDTO.getName());
+        List<ProcessInstance> processInstances = processInstancePageInfo.getList();
+        processInstances.forEach(item -> {
+            item.setDueTime(DateUtils.getDatePoor(item.getDuration()));
+        });
+        processInstancePageInfo.setList(processInstances);
+        return processInstancePageInfo;
     }
 
     @Override

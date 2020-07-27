@@ -1,9 +1,11 @@
 package com.sparksys.activiti.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.domain.repository.IActReModelRepository;
 import com.sparksys.activiti.infrastructure.entity.ActReModel;
 import com.sparksys.activiti.infrastructure.mapper.ActReModelMapper;
+import com.sparksys.database.utils.PageInfoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,12 +25,12 @@ public class ActReModelRepositoryImpl implements IActReModelRepository {
     private ActReModelMapper actReModelMapper;
 
     @Override
-    public List<ActReModel> actReModelList(String key, String name) {
+    public PageInfo<ActReModel> actReModelList(String key, String name) {
         QueryWrapper<ActReModel> modelQueryWrapper = new QueryWrapper<>();
         Optional<String> keyOptional = Optional.ofNullable(key);
         Optional<String> nameOptional = Optional.ofNullable(name);
         keyOptional.ifPresent((value) -> modelQueryWrapper.eq("KEY_", value));
         nameOptional.ifPresent((value) -> modelQueryWrapper.likeRight("NAME_", value));
-        return actReModelMapper.selectList(modelQueryWrapper);
+        return PageInfoUtils.pageInfo(actReModelMapper.selectList(modelQueryWrapper));
     }
 }

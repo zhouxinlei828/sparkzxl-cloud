@@ -39,7 +39,7 @@ public class ModelEditorController implements ModelDataJsonConstants {
         this.actReModelService = actReModelService;
     }
 
-    @ApiOperation("查询模型列表")
+    @ApiOperation("查询流程模型列表")
     @GetMapping("model/list")
     @ResponseResult
     public PageInfo<ActReModel> modelList(ModelPageDTO modelPageDTO) {

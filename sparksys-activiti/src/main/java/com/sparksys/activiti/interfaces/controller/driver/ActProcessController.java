@@ -4,7 +4,9 @@ package com.sparksys.activiti.interfaces.controller.driver;
 import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.application.service.act.IProcessHistoryService;
 import com.sparksys.activiti.application.service.driver.IActivitiDriverService;
+import com.sparksys.activiti.application.service.process.IProcessTaskStatusService;
 import com.sparksys.activiti.infrastructure.entity.ProcessHistory;
+import com.sparksys.activiti.infrastructure.entity.ProcessInstance;
 import com.sparksys.activiti.interfaces.dto.act.InstancePageDTO;
 import com.sparksys.activiti.interfaces.dto.act.ProcessInstanceDTO;
 import com.sparksys.log.annotation.WebLog;
@@ -33,18 +35,19 @@ import java.util.concurrent.ExecutionException;
 @Api(tags = "流程实例管理")
 public class ActProcessController {
 
-    private final IActivitiDriverService activitiDriverService;
     private final IProcessHistoryService processHistoryService;
+    private final IProcessTaskStatusService processTaskStatusService;
 
-    public ActProcessController(IActivitiDriverService activitiDriverService,
-                                IProcessHistoryService processHistoryService) {
-        this.activitiDriverService = activitiDriverService;
+    public ActProcessController(IProcessHistoryService processHistoryService,
+                                IProcessTaskStatusService processTaskStatusService) {
         this.processHistoryService = processHistoryService;
+        this.processTaskStatusService = processTaskStatusService;
     }
 
+    @ApiOperation("分页查询流程列表")
     @GetMapping("/instances")
-    public PageInfo<ProcessInstanceDTO> getProcessInstanceList(InstancePageDTO instancePageDTO) {
-        return activitiDriverService.getProcessInstanceList(instancePageDTO);
+    public PageInfo<ProcessInstance> getProcessInstanceList(InstancePageDTO instancePageDTO) {
+        return processTaskStatusService.getProcessInstanceList(instancePageDTO);
     }
 
     @ApiOperation("获取流程历史")

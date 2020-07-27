@@ -50,6 +50,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProcessHistoryServiceImpl implements IProcessHistoryService {
 
+    private static final String PNG = "image/png";
+
     @Autowired
     private HistoryService historyService;
 
@@ -225,7 +227,8 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
                     highLightedFlows, "宋体", "宋体", "宋体",
                     null, 1.0,
                     new Color[]{WorkflowConstants.COLOR_NORMAL, WorkflowConstants.COLOR_CURRENT}, currIds);
-
+            // 设定输出的类型
+            response.setContentType(PNG);
             // 输出流程图
             outputStream = response.getOutputStream();
             byte[] b = new byte[2048];

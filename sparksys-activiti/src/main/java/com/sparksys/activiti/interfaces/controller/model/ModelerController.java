@@ -1,6 +1,10 @@
 package com.sparksys.activiti.interfaces.controller.model;
 
+import com.github.pagehelper.PageInfo;
+import com.sparksys.activiti.application.service.act.IActReModelService;
 import com.sparksys.activiti.application.service.model.IModelerService;
+import com.sparksys.activiti.infrastructure.entity.ActReModel;
+import com.sparksys.activiti.interfaces.dto.act.ModelPageDTO;
 import com.sparksys.activiti.interfaces.dto.model.ModelSaveDTO;
 import com.sparksys.log.annotation.WebLog;
 import com.sparksys.web.annotation.ResponseResult;
@@ -24,14 +28,22 @@ import javax.validation.Valid;
 @ResponseResult
 @WebLog
 @Slf4j
-@Api(tags = "流程控制器管理")
+@Api(tags = "流程模型管理")
 public class ModelerController {
 
-
     private final IModelerService modelerService;
+    private final IActReModelService actReModelService;
 
-    public ModelerController(IModelerService modelerService) {
+    public ModelerController(IModelerService modelerService, IActReModelService actReModelService) {
         this.modelerService = modelerService;
+        this.actReModelService = actReModelService;
+    }
+
+    @ApiOperation("查询流程模型列表")
+    @GetMapping("model/list")
+    @ResponseResult
+    public PageInfo<ActReModel> modelList(ModelPageDTO modelPageDTO) {
+        return actReModelService.actReModelList(modelPageDTO);
     }
 
     @ApiOperation("创建模型")

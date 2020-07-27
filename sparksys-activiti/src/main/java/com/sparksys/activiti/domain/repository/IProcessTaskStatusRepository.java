@@ -1,7 +1,9 @@
 package com.sparksys.activiti.domain.repository;
 
+import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.infrastructure.entity.ProcessInstance;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskStatus;
+import com.sparksys.activiti.interfaces.dto.act.ProcessInstanceDTO;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ public interface IProcessTaskStatusRepository {
      * 查询流程实例列表
      *
      * @param name 流程名称
-     * @return List<ProcessInstance>
+     * @return PageInfo<ProcessInstance>
      */
-    List<ProcessInstance> getProcessInstanceList(String name);
+    PageInfo<ProcessInstance> getProcessInstanceList(int pageNum,int pageSize,String name);
 }

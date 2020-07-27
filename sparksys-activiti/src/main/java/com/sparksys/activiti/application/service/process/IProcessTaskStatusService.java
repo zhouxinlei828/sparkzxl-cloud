@@ -1,7 +1,9 @@
 package com.sparksys.activiti.application.service.process;
 
+import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.infrastructure.entity.ProcessInstance;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskStatus;
+import com.sparksys.activiti.interfaces.dto.act.InstancePageDTO;
 import com.sparksys.activiti.interfaces.dto.act.ProcessInstanceDTO;
 import com.sparksys.database.service.SuperCacheService;
 
@@ -26,8 +28,8 @@ public interface IProcessTaskStatusService extends SuperCacheService<ProcessTask
     /**
      * 查询流程实例列表
      *
-     * @param name 流程名称
-     * @return List<ProcessInstanceDTO>
+     * @param instancePageDTO 流程实例查询入参
+     * @return PageInfo<ProcessInstanceDTO>
      */
-    List<ProcessInstanceDTO> getProcessInstanceList(String name);
+    PageInfo<ProcessInstance> getProcessInstanceList(InstancePageDTO instancePageDTO);
 }

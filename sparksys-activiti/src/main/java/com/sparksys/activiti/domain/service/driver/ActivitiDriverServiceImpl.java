@@ -90,11 +90,4 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
         }
         return userNextTasks;
     }
-
-    @Override
-    public PageInfo<ProcessInstanceDTO> getProcessInstanceList(InstancePageDTO instancePageDTO) {
-        PageHelper.startPage(instancePageDTO.getPageNum(), instancePageDTO.getPageSize());
-        List<ProcessInstanceDTO> processInstances = processTaskStatusService.getProcessInstanceList(instancePageDTO.getName());
-        return PageInfoUtils.pageInfo(processInstances);
-    }
 }
