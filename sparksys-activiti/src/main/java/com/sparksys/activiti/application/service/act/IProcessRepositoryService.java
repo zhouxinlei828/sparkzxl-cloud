@@ -102,12 +102,20 @@ public interface IProcessRepositoryService {
     void deployModel(String modelName, String processName, byte[] bpmnBytes);
 
     /**
+     * 根据发布id查询模型
+     *
+     * @param deploymentId 发布id
+     * @return Model
+     */
+    Model getModelByDeploymentId(String deploymentId);
+
+    /**
      * 根据modelId获取模型信息
      *
      * @param modelId 模型id
      * @return Model
      */
-    Model getModelByModelId(String modelId);
+    Model getModelById(String modelId);
 
     /**
      * 查询所有的模型列表

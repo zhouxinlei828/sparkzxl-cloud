@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author: zhouxinlei
  * @date: 2020-07-17 15:43:03
-*/
+ */
 @Service
 @Slf4j
 @Transactional(transactionManager = "transactionManager", rollbackFor = Exception.class)
@@ -96,7 +96,12 @@ public class ProcessRepositoryServiceImpl implements IProcessRepositoryService {
     }
 
     @Override
-    public Model getModelByModelId(String modelId) {
+    public Model getModelByDeploymentId(String deploymentId) {
+        return repositoryService.createModelQuery().deploymentId(deploymentId).singleResult();
+    }
+
+    @Override
+    public Model getModelById(String modelId) {
         return repositoryService.getModel(modelId);
     }
 

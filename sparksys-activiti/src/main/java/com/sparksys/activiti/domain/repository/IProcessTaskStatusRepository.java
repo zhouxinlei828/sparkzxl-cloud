@@ -1,6 +1,9 @@
 package com.sparksys.activiti.domain.repository;
 
+import com.sparksys.activiti.infrastructure.entity.ProcessInstance;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskStatus;
+
+import java.util.List;
 
 /**
  * description: 流程状态 仓储类
@@ -18,4 +21,11 @@ public interface IProcessTaskStatusRepository {
      */
     ProcessTaskStatus getProcessTaskStatus(String processInstanceId);
 
+    /**
+     * 查询流程实例列表
+     *
+     * @param name 流程名称
+     * @return List<ProcessInstance>
+     */
+    List<ProcessInstance> getProcessInstanceList(String name);
 }

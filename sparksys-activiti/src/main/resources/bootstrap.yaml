@@ -29,5 +29,5 @@ logging:
   level:
     com.sparksys.activiti.infrastructure.mapper: debug
   file:
-    path: /Users/zhouxinlei/logs
-    #path: C:\logs
+    #path: /Users/zhouxinlei/logs
+    path: C:\logs

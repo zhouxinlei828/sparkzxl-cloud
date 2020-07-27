@@ -39,7 +39,7 @@ public class ProcessDetailController {
     }
 
     @GetMapping("/processDetail/{modelId}")
-    @ApiOperation("查询流程节点信息")
+    @ApiOperation("查询流程ProcessDetailController节点信息")
     public List<ProcessDetailDTO> getProcessDetail(@ApiParam("模型id") @PathVariable("modelId") String modelId) {
         return processDetailService.getProcessDetail(modelId);
     }

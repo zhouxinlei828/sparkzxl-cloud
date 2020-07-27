@@ -23,6 +23,10 @@ public class ProcessTaskStatus extends Entity<Long> {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "模型id")
+    @TableField("model_id")
+    private String modelId;
+
     @ApiModelProperty(value = "流程id")
     @TableField("process_instance_id")
     private String processInstanceId;

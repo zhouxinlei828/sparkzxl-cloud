@@ -1,14 +1,15 @@
 package com.sparksys.activiti.infrastructure.strategy;
 
 import com.google.common.collect.Maps;
+import com.sparksys.activiti.application.service.act.IProcessRepositoryService;
 import com.sparksys.activiti.application.service.act.IProcessRuntimeService;
-import com.sparksys.activiti.application.service.act.IProcessTaskService;
 import com.sparksys.activiti.domain.service.act.ActWorkApiService;
 import com.sparksys.activiti.infrastructure.constant.WorkflowConstants;
 import com.sparksys.activiti.domain.entity.DriveProcess;
 import com.sparksys.core.support.ResponseResultStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.IdentityService;
+import org.activiti.engine.repository.Model;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,7 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
     @Autowired
     private ActWorkApiService actWorkApiService;
     @Autowired
-    private IProcessTaskService processTaskService;
+    private IProcessRepositoryService processRepositoryService;
 
 
     @Override
@@ -48,10 +49,13 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
                 driveProcess.getBusinessId(),
                 variables);
         String processInstanceId = processInstance.getProcessInstanceId();
+        String deploymentId = processInstance.getDeploymentId();
+        Model model = processRepositoryService.getModelByDeploymentId(deploymentId);
         log.info("启动activiti流程------++++++ProcessInstanceId：{}------++++++", processInstanceId);
         variables.put("actType", WorkflowConstants.WorkflowAction.SUBMIT);
         String comment = "开始节点跳过";
-        return actWorkApiService.promoteProcess(userId, processInstanceId, WorkflowConstants.WorkflowAction.SUBMIT, comment, variables);
+        return actWorkApiService.promoteProcess(userId, processInstanceId, model.getId(), WorkflowConstants.WorkflowAction.SUBMIT, comment
+                , variables);
     }
 
     @Override

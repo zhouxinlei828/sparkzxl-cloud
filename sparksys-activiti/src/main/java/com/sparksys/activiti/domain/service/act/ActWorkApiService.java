@@ -36,7 +36,7 @@ public class ActWorkApiService {
     @Autowired
     private IActHiTaskStatusService actHiTaskStatusService;
 
-    public boolean promoteProcess(String userId, String processInstanceId, int actType, String message,
+    public boolean promoteProcess(String userId, String processInstanceId, String modelId, int actType, String message,
                                   Map<String, Object> variables) {
         Task task = processTaskService.getLatestTaskByProInstId(processInstanceId);
         String taskId = task.getId();
@@ -58,6 +58,7 @@ public class ActWorkApiService {
         }
         CompletableFuture.runAsync(() -> saveProcessTaskStatus(userId,
                 processInstanceId,
+                modelId,
                 processStatus));
         CompletableFuture.runAsync(() -> saveActHiTaskStatus(userId, processInstanceId,
                 taskId, taskDefinitionKey, TaskStatusEnum.getValue(actType)));
@@ -92,20 +93,20 @@ public class ActWorkApiService {
      * @param processInstanceId 流程实例id
      * @param processStatus     流程状态
      */
-    public void saveProcessTaskStatus(String userId, String processInstanceId, String processStatus) {
+    public void saveProcessTaskStatus(String userId, String processInstanceId, String modelId, String processStatus) {
 
         ProcessTaskStatus actHiTaskStatus = processTaskStatusService.getProcessTaskStatus(processInstanceId);
         //记录当前任务流程状态
         if (ObjectUtils.isNotEmpty(actHiTaskStatus)) {
             actHiTaskStatus.setProcessStatus(processStatus);
-            actHiTaskStatus.setUpdateUser(Long.valueOf(userId));
         } else {
             actHiTaskStatus = new ProcessTaskStatus();
+            actHiTaskStatus.setModelId(modelId);
             actHiTaskStatus.setProcessInstanceId(processInstanceId);
             actHiTaskStatus.setProcessStatus(processStatus);
             actHiTaskStatus.setCreateUser(Long.valueOf(userId));
-            actHiTaskStatus.setUpdateUser(Long.valueOf(userId));
         }
+        actHiTaskStatus.setUpdateUser(Long.valueOf(userId));
         processTaskStatusService.saveOrUpdate(actHiTaskStatus);
     }
 

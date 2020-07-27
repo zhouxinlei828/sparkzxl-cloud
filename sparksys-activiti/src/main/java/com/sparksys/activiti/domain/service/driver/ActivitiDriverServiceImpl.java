@@ -1,16 +1,23 @@
 package com.sparksys.activiti.domain.service.driver;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.sparksys.activiti.application.service.driver.IActivitiDriverService;
 import com.sparksys.activiti.application.service.act.IProcessRepositoryService;
+import com.sparksys.activiti.application.service.process.IProcessTaskStatusService;
 import com.sparksys.activiti.domain.entity.DriveProcess;
+import com.sparksys.activiti.infrastructure.entity.ProcessInstance;
 import com.sparksys.activiti.infrastructure.strategy.AbstractActivitiSolver;
 import com.sparksys.activiti.infrastructure.strategy.ActivitiSolverChooser;
 import com.sparksys.activiti.infrastructure.utils.ActivitiUtils;
+import com.sparksys.activiti.interfaces.dto.act.InstancePageDTO;
+import com.sparksys.activiti.interfaces.dto.act.ProcessInstanceDTO;
 import com.sparksys.activiti.interfaces.dto.driver.DriveProcessDTO;
 import com.sparksys.activiti.interfaces.dto.process.ProcessNextTaskDTO;
 import com.sparksys.activiti.interfaces.dto.process.UserNextTask;
 import com.sparksys.core.utils.ListUtils;
+import com.sparksys.database.utils.PageInfoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
@@ -38,6 +45,9 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
 
     @Autowired
     private ActivitiSolverChooser activitiSolverChooser;
+
+    @Autowired
+    private IProcessTaskStatusService processTaskStatusService;
 
     @Autowired
     private IProcessRepositoryService processRepositoryService;
@@ -79,5 +89,12 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
                     .build()));
         }
         return userNextTasks;
+    }
+
+    @Override
+    public PageInfo<ProcessInstanceDTO> getProcessInstanceList(InstancePageDTO instancePageDTO) {
+        PageHelper.startPage(instancePageDTO.getPageNum(), instancePageDTO.getPageSize());
+        List<ProcessInstanceDTO> processInstances = processTaskStatusService.getProcessInstanceList(instancePageDTO.getName());
+        return PageInfoUtils.pageInfo(processInstances);
     }
 }

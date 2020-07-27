@@ -1,11 +1,13 @@
 package com.sparksys.activiti.infrastructure.strategy;
 
 import com.google.common.collect.Maps;
+import com.sparksys.activiti.application.service.act.IProcessRepositoryService;
 import com.sparksys.activiti.application.service.act.IProcessRuntimeService;
 import com.sparksys.activiti.domain.service.act.ActWorkApiService;
 import com.sparksys.activiti.infrastructure.constant.WorkflowConstants;
 import com.sparksys.activiti.domain.entity.DriveProcess;
 import lombok.extern.slf4j.Slf4j;
+import org.activiti.engine.repository.Model;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
     private IProcessRuntimeService processRuntimeService;
     @Autowired
     private ActWorkApiService actWorkApiService;
+    @Autowired
+    private IProcessRepositoryService processRepositoryService;
 
     @Override
     public boolean slove(DriveProcess driveProcess) {
@@ -39,7 +43,10 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
         }
         variables.put("actType", driveProcess.getActType());
         ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
-        return actWorkApiService.promoteProcess(userId, processInstance.getProcessInstanceId(), driveProcess.getActType(), driveProcess.getComment(), variables);
+        String deploymentId = processInstance.getDeploymentId();
+        Model model = processRepositoryService.getModelByDeploymentId(deploymentId);
+        return actWorkApiService.promoteProcess(userId, processInstance.getProcessInstanceId(), model.getId(), driveProcess.getActType(),
+                driveProcess.getComment(), variables);
     }
 
     @Override

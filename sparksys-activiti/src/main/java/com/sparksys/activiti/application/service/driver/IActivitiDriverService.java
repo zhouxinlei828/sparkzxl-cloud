@@ -1,5 +1,9 @@
 package com.sparksys.activiti.application.service.driver;
 
+import com.github.pagehelper.PageInfo;
+import com.sparksys.activiti.infrastructure.entity.ProcessInstance;
+import com.sparksys.activiti.interfaces.dto.act.InstancePageDTO;
+import com.sparksys.activiti.interfaces.dto.act.ProcessInstanceDTO;
 import com.sparksys.activiti.interfaces.dto.driver.DriveProcessDTO;
 import com.sparksys.activiti.interfaces.dto.process.ProcessNextTaskDTO;
 import com.sparksys.activiti.interfaces.dto.process.UserNextTask;
@@ -30,4 +34,11 @@ public interface IActivitiDriverService {
      */
     List<UserNextTask> getNextUserTask(ProcessNextTaskDTO processNextTaskDTO);
 
+    /**
+     * 分页查询流程实例列表
+     *
+     * @param instancePageDTO 流程实例查询入参
+     * @return PageInfo<ProcessInstanceDTO>
+     */
+    PageInfo<ProcessInstanceDTO> getProcessInstanceList(InstancePageDTO instancePageDTO);
 }

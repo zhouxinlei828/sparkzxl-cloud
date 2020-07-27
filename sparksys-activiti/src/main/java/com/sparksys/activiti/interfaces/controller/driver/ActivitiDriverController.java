@@ -20,7 +20,7 @@ import java.util.List;
  * @date: 2020-07-17 16:29:54
  */
 @RestController
-@RequestMapping("/activiti/driver/")
+@RequestMapping("/act/driver/")
 @ResponseResult
 @WebLog
 @Api(tags = "流程驱动管理")

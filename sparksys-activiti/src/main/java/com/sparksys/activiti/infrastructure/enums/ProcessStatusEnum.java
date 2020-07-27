@@ -20,7 +20,7 @@ public enum ProcessStatusEnum {
      */
     SUBMIT(1, "运行中"),
     ROLLBACK(-1, "驳回"),
-    END(-2, "终止");
+    END(-2,"终止");
 
     @EnumValue
     @JsonValue
@@ -32,6 +32,15 @@ public enum ProcessStatusEnum {
         for (ProcessStatusEnum ele : values()) {
             if (ele.getCode() == code) {
                 return ele.getDesc();
+            }
+        }
+        return null;
+    }
+
+    public static ProcessStatusEnum getEnum(int code) {
+        for (ProcessStatusEnum ele : values()) {
+            if (ele.getCode() == code) {
+                return ele;
             }
         }
         return null;
