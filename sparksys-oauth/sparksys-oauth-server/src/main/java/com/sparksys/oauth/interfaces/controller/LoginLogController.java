@@ -6,20 +6,18 @@ import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 
-/*
+/**
  * description：
  *
  * @author zhouxinlei
- * @date  2020/6/17 0017
+ * @date 2020/6/17 0017
  */
 @RestController
-@RequestMapping("/loginLog")
 @ResponseResult
 @WebLog
 @Api(value = "LoginLog", tags = "登录日志")
@@ -33,7 +31,7 @@ public class LoginLogController {
 
 
     @ApiOperation("清空日志")
-    @DeleteMapping("/clear")
+    @DeleteMapping("/loginLog/clear")
     public Boolean clear(@RequestParam(required = false, defaultValue = "1") Integer type) {
         LocalDateTime clearBeforeTime = null;
         Integer clearBeforeNum = null;

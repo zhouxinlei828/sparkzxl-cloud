@@ -35,7 +35,6 @@ import java.util.Map;
  * @date 2020/6/6 9:08 上午
  */
 @RestController
-@RequestMapping("/oauth")
 @ResponseResult
 @WebLog
 @Api(tags = "授权登录管理")
@@ -51,14 +50,14 @@ public class OauthController {
         this.authUserService = authUserService;
     }
 
-    @GetMapping("/token")
+    @GetMapping("/oauth/token")
     @Trace(operationName = "oauth_get_token_trace")
     public OAuth2AccessToken getAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         ActiveSpan.tag("getAccessToken", "get授权登录");
         return oauthService.getAccessToken(principal, parameters);
     }
 
-    @PostMapping("/token")
+    @PostMapping("/oauth/token")
     @Trace(operationName = "oauth_post_token_trace")
     public OAuth2AccessToken postAccessToken(Principal principal, @RequestBody Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         ActiveSpan.tag("postAccessToken", "post授权登录");

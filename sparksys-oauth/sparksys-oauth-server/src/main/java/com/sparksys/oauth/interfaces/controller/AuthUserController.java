@@ -3,7 +3,6 @@ package com.sparksys.oauth.interfaces.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.sparksys.core.entity.AuthUserInfo;
-import com.sparksys.database.dto.PageDTO;
 import com.sparksys.log.annotation.WebLog;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.interfaces.dto.user.*;
@@ -24,7 +23,6 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @ResponseResult
 @WebLog
-@RequestMapping("/user")
 @Api(tags = "用户管理")
 public class AuthUserController {
 
@@ -53,7 +51,6 @@ public class AuthUserController {
         return authUserService.saveAuthUser(authUser.getId(), authUserSaveDTO);
     }
 
-
     @ApiOperation("修改用户信息")
     @PutMapping("/authUser")
     public boolean updateAuthUser(@ApiIgnore AuthUserInfo authUser, @Validated @RequestBody AuthUserUpdateDTO authUserUpdateDTO) {
@@ -61,8 +58,8 @@ public class AuthUserController {
     }
 
     @ApiOperation("删除用户信息")
-    @DeleteMapping("/authUser")
-    public boolean deleteAuthUser(@RequestParam(value = "id") Long id) {
+    @DeleteMapping("/authUser/{id}")
+    public boolean deleteAuthUser(@PathVariable("id") Long id) {
         return authUserService.deleteAuthUser(id);
     }
 
