@@ -27,7 +27,7 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      *
      * @param contextUserId   当前登录用户id
      * @param authUserSaveDTO 保存dto对象
-     * @return
+     * @return boolean
      */
     boolean saveAuthUser(Long contextUserId, AuthUserSaveDTO authUserSaveDTO);
 
@@ -35,8 +35,8 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * 修改用户信息
      *
      * @param contextUserId     当前登录用户id
-     * @param authUserUpdateDTO
-     * @return
+     * @param authUserUpdateDTO AuthUserUpdateDTO更新对象
+     * @return boolean
      */
     boolean updateAuthUser(Long contextUserId, AuthUserUpdateDTO authUserUpdateDTO);
 
@@ -44,7 +44,7 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * 删除用户信息
      *
      * @param id 用户id
-     * @return
+     * @return boolean
      */
     boolean deleteAuthUser(Long id);
 
@@ -52,15 +52,15 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * 修改用户账号状态
      *
      * @param contextUserId     当前登录用户id
-     * @param authUserStatusDTO
-     * @return
+     * @param authUserStatusDTO AuthUserStatusDTO状态修改对象
+     * @return boolean
      */
     boolean updateAuthUserStatus(Long contextUserId, AuthUserStatusDTO authUserStatusDTO);
 
     /**
      * 分页查询用户列表
      *
-     * @param authUserPageDTO  分页查询参数
+     * @param authUserPageDTO 分页查询参数
      * @return PageInfo<AuthUserDTO>
      */
     PageInfo<AuthUserDTO> listByPage(AuthUserPageDTO authUserPageDTO);
@@ -69,7 +69,7 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * 获取用户信息
      *
      * @param id 用户id
-     * @return
+     * @return AuthUserDTO
      */
     AuthUserDTO getAuthUser(Long id);
 
@@ -77,33 +77,29 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * 重置密码错误次数
      *
      * @param id 用户id
-     * @return boolean
      */
-    boolean resetPassErrorNum(Long id);
+    void resetPassErrorNum(Long id);
 
     /**
      * 重置密码错误次数
      *
      * @param account 账户
-     * @return
      */
-    boolean resetPassErrorNum(String account);
+    void resetPassErrorNum(String account);
 
     /**
      * 增加密码错误次数
      *
      * @param id 用户id
-     * @return boolean
      */
-    boolean incrPasswordErrorNum(Long id);
+    void incrPasswordErrorNum(Long id);
 
     /**
      * 增加密码错误次数
      *
      * @param account 账户
-     * @return boolean
      */
-    boolean incrPasswordErrorNum(String account);
+    void incrPasswordErrorNum(String account);
 
     /**
      * 获取用户信息
@@ -121,10 +117,33 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      */
     Set<String> getAuthUserPermissions(Long id);
 
+    /**
+     * 获取登录用户
+     *
+     * @param username 用户名
+     * @return UserInfo
+     */
     UserInfo getCurrentUser(String username);
 
+    /**
+     * 获取用户通知
+     *
+     * @return List<UserNotices>
+     */
     List<UserNotices> getUserNotices();
 
+    /**
+     * 获取文章
+     *
+     * @return
+     */
     List<UserActivities> activities();
 
+    /**
+     * 更新用户组织
+     *
+     * @param id 组织id
+     * @return boolean
+     */
+    boolean deleteOrgId(Long id);
 }

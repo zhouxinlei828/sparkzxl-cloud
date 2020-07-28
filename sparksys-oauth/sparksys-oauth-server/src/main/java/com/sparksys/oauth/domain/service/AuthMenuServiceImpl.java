@@ -19,16 +19,9 @@ import java.util.List;
  */
 @Service
 public class AuthMenuServiceImpl extends AbstractSuperCacheServiceImpl<AuthMenuMapper, AuthMenu> implements IAuthMenuService {
-
-    private final IAuthMenuRepository authMenuRepository;
-
-    public AuthMenuServiceImpl(IAuthMenuRepository authMenuRepository) {
-        this.authMenuRepository = authMenuRepository;
-    }
-
     @Override
     public List<AuthMenu> findMenuTree() {
-        List<AuthMenu> authMenuList = authMenuRepository.selectList();
+        List<AuthMenu> authMenuList = list();
         return TreeUtil.buildTree(authMenuList);
     }
 

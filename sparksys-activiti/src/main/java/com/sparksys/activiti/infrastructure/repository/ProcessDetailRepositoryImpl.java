@@ -25,8 +25,7 @@ public class ProcessDetailRepositoryImpl implements IProcessDetailRepository {
     @Override
     public List<ProcessDetail> getProcessDetailList(String processName) {
         QueryWrapper<ProcessDetail> detailQueryWrapper = new QueryWrapper<>();
-        Optional<String> processNameOptional = Optional.ofNullable(processName);
-        processNameOptional.ifPresent((value) -> detailQueryWrapper.eq("process_name", processName));
+        Optional.ofNullable(processName).ifPresent((value) -> detailQueryWrapper.eq("process_name", processName));
         detailQueryWrapper.groupBy("model_id");
         return processDetailMapper.selectList(detailQueryWrapper);
     }

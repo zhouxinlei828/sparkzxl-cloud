@@ -55,11 +55,9 @@ public class CoreStationRepository implements ICoreStationRepository {
 
     @Override
     public PageInfo<CoreStation> getStationPageList(int pageNum, int pageSize, String name, Long orgId) {
-        Optional<String> nameOptional = Optional.ofNullable(name);
-        Optional<Long> orgIdOptional = Optional.ofNullable(orgId);
         QueryWrapper<CoreStation> stationQueryWrapper = new QueryWrapper<>();
-        nameOptional.ifPresent(value -> stationQueryWrapper.likeRight("name", value));
-        orgIdOptional.ifPresent(value -> stationQueryWrapper.eq("org_id", value));
+        Optional.ofNullable(name).ifPresent(value -> stationQueryWrapper.likeRight("name", value));
+        Optional.ofNullable(orgId).ifPresent(value -> stationQueryWrapper.eq("org_id", value));
         PageHelper.startPage(pageNum, pageSize);
         return PageInfoUtils.pageInfo(coreStationMapper.selectList(stationQueryWrapper));
     }

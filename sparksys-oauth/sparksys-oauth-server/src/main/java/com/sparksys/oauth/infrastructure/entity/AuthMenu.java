@@ -24,10 +24,6 @@ public class AuthMenu extends TreeEntity<AuthMenu, Long> {
 
     private static final long serialVersionUID = 7737221207197581152L;
 
-    @ApiModelProperty(value = "名称")
-    @TableField("label")
-    private String label;
-
     @ApiModelProperty(value = "描述")
     @TableField("describe_")
     private String describe;
@@ -47,10 +43,6 @@ public class AuthMenu extends TreeEntity<AuthMenu, Long> {
     @ApiModelProperty(value = "状态")
     @TableField("is_enable")
     private Boolean isEnable;
-
-    @ApiModelProperty(value = "排序")
-    @TableField("sort_value")
-    private Integer sortValue;
 
     @ApiModelProperty(value = "菜单图标")
     @TableField("icon")

@@ -13,4 +13,11 @@ import com.sparksys.oauth.infrastructure.entity.RoleOrg;
  */
 public interface IRoleOrgService extends SuperCacheService<RoleOrg> {
 
+    /**
+     * 删除角色组织
+     *
+     * @param orgId 组织id
+     * @return
+     */
+    boolean deleteRoleOrgByOrgId(Long orgId);
 }

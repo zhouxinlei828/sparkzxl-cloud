@@ -27,10 +27,8 @@ public class ActReModelRepositoryImpl implements IActReModelRepository {
     @Override
     public PageInfo<ActReModel> actReModelList(String key, String name) {
         QueryWrapper<ActReModel> modelQueryWrapper = new QueryWrapper<>();
-        Optional<String> keyOptional = Optional.ofNullable(key);
-        Optional<String> nameOptional = Optional.ofNullable(name);
-        keyOptional.ifPresent((value) -> modelQueryWrapper.eq("KEY_", value));
-        nameOptional.ifPresent((value) -> modelQueryWrapper.likeRight("NAME_", value));
+        Optional.ofNullable(key).ifPresent((value) -> modelQueryWrapper.eq("KEY_", value));
+        Optional.ofNullable(name).ifPresent((value) -> modelQueryWrapper.likeRight("NAME_", value));
         return PageInfoUtils.pageInfo(actReModelMapper.selectList(modelQueryWrapper));
     }
 }

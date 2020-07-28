@@ -6,13 +6,11 @@ import com.sparksys.oauth.domain.bo.AuthUserBO;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 /**
  * description：用户仓储层实现类
@@ -44,18 +42,12 @@ public class AuthUserRepository implements IAuthUserRepository {
     @InjectionResult
     public List<AuthUser> findAuthUserList(AuthUserBO authUserBO) {
         QueryWrapper<AuthUser> userQueryWrapper = new QueryWrapper<>();
-        Optional<String> accountOptional = Optional.ofNullable(authUserBO.getAccount());
-        Optional<String> nameOptional = Optional.ofNullable(authUserBO.getName());
-        Optional<String> emailOptional = Optional.ofNullable(authUserBO.getEmail());
-        Optional<String> mobileOptional = Optional.ofNullable(authUserBO.getMobile());
-        Optional<Integer> sexOptional = Optional.ofNullable(authUserBO.getSex());
-        Optional<Boolean> statusOptional = Optional.ofNullable(authUserBO.getStatus());
-        accountOptional.ifPresent((value) -> userQueryWrapper.eq("account", authUserBO.getAccount()));
-        nameOptional.ifPresent((value) -> userQueryWrapper.likeRight("name", authUserBO.getName()));
-        emailOptional.ifPresent((value) -> userQueryWrapper.eq("email", authUserBO.getEmail()));
-        mobileOptional.ifPresent((value) -> userQueryWrapper.eq("mobile", authUserBO.getMobile()));
-        sexOptional.ifPresent((value) -> userQueryWrapper.eq("sex", authUserBO.getSex()));
-        statusOptional.ifPresent((value) -> userQueryWrapper.eq("status", authUserBO.getStatus()));
+        Optional.ofNullable(authUserBO.getAccount()).ifPresent((value) -> userQueryWrapper.eq("account", authUserBO.getAccount()));
+        Optional.ofNullable(authUserBO.getName()).ifPresent((value) -> userQueryWrapper.likeRight("name", authUserBO.getName()));
+        Optional.ofNullable(authUserBO.getEmail()).ifPresent((value) -> userQueryWrapper.eq("email", authUserBO.getEmail()));
+        Optional.ofNullable(authUserBO.getMobile()).ifPresent((value) -> userQueryWrapper.eq("mobile", authUserBO.getMobile()));
+        Optional.ofNullable(authUserBO.getSex()).ifPresent((value) -> userQueryWrapper.eq("sex", authUserBO.getSex()));
+        Optional.ofNullable(authUserBO.getStatus()).ifPresent((value) -> userQueryWrapper.eq("status", authUserBO.getStatus()));
         return authUserMapper.selectList(userQueryWrapper);
     }
 

@@ -1,22 +1,13 @@
 package com.sparksys.activiti.interfaces.controller.model;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.pagehelper.PageInfo;
-import com.sparksys.activiti.application.service.act.IActReModelService;
 import com.sparksys.activiti.application.service.model.IModelService;
-import com.sparksys.activiti.application.service.act.IProcessRepositoryService;
-import com.sparksys.activiti.infrastructure.entity.ActReModel;
-import com.sparksys.activiti.interfaces.dto.act.ModelPageDTO;
 import com.sparksys.log.annotation.WebLog;
-import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.editor.constants.ModelDataJsonConstants;
-import org.activiti.engine.repository.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * description: 获取model的节点信息，编辑器根据返回的json进行绘图
@@ -32,18 +23,9 @@ import java.util.List;
 public class ModelEditorController implements ModelDataJsonConstants {
 
     private final IModelService modelEditorService;
-    private final IActReModelService actReModelService;
 
-    public ModelEditorController(IModelService modelEditorService, IActReModelService actReModelService) {
+    public ModelEditorController(IModelService modelEditorService) {
         this.modelEditorService = modelEditorService;
-        this.actReModelService = actReModelService;
-    }
-
-    @ApiOperation("查询流程模型列表")
-    @GetMapping("model/list")
-    @ResponseResult
-    public PageInfo<ActReModel> modelList(ModelPageDTO modelPageDTO) {
-        return actReModelService.actReModelList(modelPageDTO);
     }
 
     @ApiOperation("获取流程json信息")

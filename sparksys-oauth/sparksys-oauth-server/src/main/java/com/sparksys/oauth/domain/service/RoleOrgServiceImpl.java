@@ -1,5 +1,6 @@
 package com.sparksys.oauth.domain.service;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.infrastructure.entity.RoleOrg;
 import com.sparksys.oauth.infrastructure.mapper.RoleOrgMapper;
@@ -14,6 +15,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RoleOrgServiceImpl extends AbstractSuperCacheServiceImpl<RoleOrgMapper, RoleOrg> implements IRoleOrgService {
+
+    @Override
+    public boolean deleteRoleOrgByOrgId(Long orgId) {
+        return remove(new UpdateWrapper<RoleOrg>().lambda().eq(RoleOrg::getOrgId, orgId));
+    }
+
     @Override
     protected String getRegion() {
         return null;
