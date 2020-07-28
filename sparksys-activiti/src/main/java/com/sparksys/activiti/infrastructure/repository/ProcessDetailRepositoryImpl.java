@@ -1,9 +1,12 @@
 package com.sparksys.activiti.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.domain.repository.IProcessDetailRepository;
 import com.sparksys.activiti.infrastructure.entity.ProcessDetail;
 import com.sparksys.activiti.infrastructure.mapper.ProcessDetailMapper;
+import com.sparksys.database.utils.PageInfoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,11 +26,12 @@ public class ProcessDetailRepositoryImpl implements IProcessDetailRepository {
     private ProcessDetailMapper processDetailMapper;
 
     @Override
-    public List<ProcessDetail> getProcessDetailList(String processName) {
+    public PageInfo<ProcessDetail> getProcessDetailList(int pageNum, int pageSize, String processName) {
         QueryWrapper<ProcessDetail> detailQueryWrapper = new QueryWrapper<>();
         Optional.ofNullable(processName).ifPresent((value) -> detailQueryWrapper.eq("process_name", processName));
         detailQueryWrapper.groupBy("model_id");
-        return processDetailMapper.selectList(detailQueryWrapper);
+        PageHelper.startPage(pageNum, pageSize);
+        return PageInfoUtils.pageInfo(processDetailMapper.selectList(detailQueryWrapper));
     }
 
     @Override

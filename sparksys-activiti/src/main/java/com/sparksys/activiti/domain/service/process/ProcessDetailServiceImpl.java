@@ -42,9 +42,8 @@ public class ProcessDetailServiceImpl extends AbstractSuperCacheServiceImpl<Proc
 
     @Override
     public PageInfo<ProcessDetail> getProcessDetailList(ProcessDetailPageDTO processDetailPageDTO) {
-        PageHelper.startPage(processDetailPageDTO.getPageNum(), processDetailPageDTO.getPageSize());
-        List<ProcessDetail> processDetails = processDetailRepository.getProcessDetailList(processDetailPageDTO.getProcessName());
-        return PageInfoUtils.pageInfo(processDetails);
+        return processDetailRepository.getProcessDetailList(processDetailPageDTO.getPageNum(),
+                processDetailPageDTO.getPageSize(), processDetailPageDTO.getProcessName());
     }
 
     @Override

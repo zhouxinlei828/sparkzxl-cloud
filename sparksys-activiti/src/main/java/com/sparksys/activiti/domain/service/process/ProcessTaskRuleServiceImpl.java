@@ -1,17 +1,21 @@
 package com.sparksys.activiti.domain.service.process;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.sparksys.activiti.domain.repository.IActRuTaskRuleRepository;
 import com.sparksys.activiti.infrastructure.constant.ActivitiCache;
+import com.sparksys.activiti.infrastructure.constant.WorkflowConstants;
 import com.sparksys.activiti.infrastructure.convert.ProcessTaskRuleConvert;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskRule;
 import com.sparksys.activiti.infrastructure.mapper.ProcessTaskRuleMapper;
 import com.sparksys.activiti.application.service.process.IProcessTaskRuleService;
+import com.sparksys.activiti.interfaces.dto.process.ProcessActionDTO;
 import com.sparksys.activiti.interfaces.dto.process.TaskRuleSaveDTO;
-import com.sparksys.activiti.interfaces.dto.process.TaskRuleUpdateDTO;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * description:流程控制 服务实现类
@@ -36,7 +40,7 @@ public class ProcessTaskRuleServiceImpl extends AbstractSuperCacheServiceImpl<Pr
     @Override
     public boolean saveProcessTaskRule(TaskRuleSaveDTO taskRuleSaveDTO) {
         ProcessTaskRule processTaskRule = ProcessTaskRuleConvert.INSTANCE.convertTaskRuleSaveDTO(taskRuleSaveDTO);
-        return save(processTaskRule);
+        return saveOrUpdate(processTaskRule);
     }
 
     @Override
@@ -45,10 +49,17 @@ public class ProcessTaskRuleServiceImpl extends AbstractSuperCacheServiceImpl<Pr
     }
 
     @Override
-    public boolean updateProcessTaskRule(Long id, TaskRuleUpdateDTO taskRuleUpdateDTO) {
-        ProcessTaskRule processTaskRule = ProcessTaskRuleConvert.INSTANCE.convertTaskRuleUpdateDTO(taskRuleUpdateDTO);
-        processTaskRule.setId(id);
-        return updateById(processTaskRule);
+    public List<ProcessActionDTO> getProcessAction() {
+        List<ProcessActionDTO> processActions = Lists.newArrayList();
+        processActions.add(ProcessActionDTO.builder()
+                .id(WorkflowConstants.WorkflowAction.JUMP)
+                .name("跳转")
+                .build());
+        processActions.add(ProcessActionDTO.builder()
+                .id(WorkflowConstants.WorkflowAction.ROLLBACK)
+                .name("驳回")
+                .build());
+        return processActions;
     }
 
     @Override

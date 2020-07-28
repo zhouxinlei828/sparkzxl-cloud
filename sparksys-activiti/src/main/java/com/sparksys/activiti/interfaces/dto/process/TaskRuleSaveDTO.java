@@ -16,6 +16,9 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "TaskRule保存对象", description = "")
 public class TaskRuleSaveDTO {
 
+    @ApiModelProperty("主键")
+    private Long id;
+
     @ApiModelProperty(value = "流程详细id")
     @NotNull(message = "流程详细id不能为空")
     private Long processDetailId;

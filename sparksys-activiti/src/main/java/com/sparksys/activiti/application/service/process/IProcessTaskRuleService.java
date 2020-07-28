@@ -1,11 +1,13 @@
 package com.sparksys.activiti.application.service.process;
 
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskRule;
+import com.sparksys.activiti.interfaces.dto.process.ProcessActionDTO;
 import com.sparksys.activiti.interfaces.dto.process.TaskRuleSaveDTO;
 import com.sparksys.activiti.interfaces.dto.process.TaskRuleUpdateDTO;
 import com.sparksys.database.service.SuperCacheService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * description: 流程跳转控制 服务类
@@ -44,12 +46,10 @@ public interface IProcessTaskRuleService extends SuperCacheService<ProcessTaskRu
     List<ProcessTaskRule> getProcessTaskRule(String processId, String taskDefKey);
 
     /**
-     * 修改流程跳转规则
+     * 获取流程动作类型
      *
-     * @param id                主键
-     * @param taskRuleUpdateDTO 流程跳转更新对象
-     * @return boolean
+     * @return List<ProcessActionDTO>
      */
-    boolean updateProcessTaskRule(Long id, TaskRuleUpdateDTO taskRuleUpdateDTO);
+    List<ProcessActionDTO> getProcessAction();
 
 }

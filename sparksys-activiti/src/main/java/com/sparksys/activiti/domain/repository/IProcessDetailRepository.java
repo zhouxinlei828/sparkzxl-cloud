@@ -1,6 +1,7 @@
 package com.sparksys.activiti.domain.repository;
 
 
+import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.infrastructure.entity.ProcessDetail;
 
 import java.util.List;
@@ -16,10 +17,12 @@ public interface IProcessDetailRepository {
     /**
      * 流程详细节点列表查询
      *
-     * @param name 流程名称
+     * @param pageNum  当前页
+     * @param pageSize 每页显示大小
+     * @param name     流程名称
      * @return List<ProcessDetail>
      */
-    List<ProcessDetail> getProcessDetailList(String name);
+    PageInfo<ProcessDetail> getProcessDetailList(int pageNum, int pageSize, String name);
 
     /**
      * 查询流程节点信息
