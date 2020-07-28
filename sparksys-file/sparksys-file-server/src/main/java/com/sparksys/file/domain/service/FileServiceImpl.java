@@ -48,7 +48,7 @@ public class FileServiceImpl implements IFileService {
             // 上传到阿里云
             UploadResult uploadResult = aliOssFileHandler.upload(multipartFile);
             fileMaterial = uploadResult.builder(uploadResult);
-            boolean result = fileMaterialRepository.saveFileMaterialDO(fileMaterial);
+            boolean result = fileMaterialRepository.saveFileMaterial(fileMaterial);
             log.info("文件上传结果 result is {}", result);
         }
         return FileMaterialConvert.INSTANCE.convertFileMaterialDTO(fileMaterial);
@@ -66,7 +66,7 @@ public class FileServiceImpl implements IFileService {
         fileMaterialDO = fileMaterialRepository.selectByFilePath(ossCallbackDTO.getFilePath());
         if (ObjectUtils.isEmpty(fileMaterialDO)) {
             fileMaterialDO = ossCallbackDTO.builder(ossCallbackDTO);
-            boolean result = fileMaterialRepository.saveFileMaterialDO(fileMaterialDO);
+            boolean result = fileMaterialRepository.saveFileMaterial(fileMaterialDO);
             log.info("文件上传结果 result is {}", result);
         }
         return FileMaterialConvert.INSTANCE.convertFileMaterialDTO(fileMaterialDO);

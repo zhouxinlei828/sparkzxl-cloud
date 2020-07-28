@@ -16,5 +16,11 @@ public interface FileMaterialConvert {
 
     FileMaterialConvert INSTANCE = Mappers.getMapper(FileMaterialConvert.class);
 
+    /**
+     * FileMaterial转化为FileMaterialDTO
+     *
+     * @param fileMaterial 文件素材
+     * @return FileMaterialDTO
+     */
     FileMaterialDTO convertFileMaterialDTO(FileMaterial fileMaterial);
 }

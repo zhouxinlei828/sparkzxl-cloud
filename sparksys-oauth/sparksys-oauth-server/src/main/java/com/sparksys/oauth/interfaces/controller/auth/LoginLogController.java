@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 
 /**
- * description：
+ * description：登录日志
  *
  * @author zhouxinlei
  * @date 2020/6/17 0017
@@ -35,30 +35,36 @@ public class LoginLogController {
     public Boolean clear(@RequestParam(required = false, defaultValue = "1") Integer type) {
         LocalDateTime clearBeforeTime = null;
         Integer clearBeforeNum = null;
-        if (type == 1) {
-            clearBeforeTime = LocalDateTime.now().plusMonths(-1);
-        } else if (type == 2) {
-            clearBeforeTime = LocalDateTime.now().plusMonths(-3);
-        } else if (type == 3) {
-            clearBeforeTime = LocalDateTime.now().plusMonths(-6);
-        } else if (type == 4) {
-            clearBeforeTime = LocalDateTime.now().plusMonths(-12);
-        } else if (type == 5) {
-            // 清理一千条以前日志数据
-            clearBeforeNum = 1000;
-        } else if (type == 6) {
-            // 清理一万条以前日志数据
-            clearBeforeNum = 10000;
-        } else if (type == 7) {
-            // 清理三万条以前日志数据
-            clearBeforeNum = 30000;
-        } else if (type == 8) {
-            // 清理十万条以前日志数据
-            clearBeforeNum = 100000;
-        } else if (type == 9) {
-
-        } else {
-            return false;
+        switch (type) {
+            case 1:
+                clearBeforeTime = LocalDateTime.now().plusMonths(-1);
+                break;
+            case 2:
+                clearBeforeTime = LocalDateTime.now().plusMonths(-3);
+                break;
+            case 3:
+                clearBeforeTime = LocalDateTime.now().plusMonths(-6);
+                break;
+            case 4:
+                clearBeforeTime = LocalDateTime.now().plusMonths(-12);
+                break;
+            case 5:
+                clearBeforeNum = 1000;
+                break;
+            case 6:
+                // 清理一万条以前日志数据
+                clearBeforeNum = 10000;
+                break;
+            case 7:
+                // 清理三万条以前日志数据
+                clearBeforeNum = 30000;
+                break;
+            case 8:
+                // 清理十万条以前日志数据
+                clearBeforeNum = 100000;
+                break;
+            default:
+                return false;
         }
         return loginLogService.clearLog(clearBeforeTime, clearBeforeNum);
     }

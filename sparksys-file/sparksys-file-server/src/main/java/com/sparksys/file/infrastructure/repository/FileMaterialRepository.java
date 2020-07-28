@@ -7,11 +7,11 @@ import com.sparksys.file.domain.entity.FileMaterial;
 import com.sparksys.file.domain.repository.IFileMaterialRepository;
 import org.springframework.stereotype.Repository;
 
-/*
- * description：
+/**
+ * description： 文件 仓储实现类
  *
  * @author zhouxinlei
- * @date  2020/6/16 0016
+ * @date 2020/6/16 0016
  */
 @Repository
 public class FileMaterialRepository implements IFileMaterialRepository {
@@ -33,7 +33,7 @@ public class FileMaterialRepository implements IFileMaterialRepository {
     }
 
     @Override
-    public boolean saveFileMaterialDO(FileMaterial fileMaterialDO) {
+    public boolean saveFileMaterial(FileMaterial fileMaterialDO) {
         return fileMaterialMapper.insert(fileMaterialDO) == 1;
     }
 

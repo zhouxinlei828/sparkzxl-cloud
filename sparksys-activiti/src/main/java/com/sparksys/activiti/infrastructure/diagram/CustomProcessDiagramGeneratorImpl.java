@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -132,7 +133,9 @@ public class CustomProcessDiagramGeneratorImpl extends DefaultProcessDiagramGene
                 collapsed = true;
             }
 
-            if (scaleFactor == 1.0) {
+            BigDecimal bigDecimal = new BigDecimal("1.0");
+            BigDecimal scaleFactorBigDecimal = new BigDecimal(String.valueOf(scaleFactor));
+            if (scaleFactorBigDecimal.equals(bigDecimal)) {
                 // Actually draw the markers
                 processDiagramCanvas.drawActivityMarkers((int) graphicInfo.getX(), (int) graphicInfo.getY(), (int) graphicInfo.getWidth(), (int) graphicInfo.getHeight(),
                         multiInstanceSequential, multiInstanceParallel, collapsed);

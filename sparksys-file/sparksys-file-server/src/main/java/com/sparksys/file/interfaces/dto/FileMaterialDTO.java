@@ -5,11 +5,11 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-/*
- * description：
+/**
+ * description：文件入参
  *
  * @author zhouxinlei
- * @date  2020/6/16 0016
+ * @date 2020/6/16 0016
  */
 @Data
 public class FileMaterialDTO {
