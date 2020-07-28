@@ -95,10 +95,8 @@ public class TokenFilter implements GlobalFilter, Ordered {
 
     protected Mono<Void> errorResponse(ServerHttpResponse response) {
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        response.setStatusCode(HttpStatus.UNAUTHORIZED);
         //指定编码，否则在浏览器中会中文乱码
         response.getHeaders().add("Content-Type", "text/plain;charset=UTF-8");
-        response.setStatusCode(HttpStatus.UNAUTHORIZED);
         byte[] bytes = JSON.toJSONString(ApiResult.apiResult(ResponseResultStatus.UN_AUTHORIZED)).getBytes(StandardCharsets.UTF_8);
         DataBuffer buffer = response.bufferFactory().wrap(bytes);
         return response.writeWith(Flux.just(buffer));
