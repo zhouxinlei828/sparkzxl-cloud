@@ -2,11 +2,11 @@ package com.sparksys.file.domain.repository;
 
 import com.sparksys.file.domain.entity.FileMaterial;
 
-/*
+/**
  * description：
  *
  * @author zhouxinlei
- * @date  2020/6/16 0016
+ * @date 2020/6/16 0016
  */
 public interface IFileMaterialRepository {
 
