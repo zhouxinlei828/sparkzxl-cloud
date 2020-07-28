@@ -1,4 +1,4 @@
-package com.sparksys.oauth.interfaces.controller;
+package com.sparksys.oauth.interfaces.controller.auth;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;

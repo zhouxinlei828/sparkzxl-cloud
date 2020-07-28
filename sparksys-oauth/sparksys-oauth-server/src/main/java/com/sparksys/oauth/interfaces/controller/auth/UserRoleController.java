@@ -1,4 +1,4 @@
-package com.sparksys.oauth.interfaces.controller;
+package com.sparksys.oauth.interfaces.controller.auth;
 
 
 import com.sparksys.log.annotation.WebLog;

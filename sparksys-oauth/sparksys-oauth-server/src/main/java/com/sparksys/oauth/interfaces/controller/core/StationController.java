@@ -1,4 +1,4 @@
-package com.sparksys.oauth.interfaces.controller;
+package com.sparksys.oauth.interfaces.controller.core;
 
 
 import com.github.pagehelper.PageInfo;
