@@ -88,20 +88,18 @@ public class TokenFilter implements GlobalFilter, Ordered {
         }
         String token = getHeader(CoreConstant.JwtTokenConstant.JWT_TOKEN_HEADER, request);
         if (StringUtils.isBlank(token)) {
-            return errorResponse(response, ResponseResultStatus.UN_AUTHORIZED);
+            return errorResponse(response);
         }
-        ServerHttpRequest.Builder mutate = request.mutate();
-        ServerHttpRequest build = mutate.build();
-        return chain.filter(exchange.mutate().request(build).build());
+        return chain.filter(exchange.mutate().request(request.mutate().build()).build());
     }
 
-    protected Mono<Void> errorResponse(ServerHttpResponse response, ResponseResultStatus responseResultStatus) {
+    protected Mono<Void> errorResponse(ServerHttpResponse response) {
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
         //指定编码，否则在浏览器中会中文乱码
         response.getHeaders().add("Content-Type", "text/plain;charset=UTF-8");
         response.setStatusCode(HttpStatus.OK);
-        byte[] bytes = JSON.toJSONString(ApiResult.apiResult(responseResultStatus)).getBytes(StandardCharsets.UTF_8);
+        byte[] bytes = JSON.toJSONString(ApiResult.apiResult(ResponseResultStatus.UN_AUTHORIZED)).getBytes(StandardCharsets.UTF_8);
         DataBuffer buffer = response.bufferFactory().wrap(bytes);
         return response.writeWith(Flux.just(buffer));
     }
