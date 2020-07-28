@@ -1,9 +1,10 @@
 package com.sparksys.oauth.domain.service;
 
-import com.sparksys.core.constant.CacheKey;
+import com.sparksys.core.utils.KeyUtils;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.IAuthResourceService;
 import com.sparksys.oauth.domain.repository.IAuthResourceRepository;
+import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.infrastructure.convert.AuthResourceConvert;
 import com.sparksys.oauth.infrastructure.entity.AuthResource;
 import com.sparksys.oauth.infrastructure.mapper.AuthResourceMapper;
@@ -39,7 +40,7 @@ public class AuthResourceServiceImpl extends AbstractSuperCacheServiceImpl<AuthR
 
     @Override
     public List<AuthResource> findVisibleResource(Long userId, ResourceQueryDTO resource) {
-        String userResourceKey = CacheKey.buildKey(getRegion(),userId);
+        String userResourceKey = KeyUtils.buildKey(getRegion(),userId);
         List<AuthResource> visibleResource = new ArrayList<>();
         cacheRepository.get(userResourceKey,(key) -> {
             visibleResource.addAll(authResourceRepository.findVisibleResource(resource.getUserId(),resource.getMenuId()));
@@ -50,6 +51,6 @@ public class AuthResourceServiceImpl extends AbstractSuperCacheServiceImpl<AuthR
 
     @Override
     protected String getRegion() {
-        return CacheKey.RESOURCE;
+        return CacheConstant.RESOURCE;
     }
 }

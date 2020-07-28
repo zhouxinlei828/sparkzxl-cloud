@@ -2,6 +2,7 @@ package com.sparksys.oauth.domain.service;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.infrastructure.entity.RoleOrg;
 import com.sparksys.oauth.infrastructure.mapper.RoleOrgMapper;
 import com.sparksys.oauth.application.service.IRoleOrgService;
@@ -23,6 +24,6 @@ public class RoleOrgServiceImpl extends AbstractSuperCacheServiceImpl<RoleOrgMap
 
     @Override
     protected String getRegion() {
-        return null;
+        return CacheConstant.ROLE_ORG;
     }
 }

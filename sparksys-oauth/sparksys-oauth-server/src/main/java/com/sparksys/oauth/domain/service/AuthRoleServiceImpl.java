@@ -2,11 +2,11 @@ package com.sparksys.oauth.domain.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sparksys.core.constant.CacheKey;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.PageInfoUtils;
 import com.sparksys.oauth.application.service.IAuthRoleService;
 import com.sparksys.oauth.domain.repository.IAuthRoleRepository;
+import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.infrastructure.convert.AuthRoleConvert;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import com.sparksys.oauth.infrastructure.mapper.AuthRoleMapper;
@@ -76,6 +76,6 @@ public class AuthRoleServiceImpl extends AbstractSuperCacheServiceImpl<AuthRoleM
 
     @Override
     protected String getRegion() {
-        return CacheKey.ROLE;
+        return CacheConstant.ROLE;
     }
 }

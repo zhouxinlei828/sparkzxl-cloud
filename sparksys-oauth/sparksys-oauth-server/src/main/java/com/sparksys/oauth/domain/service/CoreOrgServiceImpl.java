@@ -1,12 +1,12 @@
 package com.sparksys.oauth.domain.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sparksys.core.constant.CacheKey;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.TreeUtil;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.application.service.ICoreOrgService;
 import com.sparksys.oauth.application.service.IRoleOrgService;
+import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.infrastructure.convert.CoreOrgConvert;
 import com.sparksys.oauth.infrastructure.entity.CoreOrg;
 import com.sparksys.oauth.infrastructure.mapper.CoreOrgMapper;
@@ -66,6 +66,6 @@ public class CoreOrgServiceImpl extends AbstractSuperCacheServiceImpl<CoreOrgMap
 
     @Override
     protected String getRegion() {
-        return CacheKey.ORG;
+        return CacheConstant.ORG;
     }
 }

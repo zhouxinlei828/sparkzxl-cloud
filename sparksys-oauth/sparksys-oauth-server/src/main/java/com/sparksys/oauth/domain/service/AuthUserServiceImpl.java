@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Sets;
-import com.sparksys.core.constant.CacheKey;
 import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.utils.ListUtils;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.PageInfoUtils;
 import com.sparksys.oauth.domain.bo.AuthUserBO;
+import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.infrastructure.entity.*;
 import com.sparksys.oauth.interfaces.dto.user.*;
 import com.sparksys.security.entity.AuthUserDetail;
@@ -140,7 +140,7 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Override
     protected String getRegion() {
-        return CacheKey.USER;
+        return CacheConstant.USER;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.sparksys.oauth.domain.service;
 
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.domain.repository.IUserRoleRepository;
+import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.infrastructure.entity.UserRole;
 import com.sparksys.oauth.infrastructure.mapper.UserRoleMapper;
 import com.sparksys.oauth.application.service.IUserRoleService;
@@ -36,6 +37,6 @@ public class UserRoleServiceImpl extends AbstractSuperCacheServiceImpl<UserRoleM
 
     @Override
     protected String getRegion() {
-        return null;
+        return CacheConstant.USER_ROLE;
     }
 }

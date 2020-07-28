@@ -1,10 +1,10 @@
 package com.sparksys.oauth.domain.service;
 
 import com.github.pagehelper.PageInfo;
-import com.sparksys.core.constant.CacheKey;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.ICoreStationService;
 import com.sparksys.oauth.domain.repository.ICoreStationRepository;
+import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.infrastructure.convert.CoreStationConvert;
 import com.sparksys.oauth.infrastructure.entity.CoreStation;
 import com.sparksys.oauth.infrastructure.mapper.CoreStationMapper;
@@ -51,6 +51,6 @@ public class CoreStationServiceImpl extends AbstractSuperCacheServiceImpl<CoreSt
 
     @Override
     protected String getRegion() {
-        return CacheKey.STATION;
+        return CacheConstant.STATION;
     }
 }

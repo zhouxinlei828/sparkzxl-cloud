@@ -1,6 +1,7 @@
 package com.sparksys.oauth.domain.service;
 
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.infrastructure.entity.RoleAuthority;
 import com.sparksys.oauth.infrastructure.mapper.RoleAuthorityMapper;
 import com.sparksys.oauth.application.service.IRoleAuthorityService;
@@ -17,6 +18,6 @@ public class RoleAuthorityServiceImpl extends AbstractSuperCacheServiceImpl<Role
 
     @Override
     protected String getRegion() {
-        return null;
+        return CacheConstant.ROLE_RESOURCE;
     }
 }

@@ -1,13 +1,13 @@
 package com.sparksys.oauth.domain.service;
 
 import cn.hutool.core.util.StrUtil;
-import com.sparksys.core.constant.CacheKey;
 import com.sparksys.core.entity.UserAgentEntity;
-import com.sparksys.core.repository.CacheRepository;
+import com.sparksys.core.utils.KeyUtils;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.ILoginLogService;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.domain.repository.ILoginLogRepository;
+import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.entity.LoginLog;
 import com.sparksys.oauth.infrastructure.entity.LoginLogCount;
@@ -84,49 +84,49 @@ public class LoginLogServiceImpl extends AbstractSuperCacheServiceImpl<LoginLogM
         loginLogRepository.saveLoginLog(loginLog);
         LocalDate now = LocalDate.now();
         LocalDate tenDays = now.plusDays(-9);
-        cacheRepository.remove(CacheKey.LOGIN_LOG_TOTAL);
-        cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY, now));
-        cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY_IP, now));
-        cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_BROWSER));
-        cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_SYSTEM));
+        cacheRepository.remove(CacheConstant.LOGIN_LOG_TOTAL);
+        cacheRepository.remove(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TODAY, now));
+        cacheRepository.remove(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TODAY_IP, now));
+        cacheRepository.remove(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_BROWSER));
+        cacheRepository.remove(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_SYSTEM));
         if (authUser != null) {
-            cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TEN_DAY, tenDays, account));
+            cacheRepository.remove(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TEN_DAY, tenDays, account));
         }
     }
 
     @Override
     public Long findTotalVisitCount() {
-        return cacheRepository.get(CacheKey.LOGIN_LOG_TOTAL);
+        return cacheRepository.get(CacheConstant.LOGIN_LOG_TOTAL);
     }
 
     @Override
     public Long findTodayVisitCount() {
         LocalDate now = LocalDate.now();
-        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY, now));
+        return cacheRepository.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TODAY, now));
     }
 
     @Override
     public Long findTodayIp() {
         LocalDate now = LocalDate.now();
-        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY_IP, now));
+        return cacheRepository.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TODAY_IP, now));
     }
 
     @Override
     public List<LoginLogCount> findLastTenDaysVisitCount(String account) {
         LocalDate tenDays = LocalDate.now().plusDays(-9);
-        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_TEN_DAY, tenDays, account),
+        return cacheRepository.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TEN_DAY, tenDays, account),
                 (key) -> loginLogRepository.findLastTenDaysVisitCount(tenDays, account));
     }
 
     @Override
     public List<LoginLogCount> findByBrowser() {
-        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_BROWSER),
+        return cacheRepository.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_BROWSER),
                 (key) -> loginLogRepository.findByBrowser());
     }
 
     @Override
     public List<LoginLogCount> findByOperatingSystem() {
-        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_SYSTEM),
+        return cacheRepository.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_SYSTEM),
                 (key) -> loginLogRepository.findByOperatingSystem());
     }
 
