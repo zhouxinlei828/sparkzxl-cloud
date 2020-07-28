@@ -55,6 +55,8 @@ public interface IProcessHistoryService {
      *
      * @param processInstanceId 流程实例id
      * @return List<ProcessHistory>
+     * @throws ExecutionException   运行异常
+     * @throws InterruptedException 中断异常
      */
     List<ProcessHistory> getProcessHistory(String processInstanceId) throws ExecutionException, InterruptedException;
 

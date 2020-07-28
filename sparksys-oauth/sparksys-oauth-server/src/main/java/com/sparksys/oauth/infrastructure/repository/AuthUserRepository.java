@@ -1,11 +1,15 @@
 package com.sparksys.oauth.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sparksys.database.annonation.InjectionResult;
+import com.sparksys.database.utils.PageInfoUtils;
 import com.sparksys.oauth.domain.bo.AuthUserBO;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
+import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -40,7 +44,7 @@ public class AuthUserRepository implements IAuthUserRepository {
 
     @Override
     @InjectionResult
-    public List<AuthUser> findAuthUserList(AuthUserBO authUserBO) {
+    public PageInfo<AuthUser> findAuthUserList(int pageNum, int pageSize, AuthUserBO authUserBO) {
         QueryWrapper<AuthUser> userQueryWrapper = new QueryWrapper<>();
         Optional.ofNullable(authUserBO.getAccount()).ifPresent((value) -> userQueryWrapper.eq("account", authUserBO.getAccount()));
         Optional.ofNullable(authUserBO.getName()).ifPresent((value) -> userQueryWrapper.likeRight("name", authUserBO.getName()));
@@ -48,12 +52,13 @@ public class AuthUserRepository implements IAuthUserRepository {
         Optional.ofNullable(authUserBO.getMobile()).ifPresent((value) -> userQueryWrapper.eq("mobile", authUserBO.getMobile()));
         Optional.ofNullable(authUserBO.getSex()).ifPresent((value) -> userQueryWrapper.eq("sex", authUserBO.getSex()));
         Optional.ofNullable(authUserBO.getStatus()).ifPresent((value) -> userQueryWrapper.eq("status", authUserBO.getStatus()));
-        return authUserMapper.selectList(userQueryWrapper);
+        PageHelper.startPage(pageNum, pageSize);
+        return PageInfoUtils.pageInfo(authUserMapper.selectList(userQueryWrapper));
     }
 
     @Override
-    public boolean incrPasswordErrorNumById(Long id) {
-        return authUserMapper.incrPasswordErrorNumById(id) == 1;
+    public void incrPasswordErrorNumById(Long id) {
+        authUserMapper.incrPasswordErrorNumById(id);
     }
 
     @Override
@@ -62,7 +67,7 @@ public class AuthUserRepository implements IAuthUserRepository {
     }
 
     @Override
-    public boolean incrPasswordErrorNumByAccount(String account) {
-        return authUserMapper.incrPasswordErrorNumByAccount(account) == 1;
+    public void incrPasswordErrorNumByAccount(String account) {
+        authUserMapper.incrPasswordErrorNumByAccount(account);
     }
 }

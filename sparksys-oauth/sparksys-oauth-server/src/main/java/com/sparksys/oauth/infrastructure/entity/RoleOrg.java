@@ -27,7 +27,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "CAuthRoleOrg对象", description = "角色组织关系")
 public class RoleOrg implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -7571401319154552550L;
 
     @ApiModelProperty(value = "ID")
     @TableId(value = "id", type = IdType.ASSIGN_ID)

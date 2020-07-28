@@ -10,11 +10,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/*
- * description：
+/**
+ * description：登录日志 仓储实现类
  *
  * @author zhouxinlei
- * @date  2020/6/17 0017
+ * @date 2020/6/17 0017
  */
 @Repository
 public class LoginLogRepository implements ILoginLogRepository {
@@ -25,13 +25,13 @@ public class LoginLogRepository implements ILoginLogRepository {
     }
 
     @Override
-    public boolean saveLoginLog(LoginLog loginLog) {
-        return loginLogMapper.insert(loginLog) == 1;
+    public void saveLoginLog(LoginLog loginLog) {
+        loginLogMapper.insert(loginLog);
     }
 
     @Override
     public List<LoginLogCount> findLastTenDaysVisitCount(LocalDate tenDays, String account) {
-        return loginLogMapper.findLastTenDaysVisitCount(tenDays,account);
+        return loginLogMapper.findLastTenDaysVisitCount(tenDays, account);
     }
 
     @Override
@@ -46,6 +46,6 @@ public class LoginLogRepository implements ILoginLogRepository {
 
     @Override
     public boolean clearLog(LocalDateTime clearBeforeTime, Integer clearBeforeNum) {
-        return loginLogMapper.clearLog(clearBeforeTime,clearBeforeNum);
+        return loginLogMapper.clearLog(clearBeforeTime, clearBeforeNum);
     }
 }

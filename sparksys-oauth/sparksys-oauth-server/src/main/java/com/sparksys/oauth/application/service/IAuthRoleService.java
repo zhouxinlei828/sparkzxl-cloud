@@ -4,10 +4,7 @@ package com.sparksys.oauth.application.service;
 import com.github.pagehelper.PageInfo;
 import com.sparksys.database.service.SuperCacheService;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
-import com.sparksys.oauth.interfaces.dto.role.AuthRoleDTO;
-import com.sparksys.oauth.interfaces.dto.role.AuthRoleSaveDTO;
-import com.sparksys.oauth.interfaces.dto.role.AuthRoleUpdateDTO;
-import com.sparksys.oauth.interfaces.dto.role.RoleUserDTO;
+import com.sparksys.oauth.interfaces.dto.role.*;
 
 /**
  * description: 角色 服务类
@@ -20,12 +17,10 @@ public interface IAuthRoleService extends SuperCacheService<AuthRole> {
     /**
      * 根据角色名称模糊查询角色列表
      *
-     * @param pageNum
-     * @param pageSize
-     * @param name     角色名称
+     * @param authRolePageDTO 角色分页查询对象
      * @return PageInfo<AuthRole>
      */
-    PageInfo<AuthRole> listByPage(Integer pageNum, Integer pageSize, String name);
+    PageInfo<AuthRole> listByPage(AuthRolePageDTO authRolePageDTO);
 
     /**
      * 查询角色信息
@@ -56,10 +51,18 @@ public interface IAuthRoleService extends SuperCacheService<AuthRole> {
     /**
      * 删除角色信息
      *
-     * @param id
-     * @return
+     * @param id 角色id
+     * @return boolean
      */
     boolean deleteAuthRole(Long id);
 
+    /**
+     * 更新角色状态
+     *
+     * @param userId 用户id
+     * @param roleId 角色id
+     * @param status 状态
+     * @return boolean
+     */
     boolean updateAuthRoleStatus(Long userId, Long roleId, Boolean status);
 }

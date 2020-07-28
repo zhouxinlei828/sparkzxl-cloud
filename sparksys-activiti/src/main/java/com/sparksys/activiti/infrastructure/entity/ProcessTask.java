@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "ProcessTask对象", description = "任务处理记录")
 public class ProcessTask extends Entity<Long> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2422653329738199340L;
 
     @ApiModelProperty(value = "taskid")
     @TableField("task_id")

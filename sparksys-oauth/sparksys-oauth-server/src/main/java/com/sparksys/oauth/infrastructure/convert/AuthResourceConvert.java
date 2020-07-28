@@ -16,6 +16,12 @@ public interface AuthResourceConvert {
 
     AuthResourceConvert INSTANCE = Mappers.getMapper(AuthResourceConvert.class);
 
+    /**
+     * AuthResource转化为 AuthResourceDTO
+     *
+     * @param authResource 资源
+     * @return AuthResourceDTO
+     */
     AuthResourceDTO convertAuthResourceDTO(AuthResource authResource);
 
 }

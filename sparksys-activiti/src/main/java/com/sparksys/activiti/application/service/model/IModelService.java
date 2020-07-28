@@ -3,7 +3,7 @@ package com.sparksys.activiti.application.service.model;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
- * description:
+ * description: activiti在线流程设计 服务类
  *
  * @author: zhouxinlei
  * @date: 2020-07-17 14:30:32
@@ -21,19 +21,19 @@ public interface IModelService {
     /**
      * 保存流程
      *
-     * @param modelId
-     * @param name
-     * @param description
-     * @param json_xml
-     * @param svg_xml
-     * @return
+     * @param modelId     模型id
+     * @param name        模型名称
+     * @param description 描述
+     * @param jsonXml     json
+     * @param svgXml      svg
+     * @return boolean
      */
-    boolean saveModel(String modelId, String name, String description, String json_xml, String svg_xml);
+    boolean saveModel(String modelId, String name, String description, String jsonXml, String svgXml);
 
     /**
      * 获取流程json文件
      *
-     * @return
+     * @return String
      */
     String getProcessJson();
 

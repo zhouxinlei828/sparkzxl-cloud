@@ -22,7 +22,7 @@ import lombok.experimental.Accessors;
 @ApiModel(value = "CAuthMenuDO对象", description = "菜单")
 public class AuthMenu extends TreeEntity<AuthMenu, Long> {
 
-    private static final long serialVersionUID = 7737221207197581152L;
+    private static final long serialVersionUID = -5664444970808472308L;
 
     @ApiModelProperty(value = "描述")
     @TableField("describe_")

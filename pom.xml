@@ -44,7 +44,6 @@
     </properties>
 
     <modules>
-        <module>sparksys-authorization</module>
         <module>sparksys-code-generator</module>
         <module>sparksys-file</module>
         <module>sparksys-gateway</module>

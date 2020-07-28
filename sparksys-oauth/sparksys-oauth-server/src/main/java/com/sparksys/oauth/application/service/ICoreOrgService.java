@@ -43,5 +43,10 @@ public interface ICoreOrgService extends SuperCacheService<CoreOrg> {
      */
     boolean updateCoreOrg(Long userId, OrgUpdateDTO orgUpdateDTO);
 
+    /**
+     * 删除组织
+     * @param id 组织id
+     * @return boolean
+     */
     boolean deleteCoreOrg(Long id);
 }

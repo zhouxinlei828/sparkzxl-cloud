@@ -22,7 +22,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "ProcessDetail对象", description = "")
 public class ProcessDetail extends Entity<Long> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -8334040441264344916L;
 
     @ApiModelProperty(value = "模型id")
     @TableField("model_id")

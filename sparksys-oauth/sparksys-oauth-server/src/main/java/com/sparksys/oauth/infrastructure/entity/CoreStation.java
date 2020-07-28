@@ -24,6 +24,8 @@ import lombok.experimental.Accessors;
 @ApiModel(value="CCoreStationDO对象", description="岗位")
 public class CoreStation extends Entity<Long> {
 
+    private static final long serialVersionUID = -4924681990812046498L;
+
     @ApiModelProperty(value = "名称")
     @TableField("name")
     private String name;

@@ -13,6 +13,7 @@ import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.PolicyConditions;
 import com.aliyun.oss.model.PutObjectResult;
+import com.sparksys.core.constant.FileConstant;
 import com.sparksys.core.support.BusinessException;
 import com.sparksys.core.support.ResponseResultStatus;
 import com.sparksys.core.support.SparkSysExceptionAssert;
@@ -61,15 +62,15 @@ public class AliOssFileHandler implements IFileHandler {
         String bucketName = ossProperties.getBucketName();
         basePath = new StringBuilder();
         if (StringUtils.isNotEmpty(domain)) {
-            basePath.append(OssConstant.PROTOCOL_HTTPS)
+            basePath.append(FileConstant.PROTOCOL_HTTPS)
                     .append(domain)
-                    .append(OssConstant.URL_SEPARATOR);
+                    .append(FileConstant.URL_SEPARATOR);
         } else {
-            basePath.append(OssConstant.PROTOCOL_HTTPS)
+            basePath.append(FileConstant.PROTOCOL_HTTPS)
                     .append(bucketName)
                     .append(".")
                     .append(endPoint)
-                    .append(OssConstant.URL_SEPARATOR);
+                    .append(FileConstant.URL_SEPARATOR);
         }
     }
 
@@ -129,7 +130,7 @@ public class AliOssFileHandler implements IFileHandler {
         StrBuilder strBuilder = new StrBuilder();
         if (StringUtils.isNotEmpty(source)) {
             strBuilder.append(source)
-                    .append(OssConstant.URL_SEPARATOR);
+                    .append(FileConstant.URL_SEPARATOR);
         }
         return strBuilder.append(basename).append(".").append(extension).toString();
     }

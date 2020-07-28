@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @ApiModel(value = "流程实例对象", description = "")
 public class ProcessInstance implements Serializable {
 
-    private static final long serialVersionUID = 1075884422700414715L;
+    private static final long serialVersionUID = -960121899283253114L;
 
     @ApiModelProperty(value = "流程实例id")
     private String processInstanceId;

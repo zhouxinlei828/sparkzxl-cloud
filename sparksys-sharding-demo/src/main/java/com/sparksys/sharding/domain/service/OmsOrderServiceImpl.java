@@ -1,8 +1,8 @@
 package com.sparksys.sharding.domain.service;
 
-import com.sparksys.core.constant.CacheKey;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.sharding.domain.repository.IOrderRepository;
+import com.sparksys.sharding.infrastructure.constant.OrderConstant;
 import com.sparksys.sharding.infrastructure.entity.OmsOrder;
 import com.sparksys.sharding.infrastructure.mapper.OmsOrderMapper;
 import com.sparksys.sharding.application.service.IOmsOrderService;
@@ -26,7 +26,7 @@ public class OmsOrderServiceImpl extends AbstractSuperCacheServiceImpl<OmsOrderM
 
     @Override
     protected String getRegion() {
-        return CacheKey.OMS_ORDER;
+        return OrderConstant.OMS_ORDER;
     }
 
     @Override

@@ -26,8 +26,10 @@ public interface IProcessTaskStatusRepository {
     /**
      * 查询流程实例列表
      *
-     * @param name 流程名称
+     * @param pageNum  当前页
+     * @param pageSize 分页大小
+     * @param name     流程名称
      * @return PageInfo<ProcessInstance>
      */
-    PageInfo<ProcessInstance> getProcessInstanceList(int pageNum,int pageSize,String name);
+    PageInfo<ProcessInstance> getProcessInstanceList(int pageNum, int pageSize, String name);
 }

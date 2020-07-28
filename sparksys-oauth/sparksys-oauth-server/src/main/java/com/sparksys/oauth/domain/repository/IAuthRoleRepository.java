@@ -1,6 +1,7 @@
 package com.sparksys.oauth.domain.repository;
 
 
+import com.github.pagehelper.PageInfo;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
 
 import java.io.Serializable;
@@ -15,13 +16,21 @@ import java.util.Set;
  */
 public interface IAuthRoleRepository {
 
-    List<AuthRole> listByName(String name);
+    /**
+     * 根据角色分页查询列表
+     *
+     * @param pageNum  当前页
+     * @param pageSize 分页大小
+     * @param name     角色名称
+     * @return PageInfo<AuthRole>
+     */
+    PageInfo<AuthRole> listByName(int pageNum, int pageSize, String name);
 
-    AuthRole getAuthRole(Long id);
-
-    boolean saveAuthRole(AuthRole authRole);
-
-    boolean updateAuthRole(AuthRole authRole);
-
+    /**
+     * 删除角色以及关联信息
+     *
+     * @param id 角色id
+     * @return boolean
+     */
     boolean deleteAuthRole(Long id);
 }

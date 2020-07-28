@@ -15,6 +15,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SexEnum {
 
+    /**
+     * 性别枚举
+     */
     MAN(1, "男"),
     WOMAN(2, "女"),
     NONE(0, "未知");

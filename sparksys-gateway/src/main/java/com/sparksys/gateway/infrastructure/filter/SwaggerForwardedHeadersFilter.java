@@ -7,6 +7,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
 import java.net.URI;
 import java.util.LinkedHashSet;
 
+import com.sparksys.core.constant.FileConstant;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.headers.HttpHeadersFilter;
 import org.springframework.core.Ordered;
@@ -38,12 +39,8 @@ public class SwaggerForwardedHeadersFilter implements HttpHeadersFilter, Ordered
 
     @Override
     public HttpHeaders filter(HttpHeaders input, ServerWebExchange exchange) {
-        HttpHeaders original = input;
         HttpHeaders updated = new HttpHeaders();
-
-        original.entrySet().stream()
-                .forEach(entry -> updated.addAll(entry.getKey(), entry.getValue()));
-
+        input.forEach(updated::addAll);
         LinkedHashSet<URI> originalUris = exchange.getAttribute(GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
         URI requestUri = exchange.getAttribute(GATEWAY_REQUEST_URL_ATTR);
 
@@ -56,8 +53,7 @@ public class SwaggerForwardedHeadersFilter implements HttpHeadersFilter, Ordered
                     String requestUriPath = stripTrailingSlash(requestUri);
                     if (requestUriPath != null && (originalUriPath.endsWith(requestUriPath))) {
                         prefix = originalUriPath.replace(requestUriPath, "");
-                        if (prefix != null && prefix.length() > 0 &&
-                                prefix.length() <= originalUri.getPath().length()) {
+                        if (prefix.length() > 0 && prefix.length() <= originalUri.getPath().length()) {
                             updated.set(X_FORWARDED_PREFIX_HEADER, contextPath + prefix);
                         }
                     }
@@ -69,7 +65,7 @@ public class SwaggerForwardedHeadersFilter implements HttpHeadersFilter, Ordered
     }
 
     private String stripTrailingSlash(URI uri) {
-        if (uri.getPath().endsWith("/")) {
+        if (uri.getPath().endsWith(FileConstant.URL_SEPARATOR)) {
             return uri.getPath().substring(0, uri.getPath().length() - 1);
         } else {
             return uri.getPath();

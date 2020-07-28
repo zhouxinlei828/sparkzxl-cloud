@@ -1,12 +1,9 @@
 package com.sparksys.activiti.domain.service.model;
 
-import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sparksys.activiti.application.service.process.IProcessDetailService;
 import com.sparksys.activiti.application.service.model.IModelService;
@@ -33,6 +30,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * description: activiti在线流程设计 服务实现类
+ *
+ * @author: zhouxinlei
+ * @date: 2020-07-28 14:09:37
+ */
 @Service
 @Slf4j
 @Transactional(transactionManager = "transactionManager", rollbackFor = Exception.class)
@@ -62,7 +65,7 @@ public class ModelServiceImpl implements IModelService {
                 modelNode.put(ModelDataJsonConstants.MODEL_ID, model.getId());
                 ObjectNode editorJsonNode = (ObjectNode) objectMapper.readTree(
                         new String(repositoryService.getModelEditorSource(model.getId()), StandardCharsets.UTF_8));
-                modelNode.put("model", editorJsonNode);
+                modelNode.set("model", editorJsonNode);
             } catch (Exception e) {
                 log.error("Error creating model JSON {}", e.getMessage());
                 SparkSysExceptionAssert.businessFail("Error creating model JSON");
@@ -72,7 +75,7 @@ public class ModelServiceImpl implements IModelService {
     }
 
     @Override
-    public boolean saveModel(String modelId, String name, String description, String json_xml, String svg_xml) {
+    public boolean saveModel(String modelId, String name, String description, String jsonXml, String svgXml) {
         try {
             Model model = repositoryService.getModel(modelId);
             ObjectNode modelJson = (ObjectNode) objectMapper.readTree(model.getMetaInfo());
@@ -81,9 +84,9 @@ public class ModelServiceImpl implements IModelService {
             model.setMetaInfo(modelJson.toString());
             model.setName(name);
             repositoryService.saveModel(model);
-            saveProcessDetail(modelId, name, json_xml);
-            repositoryService.addModelEditorSource(model.getId(), json_xml.getBytes(StandardCharsets.UTF_8));
-            InputStream svgStream = new ByteArrayInputStream(svg_xml.getBytes(StandardCharsets.UTF_8));
+            saveProcessDetail(modelId, name, jsonXml);
+            repositoryService.addModelEditorSource(model.getId(), jsonXml.getBytes(StandardCharsets.UTF_8));
+            InputStream svgStream = new ByteArrayInputStream(svgXml.getBytes(StandardCharsets.UTF_8));
             TranscoderInput input = new TranscoderInput(svgStream);
             PNGTranscoder transcoder = new PNGTranscoder();
             // Setup output
@@ -101,8 +104,8 @@ public class ModelServiceImpl implements IModelService {
         return true;
     }
 
-    private void saveProcessDetail(String modelId, String name, String json_xml) {
-        JSONObject jsonObject = JSONObject.parseObject(json_xml);
+    private void saveProcessDetail(String modelId, String name, String jsonXml) {
+        JSONObject jsonObject = JSONObject.parseObject(jsonXml);
         JSONArray jsonNodes = jsonObject.getJSONArray("childShapes");
         JSONObject propertiesNode = jsonObject.getJSONObject("properties");
         String processId = propertiesNode.getString("process_id");

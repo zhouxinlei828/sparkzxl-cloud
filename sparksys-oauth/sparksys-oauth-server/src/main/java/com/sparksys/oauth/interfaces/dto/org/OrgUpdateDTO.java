@@ -1,5 +1,6 @@
 package com.sparksys.oauth.interfaces.dto.org;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -19,6 +20,7 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
+@ApiModel("组织更新对象")
 public class OrgUpdateDTO {
 
 

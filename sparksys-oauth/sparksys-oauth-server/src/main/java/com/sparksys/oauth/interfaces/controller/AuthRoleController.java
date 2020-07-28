@@ -6,6 +6,7 @@ import com.sparksys.log.annotation.WebLog;
 import com.sparksys.oauth.application.service.IAuthRoleService;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleDTO;
+import com.sparksys.oauth.interfaces.dto.role.AuthRolePageDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleUpdateDTO;
 import com.sparksys.web.annotation.ResponseResult;
@@ -36,9 +37,8 @@ public class AuthRoleController {
 
     @ApiOperation("查询角色列表")
     @GetMapping("/role/page")
-    public PageInfo<AuthRole> listByPage(Integer pageNum, Integer pageSize,
-                                         @RequestParam(value = "name", required = false) String name) {
-        return authRoleService.listByPage(pageNum, pageSize, name);
+    public PageInfo<AuthRole> listByPage(AuthRolePageDTO authRolePageDTO) {
+        return authRoleService.listByPage(authRolePageDTO);
     }
 
     @ApiOperation("获取角色信息")

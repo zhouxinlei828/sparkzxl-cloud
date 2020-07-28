@@ -16,6 +16,12 @@ public interface ProcessDetailConvert {
 
     ProcessDetailConvert INSTANCE = Mappers.getMapper(ProcessDetailConvert.class);
 
+    /**
+     * ProcessDetail 转换为 ProcessDetailDTO
+     *
+     * @param processDetail 流程详细
+     * @return ProcessDetailDTO
+     */
     ProcessDetailDTO convertProcessDetailDTO(ProcessDetail processDetail);
 
 }

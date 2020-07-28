@@ -11,6 +11,7 @@ import com.sparksys.oauth.infrastructure.convert.AuthRoleConvert;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import com.sparksys.oauth.infrastructure.mapper.AuthRoleMapper;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleDTO;
+import com.sparksys.oauth.interfaces.dto.role.AuthRolePageDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleUpdateDTO;
 import org.springframework.stereotype.Service;
@@ -33,10 +34,10 @@ public class AuthRoleServiceImpl extends AbstractSuperCacheServiceImpl<AuthRoleM
     }
 
     @Override
-    public PageInfo<AuthRole> listByPage(Integer pageNum, Integer pageSize, String name) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<AuthRole> authRoles = authRoleRepository.listByName(name);
-        return PageInfoUtils.pageInfo(authRoles);
+    public PageInfo<AuthRole> listByPage(AuthRolePageDTO authRolePageDTO) {
+        return authRoleRepository.listByName(authRolePageDTO.getPageNum()
+                , authRolePageDTO.getPageSize(),
+                authRolePageDTO.getName());
     }
 
     @Override
@@ -62,7 +63,7 @@ public class AuthRoleServiceImpl extends AbstractSuperCacheServiceImpl<AuthRoleM
 
     @Override
     public boolean deleteAuthRole(Long id) {
-        return removeById(id);
+        return authRoleRepository.deleteAuthRole(id);
     }
 
     @Override

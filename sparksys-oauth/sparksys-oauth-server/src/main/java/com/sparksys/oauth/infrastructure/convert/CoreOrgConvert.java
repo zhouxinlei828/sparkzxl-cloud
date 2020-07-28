@@ -17,7 +17,19 @@ public interface CoreOrgConvert {
 
     CoreOrgConvert INSTANCE = Mappers.getMapper(CoreOrgConvert.class);
 
+    /**
+     * OrgSaveDTO转化为CoreOrg
+     *
+     * @param orgSaveDTO 组织保存对象
+     * @return CoreOrg
+     */
     CoreOrg convertCoreOrg(OrgSaveDTO orgSaveDTO);
 
+    /**
+     * OrgUpdateDTO转化为CoreOrg
+     *
+     * @param orgUpdateDTO 组织更新对象
+     * @return CoreOrg
+     */
     CoreOrg convertCoreOrg(OrgUpdateDTO orgUpdateDTO);
 }

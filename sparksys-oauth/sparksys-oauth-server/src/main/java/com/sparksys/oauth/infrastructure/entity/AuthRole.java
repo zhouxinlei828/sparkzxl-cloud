@@ -24,7 +24,7 @@ import lombok.experimental.Accessors;
 @ApiModel(value="CAuthRoleDO对象", description="角色")
 public class AuthRole extends Entity<Long> {
 
-    private static final long serialVersionUID = 3582670719443769774L;
+    private static final long serialVersionUID = 6879339693496966527L;
 
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;

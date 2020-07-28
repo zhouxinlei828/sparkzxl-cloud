@@ -13,8 +13,6 @@ import lombok.Data;
 @ApiModel(value = "UserActivities对象")
 public class UserActivities {
 
-    private static final long serialVersionUID = 1849014360372480614L;
-
     private String id;
     private String updatedAt;
     private UserBean user;

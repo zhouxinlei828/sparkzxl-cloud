@@ -3,11 +3,9 @@ package com.sparksys.activiti.application.service.process;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskRule;
 import com.sparksys.activiti.interfaces.dto.process.ProcessActionDTO;
 import com.sparksys.activiti.interfaces.dto.process.TaskRuleSaveDTO;
-import com.sparksys.activiti.interfaces.dto.process.TaskRuleUpdateDTO;
 import com.sparksys.database.service.SuperCacheService;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * description: 流程跳转控制 服务类

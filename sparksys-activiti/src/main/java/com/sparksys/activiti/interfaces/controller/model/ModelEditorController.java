@@ -37,8 +37,8 @@ public class ModelEditorController implements ModelDataJsonConstants {
     @ApiOperation("保存流程")
     @PutMapping("model/{modelId}/save")
     public boolean saveModel(@PathVariable String modelId, String name, String description
-            , String json_xml, String svg_xml) {
-        return modelEditorService.saveModel(modelId, name, description, json_xml, svg_xml);
+            , @RequestParam("json_xml") String jsonXml, @RequestParam("svg_xml") String svgXml) {
+        return modelEditorService.saveModel(modelId, name, description, jsonXml, svgXml);
     }
 
     @ApiOperation("获取流程json文件")

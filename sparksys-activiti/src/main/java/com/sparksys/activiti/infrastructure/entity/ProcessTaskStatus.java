@@ -21,7 +21,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "ActHiTaskStatus对象", description = "")
 public class ProcessTaskStatus extends Entity<Long> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -8616461939623484360L;
 
     @ApiModelProperty(value = "模型id")
     @TableField("model_id")

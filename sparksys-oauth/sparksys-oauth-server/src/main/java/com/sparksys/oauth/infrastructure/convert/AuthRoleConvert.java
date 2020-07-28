@@ -18,10 +18,28 @@ public interface AuthRoleConvert {
 
     AuthRoleConvert INSTANCE = Mappers.getMapper(AuthRoleConvert.class);
 
+    /**
+     * AuthRoleSaveDTO转化为AuthRole
+     *
+     * @param authRoleSaveDTO 角色保存对象
+     * @return AuthRole
+     */
     AuthRole convertAuthRoleDO(AuthRoleSaveDTO authRoleSaveDTO);
 
+    /**
+     * authRoleUpdateDTO转化为AuthRole
+     *
+     * @param authRoleUpdateDTO 角色更新对象
+     * @return AuthRole
+     */
     AuthRole convertAuthRoleDO(AuthRoleUpdateDTO authRoleUpdateDTO);
 
+    /**
+     * authRole转化为AuthRoleDTO
+     *
+     * @param authRole 角色
+     * @return AuthRoleDTO
+     */
     AuthRoleDTO convertAuthUserDTO(AuthRole authRole);
 
 }

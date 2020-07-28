@@ -17,14 +17,4 @@ import java.util.List;
 @Repository
 public class AuthMenuRepository implements IAuthMenuRepository {
 
-    private final AuthMenuMapper authMenuMapper;
-
-    public AuthMenuRepository(AuthMenuMapper authMenuMapper) {
-        this.authMenuMapper = authMenuMapper;
-    }
-
-    @Override
-    public List<AuthMenu> selectList() {
-        return authMenuMapper.selectList(null);
-    }
 }

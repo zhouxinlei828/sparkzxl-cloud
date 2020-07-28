@@ -33,7 +33,7 @@ import static com.sparksys.oauth.infrastructure.constant.InjectionFieldConstants
 @ApiModel(value = "AuthUser对象", description = "用户")
 public class AuthUser extends Entity<Long> {
 
-    private static final long serialVersionUID = 1849014360372480614L;
+    private static final long serialVersionUID = -2722880054053904869L;
 
     @ApiModelProperty(value = "id")
     @TableId(value = "id", type = IdType.ASSIGN_ID)

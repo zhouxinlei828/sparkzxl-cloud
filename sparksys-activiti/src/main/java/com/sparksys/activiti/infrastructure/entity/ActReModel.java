@@ -27,7 +27,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "ActReModel对象", description = "模型对象")
 public class ActReModel implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -4878256322226100755L;
 
     @TableId(value = "ID_", type = IdType.INPUT)
     private String id;

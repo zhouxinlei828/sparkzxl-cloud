@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Map;
+import javax.validation.constraints.NotNull;
 
 /**
  * description: 流程驱动入参
@@ -24,14 +24,12 @@ public class DriveProcessDTO {
     @ApiModelProperty(value = "流程定义key", required = true)
     private String processDefinitionKey;
 
-    @ApiModelProperty(value = "流程变量")
-    Map<String, Object> variables;
-
     @ApiModelProperty(value = "业务主键")
     protected String businessId;
 
     @ApiModelProperty(value = "流程动作类型")
-    private int actType;
+    @NotNull(message = "流程动作类型不能为空")
+    private Integer actType;
 
     @ApiModelProperty(value = "审核审批内容")
     private String comment;

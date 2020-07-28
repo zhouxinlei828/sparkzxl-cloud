@@ -76,10 +76,10 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     public PageInfo<AuthUserDTO> listByPage(AuthUserPageDTO authUserPageDTO) {
         PageHelper.startPage(authUserPageDTO.getPageNum(), authUserPageDTO.getPageSize());
         AuthUserBO authUserBO = AuthUserConvert.INSTANCE.convertAuthUserBO(authUserPageDTO);
-        List<AuthUser> authUserList = authUserRepository.findAuthUserList(authUserBO);
-        List<AuthUserDTO> authUsers =
-                authUserList.stream().map(AuthUserConvert.INSTANCE::convertAuthUserDTO).collect(Collectors.toList());
-        return PageInfoUtils.pageInfo(authUsers);
+        PageInfo<AuthUser> authUserPageInfo = authUserRepository.findAuthUserList(authUserPageDTO.getPageNum(),
+                authUserPageDTO.getPageSize(),
+                authUserBO);
+        return AuthUserConvert.INSTANCE.convertAuthUserDTO(authUserPageInfo);
     }
 
     @Override
@@ -146,7 +146,7 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     @Override
     public UserInfo getCurrentUser(String username) {
         AuthUser authUser = authUserRepository.selectByAccount(username);
-        UserInfo userInfo = AuthUserConvert.INSTANCE.converUserInfo(authUser);
+        UserInfo userInfo = AuthUserConvert.INSTANCE.convertUserInfo(authUser);
         List<Map<String, Object>> tagList = new ArrayList<>();
         Map<String, Object> tagMap = new HashMap<>(2);
         tagMap.put("key", 1);

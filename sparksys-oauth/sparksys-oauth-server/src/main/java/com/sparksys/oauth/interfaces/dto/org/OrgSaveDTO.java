@@ -1,5 +1,6 @@
 package com.sparksys.oauth.interfaces.dto.org;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -17,6 +18,7 @@ import org.hibernate.validator.constraints.Length;
 @Accessors(chain = true)
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
+@ApiModel("组织保存对象")
 public class OrgSaveDTO {
 
 

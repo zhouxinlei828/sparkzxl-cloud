@@ -44,5 +44,5 @@ public interface ProcessTaskRuleMapper extends SuperMapper<ProcessTaskRule> {
             + " ptr.process_detail_id,ptr.task_def_key targetTaskDefKey, ptr.task_name targetTaskName,ptr.act_type"
             + " FROM process_detail pd INNER JOIN process_task_rule ptr ON pd.id = ptr.process_detail_id"
             + " WHERE pd.process_id = #{processId} AND pd.task_def_key = #{taskDefKey} ")
-    List<ProcessTaskRule> getProcessTaskRule(@Param("processId") String processId, @Param("processId") String taskDefKey);
+    List<ProcessTaskRule> getProcessTaskRule(@Param("processId") String processId, @Param("taskDefKey") String taskDefKey);
 }

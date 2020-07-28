@@ -16,6 +16,4 @@ import java.util.List;
 @Repository
 public interface ActHiTaskStatusMapper extends SuperMapper<ActHiTaskStatus> {
 
-    @Select("")
-    List<ActHiTaskStatus> getHiTaskStatus(String processInstanceId);
 }

@@ -2,6 +2,10 @@ package com.sparksys.oauth.infrastructure.repository;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.sparksys.core.constant.CoreConstant;
+import com.sparksys.database.utils.PageInfoUtils;
 import com.sparksys.oauth.domain.repository.IAuthRoleRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import com.sparksys.oauth.infrastructure.mapper.AuthRoleMapper;
@@ -10,8 +14,6 @@ import com.sparksys.oauth.infrastructure.mapper.RoleOrgMapper;
 import com.sparksys.oauth.infrastructure.mapper.UserRoleMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * description: 角色 仓储层实现类
@@ -36,27 +38,13 @@ public class AuthRoleRepository implements IAuthRoleRepository {
 
 
     @Override
-    public List<AuthRole> listByName(String name) {
+    public PageInfo<AuthRole> listByName(int pageNum, int pageSize, String name) {
         QueryWrapper<AuthRole> authRoleQueryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(name) && !"null".equalsIgnoreCase(name)) {
+        if (StringUtils.isNotBlank(name) && !CoreConstant.NULL_STRING.equalsIgnoreCase(name)) {
             authRoleQueryWrapper.likeRight("name", name);
         }
-        return authRoleMapper.selectList(authRoleQueryWrapper);
-    }
-
-    @Override
-    public AuthRole getAuthRole(Long id) {
-        return authRoleMapper.selectById(id);
-    }
-
-    @Override
-    public boolean saveAuthRole(AuthRole authRole) {
-        return authRoleMapper.insert(authRole) == 1;
-    }
-
-    @Override
-    public boolean updateAuthRole(AuthRole authRole) {
-        return authRoleMapper.updateById(authRole) == 1;
+        PageHelper.startPage(pageNum, pageSize);
+        return PageInfoUtils.pageInfo(authRoleMapper.selectList(authRoleQueryWrapper));
     }
 
     @Override

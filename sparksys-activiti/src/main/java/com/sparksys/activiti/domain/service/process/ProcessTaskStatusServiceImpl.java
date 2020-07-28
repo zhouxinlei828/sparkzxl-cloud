@@ -1,19 +1,15 @@
 package com.sparksys.activiti.domain.service.process;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.domain.repository.IProcessTaskStatusRepository;
 import com.sparksys.activiti.infrastructure.constant.ActivitiCache;
-import com.sparksys.activiti.infrastructure.convert.ProcessInstanceConvert;
 import com.sparksys.activiti.infrastructure.entity.ProcessInstance;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskStatus;
 import com.sparksys.activiti.infrastructure.mapper.ProcessTaskStatusMapper;
 import com.sparksys.activiti.application.service.process.IProcessTaskStatusService;
 import com.sparksys.activiti.interfaces.dto.act.InstancePageDTO;
-import com.sparksys.activiti.interfaces.dto.act.ProcessInstanceDTO;
 import com.sparksys.core.utils.DateUtils;
 import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
-import com.sparksys.database.utils.PageInfoUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

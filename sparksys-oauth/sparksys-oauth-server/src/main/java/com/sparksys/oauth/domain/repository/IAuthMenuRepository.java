@@ -13,6 +13,4 @@ import java.util.List;
  */
 public interface IAuthMenuRepository {
 
-    List<AuthMenu> selectList();
-
 }

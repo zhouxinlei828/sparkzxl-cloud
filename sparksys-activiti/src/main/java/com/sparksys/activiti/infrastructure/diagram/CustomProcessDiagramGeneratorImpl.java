@@ -24,6 +24,7 @@ import java.util.Set;
  * @author: zhouxinlei
  * @date: 2020-07-17 14:02:56
  */
+@SuppressWarnings("ALL")
 @Component
 public class CustomProcessDiagramGeneratorImpl extends DefaultProcessDiagramGenerator implements ICustomProcessDiagramGenerator {
     //预初始化流程图绘制，大大提升了系统启动后首次查看流程图的速度
@@ -90,6 +91,23 @@ public class CustomProcessDiagramGeneratorImpl extends DefaultProcessDiagramGene
 
     protected void drawActivity(CustomProcessDiagramCanvas processDiagramCanvas, BpmnModel bpmnModel, FlowNode flowNode,
                                 List<String> highLightedActivities, List<String> highLightedFlows, double scaleFactor, Color[] colors, Set<String> currIds) {
+        handlerActivityDrawInstruction(processDiagramCanvas, bpmnModel, flowNode, highLightedActivities, scaleFactor, colors, currIds);
+
+        // Outgoing transitions of activity
+        tranOutGoing(processDiagramCanvas, bpmnModel, flowNode, highLightedFlows, scaleFactor, colors);
+
+        // Nested elements
+        if (flowNode instanceof FlowElementsContainer) {
+            for (FlowElement nestedFlowElement : ((FlowElementsContainer) flowNode).getFlowElements()) {
+                if (nestedFlowElement instanceof FlowNode) {
+                    drawActivity(processDiagramCanvas, bpmnModel, (FlowNode) nestedFlowElement,
+                            highLightedActivities, highLightedFlows, scaleFactor);
+                }
+            }
+        }
+    }
+
+    private void handlerActivityDrawInstruction(CustomProcessDiagramCanvas processDiagramCanvas, BpmnModel bpmnModel, FlowNode flowNode, List<String> highLightedActivities, double scaleFactor, Color[] colors, Set<String> currIds) {
         ActivityDrawInstruction drawInstruction = activityDrawInstructions.get(flowNode.getClass());
         if (drawInstruction != null) {
 
@@ -124,7 +142,8 @@ public class CustomProcessDiagramGeneratorImpl extends DefaultProcessDiagramGene
             if (highLightedActivities.contains(flowNode.getId())) {
                 if (!CollectionUtils.isEmpty(currIds)
                         && currIds.contains(flowNode.getId())
-                        && !(flowNode instanceof Gateway)) {//非结束节点，并且是当前节点
+                        && !(flowNode instanceof Gateway)) {
+                    //非结束节点，并且是当前节点
                     drawHighLight((flowNode instanceof StartEvent), processDiagramCanvas, bpmnModel.getGraphicInfo(flowNode.getId()), colors[1]);
                 } else {//普通节点
                     drawHighLight((flowNode instanceof StartEvent) || (flowNode instanceof EndEvent), processDiagramCanvas, bpmnModel.getGraphicInfo(flowNode.getId()), colors[0]);
@@ -132,8 +151,9 @@ public class CustomProcessDiagramGeneratorImpl extends DefaultProcessDiagramGene
             }
 
         }
+    }
 
-        // Outgoing transitions of activity
+    private void tranOutGoing(CustomProcessDiagramCanvas processDiagramCanvas, BpmnModel bpmnModel, FlowNode flowNode, List<String> highLightedFlows, double scaleFactor, Color[] colors) {
         for (SequenceFlow sequenceFlow : flowNode.getOutgoingFlows()) {
             String flowId = sequenceFlow.getId();
             boolean highLighted = (highLightedFlows.contains(flowId));
@@ -148,7 +168,6 @@ public class CustomProcessDiagramGeneratorImpl extends DefaultProcessDiagramGene
             if (defaultFlow != null && defaultFlow.equalsIgnoreCase(flowId)) {
                 isDefault = true;
             }
-//        boolean drawConditionalIndicator = sequenceFlow.getConditionExpression() != null && !(flowNode instanceof Gateway);
 
             String sourceRef = sequenceFlow.getSourceRef();
             String targetRef = sequenceFlow.getTargetRef();
@@ -157,8 +176,8 @@ public class CustomProcessDiagramGeneratorImpl extends DefaultProcessDiagramGene
             List<GraphicInfo> graphicInfoList = bpmnModel.getFlowLocationGraphicInfo(flowId);
             if (graphicInfoList != null && graphicInfoList.size() > 0) {
                 graphicInfoList = connectionPerfectionizer(processDiagramCanvas, bpmnModel, sourceElement, targetElement, graphicInfoList);
-                int xPoints[] = new int[graphicInfoList.size()];
-                int yPoints[] = new int[graphicInfoList.size()];
+                int[] xPoints = new int[graphicInfoList.size()];
+                int[] yPoints = new int[graphicInfoList.size()];
 
                 for (int i = 1; i < graphicInfoList.size(); i++) {
                     GraphicInfo graphicInfo = graphicInfoList.get(i);
@@ -176,16 +195,6 @@ public class CustomProcessDiagramGeneratorImpl extends DefaultProcessDiagramGene
                 processDiagramCanvas.drawSequenceFlow(xPoints, yPoints, false, isDefault, highLighted, scaleFactor, colors[0]);
                 GraphicInfo lineCenter = getLineCenter(graphicInfoList);
                 processDiagramCanvas.drawLabel(highLighted, sequenceFlow.getName(), lineCenter, Math.abs(xPoints[1] - xPoints[0]) >= 5);
-            }
-        }
-
-        // Nested elements
-        if (flowNode instanceof FlowElementsContainer) {
-            for (FlowElement nestedFlowElement : ((FlowElementsContainer) flowNode).getFlowElements()) {
-                if (nestedFlowElement instanceof FlowNode) {
-                    drawActivity(processDiagramCanvas, bpmnModel, (FlowNode) nestedFlowElement,
-                            highLightedActivities, highLightedFlows, scaleFactor);
-                }
             }
         }
     }
@@ -211,98 +220,23 @@ public class CustomProcessDiagramGeneratorImpl extends DefaultProcessDiagramGene
             maxY = graphicInfo.getY() + graphicInfo.getHeight();
         }
 
-        List<FlowNode> flowNodes = gatherAllFlowNodes(bpmnModel);
-        for (FlowNode flowNode : flowNodes) {
+        HandleFlowNode handleFlowNode = new HandleFlowNode(bpmnModel, minX, maxX, minY, maxY).invoke();
+        minX = handleFlowNode.getMinX();
+        maxX = handleFlowNode.getMaxX();
+        minY = handleFlowNode.getMinY();
+        maxY = handleFlowNode.getMaxY();
+        List<FlowNode> flowNodes = handleFlowNode.getFlowNodes();
 
-            GraphicInfo flowNodeGraphicInfo = bpmnModel.getGraphicInfo(flowNode.getId());
-
-            // width
-            if (flowNodeGraphicInfo.getX() + flowNodeGraphicInfo.getWidth() > maxX) {
-                maxX = flowNodeGraphicInfo.getX() + flowNodeGraphicInfo.getWidth();
-            }
-            if (flowNodeGraphicInfo.getX() < minX) {
-                minX = flowNodeGraphicInfo.getX();
-            }
-            // height
-            if (flowNodeGraphicInfo.getY() + flowNodeGraphicInfo.getHeight() > maxY) {
-                maxY = flowNodeGraphicInfo.getY() + flowNodeGraphicInfo.getHeight();
-            }
-            if (flowNodeGraphicInfo.getY() < minY) {
-                minY = flowNodeGraphicInfo.getY();
-            }
-
-            for (SequenceFlow sequenceFlow : flowNode.getOutgoingFlows()) {
-                List<GraphicInfo> graphicInfoList = bpmnModel.getFlowLocationGraphicInfo(sequenceFlow.getId());
-                if (graphicInfoList != null) {
-                    for (GraphicInfo graphicInfo : graphicInfoList) {
-                        // width
-                        if (graphicInfo.getX() > maxX) {
-                            maxX = graphicInfo.getX();
-                        }
-                        if (graphicInfo.getX() < minX) {
-                            minX = graphicInfo.getX();
-                        }
-                        // height
-                        if (graphicInfo.getY() > maxY) {
-                            maxY = graphicInfo.getY();
-                        }
-                        if (graphicInfo.getY() < minY) {
-                            minY = graphicInfo.getY();
-                        }
-                    }
-                }
-            }
-        }
-
-        List<Artifact> artifacts = gatherAllArtifacts(bpmnModel);
-        for (Artifact artifact : artifacts) {
-
-            GraphicInfo artifactGraphicInfo = bpmnModel.getGraphicInfo(artifact.getId());
-
-            if (artifactGraphicInfo != null) {
-                // width
-                if (artifactGraphicInfo.getX() + artifactGraphicInfo.getWidth() > maxX) {
-                    maxX = artifactGraphicInfo.getX() + artifactGraphicInfo.getWidth();
-                }
-                if (artifactGraphicInfo.getX() < minX) {
-                    minX = artifactGraphicInfo.getX();
-                }
-                // height
-                if (artifactGraphicInfo.getY() + artifactGraphicInfo.getHeight() > maxY) {
-                    maxY = artifactGraphicInfo.getY() + artifactGraphicInfo.getHeight();
-                }
-                if (artifactGraphicInfo.getY() < minY) {
-                    minY = artifactGraphicInfo.getY();
-                }
-            }
-
-            List<GraphicInfo> graphicInfoList = bpmnModel.getFlowLocationGraphicInfo(artifact.getId());
-            if (graphicInfoList != null) {
-                for (GraphicInfo graphicInfo : graphicInfoList) {
-                    // width
-                    if (graphicInfo.getX() > maxX) {
-                        maxX = graphicInfo.getX();
-                    }
-                    if (graphicInfo.getX() < minX) {
-                        minX = graphicInfo.getX();
-                    }
-                    // height
-                    if (graphicInfo.getY() > maxY) {
-                        maxY = graphicInfo.getY();
-                    }
-                    if (graphicInfo.getY() < minY) {
-                        minY = graphicInfo.getY();
-                    }
-                }
-            }
-        }
+        HandleArtifact handleArtifact = new HandleArtifact(bpmnModel, minX, maxX, minY, maxY).invoke();
+        minX = handleArtifact.getMinX();
+        maxX = handleArtifact.getMaxX();
+        minY = handleArtifact.getMinY();
+        maxY = handleArtifact.getMaxY();
 
         int nrOfLanes = 0;
         for (Process process : bpmnModel.getProcesses()) {
             for (Lane l : process.getLanes()) {
-
                 nrOfLanes++;
-
                 GraphicInfo graphicInfo = bpmnModel.getGraphicInfo(l.getId());
                 // // width
                 if (graphicInfo.getX() + graphicInfo.getWidth() > maxX) {
@@ -321,7 +255,6 @@ public class CustomProcessDiagramGeneratorImpl extends DefaultProcessDiagramGene
             }
         }
 
-        // Special case, see https://activiti.atlassian.net/browse/ACT-1431
         if (flowNodes.isEmpty() && bpmnModel.getPools().isEmpty() && nrOfLanes == 0) {
             // Nothing to show
             minX = 0;
@@ -358,4 +291,164 @@ public class CustomProcessDiagramGeneratorImpl extends DefaultProcessDiagramGene
                 activityFontName, labelFontName, annotationFontName, customClassLoader, 1.0, new Color[]{Color.BLACK, Color.BLACK}, null);
     }
 
+    private static class HandleFlowNode {
+        private BpmnModel bpmnModel;
+        private double minX;
+        private double maxX;
+        private double minY;
+        private double maxY;
+        private List<FlowNode> flowNodes;
+
+        public HandleFlowNode(BpmnModel bpmnModel, double minX, double maxX, double minY, double maxY) {
+            this.bpmnModel = bpmnModel;
+            this.minX = minX;
+            this.maxX = maxX;
+            this.minY = minY;
+            this.maxY = maxY;
+        }
+
+        public double getMinX() {
+            return minX;
+        }
+
+        public double getMaxX() {
+            return maxX;
+        }
+
+        public double getMinY() {
+            return minY;
+        }
+
+        public double getMaxY() {
+            return maxY;
+        }
+
+        public List<FlowNode> getFlowNodes() {
+            return flowNodes;
+        }
+
+        public HandleFlowNode invoke() {
+            flowNodes = gatherAllFlowNodes(bpmnModel);
+            for (FlowNode flowNode : flowNodes) {
+
+                GraphicInfo flowNodeGraphicInfo = bpmnModel.getGraphicInfo(flowNode.getId());
+
+                // width
+                if (flowNodeGraphicInfo.getX() + flowNodeGraphicInfo.getWidth() > maxX) {
+                    maxX = flowNodeGraphicInfo.getX() + flowNodeGraphicInfo.getWidth();
+                }
+                if (flowNodeGraphicInfo.getX() < minX) {
+                    minX = flowNodeGraphicInfo.getX();
+                }
+                // height
+                if (flowNodeGraphicInfo.getY() + flowNodeGraphicInfo.getHeight() > maxY) {
+                    maxY = flowNodeGraphicInfo.getY() + flowNodeGraphicInfo.getHeight();
+                }
+                if (flowNodeGraphicInfo.getY() < minY) {
+                    minY = flowNodeGraphicInfo.getY();
+                }
+
+                for (SequenceFlow sequenceFlow : flowNode.getOutgoingFlows()) {
+                    List<GraphicInfo> graphicInfoList = bpmnModel.getFlowLocationGraphicInfo(sequenceFlow.getId());
+                    if (graphicInfoList != null) {
+                        for (GraphicInfo graphicInfo : graphicInfoList) {
+                            // width
+                            if (graphicInfo.getX() > maxX) {
+                                maxX = graphicInfo.getX();
+                            }
+                            if (graphicInfo.getX() < minX) {
+                                minX = graphicInfo.getX();
+                            }
+                            // height
+                            if (graphicInfo.getY() > maxY) {
+                                maxY = graphicInfo.getY();
+                            }
+                            if (graphicInfo.getY() < minY) {
+                                minY = graphicInfo.getY();
+                            }
+                        }
+                    }
+                }
+            }
+            return this;
+        }
+    }
+
+    private static class HandleArtifact {
+        private BpmnModel bpmnModel;
+        private double minX;
+        private double maxX;
+        private double minY;
+        private double maxY;
+
+        public HandleArtifact(BpmnModel bpmnModel, double minX, double maxX, double minY, double maxY) {
+            this.bpmnModel = bpmnModel;
+            this.minX = minX;
+            this.maxX = maxX;
+            this.minY = minY;
+            this.maxY = maxY;
+        }
+
+        public double getMinX() {
+            return minX;
+        }
+
+        public double getMaxX() {
+            return maxX;
+        }
+
+        public double getMinY() {
+            return minY;
+        }
+
+        public double getMaxY() {
+            return maxY;
+        }
+
+        public HandleArtifact invoke() {
+            List<Artifact> artifacts = gatherAllArtifacts(bpmnModel);
+            for (Artifact artifact : artifacts) {
+
+                GraphicInfo artifactGraphicInfo = bpmnModel.getGraphicInfo(artifact.getId());
+
+                if (artifactGraphicInfo != null) {
+                    // width
+                    if (artifactGraphicInfo.getX() + artifactGraphicInfo.getWidth() > maxX) {
+                        maxX = artifactGraphicInfo.getX() + artifactGraphicInfo.getWidth();
+                    }
+                    if (artifactGraphicInfo.getX() < minX) {
+                        minX = artifactGraphicInfo.getX();
+                    }
+                    // height
+                    if (artifactGraphicInfo.getY() + artifactGraphicInfo.getHeight() > maxY) {
+                        maxY = artifactGraphicInfo.getY() + artifactGraphicInfo.getHeight();
+                    }
+                    if (artifactGraphicInfo.getY() < minY) {
+                        minY = artifactGraphicInfo.getY();
+                    }
+                }
+
+                List<GraphicInfo> graphicInfoList = bpmnModel.getFlowLocationGraphicInfo(artifact.getId());
+                if (graphicInfoList != null) {
+                    for (GraphicInfo graphicInfo : graphicInfoList) {
+                        // width
+                        if (graphicInfo.getX() > maxX) {
+                            maxX = graphicInfo.getX();
+                        }
+                        if (graphicInfo.getX() < minX) {
+                            minX = graphicInfo.getX();
+                        }
+                        // height
+                        if (graphicInfo.getY() > maxY) {
+                            maxY = graphicInfo.getY();
+                        }
+                        if (graphicInfo.getY() < minY) {
+                            minY = graphicInfo.getY();
+                        }
+                    }
+                }
+            }
+            return this;
+        }
+    }
 }

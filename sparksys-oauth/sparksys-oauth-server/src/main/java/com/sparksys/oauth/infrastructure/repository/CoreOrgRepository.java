@@ -40,10 +40,11 @@ public class CoreOrgRepository implements ICoreOrgRepository {
         }
         List<Long> idList = ids.stream().mapToLong(Convert::toLong).boxed().collect(Collectors.toList());
         List<CoreOrg> list;
-        if (idList.size() <= 1000) {
+        int size = 1000;
+        if (idList.size() <= size) {
             list = idList.stream().map(this.coreOrgMapper::selectById).filter(Objects::nonNull).collect(Collectors.toList());
         } else {
-            list = this.coreOrgMapper.selectList(new QueryWrapper<CoreOrg>().lambda().in(CoreOrg::getId,idList).eq(CoreOrg::getStatus, true));
+            list = this.coreOrgMapper.selectList(new QueryWrapper<CoreOrg>().lambda().in(CoreOrg::getId, idList).eq(CoreOrg::getStatus, true));
         }
         return list;
     }

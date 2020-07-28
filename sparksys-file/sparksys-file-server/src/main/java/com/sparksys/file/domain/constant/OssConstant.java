@@ -11,12 +11,6 @@ import java.util.Map;
  */
 public class OssConstant {
 
-    public final static String PROTOCOL_HTTPS = "https://";
-
-
-    public final static String URL_SEPARATOR = "/";
-
-
     public static final Map<String, String> OSS_EXCEPTION_MAP =
             ImmutableMap.<String, String>builder().
                     put("NoSuchKey", "文件不存在")

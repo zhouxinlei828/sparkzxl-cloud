@@ -2,7 +2,6 @@ package com.sparksys.activiti.infrastructure.convert;
 
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskRule;
 import com.sparksys.activiti.interfaces.dto.process.TaskRuleSaveDTO;
-import com.sparksys.activiti.interfaces.dto.process.TaskRuleUpdateDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -17,8 +16,12 @@ public interface ProcessTaskRuleConvert {
 
     ProcessTaskRuleConvert INSTANCE = Mappers.getMapper(ProcessTaskRuleConvert.class);
 
+    /**
+     * TaskRuleSaveDTO转化为ProcessTaskRule
+     *
+     * @param taskRuleSaveDTO TaskRule保存对象
+     * @return ProcessTaskRule
+     */
     ProcessTaskRule convertTaskRuleSaveDTO(TaskRuleSaveDTO taskRuleSaveDTO);
-
-    ProcessTaskRule convertTaskRuleUpdateDTO(TaskRuleUpdateDTO taskRuleUpdateDTO);
 
 }

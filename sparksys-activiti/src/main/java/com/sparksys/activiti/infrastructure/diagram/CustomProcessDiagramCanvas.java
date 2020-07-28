@@ -31,6 +31,8 @@ public class CustomProcessDiagramCanvas extends DefaultProcessDiagramCanvas {
 
     protected static Color LABEL_COLOR = new Color(0, 0, 0);
 
+    private final static String ASSOCIATION = "association";
+
     protected String activityFontName = "宋体";
     protected String labelFontName = "宋体";
     protected String annotationFontName = "宋体";
@@ -80,7 +82,7 @@ public class CustomProcessDiagramCanvas extends DefaultProcessDiagramCanvas {
         Stroke originalStroke = g.getStroke();
 
         g.setPaint(CONNECTION_COLOR);
-        if ("association".equals(connectionType)) {
+        if (ASSOCIATION.equals(connectionType)) {
             g.setStroke(ASSOCIATION_STROKE);
         } else if (highLighted) {
             g.setPaint(color);
@@ -137,7 +139,6 @@ public class CustomProcessDiagramCanvas extends DefaultProcessDiagramCanvas {
             int wrapWidth = 100;
             int textY = (int) graphicInfo.getY();
 
-            // TODO: use drawMultilineText()
             AttributedString as = new AttributedString(text);
             as.addAttribute(TextAttribute.FOREGROUND, g.getPaint());
             as.addAttribute(TextAttribute.FONT, g.getFont());

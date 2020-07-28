@@ -45,7 +45,8 @@ public class CoreStationRepository implements ICoreStationRepository {
         List<Long> idList = ids.stream().mapToLong(Convert::toLong).boxed().collect(Collectors.toList());
 
         List<CoreStation> list;
-        if (idList.size() <= 1000) {
+        int size = 1000;
+        if (idList.size() <= size) {
             list = idList.stream().map(this.coreStationMapper::selectById).filter(Objects::nonNull).collect(Collectors.toList());
         } else {
             list = this.coreStationMapper.selectList(new QueryWrapper<CoreStation>().lambda().in(CoreStation::getId, idList).eq(CoreStation::getStatus, true));

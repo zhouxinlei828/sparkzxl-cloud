@@ -25,7 +25,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "CAuthUserRole对象", description = "角色分配账号角色绑定")
 public class UserRole implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3730006313872866511L;
 
     @TableId(value = "id", type = IdType.INPUT)
     private Long id;
