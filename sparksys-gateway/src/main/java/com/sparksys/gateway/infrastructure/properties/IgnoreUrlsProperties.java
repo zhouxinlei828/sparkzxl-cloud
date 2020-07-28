@@ -1,4 +1,4 @@
-package com.sparksys.gateway.infrastructure.prop;
+package com.sparksys.gateway.infrastructure.properties;
 
 import java.util.List;
 

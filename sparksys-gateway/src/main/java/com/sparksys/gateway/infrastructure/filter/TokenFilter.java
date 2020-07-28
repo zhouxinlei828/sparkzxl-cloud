@@ -9,11 +9,14 @@ import com.sparksys.core.constant.CoreConstant;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import com.sparksys.gateway.infrastructure.registry.SecurityRegistry;
+import com.sparksys.gateway.infrastructure.properties.IgnoreUrlsProperties;
+import com.sparksys.gateway.infrastructure.resource.StaticResource;
+import com.sparksys.gateway.infrastructure.utils.IgnoreUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -37,25 +40,16 @@ import reactor.core.publisher.Mono;
  */
 @Component
 @Slf4j
+@RefreshScope
 public class TokenFilter implements GlobalFilter, Ordered {
 
     @Autowired
-    private SecurityRegistry securityRegistry;
+    private IgnoreUrlsProperties ignoreUrlsProperties;
 
     @Override
     public int getOrder() {
         return -1000;
     }
-
-    /**
-     * 忽略应用级token
-     *
-     * @return
-     */
-    protected boolean isIgnoreToken(String uri) {
-        return securityRegistry.isIgnoreToken(uri);
-    }
-
 
     protected String getHeader(String headerName, ServerHttpRequest request) {
         HttpHeaders headers = request.getHeaders();
@@ -85,8 +79,10 @@ public class TokenFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
-        // 不进行拦截的地址
-        if (isIgnoreToken(request.getPath().toString())) {
+
+        // 校验是否需要拦截地址
+        if (IgnoreUtils.isIgnore(StaticResource.EXCLUDE_PATTERNS, request.getPath().toString())
+                || IgnoreUtils.isIgnore(ignoreUrlsProperties.getUrls(), request.getPath().toString())) {
             log.debug("access filter not execute");
             return chain.filter(exchange);
         }

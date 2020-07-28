@@ -8,7 +8,6 @@ import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,7 +19,6 @@ import java.util.List;
  * @date 2020-06-07 13:39:14
  */
 @RestController
-@RequestMapping("/menu")
 @ResponseResult
 @WebLog
 @Api(tags = "菜单管理")

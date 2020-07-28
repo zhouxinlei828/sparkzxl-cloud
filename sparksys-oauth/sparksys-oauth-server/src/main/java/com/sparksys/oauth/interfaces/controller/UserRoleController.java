@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
  * @date: 2020-07-19 21:07:12
  */
 @RestController
-@RequestMapping("/role/user")
 @ResponseResult
 @WebLog
 @Api(tags = "角色管理")

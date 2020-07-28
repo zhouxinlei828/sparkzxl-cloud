@@ -11,7 +11,6 @@ import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -26,7 +25,6 @@ import java.util.List;
 @RestController
 @ResponseResult
 @WebLog
-@RequestMapping("/resource")
 @Api(tags = "资源管理")
 public class AuthResourceController {
 

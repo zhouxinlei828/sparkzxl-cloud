@@ -3,7 +3,10 @@ package com.sparksys.oauth.infrastructure.repository;
 
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sparksys.core.utils.MapHelper;
+import com.sparksys.database.utils.PageInfoUtils;
 import com.sparksys.oauth.domain.repository.ICoreStationRepository;
 import com.sparksys.oauth.infrastructure.entity.CoreStation;
 import com.sparksys.oauth.infrastructure.mapper.CoreStationMapper;
@@ -41,7 +44,7 @@ public class CoreStationRepository implements ICoreStationRepository {
         }
         List<Long> idList = ids.stream().mapToLong(Convert::toLong).boxed().collect(Collectors.toList());
 
-        List<CoreStation> list = null;
+        List<CoreStation> list;
         if (idList.size() <= 1000) {
             list = idList.stream().map(this.coreStationMapper::selectById).filter(Objects::nonNull).collect(Collectors.toList());
         } else {
@@ -50,4 +53,14 @@ public class CoreStationRepository implements ICoreStationRepository {
         return list;
     }
 
+    @Override
+    public PageInfo<CoreStation> getStationPageList(int pageNum, int pageSize, String name, Long orgId) {
+        Optional<String> nameOptional = Optional.ofNullable(name);
+        Optional<Long> orgIdOptional = Optional.ofNullable(orgId);
+        QueryWrapper<CoreStation> stationQueryWrapper = new QueryWrapper<>();
+        nameOptional.ifPresent(value -> stationQueryWrapper.likeRight("name", value));
+        orgIdOptional.ifPresent(value -> stationQueryWrapper.eq("org_id", value));
+        PageHelper.startPage(pageNum, pageSize);
+        return PageInfoUtils.pageInfo(coreStationMapper.selectList(stationQueryWrapper));
+    }
 }

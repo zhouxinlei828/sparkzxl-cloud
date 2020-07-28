@@ -8,7 +8,6 @@ import com.sparksys.oauth.infrastructure.entity.AuthRole;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.oauth.interfaces.dto.role.AuthRoleUpdateDTO;
-import com.sparksys.oauth.interfaces.dto.role.RoleUserDTO;
 import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,7 +22,6 @@ import springfox.documentation.annotations.ApiIgnore;
  * @date 2020-06-07 13:40:03
  */
 @RestController
-@RequestMapping("/role")
 @ResponseResult
 @WebLog
 @Api(tags = "角色管理")
