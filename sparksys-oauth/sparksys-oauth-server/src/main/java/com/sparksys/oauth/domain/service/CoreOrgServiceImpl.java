@@ -1,7 +1,7 @@
 package com.sparksys.oauth.domain.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.TreeUtil;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.application.service.ICoreOrgService;

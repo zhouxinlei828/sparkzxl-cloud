@@ -3,7 +3,7 @@ package com.sparksys.oauth.domain.service;
 import cn.hutool.core.util.StrUtil;
 import com.sparksys.core.entity.UserAgentEntity;
 import com.sparksys.core.utils.KeyUtils;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.ILoginLogService;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.domain.repository.ILoginLogRepository;

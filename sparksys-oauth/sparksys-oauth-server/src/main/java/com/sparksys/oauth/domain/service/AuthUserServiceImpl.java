@@ -7,8 +7,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Sets;
 import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.utils.ListUtils;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
-import com.sparksys.database.utils.PageInfoUtils;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.domain.bo.AuthUserBO;
 import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.infrastructure.entity.*;
@@ -21,11 +20,9 @@ import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * description: 用户查询 服务实现类
@@ -39,38 +36,6 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Autowired
     private IAuthUserRepository authUserRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Override
-    public boolean saveAuthUser(Long contextUserId, AuthUserSaveDTO authUserSaveDTO) {
-        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserSaveDTO);
-        authUser.setStatus(true);
-        String password = passwordEncoder.encode(authUserSaveDTO.getPassword());
-        authUser.setPassword(password);
-        authUser.setCreateUser(contextUserId);
-        authUser.setUpdateUser(contextUserId);
-        return save(authUser);
-    }
-
-    @Override
-    public boolean updateAuthUser(Long contextUserId, AuthUserUpdateDTO authUserUpdateDTO) {
-        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserUpdateDTO);
-        authUser.setUpdateUser(contextUserId);
-        return updateById(authUser);
-    }
-
-    @Override
-    public boolean deleteAuthUser(Long id) {
-        return removeById(id);
-    }
-
-    @Override
-    public boolean updateAuthUserStatus(Long contextUserId, AuthUserStatusDTO authUserStatusDTO) {
-        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserStatusDTO);
-        authUser.setUpdateUser(contextUserId);
-        return updateById(authUser);
-    }
 
     @Override
     public PageInfo<AuthUserDTO> listByPage(AuthUserPageDTO authUserPageDTO) {
@@ -84,8 +49,7 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Override
     public AuthUserDTO getAuthUser(Long id) {
-        AuthUser authUser = getByIdCache(id);
-        return AuthUserConvert.INSTANCE.convertAuthUserDTO(authUser);
+        return AuthUserConvert.INSTANCE.convertAuthUserDTO(getByIdCache(id));
     }
 
     @Override

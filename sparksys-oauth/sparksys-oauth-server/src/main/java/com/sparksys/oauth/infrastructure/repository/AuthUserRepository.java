@@ -9,7 +9,6 @@ import com.sparksys.oauth.domain.bo.AuthUserBO;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -2,7 +2,7 @@ package com.sparksys.oauth.application.service;
 
 
 import com.github.pagehelper.PageInfo;
-import com.sparksys.database.service.SuperCacheService;
+import com.sparksys.database.base.service.SuperCacheService;
 import com.sparksys.oauth.infrastructure.entity.CoreStation;
 import com.sparksys.oauth.interfaces.dto.station.StationPageDTO;
 import com.sparksys.oauth.interfaces.dto.station.StationSaveDTO;

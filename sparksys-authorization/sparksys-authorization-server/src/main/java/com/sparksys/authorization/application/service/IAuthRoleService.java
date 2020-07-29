@@ -2,7 +2,7 @@ package com.sparksys.authorization.application.service;
 
 
 import com.github.pagehelper.PageInfo;
-import com.sparksys.database.service.SuperCacheService;
+import com.sparksys.database.base.service.SuperCacheService;
 import com.sparksys.authorization.infrastructure.entity.AuthRole;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.authorization.interfaces.dto.role.AuthRoleSaveDTO;

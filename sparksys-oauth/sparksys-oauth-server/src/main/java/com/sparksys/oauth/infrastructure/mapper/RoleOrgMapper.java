@@ -1,6 +1,6 @@
 package com.sparksys.oauth.infrastructure.mapper;
 
-import com.sparksys.database.mapper.SuperMapper;
+import com.sparksys.database.base.mapper.SuperMapper;
 import com.sparksys.oauth.infrastructure.entity.RoleOrg;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;

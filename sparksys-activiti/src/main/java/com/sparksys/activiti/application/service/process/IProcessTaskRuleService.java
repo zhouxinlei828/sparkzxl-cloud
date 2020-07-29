@@ -3,7 +3,7 @@ package com.sparksys.activiti.application.service.process;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskRule;
 import com.sparksys.activiti.interfaces.dto.process.ProcessActionDTO;
 import com.sparksys.activiti.interfaces.dto.process.TaskRuleSaveDTO;
-import com.sparksys.database.service.SuperCacheService;
+import com.sparksys.database.base.service.SuperCacheService;
 
 import java.util.List;
 

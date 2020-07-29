@@ -2,7 +2,7 @@ package com.sparksys.activiti.infrastructure.mapper;
 
 import com.sparksys.activiti.infrastructure.entity.ProcessInstance;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskStatus;
-import com.sparksys.database.mapper.SuperMapper;
+import com.sparksys.database.base.mapper.SuperMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;

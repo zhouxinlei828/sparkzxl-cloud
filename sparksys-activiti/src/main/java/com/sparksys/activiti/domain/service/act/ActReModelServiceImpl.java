@@ -9,7 +9,7 @@ import com.sparksys.activiti.infrastructure.entity.MetaInfo;
 import com.sparksys.activiti.infrastructure.mapper.ActReModelMapper;
 import com.sparksys.activiti.application.service.act.IActReModelService;
 import com.sparksys.activiti.interfaces.dto.act.ModelPageDTO;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.PageInfoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

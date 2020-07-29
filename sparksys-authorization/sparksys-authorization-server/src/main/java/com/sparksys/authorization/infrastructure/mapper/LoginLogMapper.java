@@ -1,6 +1,6 @@
 package com.sparksys.authorization.infrastructure.mapper;
 
-import com.sparksys.database.mapper.SuperMapper;
+import com.sparksys.database.base.mapper.SuperMapper;
 import com.sparksys.authorization.infrastructure.entity.LoginLog;
 import com.sparksys.authorization.infrastructure.entity.LoginLogCount;
 import org.apache.ibatis.annotations.Delete;

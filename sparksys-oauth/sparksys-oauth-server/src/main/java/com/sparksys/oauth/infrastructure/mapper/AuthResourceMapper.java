@@ -1,6 +1,6 @@
 package com.sparksys.oauth.infrastructure.mapper;
 
-import com.sparksys.database.mapper.SuperMapper;
+import com.sparksys.database.base.mapper.SuperMapper;
 import com.sparksys.oauth.infrastructure.entity.AuthResource;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;

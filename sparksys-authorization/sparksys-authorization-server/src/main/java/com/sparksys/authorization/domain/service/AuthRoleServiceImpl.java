@@ -3,7 +3,7 @@ package com.sparksys.authorization.domain.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sparksys.core.constant.CacheKey;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.authorization.application.service.IAuthRoleService;
 import com.sparksys.authorization.domain.repository.IAuthRoleRepository;
 import com.sparksys.authorization.infrastructure.convert.AuthRoleConvert;

@@ -1,7 +1,7 @@
 package com.sparksys.oauth.domain.service;
 
 import com.sparksys.core.utils.KeyUtils;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.IAuthResourceService;
 import com.sparksys.oauth.domain.repository.IAuthResourceRepository;
 import com.sparksys.oauth.infrastructure.constant.CacheConstant;
@@ -29,13 +29,6 @@ public class AuthResourceServiceImpl extends AbstractSuperCacheServiceImpl<AuthR
 
     public AuthResourceServiceImpl(IAuthResourceRepository authResourceRepository) {
         this.authResourceRepository = authResourceRepository;
-    }
-
-
-    @Override
-    public List<AuthResourceDTO> resourceList() {
-        List<AuthResource> authResources = authResourceRepository.authResourceList();
-        return authResources.stream().map(AuthResourceConvert.INSTANCE::convertAuthResourceDTO).collect(Collectors.toList());
     }
 
     @Override

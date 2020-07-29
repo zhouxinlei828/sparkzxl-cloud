@@ -1,7 +1,7 @@
 package com.sparksys.oauth.domain.service;
 
 import com.github.pagehelper.PageInfo;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.application.service.ICoreStationService;
 import com.sparksys.oauth.domain.repository.ICoreStationRepository;
 import com.sparksys.oauth.infrastructure.constant.CacheConstant;

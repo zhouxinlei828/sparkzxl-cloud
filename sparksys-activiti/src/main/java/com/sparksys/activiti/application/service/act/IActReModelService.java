@@ -4,7 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.infrastructure.entity.ActReModel;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sparksys.activiti.interfaces.dto.act.ModelPageDTO;
-import com.sparksys.database.service.SuperCacheService;
+import com.sparksys.database.base.service.SuperCacheService;
 
 /**
  * description: 模型 服务类

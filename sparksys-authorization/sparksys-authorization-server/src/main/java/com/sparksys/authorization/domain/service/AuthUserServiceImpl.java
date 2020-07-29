@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.sparksys.core.constant.CacheKey;
 import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.utils.MD5Utils;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.PageInfoUtils;
 import com.sparksys.security.entity.AuthUserDetail;
 import com.sparksys.authorization.application.service.IAuthUserService;

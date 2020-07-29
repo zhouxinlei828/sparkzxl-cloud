@@ -1,7 +1,7 @@
 package com.sparksys.oauth.interfaces.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sparksys.database.model.RemoteData;
+import com.sparksys.database.entity.RemoteData;
 import com.sparksys.oauth.infrastructure.entity.CoreOrg;
 import com.sparksys.oauth.infrastructure.entity.CoreStation;
 import com.sparksys.oauth.infrastructure.enums.SexEnum;

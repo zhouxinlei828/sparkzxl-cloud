@@ -1,7 +1,7 @@
 package com.sparksys.oauth.application.service;
 
 
-import com.sparksys.database.service.SuperCacheService;
+import com.sparksys.database.base.service.SuperCacheService;
 import com.sparksys.oauth.infrastructure.entity.AuthResource;
 import com.sparksys.oauth.interfaces.dto.resource.AuthResourceDTO;
 import com.sparksys.oauth.interfaces.dto.resource.ResourceQueryDTO;
@@ -17,18 +17,11 @@ import java.util.List;
 public interface IAuthResourceService extends SuperCacheService<AuthResource> {
 
     /**
-     * 查询资源列表
-     *
-     * @return
-     */
-    List<AuthResourceDTO> resourceList();
-
-    /**
      * 查询用户可用的所有资源
      *
      * @param userId   用户id
      * @param resource 资源查询对象
-     * @return
+     * @return List<AuthResource>
      */
     List<AuthResource> findVisibleResource(Long userId, ResourceQueryDTO resource);
 }

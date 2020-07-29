@@ -4,9 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sparksys.database.annonation.InjectionField;
 import com.sparksys.database.entity.Entity;
-import com.sparksys.database.model.RemoteData;
+import com.sparksys.database.entity.RemoteData;
 import com.sparksys.oauth.infrastructure.enums.SexEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,6 +18,8 @@ import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 
+import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE;
+import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE_RIGHT;
 import static com.sparksys.oauth.infrastructure.constant.InjectionFieldConstants.*;
 
 /**
@@ -43,15 +46,19 @@ public class AuthUser extends Entity<Long> {
     @TableField("account")
     private String account;
 
+    @ApiModelProperty(value = "密码")
+    @TableField("password")
+    @JsonIgnore
+    private String password;
+
     @ApiModelProperty(value = "姓名")
-    @TableField("name")
+    @TableField(value = "name", condition = LIKE_RIGHT)
     private String name;
 
     @ApiModelProperty(value = "组织ID")
     @TableField("org_id")
     @InjectionField(api = ORG_ID_CLASS, method = ORG_ID_METHOD, beanClass = CoreOrg.class)
-    private RemoteData<Long,CoreOrg> org;
-
+    private RemoteData<Long, CoreOrg> org;
 
     @ApiModelProperty(value = "岗位ID")
     @TableField("station_id")
@@ -105,10 +112,6 @@ public class AuthUser extends Entity<Long> {
     @ApiModelProperty(value = "密码过期时间")
     @TableField("password_expire_time")
     private LocalDateTime passwordExpireTime;
-
-    @ApiModelProperty(value = "密码")
-    @TableField("password")
-    private String password;
 
     @ApiModelProperty(value = "最后登录时间")
     @TableField("last_login_time")

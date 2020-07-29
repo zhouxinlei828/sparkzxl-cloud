@@ -33,10 +33,6 @@
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-oauth2-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-file-api</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <plugins>

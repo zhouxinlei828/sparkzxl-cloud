@@ -4,7 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.sparksys.activiti.infrastructure.entity.ProcessDetail;
 import com.sparksys.activiti.interfaces.dto.process.ProcessDetailDTO;
 import com.sparksys.activiti.interfaces.dto.process.ProcessDetailPageDTO;
-import com.sparksys.database.service.SuperCacheService;
+import com.sparksys.database.base.service.SuperCacheService;
 
 import java.util.List;
 

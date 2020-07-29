@@ -1,7 +1,7 @@
 package com.sparksys.activiti.infrastructure.mapper;
 
 import com.sparksys.activiti.infrastructure.entity.ProcessDetail;
-import com.sparksys.database.mapper.SuperMapper;
+import com.sparksys.database.base.mapper.SuperMapper;
 import org.springframework.stereotype.Repository;
 
 /**

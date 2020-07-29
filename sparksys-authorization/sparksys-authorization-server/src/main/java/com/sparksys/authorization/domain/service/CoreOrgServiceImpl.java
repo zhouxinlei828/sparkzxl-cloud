@@ -1,7 +1,7 @@
 package com.sparksys.authorization.domain.service;
 
 import com.sparksys.core.constant.CacheKey;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.authorization.application.service.ICoreOrgService;
 import com.sparksys.authorization.infrastructure.entity.CoreOrg;
 import com.sparksys.authorization.infrastructure.mapper.CoreOrgMapper;

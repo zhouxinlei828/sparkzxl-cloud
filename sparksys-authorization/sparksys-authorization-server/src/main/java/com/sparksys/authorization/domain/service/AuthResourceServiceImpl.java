@@ -1,6 +1,6 @@
 package com.sparksys.authorization.domain.service;
 
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.authorization.application.service.IAuthResourceService;
 import com.sparksys.authorization.infrastructure.entity.AuthResource;
 import com.sparksys.authorization.infrastructure.mapper.AuthResourceMapper;

@@ -1,7 +1,7 @@
 package com.sparksys.activiti.application.service.process;
 
 import com.sparksys.activiti.infrastructure.entity.ActHiTaskStatus;
-import com.sparksys.database.service.SuperCacheService;
+import com.sparksys.database.base.service.SuperCacheService;
 
 import java.util.List;
 

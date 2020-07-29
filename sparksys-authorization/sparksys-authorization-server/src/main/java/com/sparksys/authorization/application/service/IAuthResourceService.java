@@ -1,7 +1,7 @@
 package com.sparksys.authorization.application.service;
 
 
-import com.sparksys.database.service.SuperCacheService;
+import com.sparksys.database.base.service.SuperCacheService;
 import com.sparksys.authorization.infrastructure.entity.AuthResource;
 
 /**

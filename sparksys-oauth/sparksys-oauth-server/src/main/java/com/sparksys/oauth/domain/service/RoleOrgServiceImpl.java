@@ -1,7 +1,7 @@
 package com.sparksys.oauth.domain.service;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.infrastructure.entity.RoleOrg;
 import com.sparksys.oauth.infrastructure.mapper.RoleOrgMapper;

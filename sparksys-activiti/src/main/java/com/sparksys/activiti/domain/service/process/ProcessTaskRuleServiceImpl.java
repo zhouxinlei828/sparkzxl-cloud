@@ -11,7 +11,7 @@ import com.sparksys.activiti.infrastructure.mapper.ProcessTaskRuleMapper;
 import com.sparksys.activiti.application.service.process.IProcessTaskRuleService;
 import com.sparksys.activiti.interfaces.dto.process.ProcessActionDTO;
 import com.sparksys.activiti.interfaces.dto.process.TaskRuleSaveDTO;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.sparksys.authorization.infrastructure.mapper;
 
-import com.sparksys.database.mapper.SuperMapper;
+import com.sparksys.database.base.mapper.SuperMapper;
 import com.sparksys.authorization.infrastructure.entity.AuthUser;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;

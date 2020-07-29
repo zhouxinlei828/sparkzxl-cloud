@@ -1,6 +1,6 @@
 package com.sparksys.oauth.infrastructure.mapper;
 
-import com.sparksys.database.mapper.SuperMapper;
+import com.sparksys.database.base.mapper.SuperMapper;
 import com.sparksys.oauth.infrastructure.entity.CommonDictionaryItem;
 import org.springframework.stereotype.Repository;
 

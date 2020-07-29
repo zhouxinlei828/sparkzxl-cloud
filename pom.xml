@@ -382,6 +382,9 @@
                     </executions>
                     <configuration>
                         <fork>true</fork>
+                        <layers>
+                            <enabled>true</enabled>
+                        </layers>
                     </configuration>
                 </plugin>
             </plugins>

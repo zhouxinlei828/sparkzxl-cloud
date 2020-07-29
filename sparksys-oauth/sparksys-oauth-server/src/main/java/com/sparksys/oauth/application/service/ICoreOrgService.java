@@ -1,7 +1,7 @@
 package com.sparksys.oauth.application.service;
 
 
-import com.sparksys.database.service.SuperCacheService;
+import com.sparksys.database.base.service.SuperCacheService;
 import com.sparksys.oauth.infrastructure.entity.CoreOrg;
 import com.sparksys.oauth.interfaces.dto.org.OrgSaveDTO;
 import com.sparksys.oauth.interfaces.dto.org.OrgUpdateDTO;

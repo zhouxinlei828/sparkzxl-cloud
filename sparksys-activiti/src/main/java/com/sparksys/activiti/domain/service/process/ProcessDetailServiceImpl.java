@@ -10,7 +10,7 @@ import com.sparksys.activiti.application.service.process.IProcessDetailService;
 import com.sparksys.activiti.interfaces.dto.process.ProcessDetailDTO;
 import com.sparksys.activiti.interfaces.dto.process.ProcessDetailPageDTO;
 import com.sparksys.database.dto.PageDTO;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.PageInfoUtils;
 import org.springframework.stereotype.Service;
 import com.sparksys.activiti.domain.repository.IProcessDetailRepository;

@@ -5,7 +5,7 @@ import com.sparksys.activiti.infrastructure.entity.ProcessInstance;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskStatus;
 import com.sparksys.activiti.interfaces.dto.act.InstancePageDTO;
 import com.sparksys.activiti.interfaces.dto.act.ProcessInstanceDTO;
-import com.sparksys.database.service.SuperCacheService;
+import com.sparksys.database.base.service.SuperCacheService;
 
 import java.util.List;
 

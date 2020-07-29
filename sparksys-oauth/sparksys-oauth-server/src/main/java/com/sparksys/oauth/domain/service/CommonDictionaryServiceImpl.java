@@ -1,6 +1,6 @@
 package com.sparksys.oauth.domain.service;
 
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.oauth.infrastructure.entity.CommonDictionary;
 import com.sparksys.oauth.infrastructure.mapper.CommonDictionaryMapper;
 import com.sparksys.oauth.application.service.ICommonDictionaryService;

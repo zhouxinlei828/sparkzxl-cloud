@@ -5,7 +5,7 @@ import com.sparksys.activiti.domain.repository.IActHiTaskStatusRepository;
 import com.sparksys.activiti.infrastructure.constant.ActivitiCache;
 import com.sparksys.activiti.infrastructure.entity.ActHiTaskStatus;
 import com.sparksys.activiti.infrastructure.mapper.ActHiTaskStatusMapper;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -9,7 +9,7 @@ import com.sparksys.activiti.infrastructure.mapper.ProcessTaskStatusMapper;
 import com.sparksys.activiti.application.service.process.IProcessTaskStatusService;
 import com.sparksys.activiti.interfaces.dto.act.InstancePageDTO;
 import com.sparksys.core.utils.DateUtils;
-import com.sparksys.database.service.impl.AbstractSuperCacheServiceImpl;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
