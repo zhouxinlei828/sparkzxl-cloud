@@ -392,7 +392,7 @@
                     <version>2.4.0</version>
                     <configuration>
                         <from>
-                            <image>openjdk:8u212-jdk-stretch</image>
+                            <image>openjdk:8-jre</image>
                         </from>
                         <to>
                             <image>harbor.en2hr.com:8084/hongneng/${project.artifactId}</image>
