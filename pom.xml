@@ -381,10 +381,12 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <fork>true</fork>
                         <layers>
                             <enabled>true</enabled>
                         </layers>
+                        <environmentVariables>
+                            <DOCKER_HOST>http://47.116.52.58:2375</DOCKER_HOST>
+                        </environmentVariables>
                     </configuration>
                 </plugin>
             </plugins>
