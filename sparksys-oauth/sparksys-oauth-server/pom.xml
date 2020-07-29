@@ -36,14 +36,32 @@
     </dependencies>
     <build>
         <plugins>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <!--<plugin>
+            </plugin>-->
+            <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-            </plugin>-->
+                <configuration>
+                    <container>
+                        <jvmFlags>
+                            <jvmFlag>-Xms512m</jvmFlag>
+                            <jvmFlag>-Xdebug</jvmFlag>
+                            <jvmFlag>-Xmy:flag=jib-rules</jvmFlag>
+                        </jvmFlags>
+                        <mainClass>com.sparksys.oauth.Oauth2Application</mainClass>
+                        <args>
+                            <arg>some</arg>
+                            <arg>args</arg>
+                        </args>
+                        <ports>
+                            <port>8093</port>
+                        </ports>
+                        <format>OCI</format>
+                    </container>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
