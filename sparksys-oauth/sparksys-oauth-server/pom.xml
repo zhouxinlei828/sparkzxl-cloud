@@ -52,7 +52,6 @@
                             <name>sparksys oauth server</name>
                         </labels>
                     </container>
-                    <allowInsecureRegistries>true</allowInsecureRegistries>
                 </configuration>
             </plugin>
         </plugins>

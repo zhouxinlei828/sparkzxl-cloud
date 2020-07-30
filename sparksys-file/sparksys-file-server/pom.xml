@@ -32,8 +32,22 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <configuration>
+                    <container>
+                        <jvmFlags>
+                            <jvmFlag>-Xms512m</jvmFlag>
+                            <jvmFlag>-Xdebug</jvmFlag>
+                        </jvmFlags>
+                        <ports>
+                            <port>8901</port>
+                        </ports>
+                        <labels>
+                            <name>sparksys file</name>
+                        </labels>
+                    </container>
+                </configuration>
             </plugin>
         </plugins>
     </build>
