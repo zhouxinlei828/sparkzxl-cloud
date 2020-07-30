@@ -23,13 +23,6 @@ public class AuthUserServiceTest {
     private IAuthUserService authUserService;
 
     @Test
-    public void authUserPageHelperTest() {
-        AuthUserPageDTO authUserPageDTO = new AuthUserPageDTO();
-        authUserPageDTO.setAccount("zhouxinlei");
-        log.info("data：{}", JacksonUtils.writeJsonAsString(authUserService.listByPage(authUserPageDTO)));
-    }
-
-    @Test
     public void getAuthUserDetailTest() {
         log.info("data：{}", JSONUtil.toJsonPrettyStr(authUserService.getAuthUserDetail("zhouxinlei")));
     }

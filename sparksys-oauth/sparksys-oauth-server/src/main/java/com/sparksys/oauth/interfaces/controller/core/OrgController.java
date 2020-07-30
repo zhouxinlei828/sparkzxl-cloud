@@ -8,6 +8,7 @@ import com.sparksys.oauth.infrastructure.entity.CoreOrg;
 import com.sparksys.oauth.interfaces.dto.org.OrgSaveDTO;
 import com.sparksys.oauth.interfaces.dto.org.OrgUpdateDTO;
 import com.sparksys.web.annotation.ResponseResult;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ import java.util.List;
 @RestController
 @ResponseResult
 @WebLog
+@Api(tags = "组织管理")
 public class OrgController {
 
     private final ICoreOrgService coreOrgService;

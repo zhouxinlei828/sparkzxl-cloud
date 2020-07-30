@@ -10,6 +10,7 @@ import com.sparksys.oauth.interfaces.dto.station.StationPageDTO;
 import com.sparksys.oauth.interfaces.dto.station.StationSaveDTO;
 import com.sparksys.oauth.interfaces.dto.station.StationUpdateDTO;
 import com.sparksys.web.annotation.ResponseResult;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @ResponseResult
 @WebLog
+@Api(tags = "岗位管理")
 public class StationController {
 
     private final ICoreStationService stationService;
