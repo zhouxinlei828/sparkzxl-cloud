@@ -2,6 +2,7 @@ package com.sparksys.oauth.infrastructure.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.sparksys.web.enums.Enumerator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,7 +14,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum SexEnum {
+public enum SexEnum implements Enumerator {
 
     /**
      * 性别枚举
@@ -24,8 +25,8 @@ public enum SexEnum {
 
     @EnumValue
     @JsonValue
-    private int code;
+    final Integer code;
 
-    private String desc;
+    final String desc;
 
 }

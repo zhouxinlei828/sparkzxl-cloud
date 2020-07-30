@@ -1,10 +1,8 @@
 package com.sparksys.oauth.interfaces.controller.auth;
 
-import com.github.pagehelper.PageInfo;
 import com.sparksys.database.base.controller.SuperCacheController;
 import com.sparksys.log.annotation.WebLog;
 import com.sparksys.oauth.application.service.IAuthUserService;
-import com.sparksys.oauth.infrastructure.convert.AuthUserConvert;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.interfaces.dto.user.*;
 import com.sparksys.web.annotation.ResponseResult;
@@ -32,21 +30,10 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @ApiOperation("查询用户列表")
-    @GetMapping("/authUser/page")
-    public PageInfo<AuthUserDTO> listByPage(AuthUserPageDTO authUserPageDTO) {
-        return baseService.listByPage(authUserPageDTO);
-    }
-
     @ApiOperation("获取用户信息")
     @GetMapping("/authUser/{id}")
     public AuthUserDTO updateAuthUser(@PathVariable("id") Long id) {
         return baseService.getAuthUser(id);
-    }
-
-    @Override
-    public PageInfo<AuthUserDTO> handlerResult(PageInfo<AuthUser> pageInfo) {
-        return AuthUserConvert.INSTANCE.convertAuthUserDTO(pageInfo);
     }
 
     @Override

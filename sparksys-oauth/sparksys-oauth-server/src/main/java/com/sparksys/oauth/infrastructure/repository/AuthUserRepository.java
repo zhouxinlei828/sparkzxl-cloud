@@ -1,11 +1,7 @@
 package com.sparksys.oauth.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.sparksys.database.annonation.InjectionResult;
-import com.sparksys.database.utils.PageInfoUtils;
-import com.sparksys.oauth.domain.bo.AuthUserBO;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
@@ -39,20 +35,6 @@ public class AuthUserRepository implements IAuthUserRepository {
         queryWrapper.eq("account", account);
         queryWrapper.eq("status", 1);
         return authUserMapper.selectOne(queryWrapper);
-    }
-
-    @Override
-    @InjectionResult
-    public PageInfo<AuthUser> findAuthUserList(int pageNum, int pageSize, AuthUserBO authUserBO) {
-        QueryWrapper<AuthUser> userQueryWrapper = new QueryWrapper<>();
-        Optional.ofNullable(authUserBO.getAccount()).ifPresent((value) -> userQueryWrapper.eq("account", authUserBO.getAccount()));
-        Optional.ofNullable(authUserBO.getName()).ifPresent((value) -> userQueryWrapper.likeRight("name", authUserBO.getName()));
-        Optional.ofNullable(authUserBO.getEmail()).ifPresent((value) -> userQueryWrapper.eq("email", authUserBO.getEmail()));
-        Optional.ofNullable(authUserBO.getMobile()).ifPresent((value) -> userQueryWrapper.eq("mobile", authUserBO.getMobile()));
-        Optional.ofNullable(authUserBO.getSex()).ifPresent((value) -> userQueryWrapper.eq("sex", authUserBO.getSex()));
-        Optional.ofNullable(authUserBO.getStatus()).ifPresent((value) -> userQueryWrapper.eq("status", authUserBO.getStatus()));
-        PageHelper.startPage(pageNum, pageSize);
-        return PageInfoUtils.pageInfo(authUserMapper.selectList(userQueryWrapper));
     }
 
     @Override

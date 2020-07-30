@@ -1,9 +1,6 @@
 package com.sparksys.oauth.domain.repository;
 
-import com.github.pagehelper.PageInfo;
-import com.sparksys.oauth.domain.bo.AuthUserBO;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserDTO;
 
 import java.util.List;
 
@@ -31,16 +28,6 @@ public interface IAuthUserRepository {
      * @return
      */
     AuthUser selectByAccount(String account);
-
-    /**
-     * 根据条件页查询用户信息
-     *
-     * @param pageNum    当前页
-     * @param pageSize   分页大小
-     * @param authUserBO authUserBO对象
-     * @return PageInfo<AuthUser>
-     */
-    PageInfo<AuthUser> findAuthUserList(int pageNum, int pageSize, AuthUserBO authUserBO);
 
     /**
      * 密码输错自增

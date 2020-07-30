@@ -2,13 +2,10 @@ package com.sparksys.oauth.domain.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Sets;
 import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.utils.ListUtils;
 import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
-import com.sparksys.oauth.domain.bo.AuthUserBO;
 import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.infrastructure.entity.*;
 import com.sparksys.oauth.interfaces.dto.user.*;
@@ -36,16 +33,6 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Autowired
     private IAuthUserRepository authUserRepository;
-
-    @Override
-    public PageInfo<AuthUserDTO> listByPage(AuthUserPageDTO authUserPageDTO) {
-        PageHelper.startPage(authUserPageDTO.getPageNum(), authUserPageDTO.getPageSize());
-        AuthUserBO authUserBO = AuthUserConvert.INSTANCE.convertAuthUserBO(authUserPageDTO);
-        PageInfo<AuthUser> authUserPageInfo = authUserRepository.findAuthUserList(authUserPageDTO.getPageNum(),
-                authUserPageDTO.getPageSize(),
-                authUserBO);
-        return AuthUserConvert.INSTANCE.convertAuthUserDTO(authUserPageInfo);
-    }
 
     @Override
     public AuthUserDTO getAuthUser(Long id) {

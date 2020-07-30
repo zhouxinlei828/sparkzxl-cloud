@@ -1,6 +1,5 @@
 package com.sparksys.oauth.application.service;
 
-import com.github.pagehelper.PageInfo;
 import com.sparksys.database.base.service.SuperCacheService;
 import com.sparksys.oauth.infrastructure.entity.UserInfo;
 import com.sparksys.oauth.infrastructure.entity.UserNotices;
@@ -20,14 +19,6 @@ import java.util.Set;
  * @date 2020-05-24 12:22:23
  */
 public interface IAuthUserService extends SuperCacheService<AuthUser> {
-
-    /**
-     * 分页查询用户列表
-     *
-     * @param authUserPageDTO 分页查询参数
-     * @return PageInfo<AuthUserDTO>
-     */
-    PageInfo<AuthUserDTO> listByPage(AuthUserPageDTO authUserPageDTO);
 
     /**
      * 获取用户信息
