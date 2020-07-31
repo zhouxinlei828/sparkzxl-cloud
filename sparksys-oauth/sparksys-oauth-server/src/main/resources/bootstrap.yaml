@@ -27,7 +27,8 @@ spring:
         refresh-enabled: true
 logging:
   level:
+    com.sparksys.oauth.infrastructure.client: debug
     com.sparksys.oauth.infrastructure.mapper: debug
   file:
-    #path: /Users/zhouxinlei/logs
-    path: C:\logs
+    path: /Users/zhouxinlei/logs
+    #path: C:\logs

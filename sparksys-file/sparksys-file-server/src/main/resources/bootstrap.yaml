@@ -23,5 +23,5 @@ logging:
   level:
     com.sparksys.file.infrastructure.mapper: debug
   file:
-    #path: /Users/zhouxinlei/logs
-    path: C:\logs
+    path: /Users/zhouxinlei/logs
+    #path: C:\logs

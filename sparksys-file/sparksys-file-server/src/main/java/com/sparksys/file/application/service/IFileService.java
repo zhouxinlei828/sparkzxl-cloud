@@ -1,7 +1,7 @@
 package com.sparksys.file.application.service;
 
 import com.sparksys.core.support.BusinessException;
-import com.sparksys.file.interfaces.dto.FileDTO;
+import com.sparksys.file.dto.FileDTO;
 import com.sparksys.file.interfaces.dto.OssCallbackDTO;
 import com.sparksys.file.interfaces.dto.OssPolicyResult;
 import com.sparksys.file.interfaces.dto.FileMaterialDTO;

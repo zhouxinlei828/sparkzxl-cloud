@@ -1,7 +1,7 @@
 package com.sparksys.file.api;
 
-import com.sparksys.core.base.api.result.ApiResult;
 import com.sparksys.file.dto.FileDTO;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -31,5 +31,11 @@ public interface FileApi {
      */
     @PostMapping("/html")
     FileDTO getHtml(@RequestBody FileDTO fileDTO);
+
+    /**
+     * @return String
+     */
+    @GetMapping("/getSayHello")
+    String getSayHello();
 
 }

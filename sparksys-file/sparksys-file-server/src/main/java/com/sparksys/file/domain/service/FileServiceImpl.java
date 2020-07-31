@@ -3,7 +3,7 @@ package com.sparksys.file.domain.service;
 import cn.hutool.core.io.FileUtil;
 import com.sparksys.core.utils.Mht2HtmlUtil;
 import com.sparksys.file.application.service.IFileService;
-import com.sparksys.file.interfaces.dto.FileDTO;
+import com.sparksys.file.dto.FileDTO;
 import com.sparksys.file.interfaces.dto.OssCallbackDTO;
 import com.sparksys.file.interfaces.dto.OssPolicyResult;
 import com.sparksys.file.infrastructure.entity.FileMaterial;
