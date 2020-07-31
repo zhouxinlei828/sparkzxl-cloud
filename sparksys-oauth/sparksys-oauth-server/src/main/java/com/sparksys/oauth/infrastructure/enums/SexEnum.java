@@ -2,7 +2,7 @@ package com.sparksys.oauth.infrastructure.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.sparksys.web.enums.Enumerator;
+import com.sparksys.core.enums.Enumerator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

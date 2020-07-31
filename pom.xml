@@ -128,12 +128,6 @@
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-cloud-starter</artifactId>
                 <version>${sparksys.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
@@ -144,56 +138,26 @@
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-cache-starter</artifactId>
                 <version>${sparksys.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-core</artifactId>
                 <version>${sparksys.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-oauth2-starter</artifactId>
                 <version>${sparksys.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-security-starter</artifactId>
                 <version>${sparksys.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-user-starter</artifactId>
                 <version>${sparksys.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>

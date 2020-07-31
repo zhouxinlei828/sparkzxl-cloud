@@ -1,7 +1,7 @@
-package com.sparksys.file.domain.dto;
+package com.sparksys.file.interfaces.dto;
 
 import cn.hutool.core.io.FileUtil;
-import com.sparksys.file.domain.entity.FileMaterial;
+import com.sparksys.file.infrastructure.entity.FileMaterial;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 

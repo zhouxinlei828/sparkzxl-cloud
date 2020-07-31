@@ -1,4 +1,4 @@
-package com.sparksys.file.domain.entity;
+package com.sparksys.file.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -12,7 +12,6 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * description: 文件素材实体类

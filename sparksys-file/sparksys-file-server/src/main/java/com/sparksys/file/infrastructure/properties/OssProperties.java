@@ -1,10 +1,9 @@
-package com.sparksys.file.infrastructure.prop;
+package com.sparksys.file.infrastructure.properties;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties(prefix = "aliyun.oss")
-@RefreshScope
 @ApiModel(description = "阿里云oss配置")
 public class OssProperties {
 

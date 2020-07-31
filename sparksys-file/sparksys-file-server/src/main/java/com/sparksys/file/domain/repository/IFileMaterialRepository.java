@@ -1,6 +1,6 @@
 package com.sparksys.file.domain.repository;
 
-import com.sparksys.file.domain.entity.FileMaterial;
+import com.sparksys.file.infrastructure.entity.FileMaterial;
 
 /**
  * description：文件 仓储类

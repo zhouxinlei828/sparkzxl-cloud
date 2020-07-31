@@ -2,8 +2,8 @@ package com.sparksys.file.infrastructure.upload;
 
 import com.aliyun.oss.model.OSSObject;
 import com.sparksys.core.support.BusinessException;
-import com.sparksys.file.domain.dto.OssPolicyResult;
-import com.sparksys.file.domain.entity.UploadResult;
+import com.sparksys.file.interfaces.dto.OssPolicyResult;
+import com.sparksys.file.infrastructure.entity.UploadResult;
 import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;

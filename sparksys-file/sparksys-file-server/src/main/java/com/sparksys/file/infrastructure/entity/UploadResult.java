@@ -1,4 +1,4 @@
-package com.sparksys.file.domain.entity;
+package com.sparksys.file.infrastructure.entity;
 
 import lombok.Data;
 import lombok.ToString;

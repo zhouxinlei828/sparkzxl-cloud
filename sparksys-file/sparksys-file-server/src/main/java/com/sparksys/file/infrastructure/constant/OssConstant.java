@@ -1,4 +1,4 @@
-package com.sparksys.file.domain.constant;
+package com.sparksys.file.infrastructure.constant;
 
 import com.google.common.collect.ImmutableMap;
 import java.util.Map;
