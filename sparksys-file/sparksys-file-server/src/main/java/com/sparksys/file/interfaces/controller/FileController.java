@@ -1,5 +1,6 @@
 package com.sparksys.file.interfaces.controller;
 
+import com.sparksys.file.api.FileApi;
 import com.sparksys.log.annotation.WebLog;
 import com.sparksys.web.annotation.ResponseResult;
 import com.sparksys.file.application.service.IFileService;
@@ -24,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 @WebLog
 @RequestMapping("/file")
 @Api(tags = "文件管理")
-public class FileController {
+public class FileController implements FileApi {
 
     private final IFileService fileService;
 
@@ -60,5 +61,15 @@ public class FileController {
     @PostMapping("/callback")
     public FileMaterialDTO callback(@RequestBody OssCallbackDTO ossCallbackDTO) {
         return fileService.callback(ossCallbackDTO);
+    }
+
+    @Override
+    public com.sparksys.file.dto.FileDTO getPdf(com.sparksys.file.dto.FileDTO fileDTO) {
+        return null;
+    }
+
+    @Override
+    public com.sparksys.file.dto.FileDTO getHtml(com.sparksys.file.dto.FileDTO fileDTO) {
+        return null;
     }
 }

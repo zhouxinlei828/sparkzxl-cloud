@@ -1,8 +1,8 @@
-package com.sparksys.file.common.domain.dto;
-
-import java.util.List;
+package com.sparksys.file.dto;
 
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * description: 文件入参

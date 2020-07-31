@@ -197,17 +197,6 @@
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-file-common</artifactId>
-                <version>${sparksys-cloud.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-file-api</artifactId>
                 <version>${sparksys-cloud.version}</version>
                 <exclusions>

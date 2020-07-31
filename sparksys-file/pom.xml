@@ -13,6 +13,5 @@
     <modules>
         <module>sparksys-file-server</module>
         <module>sparksys-file-api</module>
-        <module>sparksys-file-common</module>
     </modules>
 </project>
