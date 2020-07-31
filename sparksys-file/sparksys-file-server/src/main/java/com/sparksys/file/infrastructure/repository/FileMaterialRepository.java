@@ -3,7 +3,7 @@ package com.sparksys.file.infrastructure.repository;
 import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sparksys.file.infrastructure.mapper.FileMaterialMapper;
-import com.sparksys.file.domain.entity.FileMaterial;
+import com.sparksys.file.infrastructure.entity.FileMaterial;
 import com.sparksys.file.domain.repository.IFileMaterialRepository;
 import org.springframework.stereotype.Repository;
 

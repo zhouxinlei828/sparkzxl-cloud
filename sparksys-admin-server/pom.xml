@@ -41,6 +41,10 @@
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
+            <artifactId>sparksys-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sparksys</groupId>
             <artifactId>sparksys-log-starter</artifactId>
         </dependency>
     </dependencies>

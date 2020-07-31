@@ -1,6 +1,6 @@
 package com.sparksys.oauth.domain.service;
 
-import com.sparksys.core.repository.CacheRepository;
+import com.sparksys.core.cache.CacheTemplate;
 
 import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.support.ResponseResultStatus;
@@ -36,7 +36,7 @@ public class OauthServiceImpl implements OauthService {
     @Autowired
     private TokenEndpoint tokenEndpoint;
     @Autowired
-    private CacheRepository cacheRepository;
+    private CacheTemplate cacheTemplate;
     @Autowired
     private IAuthUserService authUserService;
 
@@ -84,7 +84,7 @@ public class OauthServiceImpl implements OauthService {
         AuthUserInfo authUserInfo = authUserDetail.getAuthUserInfo();
         String token = oAuth2AccessToken.getValue();
         Long expiresIn = (long) oAuth2AccessToken.getExpiresIn();
-        cacheRepository.set(KeyUtils.buildKey(CacheConstant.AUTH_USER, token), authUserInfo, expiresIn);
+        cacheTemplate.set(KeyUtils.buildKey(CacheConstant.AUTH_USER, token), authUserInfo, expiresIn);
     }
 
 }

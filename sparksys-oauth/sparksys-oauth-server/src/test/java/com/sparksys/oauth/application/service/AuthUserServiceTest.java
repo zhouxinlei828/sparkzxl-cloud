@@ -2,8 +2,6 @@ package com.sparksys.oauth.application.service;
 
 
 import cn.hutool.json.JSONUtil;
-import com.sparksys.oauth.interfaces.dto.user.AuthUserPageDTO;
-import com.sparksys.web.utils.JacksonUtils;
 import com.sparksys.oauth.Oauth2Application;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

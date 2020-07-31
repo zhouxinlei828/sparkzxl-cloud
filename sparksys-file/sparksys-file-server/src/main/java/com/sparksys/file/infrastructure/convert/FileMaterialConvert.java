@@ -1,6 +1,6 @@
 package com.sparksys.file.infrastructure.convert;
 
-import com.sparksys.file.domain.entity.FileMaterial;
+import com.sparksys.file.infrastructure.entity.FileMaterial;
 import com.sparksys.file.interfaces.dto.FileMaterialDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

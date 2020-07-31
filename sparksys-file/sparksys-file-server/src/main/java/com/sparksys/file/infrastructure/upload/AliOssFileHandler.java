@@ -18,11 +18,11 @@ import com.sparksys.core.support.BusinessException;
 import com.sparksys.core.support.ResponseResultStatus;
 import com.sparksys.core.support.SparkSysExceptionAssert;
 import com.sparksys.core.utils.RsaUtils;
-import com.sparksys.file.domain.constant.OssConstant;
-import com.sparksys.file.domain.dto.OssCallbackParam;
-import com.sparksys.file.domain.dto.OssPolicyResult;
-import com.sparksys.file.domain.entity.UploadResult;
-import com.sparksys.file.infrastructure.prop.OssProperties;
+import com.sparksys.file.infrastructure.constant.OssConstant;
+import com.sparksys.file.interfaces.dto.OssCallbackParam;
+import com.sparksys.file.interfaces.dto.OssPolicyResult;
+import com.sparksys.file.infrastructure.entity.UploadResult;
+import com.sparksys.file.infrastructure.properties.OssProperties;
 
 import java.io.File;
 import java.io.InputStream;
@@ -33,6 +33,7 @@ import javax.annotation.PostConstruct;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,6 +46,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Slf4j
 @Component
+@RefreshScope
 public class AliOssFileHandler implements IFileHandler {
 
 

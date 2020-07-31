@@ -1,4 +1,4 @@
-package com.sparksys.file.domain.dto;
+package com.sparksys.file.interfaces.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

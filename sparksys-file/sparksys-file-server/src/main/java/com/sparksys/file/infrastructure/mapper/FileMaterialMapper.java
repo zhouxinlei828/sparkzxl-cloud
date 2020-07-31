@@ -1,7 +1,7 @@
 package com.sparksys.file.infrastructure.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.sparksys.file.domain.entity.FileMaterial;
+import com.sparksys.file.infrastructure.entity.FileMaterial;
 import org.springframework.stereotype.Repository;
 
 /**
