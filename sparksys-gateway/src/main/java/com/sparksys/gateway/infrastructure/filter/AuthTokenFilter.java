@@ -2,9 +2,10 @@ package com.sparksys.gateway.infrastructure.filter;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.nimbusds.jose.JWSObject;
+import com.sparksys.core.constant.BaseContextConstants;
 import com.sparksys.core.support.ResponseResultStatus;
 import com.sparksys.core.base.api.result.ApiResult;
-import com.sparksys.core.constant.CoreConstant;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -22,7 +23,6 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -41,7 +41,7 @@ import reactor.core.publisher.Mono;
 @Component
 @Slf4j
 @RefreshScope
-public class TokenFilter implements GlobalFilter, Ordered {
+public class AuthTokenFilter implements GlobalFilter, Ordered {
 
     @Autowired
     private IgnoreUrlsProperties ignoreUrlsProperties;
@@ -79,18 +79,22 @@ public class TokenFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
-
         // 校验是否需要拦截地址
         if (IgnoreUtils.isIgnore(StaticResource.EXCLUDE_PATTERNS, request.getPath().toString())
                 || IgnoreUtils.isIgnore(ignoreUrlsProperties.getUrls(), request.getPath().toString())) {
             log.debug("access filter not execute");
             return chain.filter(exchange);
         }
-        String token = getHeader(CoreConstant.JwtTokenConstant.JWT_TOKEN_HEADER, request);
+        String token = getHeader(BaseContextConstants.JWT_TOKEN_HEADER, request);
         if (StringUtils.isBlank(token)) {
             return errorResponse(response);
         }
-        return chain.filter(exchange.mutate().request(request.mutate().build()).build());
+        JWSObject jwsObject = JWSObject.parse(token);
+        String userStr = jwsObject.getPayload().toString();
+        log.info("AuthTokenFilter.filter() user:{}", userStr);
+        request.mutate().header("user", userStr).build();
+        exchange = exchange.mutate().request(request).build();
+        return chain.filter(exchange);
     }
 
     protected Mono<Void> errorResponse(ServerHttpResponse response) {

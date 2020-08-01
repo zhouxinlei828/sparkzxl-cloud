@@ -1,3 +1,9 @@
+server:
+  port: 8080
+  undertow:
+    buffer-size: 1024
+    direct-buffers: on
+    always-set-keep-alive: true
 spring:
   application:
     name: sparksys-activiti
@@ -29,5 +35,5 @@ logging:
   level:
     com.sparksys.activiti.infrastructure.mapper: debug
   file:
-    #path: /Users/zhouxinlei/logs
-    path: C:\logs
+    path: /Users/zhouxinlei/logs
+    #path: C:\logs

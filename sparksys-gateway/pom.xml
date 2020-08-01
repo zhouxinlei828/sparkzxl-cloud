@@ -27,6 +27,10 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>com.sparksys</groupId>
+            <artifactId>sparksys-oauth2-resource-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
         </dependency>
@@ -34,27 +38,9 @@
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sparksys</groupId>
+            <artifactId>sparksys-jwt-starter</artifactId>
+        </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <configuration>
-                    <container>
-                        <jvmFlags>
-                            <jvmFlag>-Xms512m</jvmFlag>
-                            <jvmFlag>-Xdebug</jvmFlag>
-                        </jvmFlags>
-                        <ports>
-                            <port>8088</port>
-                        </ports>
-                        <labels>
-                            <name>sparksys admin server</name>
-                        </labels>
-                    </container>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

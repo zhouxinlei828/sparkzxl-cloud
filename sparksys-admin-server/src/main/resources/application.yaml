@@ -1,8 +1,9 @@
 server:
-  port: 8904
+  port: 8901
   undertow:
     buffer-size: 1024
     direct-buffers: on
+    always-set-keep-alive: true
 spring:
   profiles:
     active: dev #默认为开发环境

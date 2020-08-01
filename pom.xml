@@ -146,7 +146,12 @@
             </dependency>
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-oauth2-starter</artifactId>
+                <artifactId>sparksys-oauth2-server-starter</artifactId>
+                <version>${sparksys.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sparksys</groupId>
+                <artifactId>sparksys-oauth2-resource-starter</artifactId>
                 <version>${sparksys.version}</version>
             </dependency>
             <dependency>
@@ -307,10 +312,6 @@
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>${maven-resources-plugin.version}</version>
                     <configuration>
-                        <delimiters>
-                            <delimiter>@</delimiter>
-                        </delimiters>
-                        <useDefaultDelimiters>false</useDefaultDelimiters>
                         <encoding>UTF-8</encoding>
                         <!-- 后缀为pem、pfx的证书文件 -->
                         <nonFilteredFileExtensions>
@@ -334,11 +335,6 @@
                             </goals>
                         </execution>
                     </executions>
-                    <configuration>
-                        <layers>
-                            <enabled>true</enabled>
-                        </layers>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>com.google.cloud.tools</groupId>
@@ -360,7 +356,9 @@
                         </to>
                         <container>
                             <workingDirectory>/home/zhouxinlei</workingDirectory>
-                            <format>OCI</format>
+                            <environment>
+                                <TZ>Asia/Shanghai</TZ>
+                            </environment>
                         </container>
                         <allowInsecureRegistries>true</allowInsecureRegistries>
                     </configuration>

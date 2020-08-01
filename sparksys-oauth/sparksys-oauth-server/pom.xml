@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-oauth2-starter</artifactId>
+            <artifactId>sparksys-oauth2-server-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

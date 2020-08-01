@@ -96,8 +96,8 @@ public class OauthController {
         return JSONObject.parseObject(json);
     }
 
-    @GetMapping("/fakeChartData")
-    @ApiOperation("获取用户数据分析")
+    @GetMapping("/getSayHello")
+    @ApiOperation("sayHello")
     public String getSayHello() {
         return fileFeignClient.getSayHello();
     }

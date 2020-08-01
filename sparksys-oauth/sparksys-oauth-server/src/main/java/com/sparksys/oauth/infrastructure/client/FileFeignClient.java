@@ -10,7 +10,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author: zhouxinlei
  * @date: 2020-07-31 22:10:09
  */
-@FeignClient(name = "${sparksys.feign.file}", fallback = FileFeignFallback.class)
+@FeignClient(value = "sparksys-file", fallback = FileFeignFallback.class)
 public interface FileFeignClient extends FileApi {
     
 }

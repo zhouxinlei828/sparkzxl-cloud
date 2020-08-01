@@ -24,4 +24,10 @@ public class FileFeignFallback implements FileFeignClient {
         ResponseResultStatus.SERVICE_DEGRADATION.assertNotNull(fileDTO);
         return null;
     }
+
+    @Override
+    public String getSayHello() {
+        ResponseResultStatus.SERVICE_DEGRADATION.assertNotNull(null);
+        return null;
+    }
 }

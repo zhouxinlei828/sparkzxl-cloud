@@ -1,3 +1,9 @@
+server:
+  port: 8904
+  undertow:
+    buffer-size: 1024
+    direct-buffers: on
+    always-set-keep-alive: true
 spring:
   application:
     name: sparksys-sharding-demo

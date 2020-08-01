@@ -24,34 +24,15 @@
             <groupId>com.sparksys</groupId>
             <artifactId>sparksys-cache-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- 实现对 Sharding-JDBC 的自动化配置 -->
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <configuration>
-                    <container>
-                        <jvmFlags>
-                            <jvmFlag>-Xms512m</jvmFlag>
-                            <jvmFlag>-Xdebug</jvmFlag>
-                        </jvmFlags>
-                        <ports>
-                            <port>8904</port>
-                        </ports>
-                        <labels>
-                            <name>sparksys file</name>
-                        </labels>
-                    </container>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>

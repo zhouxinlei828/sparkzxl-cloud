@@ -25,6 +25,11 @@
             <artifactId>sparksys-cache-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter-basic</artifactId>
         </dependency>
@@ -57,28 +62,4 @@
             <artifactId>fel</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <configuration>
-                    <container>
-                        <jvmFlags>
-                            <jvmFlag>-Xms360m</jvmFlag>
-                            <jvmFlag>-Xdebug</jvmFlag>
-                        </jvmFlags>
-                        <ports>
-                            <port>8904</port>
-                        </ports>
-                        <labels>
-                            <name>sparksys activiti</name>
-                        </labels>
-                    </container>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>

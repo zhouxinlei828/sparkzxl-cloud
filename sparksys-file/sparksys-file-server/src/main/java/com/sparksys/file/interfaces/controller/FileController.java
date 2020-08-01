@@ -20,9 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2020-05-24 12:40:10
  */
 @RestController
-
 @WebLog
-@RequestMapping("/file")
 @Api(tags = "文件管理")
 public class FileController implements FileApi {
 
@@ -34,14 +32,14 @@ public class FileController implements FileApi {
 
     @ApiOperation("文件上传")
     @ResponseResult
-    @PostMapping("/upload")
+    @PostMapping("/file/upload")
     public FileMaterialDTO upload(@RequestParam("file") MultipartFile multipartFile) {
         return fileService.upload(multipartFile);
     }
 
     @ApiOperation("删除文件")
     @ResponseResult
-    @DeleteMapping("/delete/{fileName}")
+    @DeleteMapping("/file/delete/{fileName}")
     public boolean delete(@PathVariable("fileName") String fileName) {
         return fileService.deleteFile(fileName);
     }
@@ -54,14 +52,14 @@ public class FileController implements FileApi {
 
     @ApiOperation("获取oss配置信息")
     @ResponseResult
-    @GetMapping("/ossPolicy")
+    @GetMapping("/file/ossPolicy")
     public OssPolicyResult ossPolicy() {
         return fileService.policy();
     }
 
     @ApiOperation("文件上传回调")
     @ResponseResult
-    @PostMapping("/callback")
+    @PostMapping("/file/callback")
     public FileMaterialDTO callback(@RequestBody OssCallbackDTO ossCallbackDTO) {
         return fileService.callback(ossCallbackDTO);
     }
