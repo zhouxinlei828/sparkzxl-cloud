@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sparksys.database.annonation.InjectionResult;
 import com.sparksys.oauth.domain.repository.IAuthUserRepository;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
+import com.sparksys.oauth.infrastructure.entity.RoleResource;
 import com.sparksys.oauth.infrastructure.mapper.AuthUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -45,6 +46,11 @@ public class AuthUserRepository implements IAuthUserRepository {
     @Override
     public List<String> getAuthUserPermissions(Long id) {
         return authUserMapper.getAuthUserPermissions(id);
+    }
+
+    @Override
+    public List<String> getAuthUserRoles(Long id) {
+        return authUserMapper.getAuthUserRoles(id);
     }
 
     @Override

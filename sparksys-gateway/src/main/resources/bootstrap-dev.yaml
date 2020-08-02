@@ -10,13 +10,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        #server-addr: 192.168.3.3:8848
-        server-addr: 47.116.52.58:8086
-        namespace: e026cfa9-330a-4ec8-8544-87bd279e6f23
+        server-addr: 192.168.3.3:8848
+        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
       config:
-        #server-addr: 192.168.3.3:8848
-        server-addr: 47.116.52.58:8086
-        namespace: e026cfa9-330a-4ec8-8544-87bd279e6f23
+        server-addr: 192.168.3.3:8848
+        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
@@ -28,4 +26,3 @@ spring:
 logging:
   file:
     path: /Users/zhouxinlei/logs
-    #path: C:\logs

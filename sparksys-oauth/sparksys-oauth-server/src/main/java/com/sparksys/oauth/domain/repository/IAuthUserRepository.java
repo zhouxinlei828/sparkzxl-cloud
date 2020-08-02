@@ -1,6 +1,7 @@
 package com.sparksys.oauth.domain.repository;
 
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
+import com.sparksys.oauth.infrastructure.entity.RoleResource;
 
 import java.util.List;
 
@@ -43,6 +44,14 @@ public interface IAuthUserRepository {
      * @return Set<String>
      */
     List<String> getAuthUserPermissions(Long id);
+
+    /**
+     * 获取用户角色
+     *
+     * @param id 用户id
+     * @return
+     */
+    List<String> getAuthUserRoles(Long id);
 
     /**
      * 密码输错自增

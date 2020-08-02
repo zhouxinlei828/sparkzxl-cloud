@@ -21,6 +21,7 @@ import springfox.documentation.swagger.web.UiConfigurationBuilder;
  */
 @RestController
 public class SwaggerHandler {
+
     private final SwaggerResourcesProvider swaggerResources;
     @Autowired(required = false)
     private SecurityConfiguration securityConfiguration;

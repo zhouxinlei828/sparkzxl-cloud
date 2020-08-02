@@ -73,8 +73,8 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
         AuthUser authUser = authUserRepository.selectByAccount(username);
         if (ObjectUtils.isNotEmpty(authUser)) {
             AuthUserInfo authUserInfo = AuthUserConvert.INSTANCE.convertAuthUserInfo(authUser);
-            List<String> userPermissions = authUserRepository.getAuthUserPermissions(authUser.getId());
-            authUserInfo.setAuthorityList(userPermissions);
+            List<String> userRoles = authUserRepository.getAuthUserRoles(authUser.getId());
+            authUserInfo.setAuthorityList(userRoles);
             return new AuthUserDetail(authUserInfo);
         }
         return null;

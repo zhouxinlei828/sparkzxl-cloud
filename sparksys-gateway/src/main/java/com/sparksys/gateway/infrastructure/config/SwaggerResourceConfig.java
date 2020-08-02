@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -46,9 +47,9 @@ public class SwaggerResourceConfig implements SwaggerResourcesProvider {
     public List<SwaggerResource> get() {
         String url = "/swagger-resources";
         //获取所有router
-        List<SwaggerResource> resources = new ArrayList<>();
+        List<SwaggerResource> resources = Lists.newArrayList();
 
-        List<String> routes = new ArrayList<>();
+        List<String> routes = Lists.newArrayList();
         routeLocator.getRoutes().subscribe(route -> routes.add(route.getId()));
         gatewayProperties.getRoutes().stream()
                 .filter(routeDefinition -> routes.contains(routeDefinition.getId()))
@@ -62,7 +63,7 @@ public class SwaggerResourceConfig implements SwaggerResourcesProvider {
                                             if (!list.isEmpty()) {
                                                 for (int i = 0; i < list.size(); i++) {
                                                     SwaggerResource sr = list.getObject(i, SwaggerResource.class);
-                                                    resources.add(swaggerResource(route.getId() + "-" + sr.getName(), "/" + route.getId() + sr.getUrl()));
+                                                    resources.add(swaggerResource(sr.getName(), "/" + route.getId() + sr.getUrl()));
                                                 }
                                             }
                                         } catch (Exception e) {

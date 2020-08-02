@@ -10,12 +10,10 @@ import com.sparksys.core.base.api.result.ApiResult;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import com.sparksys.gateway.infrastructure.properties.IgnoreUrlsProperties;
-import com.sparksys.gateway.infrastructure.resource.StaticResource;
-import com.sparksys.gateway.infrastructure.utils.IgnoreUtils;
+import com.sparksys.oauth.resource.properties.ResourceProperties;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -44,7 +42,7 @@ import reactor.core.publisher.Mono;
 public class AuthTokenFilter implements GlobalFilter, Ordered {
 
     @Autowired
-    private IgnoreUrlsProperties ignoreUrlsProperties;
+    private ResourceProperties resourceProperties;
 
     @Override
     public int getOrder() {
@@ -78,18 +76,15 @@ public class AuthTokenFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
-        ServerHttpResponse response = exchange.getResponse();
-        // 校验是否需要拦截地址
-        if (IgnoreUtils.isIgnore(StaticResource.EXCLUDE_PATTERNS, request.getPath().toString())
-                || IgnoreUtils.isIgnore(ignoreUrlsProperties.getUrls(), request.getPath().toString())) {
-            log.debug("access filter not execute");
+        String header = getHeader(BaseContextConstants.JWT_TOKEN_HEADER, request);
+        if (header.startsWith("Basic")) {
             return chain.filter(exchange);
         }
-        String token = getHeader(BaseContextConstants.JWT_TOKEN_HEADER, request);
-        if (StringUtils.isBlank(token)) {
-            return errorResponse(response);
+        String accessToken = StringUtils.removeStart(header, BaseContextConstants.JWT_TOKEN_HEAD);
+        if (StringUtils.isBlank(accessToken)) {
+            return chain.filter(exchange);
         }
-        JWSObject jwsObject = JWSObject.parse(token);
+        JWSObject jwsObject = JWSObject.parse(accessToken);
         String userStr = jwsObject.getPayload().toString();
         log.info("AuthTokenFilter.filter() user:{}", userStr);
         request.mutate().header("user", userStr).build();

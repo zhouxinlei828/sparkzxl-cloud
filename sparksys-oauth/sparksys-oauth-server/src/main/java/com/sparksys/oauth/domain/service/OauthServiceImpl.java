@@ -3,9 +3,9 @@ package com.sparksys.oauth.domain.service;
 import com.sparksys.core.cache.CacheTemplate;
 
 import com.sparksys.core.entity.AuthUserInfo;
+import com.sparksys.core.spring.SpringContextUtils;
 import com.sparksys.core.support.ResponseResultStatus;
 import com.sparksys.core.utils.KeyUtils;
-import com.sparksys.core.utils.SpringContextUtils;
 import com.sparksys.oauth.enums.GrantTypeEnum;
 import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.service.OauthService;

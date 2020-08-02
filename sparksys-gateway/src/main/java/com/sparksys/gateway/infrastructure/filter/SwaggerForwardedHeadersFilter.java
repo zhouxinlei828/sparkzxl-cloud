@@ -43,7 +43,6 @@ public class SwaggerForwardedHeadersFilter implements HttpHeadersFilter, Ordered
         input.forEach(updated::addAll);
         LinkedHashSet<URI> originalUris = exchange.getAttribute(GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
         URI requestUri = exchange.getAttribute(GATEWAY_REQUEST_URL_ATTR);
-
         if (originalUris != null && requestUri != null) {
 
             originalUris.forEach(originalUri -> {
