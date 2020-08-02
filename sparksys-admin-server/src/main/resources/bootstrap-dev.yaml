@@ -1,0 +1,17 @@
+server:
+  port: 8909
+  undertow:
+    buffer-size: 1024
+    direct-buffers: on
+    always-set-keep-alive: true
+spring:
+  application:
+    name: sparksys-admin-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.3.3:8848
+        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
+logging:
+  file:
+    path: /Users/zhouxinlei/logs

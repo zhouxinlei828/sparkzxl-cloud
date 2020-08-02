@@ -1,28 +1,23 @@
 server:
-  port: 8903
+  port: 8080
   undertow:
     buffer-size: 1024
     direct-buffers: on
     always-set-keep-alive: true
 spring:
   application:
-    name: sparksys-oauth
+    name: sparksys-activiti
   cloud:
     nacos:
       discovery:
         server-addr: 192.168.3.3:8848
-        #server-addr: 47.116.52.58:8086
-        namespace: e026cfa9-330a-4ec8-8544-87bd279e6f23
+        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
       config:
         server-addr: 192.168.3.3:8848
-        #server-addr: 47.116.52.58:8086
-        namespace: e026cfa9-330a-4ec8-8544-87bd279e6f23
+        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
-          - dataId: admin.yaml
-            group: DEFAULT_GROUP
-            refresh: false
           - dataId: actuator.yaml
             group: DEFAULT_GROUP
             refresh: false
@@ -33,8 +28,6 @@ spring:
         refresh-enabled: true
 logging:
   level:
-    com.sparksys.oauth.infrastructure.client: debug
-    com.sparksys.oauth.infrastructure.mapper: debug
+    com.sparksys.activiti.infrastructure.mapper: debug
   file:
     path: /Users/zhouxinlei/logs
-    #path: C:\logs

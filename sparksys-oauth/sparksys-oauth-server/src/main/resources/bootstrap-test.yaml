@@ -1,20 +1,18 @@
 server:
-  port: 8904
+  port: 8903
   undertow:
     buffer-size: 1024
     direct-buffers: on
     always-set-keep-alive: true
 spring:
   application:
-    name: sparksys-sharding-demo
+    name: sparksys-oauth
   cloud:
     nacos:
       discovery:
-        #server-addr: 192.168.3.3:8848
         server-addr: 47.116.52.58:8086
         namespace: e026cfa9-330a-4ec8-8544-87bd279e6f23
       config:
-        #server-addr: 192.168.3.3:8848
         server-addr: 47.116.52.58:8086
         namespace: e026cfa9-330a-4ec8-8544-87bd279e6f23
         file-extension: yaml
@@ -30,6 +28,7 @@ spring:
         refresh-enabled: true
 logging:
   level:
-    com.sparksys.sharding.infrastructure.mapper: debug
+    com.sparksys.oauth.infrastructure.client: debug
+    com.sparksys.oauth.infrastructure.mapper: debug
   file:
-    path: /Users/zhouxinlei/logs
+    path: C:\logs

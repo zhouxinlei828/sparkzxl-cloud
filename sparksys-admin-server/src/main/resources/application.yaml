@@ -1,16 +1,5 @@
-server:
-  port: 8901
-  undertow:
-    buffer-size: 1024
-    direct-buffers: on
-    always-set-keep-alive: true
 spring:
   profiles:
-    active: dev #默认为开发环境
-  application:
-    name: admin-server
+    active: dev
   main:
     allow-bean-definition-overriding: true
-logging:
-  file:
-    path: /Users/zhouxinlei/logs

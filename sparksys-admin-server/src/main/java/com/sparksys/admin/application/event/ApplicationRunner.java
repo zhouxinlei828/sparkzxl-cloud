@@ -30,7 +30,7 @@ public class ApplicationRunner implements CommandLineRunner {
         log.info("\n--------------------------------------------------------------\n\t" +
                         "Java Version: {} \n\t" +
                         "运行环境: {} \n\t" +
-                        "应用: {} 运行成功! 访问连接:\n\t" +
+                        "应用: {} 运行成功! \n\t" +
                         "Spring Boot Admin监控: \t\thttp://{}:{}/\n" +
                         "--------------------------------------------------------------",
                 SystemUtil.getJavaInfo().getVersion(),

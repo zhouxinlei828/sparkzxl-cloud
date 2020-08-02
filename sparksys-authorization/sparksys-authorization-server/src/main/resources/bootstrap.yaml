@@ -14,9 +14,6 @@ spring:
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
-          - dataId: admin.yaml
-            group: DEFAULT_GROUP
-            refresh: false
           - dataId: actuator.yaml
             group: DEFAULT_GROUP
             refresh: false
