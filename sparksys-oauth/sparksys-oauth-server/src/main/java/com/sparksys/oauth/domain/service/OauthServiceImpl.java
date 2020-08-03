@@ -1,6 +1,6 @@
 package com.sparksys.oauth.domain.service;
 
-import com.sparksys.core.cache.CacheTemplate;
+import com.sparksys.cache.template.CacheTemplate;
 
 import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.spring.SpringContextUtils;
@@ -9,13 +9,14 @@ import com.sparksys.core.utils.KeyUtils;
 import com.sparksys.oauth.enums.GrantTypeEnum;
 import com.sparksys.oauth.infrastructure.constant.CacheConstant;
 import com.sparksys.oauth.service.OauthService;
-import com.sparksys.security.entity.AuthUserDetail;
-import com.sparksys.security.event.LoginEvent;
-import com.sparksys.security.entity.LoginStatus;
-import com.sparksys.oauth.application.service.IAuthUserService;
+import com.sparksys.oauth.entity.AuthUserDetail;
+import com.sparksys.oauth.event.LoginEvent;
+import com.sparksys.oauth.entity.LoginStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,8 @@ public class OauthServiceImpl implements OauthService {
     @Autowired
     private CacheTemplate cacheTemplate;
     @Autowired
-    private IAuthUserService authUserService;
+    @Qualifier("oauthUserDetailsService")
+    private UserDetailsService userDetailsService;
 
     @Override
     public OAuth2AccessToken getAccessToken(Principal principal, Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
@@ -75,16 +77,15 @@ public class OauthServiceImpl implements OauthService {
     /**
      * 设置accessToken缓存
      *
-     * @param parameter         账户名
+     * @param username          账户名
      * @param oAuth2AccessToken 认证token
      * @return void
      */
-    private void accessToken(String parameter, OAuth2AccessToken oAuth2AccessToken) {
-        AuthUserDetail authUserDetail = authUserService.getAuthUserDetail(parameter);
+    private void accessToken(String username, OAuth2AccessToken oAuth2AccessToken) {
+        AuthUserDetail authUserDetail = (AuthUserDetail) userDetailsService.loadUserByUsername(username);
         AuthUserInfo authUserInfo = authUserDetail.getAuthUserInfo();
         String token = oAuth2AccessToken.getValue();
         Long expiresIn = (long) oAuth2AccessToken.getExpiresIn();
         cacheTemplate.set(KeyUtils.buildKey(CacheConstant.AUTH_USER, token), authUserInfo, expiresIn);
     }
-
 }

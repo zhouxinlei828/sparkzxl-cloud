@@ -1,13 +1,11 @@
 package com.sparksys.oauth.interfaces.controller.auth;
 
 import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
 import com.sparksys.log.annotation.WebLog;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
+import com.sparksys.jwt.service.JwtTokenService;
 
-import java.security.KeyPair;
-import java.security.interfaces.RSAPublicKey;
 import java.util.Map;
 
 
@@ -22,17 +20,15 @@ import java.util.Map;
 @Api(tags = "密钥管理")
 public class KeyPairController {
 
-    private final KeyPair keyPair;
+    private final JwtTokenService jwtTokenService;
 
-    public KeyPairController(KeyPair keyPair) {
-        this.keyPair = keyPair;
+    public KeyPairController(JwtTokenService jwtTokenService) {
+        this.jwtTokenService = jwtTokenService;
     }
 
     @GetMapping("/rsa/publicKey")
     public Map<String, Object> publicKey() {
-        RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-        RSAKey key = new RSAKey.Builder(publicKey).build();
-        return new JWKSet(key).toJSONObject();
+        return new JWKSet(jwtTokenService.getRsaPublicKey()).toJSONObject();
     }
 
 }

@@ -54,6 +54,13 @@ public interface IAuthUserRepository {
     List<String> getAuthUserRoles(Long id);
 
     /**
+     * 查询角色路径
+     *
+     * @return List<RoleResource>
+     */
+    List<RoleResource> getRoleResourceList();
+
+    /**
      * 密码输错自增
      *
      * @param account 账户

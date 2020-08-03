@@ -81,5 +81,8 @@ public class AuthUserDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime updateTime;
 
+    public void setSex(SexEnum sex) {
+        this.sex = sex.getDesc();
+    }
 
 }

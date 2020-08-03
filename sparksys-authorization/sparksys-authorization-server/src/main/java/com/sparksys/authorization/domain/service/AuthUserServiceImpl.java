@@ -2,14 +2,13 @@ package com.sparksys.authorization.domain.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sparksys.core.constant.CacheKey;
+import com.sparksys.authorization.infrastructure.constant.CacheConstant;
 import com.sparksys.core.entity.AuthUserInfo;
-import com.sparksys.core.utils.MD5Utils;
+import com.sparksys.core.utils.Md5Utils;
 import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.database.utils.PageInfoUtils;
 import com.sparksys.security.entity.AuthUserDetail;
 import com.sparksys.authorization.application.service.IAuthUserService;
-import com.sparksys.authorization.domain.constant.AuthorizationConstant;
 import com.sparksys.authorization.domain.repository.IAuthUserRepository;
 import com.sparksys.authorization.infrastructure.convert.AuthUserConvert;
 import com.sparksys.authorization.infrastructure.entity.AuthUser;
@@ -46,7 +45,7 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     public boolean saveAuthUser(Long contextUserId, AuthUserSaveDTO authUserSaveDTO) {
         AuthUser authUserDO = AuthUserConvert.INSTANCE.convertAuthUserDO(authUserSaveDTO);
         authUserDO.setStatus(true);
-        String password = MD5Utils.encrypt(authUserDO.getPassword());
+        String password = Md5Utils.encrypt(authUserDO.getPassword());
         authUserDO.setPassword(password);
         authUserDO.setCreateUser(contextUserId);
         authUserDO.setUpdateUser(contextUserId);
@@ -74,25 +73,17 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Override
     public PageInfo<AuthUserDTO> listByPage(Integer pageNum, Integer pageSize, String name) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<AuthUser> authUserList = authUserRepository.listByName(name);
         List<AuthUserDTO> authUsers =
-                authUserList.stream().map(authUserDO -> {
-                    AuthUserDTO authUserDTO = AuthUserConvert.INSTANCE.convertAuthUserDTO(authUserDO);
-                    String sex = AuthorizationConstant.SEX_MAP.get(authUserDO.getSex());
-                    authUserDTO.setSex(sex);
-                    return authUserDTO;
-                }).collect(Collectors.toList());
+                authUserList.stream().map(AuthUserConvert.INSTANCE::convertAuthUserDTO).collect(Collectors.toList());
         return PageInfoUtils.pageInfo(authUsers);
     }
 
     @Override
     public AuthUserDTO getAuthUser(Long id) {
         AuthUser authUser = getByIdCache(id);
-        AuthUserDTO authUserDTO = AuthUserConvert.INSTANCE.convertAuthUserDTO(authUser);
-        String sex = AuthorizationConstant.SEX_MAP.get(authUser.getSex());
-        authUserDTO.setSex(sex);
-        return authUserDTO;
+        return AuthUserConvert.INSTANCE.convertAuthUserDTO(authUser);
     }
 
     @Override
@@ -137,6 +128,6 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Override
     protected String getRegion() {
-        return CacheKey.USER;
+        return CacheConstant.USER;
     }
 }

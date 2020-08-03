@@ -35,7 +35,7 @@ public class AuthResourceServiceImpl extends AbstractSuperCacheServiceImpl<AuthR
     public List<AuthResource> findVisibleResource(Long userId, ResourceQueryDTO resource) {
         String userResourceKey = KeyUtils.buildKey(getRegion(),userId);
         List<AuthResource> visibleResource = new ArrayList<>();
-        cacheRepository.get(userResourceKey,(key) -> {
+        cacheTemplate.get(userResourceKey,(key) -> {
             visibleResource.addAll(authResourceRepository.findVisibleResource(resource.getUserId(),resource.getMenuId()));
             return visibleResource.stream().mapToLong(AuthResource::getId).boxed().collect(Collectors.toList());
         });

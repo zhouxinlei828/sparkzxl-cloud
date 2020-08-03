@@ -2,7 +2,7 @@ package com.sparksys.oauth.application.service;
 
 
 import cn.hutool.json.JSONUtil;
-import com.sparksys.core.cache.CacheTemplate;
+import com.sparksys.cache.template.CacheTemplate;
 import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.database.entity.RemoteData;
 import com.sparksys.oauth.Oauth2Application;
@@ -27,7 +27,7 @@ public class CacheProviderServiceTest {
     private CacheTemplate redisCacheTemplate;
 
     @Autowired
-    private CacheTemplate guavaCacheRepository;
+    private CacheTemplate guavaTemplate;
     @Test
     public void redisCacheTest() {
         AuthUser authUser = new AuthUser();
@@ -51,8 +51,8 @@ public class CacheProviderServiceTest {
 
     @Test
     public void guavaCacheTest() {
-        guavaCacheRepository.set("test", "datong");
-        String data = guavaCacheRepository.get("test");
+        guavaTemplate.set("test", "datong");
+        String data = guavaTemplate.get("test");
         log.info("data is {}", data);
     }
 

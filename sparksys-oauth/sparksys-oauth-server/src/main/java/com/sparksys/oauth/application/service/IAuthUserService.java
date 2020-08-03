@@ -1,11 +1,11 @@
 package com.sparksys.oauth.application.service;
 
 import com.sparksys.database.base.service.SuperCacheService;
+import com.sparksys.oauth.entity.AuthUserDetail;
 import com.sparksys.oauth.infrastructure.entity.UserInfo;
 import com.sparksys.oauth.infrastructure.entity.UserNotices;
 import com.sparksys.oauth.infrastructure.entity.UserActivities;
 import com.sparksys.oauth.interfaces.dto.user.*;
-import com.sparksys.security.entity.AuthUserDetail;
 import com.sparksys.oauth.infrastructure.entity.AuthUser;
 
 import java.util.List;

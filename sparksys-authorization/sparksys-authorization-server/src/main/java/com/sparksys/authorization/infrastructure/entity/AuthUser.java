@@ -1,6 +1,7 @@
 package com.sparksys.authorization.infrastructure.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.sparksys.authorization.infrastructure.enums.SexEnum;
 import com.sparksys.database.entity.Entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -56,7 +57,7 @@ public class AuthUser extends Entity<Long> {
 
     @ApiModelProperty(value = "性别")
     @TableField("sex")
-    private Integer sex;
+    private SexEnum sex;
 
     @ApiModelProperty(value = "状态 1启用 0禁用")
     @TableField("status")

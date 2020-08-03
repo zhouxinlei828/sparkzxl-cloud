@@ -54,6 +54,11 @@ public class AuthUserRepository implements IAuthUserRepository {
     }
 
     @Override
+    public List<RoleResource> getRoleResourceList() {
+        return authUserMapper.getRoleResourceList();
+    }
+
+    @Override
     public void incrPasswordErrorNumByAccount(String account) {
         authUserMapper.incrPasswordErrorNumByAccount(account);
     }

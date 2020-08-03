@@ -1,7 +1,7 @@
 package com.sparksys.authorization.interfaces.controller;
 
 import com.sparksys.authorization.domain.service.AuthUserDetailsService;
-import com.sparksys.core.base.api.ResponseResultUtils;
+import com.sparksys.core.base.ResponseResultUtils;
 import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.log.annotation.WebLog;
 import com.sparksys.security.dto.LoginDTO;

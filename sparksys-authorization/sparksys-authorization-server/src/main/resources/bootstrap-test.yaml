@@ -1,31 +1,38 @@
 server:
-  port: 8088
+  port: 8903
   undertow:
     buffer-size: 1024
     direct-buffers: on
     always-set-keep-alive: true
 spring:
   application:
-    name: sparksys-gateway
+    name: sparksys-authorization
   cloud:
     nacos:
       discovery:
+        #server-addr: 192.168.3.3:8848
         server-addr: 47.116.52.58:8086
         namespace: edbbdee2-5546-4f81-9861-aae13c944948
       config:
+        #server-addr: 192.168.3.3:8848
         server-addr: 47.116.52.58:8086
         namespace: edbbdee2-5546-4f81-9861-aae13c944948
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
+          - dataId: actuator.yaml
+            group: DEFAULT_GROUP
+            refresh: false
           - dataId: redis.yaml
             group: DEFAULT_GROUP
             refresh: false
-          - dataId: actuator.yaml
+          - dataId: kafka.yaml
             group: DEFAULT_GROUP
             refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
 logging:
+  level:
+    com.sparksys.authorization.infrastructure.mapper: debug
   file:
-    path: C:\logs
+    path: C:/logs

@@ -2,8 +2,8 @@ package com.sparksys.oauth.application.event.listener;
 
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.application.service.ILoginLogService;
-import com.sparksys.security.event.LoginEvent;
-import com.sparksys.security.entity.LoginStatus;
+import com.sparksys.oauth.event.LoginEvent;
+import com.sparksys.oauth.entity.LoginStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;

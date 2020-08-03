@@ -1,7 +1,7 @@
 package com.sparksys.authorization;
 
 
-import com.sparksys.core.repository.CacheRepository;
+import com.sparksys.cache.template.CacheTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,14 +22,14 @@ public class GuavaCacheTest {
 
 
     @Autowired
-    private CacheRepository cacheRepository;
+    private CacheTemplate cacheTemplate;
     @Test
     public void guavaCacheTest() {
-        Long data = cacheRepository.increment("hahha",3);
+        Long data = cacheTemplate.increment("hahha",3);
         log.info("data is {}", data);
-        Long datav = cacheRepository.increment("hahha",3);
+        Long datav = cacheTemplate.increment("hahha",3);
         log.info("datav is {}", datav);
-        Long datav1 = cacheRepository.decrement("hahha",1);
+        Long datav1 = cacheTemplate.decrement("hahha",1);
         log.info("datav1 is {}", datav1);
     }
 }

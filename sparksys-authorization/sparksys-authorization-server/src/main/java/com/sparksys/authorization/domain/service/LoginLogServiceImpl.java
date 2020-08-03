@@ -1,15 +1,16 @@
 package com.sparksys.authorization.domain.service;
 
 import cn.hutool.core.util.StrUtil;
-import com.sparksys.core.constant.CacheKey;
 import com.sparksys.authorization.application.service.ILoginLogService;
 import com.sparksys.authorization.domain.repository.IAuthUserRepository;
 import com.sparksys.authorization.domain.repository.ILoginLogRepository;
+import com.sparksys.authorization.infrastructure.constant.CacheConstant;
 import com.sparksys.authorization.infrastructure.entity.AuthUser;
 import com.sparksys.authorization.infrastructure.entity.LoginLog;
 import com.sparksys.authorization.infrastructure.entity.LoginLogCount;
 import com.sparksys.authorization.infrastructure.mapper.LoginLogMapper;
 import com.sparksys.core.entity.UserAgentEntity;
+import com.sparksys.core.utils.KeyUtils;
 import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -83,49 +84,49 @@ public class LoginLogServiceImpl extends AbstractSuperCacheServiceImpl<LoginLogM
         loginLogRepository.saveLoginLog(loginLog);
         LocalDate now = LocalDate.now();
         LocalDate tenDays = now.plusDays(-9);
-        cacheRepository.remove(CacheKey.LOGIN_LOG_TOTAL);
-        cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY, now));
-        cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY_IP, now));
-        cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_BROWSER));
-        cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_SYSTEM));
+        cacheTemplate.remove(CacheConstant.LOGIN_LOG_TOTAL);
+        cacheTemplate.remove(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TODAY, now));
+        cacheTemplate.remove(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TODAY_IP, now));
+        cacheTemplate.remove(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_BROWSER));
+        cacheTemplate.remove(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_SYSTEM));
         if (authUser != null) {
-            cacheRepository.remove(CacheKey.buildKey(CacheKey.LOGIN_LOG_TEN_DAY, tenDays, account));
+            cacheTemplate.remove(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TEN_DAY, tenDays, account));
         }
     }
 
     @Override
     public Long findTotalVisitCount() {
-        return cacheRepository.get(CacheKey.LOGIN_LOG_TOTAL);
+        return cacheTemplate.get(CacheConstant.LOGIN_LOG_TOTAL);
     }
 
     @Override
     public Long findTodayVisitCount() {
         LocalDate now = LocalDate.now();
-        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY, now));
+        return cacheTemplate.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TODAY, now));
     }
 
     @Override
     public Long findTodayIp() {
         LocalDate now = LocalDate.now();
-        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_TODAY_IP, now));
+        return cacheTemplate.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TODAY_IP, now));
     }
 
     @Override
     public List<LoginLogCount> findLastTenDaysVisitCount(String account) {
         LocalDate tenDays = LocalDate.now().plusDays(-9);
-        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_TEN_DAY, tenDays, account),
+        return cacheTemplate.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TEN_DAY, tenDays, account),
                 (key) -> loginLogRepository.findLastTenDaysVisitCount(tenDays, account));
     }
 
     @Override
     public List<LoginLogCount> findByBrowser() {
-        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_BROWSER),
+        return cacheTemplate.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_BROWSER),
                 (key) -> loginLogRepository.findByBrowser());
     }
 
     @Override
     public List<LoginLogCount> findByOperatingSystem() {
-        return cacheRepository.get(CacheKey.buildKey(CacheKey.LOGIN_LOG_SYSTEM),
+        return cacheTemplate.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_SYSTEM),
                 (key) -> loginLogRepository.findByOperatingSystem());
     }
 

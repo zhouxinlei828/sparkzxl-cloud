@@ -2,8 +2,7 @@ package com.sparksys.oauth.interfaces.controller.auth;
 
 import com.alibaba.fastjson.JSONObject;
 import com.nimbusds.jose.JWSObject;
-import com.sparksys.core.base.api.ResponseResultUtils;
-import com.sparksys.jwt.service.JwtTokenService;
+import com.sparksys.core.base.ResponseResultUtils;
 import com.sparksys.log.annotation.WebLog;
 import com.sparksys.oauth.application.service.IAuthUserService;
 import com.sparksys.oauth.infrastructure.client.FileFeignClient;
@@ -17,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.skywalking.apm.toolkit.trace.ActiveSpan;
 import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +43,7 @@ public class OauthController {
     private final OauthService oauthService;
     private final IAuthUserService authUserService;
 
+    @Qualifier("fileFeignClient")
     @Autowired
     private FileFeignClient fileFeignClient;
 
