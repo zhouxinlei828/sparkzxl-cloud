@@ -6,23 +6,21 @@ import com.sparksys.authorization.infrastructure.entity.LoginLogCount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
-/*
- * description：
+/**
+ * description：登录日志 仓储类
  *
  * @author zhouxinlei
- * @date  2020/6/17 0017
+ * @date 2020/6/17 0017
  */
 public interface ILoginLogRepository {
 
     /**
      * 保存登录日志
      *
-     * @param loginLog
-     * @return boolean
+     * @param loginLog 日志
      */
-    boolean saveLoginLog(LoginLog loginLog);
+    void saveLoginLog(LoginLog loginLog);
 
     /**
      * 获取系统近十天来的访问记录
@@ -50,9 +48,9 @@ public interface ILoginLogRepository {
     /**
      * 清理日志
      *
-     * @param clearBeforeTime
-     * @param clearBeforeNum
-     * @return
+     * @param clearBeforeTime 时间
+     * @param clearBeforeNum  天数
+     * @return boolean
      */
     boolean clearLog(LocalDateTime clearBeforeTime, Integer clearBeforeNum);
 }

@@ -1,17 +1,19 @@
 package com.sparksys.authorization.interfaces.dto.role;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 
-/*
- * description：
+/**
+ * description：角色更新对象
  *
  * @author zhouxinlei
- * @date  2020/6/16 0016
+ * @date 2020/6/16 0016
  */
 @Data
+@ApiModel("角色更新对象")
 public class AuthRoleUpdateDTO {
 
     @ApiModelProperty(value = "id")

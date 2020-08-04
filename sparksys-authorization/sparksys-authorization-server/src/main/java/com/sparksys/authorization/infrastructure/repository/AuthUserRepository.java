@@ -1,10 +1,11 @@
 package com.sparksys.authorization.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.sparksys.database.annonation.InjectionResult;
 import com.sparksys.authorization.domain.repository.IAuthUserRepository;
 import com.sparksys.authorization.infrastructure.entity.AuthUser;
+import com.sparksys.authorization.infrastructure.entity.RoleResource;
 import com.sparksys.authorization.infrastructure.mapper.AuthUserMapper;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,7 @@ import java.util.List;
 public class AuthUserRepository implements IAuthUserRepository {
 
     @Autowired
-    private AuthUserMapper authUserMapper;
+    public AuthUserMapper authUserMapper;
 
     @Override
     public AuthUser selectById(Long id) {
@@ -28,6 +29,7 @@ public class AuthUserRepository implements IAuthUserRepository {
     }
 
     @Override
+    @InjectionResult
     public AuthUser selectByAccount(String account) {
         QueryWrapper<AuthUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("account", account);
@@ -36,42 +38,27 @@ public class AuthUserRepository implements IAuthUserRepository {
     }
 
     @Override
-    public boolean saveAuthUser(AuthUser authUser) {
-        authUser.setStatus(true);
-        return authUserMapper.insert(authUser) > 0;
-    }
-
-    @Override
-    public boolean updateAuthUser(AuthUser authUser) {
-        return authUserMapper.updateById(authUser) > 0;
-    }
-
-    @Override
-    public boolean deleteAuthUser(Long id) {
-        return authUserMapper.deleteById(id) > 0;
-    }
-
-    @Override
-    public List<AuthUser> listByName(String name) {
-        QueryWrapper<AuthUser> authUserQueryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(name) && !"null".equalsIgnoreCase(name)) {
-            authUserQueryWrapper.likeRight("name", name);
-        }
-        return authUserMapper.selectList(authUserQueryWrapper);
-    }
-
-    @Override
-    public boolean incrPasswordErrorNumById(Long id) {
-        return authUserMapper.incrPasswordErrorNumById(id) == 1;
-    }
-
-    @Override
-    public boolean incrPasswordErrorNumByAccount(String account) {
-        return authUserMapper.incrPasswordErrorNumByAccount(account) == 1;
+    public void incrPasswordErrorNumById(Long id) {
+        authUserMapper.incrPasswordErrorNumById(id);
     }
 
     @Override
     public List<String> getAuthUserPermissions(Long id) {
         return authUserMapper.getAuthUserPermissions(id);
+    }
+
+    @Override
+    public List<String> getAuthUserRoles(Long id) {
+        return authUserMapper.getAuthUserRoles(id);
+    }
+
+    @Override
+    public List<RoleResource> getRoleResourceList() {
+        return authUserMapper.getRoleResourceList();
+    }
+
+    @Override
+    public void incrPasswordErrorNumByAccount(String account) {
+        authUserMapper.incrPasswordErrorNumByAccount(account);
     }
 }

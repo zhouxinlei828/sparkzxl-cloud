@@ -66,4 +66,7 @@ public class AuthUserSaveDTO {
     @ApiModelProperty(value = "工作描述比如：市长、管理员、局长等等   用于登陆展示")
     private String workDescribe;
 
+    @ApiModelProperty(value = "状态 1启用 0禁用")
+    private Boolean status;
+
 }

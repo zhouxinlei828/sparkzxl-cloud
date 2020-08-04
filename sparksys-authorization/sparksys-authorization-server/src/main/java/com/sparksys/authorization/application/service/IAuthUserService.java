@@ -1,14 +1,13 @@
 package com.sparksys.authorization.application.service;
 
-import com.github.pagehelper.PageInfo;
-import com.sparksys.database.base.service.SuperCacheService;
-import com.sparksys.security.entity.AuthUserDetail;
-import com.sparksys.authorization.infrastructure.entity.AuthUser;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserDTO;
-import com.sparksys.authorization.interfaces.dto.user.AuthUserSaveDTO;
-import com.sparksys.authorization.interfaces.dto.user.AuthUserStatusDTO;
-import com.sparksys.authorization.interfaces.dto.user.AuthUserUpdateDTO;
+import com.sparksys.database.base.service.SuperCacheService;
+import com.sparksys.authorization.infrastructure.entity.AuthUser;
+import com.sparksys.authorization.infrastructure.entity.UserActivities;
+import com.sparksys.authorization.infrastructure.entity.UserInfo;
+import com.sparksys.authorization.infrastructure.entity.UserNotices;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -20,97 +19,77 @@ import java.util.Set;
  */
 public interface IAuthUserService extends SuperCacheService<AuthUser> {
 
-
-    /**
-     * 保存用户信息
-     *
-     * @param contextUserId
-     * @param authUserSaveDTO
-     * @return
-     */
-    boolean saveAuthUser(Long contextUserId, AuthUserSaveDTO authUserSaveDTO);
-
-    /**
-     * 修改用户信息
-     *
-     * @param contextUserId
-     * @param authUserUpdateDTO
-     * @return
-     */
-    boolean updateAuthUser(Long contextUserId, AuthUserUpdateDTO authUserUpdateDTO);
-
-    /**
-     * 删除用户信息
-     *
-     * @param id
-     * @return
-     */
-    boolean deleteAuthUser(Long id);
-
-    /**
-     * 修改用户账号状态
-     *
-     * @param authUserInfo          用户
-     * @param authUserStatusDTO 用户状态dto
-     * @return
-     */
-    boolean updateAuthUserStatus(Long contextUserId, AuthUserStatusDTO authUserStatusDTO);
-
-    /**
-     * 分页查询用户列表
-     *
-     * @param pageNum  当前页
-     * @param pageSize 分页大小
-     * @param name     姓名
-     * @return PageInfo<AuthUserDTO>
-     */
-    PageInfo<AuthUserDTO> listByPage(Integer pageNum, Integer pageSize, String name);
-
     /**
      * 获取用户信息
      *
-     * @param id
-     * @return
+     * @param id 用户id
+     * @return AuthUserDTO
      */
     AuthUserDTO getAuthUser(Long id);
 
     /**
      * 重置密码错误次数
      *
-     * @param id
-     * @return
+     * @param id 用户id
      */
-    boolean resetPassErrorNum(Long id);
+    void resetPassErrorNum(Long id);
 
     /**
      * 重置密码错误次数
      *
-     * @param account
+     * @param account 账户
+     */
+    void resetPassErrorNum(String account);
+
+    /**
+     * 增加密码错误次数
+     *
+     * @param id 用户id
+     */
+    void incrPasswordErrorNum(Long id);
+
+    /**
+     * 增加密码错误次数
+     *
+     * @param account 账户
+     */
+    void incrPasswordErrorNum(String account);
+
+    /**
+     * 获取用户权限集
+     *
+     * @param id 用户id
+     * @return Set<String>
+     */
+    Set<String> getAuthUserPermissions(Long id);
+
+    /**
+     * 获取登录用户
+     *
+     * @param username 用户名
+     * @return UserInfo
+     */
+    UserInfo getCurrentUser(String username);
+
+    /**
+     * 获取用户通知
+     *
+     * @return List<UserNotices>
+     */
+    List<UserNotices> getUserNotices();
+
+    /**
+     * 获取文章
+     *
      * @return
      */
-    boolean resetPassErrorNum(String account);
+    List<UserActivities> activities();
 
     /**
-     * 增加密码错误次数
+     * 更新用户组织
      *
-     * @param id
+     * @param id 组织id
      * @return boolean
      */
-    boolean incrPasswordErrorNum(Long id);
-
-    /**
-     * 增加密码错误次数
-     *
-     * @param account
-     * @return boolean
-     */
-    boolean incrPasswordErrorNum(String account);
-
-    /**
-     * 获取用户信息
-     *
-     * @param username
-     * @return AuthUserDetail
-     */
-    AuthUserDetail getAuthUserDetail(String username);
+    boolean deleteOrgId(Long id);
 }

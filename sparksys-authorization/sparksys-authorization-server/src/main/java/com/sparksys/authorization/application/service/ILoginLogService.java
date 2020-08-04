@@ -22,7 +22,7 @@ public interface ILoginLogService extends SuperCacheService<LoginLog> {
      *
      * @param userId          用户id
      * @param account         账号
-     * @param userAgentEntity 用户代理信息
+     * @param userAgentEntity 用户代理
      * @param description     登陆描述消息
      */
     void save(Long userId, String account, UserAgentEntity userAgentEntity, String description);

@@ -51,7 +51,7 @@
         <module>sparksys-code-generator</module>
         <module>sparksys-file</module>
         <module>sparksys-gateway</module>
-        <module>sparksys-oauth</module>
+        <module>sparksys-oauth-server</module>
         <module>sparksys-sharding-demo</module>
     </modules>
 

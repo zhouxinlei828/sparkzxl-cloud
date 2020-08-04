@@ -17,7 +17,7 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "AuthUserUpdateDTO保存对象", description = "AuthUserUpdateDTO保存对象")
+@ApiModel(value = "AuthUserUpdateDTO更新对象", description = "AuthUserUpdateDTO更新对象")
 public class AuthUserUpdateDTO {
 
     @ApiModelProperty(value = "id")

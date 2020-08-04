@@ -1,5 +1,5 @@
 server:
-  port: 8903
+  port: 8902
   undertow:
     buffer-size: 1024
     direct-buffers: on
@@ -31,6 +31,7 @@ spring:
         refresh-enabled: true
 logging:
   level:
+    com.sparksys.authorization.infrastructure.client: debug
     com.sparksys.authorization.infrastructure.mapper: debug
   file:
     path: /Users/zhouxinlei/logs

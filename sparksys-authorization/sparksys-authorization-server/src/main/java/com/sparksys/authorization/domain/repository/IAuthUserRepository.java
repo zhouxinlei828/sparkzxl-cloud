@@ -1,6 +1,7 @@
 package com.sparksys.authorization.domain.repository;
 
 import com.sparksys.authorization.infrastructure.entity.AuthUser;
+import com.sparksys.authorization.infrastructure.entity.RoleResource;
 
 import java.util.List;
 
@@ -30,46 +31,39 @@ public interface IAuthUserRepository {
     AuthUser selectByAccount(String account);
 
     /**
-     * 保存用户信息
+     * 密码输错自增
      *
-     * @param authUser
-     * @return
+     * @param id id
      */
-    boolean saveAuthUser(AuthUser authUser);
+    void incrPasswordErrorNumById(Long id);
 
     /**
-     * 更新用户信息
+     * 获取用户权限集
      *
-     * @param authUser
-     * @return
+     * @param id id
+     * @return Set<String>
      */
-    boolean updateAuthUser(AuthUser authUser);
+    List<String> getAuthUserPermissions(Long id);
 
     /**
-     * 删除用户信息
+     * 获取用户角色
      *
-     * @param id
+     * @param id 用户id
      * @return
      */
-    boolean deleteAuthUser(Long id);
+    List<String> getAuthUserRoles(Long id);
 
     /**
-     * 根据姓名模糊查询用户信息
+     * 查询角色路径
      *
-     * @param name 姓名
-     * @return List<AuthUser>
+     * @return List<RoleResource>
      */
-    List<AuthUser> listByName(String name);
+    List<RoleResource> getRoleResourceList();
 
     /**
      * 密码输错自增
      *
-     * @param id
-     * @return boolean
+     * @param account 账户
      */
-    boolean incrPasswordErrorNumById(Long id);
-
-    boolean incrPasswordErrorNumByAccount(String account);
-
-    List<String> getAuthUserPermissions(Long id);
+    void incrPasswordErrorNumByAccount(String account);
 }

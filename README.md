@@ -7,23 +7,14 @@
 
 ```text
 sparksys-cloud
-├── sparksys-business       	                  -- 业务模块
-├──── sparksys-authorization                        -- oauth平台授权模块
-├──── sparksys-file                                 -- 文件模块
-├── sparksys-commons                              -- 核心组件模块
-├──── sparksys-commons-activiti-starter             -- activiti组件封装
-├──── sparksys-commons-core-starter                 -- 工具类组件
-├──── sparksys-commons-elasticsearch-starter        -- 搜索引擎组件封装
-├──── sparksys-commons-generator                    -- 代码自动生成组件
-├──── sparksys-commons-mail-starter                 -- 邮件组件封装
-├──── sparksys-commons-mybatis-starter              -- mybatis组件封装
-├──── sparksys-commons-oauth2-starter               -- oauth2平台授权组件封装
-├──── sparksys-commons-cache-starter                -- redis组件封装
-├──── sparksys-commons-security-starter             -- 权限框架组件封装
-├──── sparksys-commons-sentinel-starter             -- 限流组件封装
-├──── sparksys-commons-web-starter                  -- web统一组件封装
-├──── sparksys-commons-zookeeper-starter            -- zookeeper组件封装
-├── sparksys-gateway                              -- 网关模块
+├── sparksys-activiti       	                  -- activiti微服务
+├── sparksys-admin-server                         -- admin监控微服务
+├── sparksys-authorization                        -- 用户微服务
+├── sparksys-code-generator                       -- 代码生成工具
+├── sparksys-file                                 -- 文件微服务
+├── sparksys-gateway                              -- 网关微服务
+├── sparksys-oauth-server                         -- 授权微服务
+├── sparksys-sharding-demo                        -- 分库分表示例微服务
 ```
 
 ### 分布式系统架构
