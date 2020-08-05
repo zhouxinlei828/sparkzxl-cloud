@@ -47,10 +47,10 @@ public class AuthTokenFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         String header = WebFluxUtils.getHeader(BaseContextConstants.JWT_TOKEN_HEADER, request);
-        if (header.startsWith("Basic")) {
+        if (header.startsWith(BaseContextConstants.BASIC_AUTH)) {
             return chain.filter(exchange);
         }
-        String accessToken = StringUtils.removeStart(header, BaseContextConstants.BEARER_TOKEN);
+        String accessToken = StringUtils.removeStartIgnoreCase(header, BaseContextConstants.BEARER_TOKEN);
         if (StringUtils.isBlank(accessToken)) {
             return chain.filter(exchange);
         }
