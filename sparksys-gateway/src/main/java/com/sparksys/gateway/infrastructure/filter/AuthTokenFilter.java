@@ -8,7 +8,7 @@ import com.sparksys.core.base.result.ApiResult;
 
 import java.nio.charset.StandardCharsets;
 
-import com.sparksys.gateway.infrastructure.utils.WebFluxUtils;
+import com.sparksys.oauth.resource.utils.WebFluxUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -50,7 +50,7 @@ public class AuthTokenFilter implements GlobalFilter, Ordered {
         if (header.startsWith("Basic")) {
             return chain.filter(exchange);
         }
-        String accessToken = StringUtils.removeStart(header, BaseContextConstants.JWT_TOKEN_HEAD);
+        String accessToken = StringUtils.removeStart(header, BaseContextConstants.BEARER_TOKEN);
         if (StringUtils.isBlank(accessToken)) {
             return chain.filter(exchange);
         }

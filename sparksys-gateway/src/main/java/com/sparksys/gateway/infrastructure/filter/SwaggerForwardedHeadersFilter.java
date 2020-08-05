@@ -8,7 +8,8 @@ import java.net.URI;
 import java.util.LinkedHashSet;
 
 import com.sparksys.core.constant.FileConstant;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.cloud.gateway.filter.headers.HttpHeadersFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
@@ -24,8 +25,8 @@ import org.springframework.web.server.ServerWebExchange;
 @Component
 public class SwaggerForwardedHeadersFilter implements HttpHeadersFilter, Ordered {
 
-    @Value("${server.servlet.context-path:/api}")
-    private String contextPath;
+    @Autowired
+    private ServerProperties serverProperties;
 
     @Override
     public int getOrder() {
@@ -44,7 +45,6 @@ public class SwaggerForwardedHeadersFilter implements HttpHeadersFilter, Ordered
         LinkedHashSet<URI> originalUris = exchange.getAttribute(GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
         URI requestUri = exchange.getAttribute(GATEWAY_REQUEST_URL_ATTR);
         if (originalUris != null && requestUri != null) {
-
             originalUris.forEach(originalUri -> {
                 if (originalUri != null && originalUri.getPath() != null) {
                     String prefix;
@@ -53,7 +53,7 @@ public class SwaggerForwardedHeadersFilter implements HttpHeadersFilter, Ordered
                     if (requestUriPath != null && (originalUriPath.endsWith(requestUriPath))) {
                         prefix = originalUriPath.replace(requestUriPath, "");
                         if (prefix.length() > 0 && prefix.length() <= originalUri.getPath().length()) {
-                            updated.set(X_FORWARDED_PREFIX_HEADER, contextPath + prefix);
+                            updated.set(X_FORWARDED_PREFIX_HEADER, serverProperties.getServlet().getContextPath() + prefix);
                         }
                     }
                 }

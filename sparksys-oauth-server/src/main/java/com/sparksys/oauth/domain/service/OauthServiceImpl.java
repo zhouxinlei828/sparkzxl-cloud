@@ -19,6 +19,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -43,6 +44,8 @@ public class OauthServiceImpl implements OauthService {
     private TokenEndpoint tokenEndpoint;
     @Autowired
     private CacheTemplate cacheTemplate;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
     @Autowired
     @Qualifier("oauthUserDetailsService")
     private UserDetailsService userDetailsService;
@@ -91,6 +94,7 @@ public class OauthServiceImpl implements OauthService {
     private void accessToken(String username, OAuth2AccessToken oAuth2AccessToken) {
         AuthUserDetail authUserDetail = (AuthUserDetail) userDetailsService.loadUserByUsername(username);
         AuthUserInfo authUserInfo = authUserDetail.getAuthUserInfo();
+        redisTemplate.opsForHash().putIfAbsent(BaseContextConstants.AUTH_USER, oAuth2AccessToken.getValue(), authUserInfo);
         cacheTemplate.set(KeyUtils.buildKey(BaseContextConstants.AUTH_USER, oAuth2AccessToken.getValue()), authUserInfo, (long) oAuth2AccessToken.getExpiresIn());
     }
 

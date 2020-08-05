@@ -1,13 +1,14 @@
 package com.sparksys.gateway.interfaces.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.reactive.result.view.Rendering;
 
 
 /**
- * description: 常用Controller
+ * description: swagger 转发
  *
  * @author zhouxinlei
  * @date 2020-05-24 12:18:02
@@ -15,12 +16,12 @@ import org.springframework.web.reactive.result.view.Rendering;
 @Controller
 public class SwaggerController {
 
-    @Value("${server.servlet.context-path:}")
-    private String contextPath;
+    @Autowired
+    private ServerProperties serverProperties;
 
     @GetMapping("/gate/doc.html")
     public Rendering doc() {
-        String uri = String.format("%s/doc.html", contextPath);
+        String uri = String.format("%s/doc.html", serverProperties.getServlet().getContextPath());
         return Rendering.redirectTo(uri).build();
     }
 }
