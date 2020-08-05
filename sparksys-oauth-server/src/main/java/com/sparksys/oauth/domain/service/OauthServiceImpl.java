@@ -1,5 +1,6 @@
 package com.sparksys.oauth.domain.service;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.sparksys.cache.template.CacheTemplate;
 
@@ -8,6 +9,7 @@ import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.spring.SpringContextUtils;
 import com.sparksys.core.support.ResponseResultStatus;
 import com.sparksys.core.utils.KeyUtils;
+import com.sparksys.core.utils.Md5Utils;
 import com.sparksys.oauth.entity.AuthorizationRequest;
 import com.sparksys.oauth.enums.GrantTypeEnum;
 import com.sparksys.oauth.infrastructure.constant.CacheConstant;
@@ -16,6 +18,7 @@ import com.sparksys.oauth.entity.AuthUserDetail;
 import com.sparksys.oauth.event.LoginEvent;
 import com.sparksys.oauth.entity.LoginStatus;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,6 +41,7 @@ import java.util.Optional;
  * @date： 2020-06-24 14:50:40
  */
 @Service
+@Slf4j
 public class OauthServiceImpl implements OauthService {
 
     @Autowired
@@ -94,8 +98,10 @@ public class OauthServiceImpl implements OauthService {
     private void accessToken(String username, OAuth2AccessToken oAuth2AccessToken) {
         AuthUserDetail authUserDetail = (AuthUserDetail) userDetailsService.loadUserByUsername(username);
         AuthUserInfo authUserInfo = authUserDetail.getAuthUserInfo();
-        redisTemplate.opsForHash().putIfAbsent(BaseContextConstants.AUTH_USER, oAuth2AccessToken.getValue(), authUserInfo);
-        cacheTemplate.set(KeyUtils.buildKey(BaseContextConstants.AUTH_USER, oAuth2AccessToken.getValue()), authUserInfo, (long) oAuth2AccessToken.getExpiresIn());
+        authUserInfo.setPassword(null);
+        log.info("AuthUserInfo json is {}", JSON.toJSONString(authUserInfo));
+        String buildKey = KeyUtils.buildKey(BaseContextConstants.AUTH_USER, oAuth2AccessToken.getValue());
+        cacheTemplate.set(buildKey, authUserInfo, (long) oAuth2AccessToken.getExpiresIn());
     }
 
     /**
