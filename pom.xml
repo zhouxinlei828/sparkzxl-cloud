@@ -356,10 +356,18 @@
                             </auth>
                         </to>
                         <container>
+                            <jvmFlags>
+                                <jvmFlag>-Xms512m</jvmFlag>
+                                <jvmFlag>-Xdebug</jvmFlag>
+                            </jvmFlags>
                             <workingDirectory>/home/zhouxinlei</workingDirectory>
+                            <user>zhouxinlei</user>
                             <environment>
                                 <TZ>Asia/Shanghai</TZ>
                             </environment>
+                            <labels>
+                                <name>${project.artifactId}</name>
+                            </labels>
                         </container>
                         <allowInsecureRegistries>true</allowInsecureRegistries>
                     </configuration>
