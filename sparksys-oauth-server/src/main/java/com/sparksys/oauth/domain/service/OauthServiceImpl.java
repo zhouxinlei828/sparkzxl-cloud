@@ -19,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -45,8 +44,6 @@ public class OauthServiceImpl implements OauthService {
     private TokenEndpoint tokenEndpoint;
     @Autowired
     private CacheTemplate cacheTemplate;
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
     @Autowired
     @Qualifier("oauthUserDetailsService")
     private UserDetailsService userDetailsService;
