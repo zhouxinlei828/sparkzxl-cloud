@@ -14,4 +14,4 @@ spring:
         namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
 logging:
   file:
-    path: /Users/zhouxinlei/logs
+    path: /Users/${spring.application.name}/logs

@@ -343,12 +343,12 @@
                     <version>${jib-maven-plugin.version}</version>
                     <configuration>
                         <from>
-                            <image>openjdk:8u191-jdk-alpine</image>
+                            <image>openjdk:8-jre</image>
                         </from>
                         <to>
                             <image>harbor.en2hr.com:8084/hongneng/${project.artifactId}</image>
                             <tags>
-                                <tag>${project.version}</tag>
+                                <tag>dev-${project.version}</tag>
                             </tags>
                             <auth>
                                 <username>zhouxinlei</username>
@@ -360,8 +360,8 @@
                                 <jvmFlag>-Xms512m</jvmFlag>
                                 <jvmFlag>-Xdebug</jvmFlag>
                             </jvmFlags>
-                            <workingDirectory>/home/zhouxinlei</workingDirectory>
-                            <user>zhouxinlei</user>
+                            <appRoot>/home/${project.artifactId}</appRoot>
+                            <workingDirectory>/home/${project.artifactId}</workingDirectory>
                             <environment>
                                 <TZ>Asia/Shanghai</TZ>
                             </environment>
@@ -383,4 +383,45 @@
             </plugins>
         </pluginManagement>
     </build>
+    <profiles>
+        <profile>
+            <!-- 打包的 -P参数 -->
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <repository>
+                    <id>maven-releases</id>
+                    <url>http://47.116.52.58:8085/repository/maven-releases/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>maven-snapshots</id>
+                    <url>http://47.116.52.58:8085/repository/maven-snapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 </project>

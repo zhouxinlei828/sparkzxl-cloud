@@ -27,4 +27,4 @@ logging:
   level:
     com.sparksys.file.infrastructure.mapper: debug
   file:
-    path: C:\logs
+    path: C:\${spring.application.name}logs

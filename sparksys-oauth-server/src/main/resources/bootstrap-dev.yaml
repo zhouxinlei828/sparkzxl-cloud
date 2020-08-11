@@ -6,7 +6,7 @@ server:
     always-set-keep-alive: true
 spring:
   application:
-    name: sparksys-oauth
+    name: sparksys-oauth-server
   cloud:
     nacos:
       discovery:
@@ -31,4 +31,4 @@ logging:
     com.sparksys.oauth.infrastructure.client: debug
     com.sparksys.oauth.infrastructure.mapper: debug
   file:
-    path: /Users/zhouxinlei/logs
+    path: /Users/${spring.application.name}/logs

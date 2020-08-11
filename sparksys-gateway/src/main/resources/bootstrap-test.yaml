@@ -28,4 +28,4 @@ spring:
         refresh-enabled: true
 logging:
   file:
-    path: C:\logs
+    path: C:\${spring.application.name}logs

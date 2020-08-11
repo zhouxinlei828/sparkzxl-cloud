@@ -6,7 +6,7 @@ server:
     always-set-keep-alive: true
 spring:
   application:
-    name: sparksys-authorization
+    name: sparksys-authorization-server
   cloud:
     nacos:
       discovery:

@@ -27,4 +27,4 @@ logging:
   level:
     com.sparksys.file.infrastructure.mapper: debug
   file:
-    path: /Users/zhouxinlei/logs
+    path: /Users/${spring.application.name}/logs

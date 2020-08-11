@@ -30,4 +30,4 @@ logging:
   level:
     com.sparksys.oauth.infrastructure.mapper: debug
   file:
-    path: C:\logs
+    path: C:\${spring.application.name}logs
