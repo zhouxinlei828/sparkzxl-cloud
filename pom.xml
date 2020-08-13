@@ -21,7 +21,7 @@
         <spring-cloud-dependencies.version>Hoxton.SR5</spring-cloud-dependencies.version>
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
 
-        <sparksys.version>1.2.0.RELEASE</sparksys.version>
+        <sparksys.version>1.2.3.RELEASE</sparksys.version>
 
         <!-- maven -->
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -53,6 +53,7 @@
         <module>sparksys-gateway</module>
         <module>sparksys-oauth-server</module>
         <module>sparksys-sharding-demo</module>
+        <module>sparksys-test-demo</module>
     </modules>
 
     <repositories>
@@ -362,6 +363,7 @@
                             </jvmFlags>
                             <appRoot>/home/${project.artifactId}</appRoot>
                             <workingDirectory>/home/${project.artifactId}</workingDirectory>
+                            <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
                             <environment>
                                 <TZ>Asia/Shanghai</TZ>
                             </environment>

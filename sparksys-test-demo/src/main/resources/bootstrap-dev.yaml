@@ -1,0 +1,36 @@
+server:
+  port: 8701
+  undertow:
+    buffer-size: 1024
+    direct-buffers: on
+    always-set-keep-alive: true
+spring:
+  application:
+    name: sparksys-test-demo
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.3.3:31398
+        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
+      config:
+        server-addr: 192.168.3.3:31398
+        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
+        file-extension: yaml
+        prefix: ${spring.application.name}
+        shared-configs:
+          - dataId: actuator.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+          - dataId: redis.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+          - dataId: kafka.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+        enable-remote-sync-config: true
+        refresh-enabled: true
+logging:
+  level:
+    com.sparksys.test.infrastructure.mapper: debug
+  file:
+    path: /Users/${spring.application.name}/logs
