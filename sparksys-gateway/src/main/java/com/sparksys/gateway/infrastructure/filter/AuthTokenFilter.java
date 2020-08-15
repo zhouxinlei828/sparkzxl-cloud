@@ -2,12 +2,9 @@ package com.sparksys.gateway.infrastructure.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.nimbusds.jose.JWSObject;
-import com.sparksys.core.constant.BaseContextConstants;
-import com.sparksys.core.support.ResponseResultStatus;
 import com.sparksys.core.base.result.ApiResult;
-
-import java.nio.charset.StandardCharsets;
-
+import com.sparksys.core.constant.BaseContextConstant;
+import com.sparksys.core.support.ResponseResultStatus;
 import com.sparksys.oauth.resource.utils.WebFluxUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +22,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * description: 权限过滤器
@@ -46,11 +45,11 @@ public class AuthTokenFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
-        String header = WebFluxUtils.getHeader(BaseContextConstants.JWT_TOKEN_HEADER, request);
-        if (header.startsWith(BaseContextConstants.BASIC_AUTH)) {
+        String header = WebFluxUtils.getHeader(BaseContextConstant.JWT_TOKEN_HEADER, request);
+        if (header.startsWith(BaseContextConstant.BASIC_AUTH)) {
             return chain.filter(exchange);
         }
-        String accessToken = StringUtils.removeStartIgnoreCase(header, BaseContextConstants.BEARER_TOKEN);
+        String accessToken = StringUtils.removeStartIgnoreCase(header, BaseContextConstant.BEARER_TOKEN);
         if (StringUtils.isBlank(accessToken)) {
             return chain.filter(exchange);
         }

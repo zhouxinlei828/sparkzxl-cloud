@@ -1,7 +1,7 @@
 package com.sparksys.gateway.infrastructure.authorization;
 
 import cn.hutool.core.convert.Convert;
-import com.sparksys.core.constant.BaseContextConstants;
+import com.sparksys.core.constant.BaseContextConstant;
 import com.sparksys.core.constant.FileConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @Component
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
 
-    public static final String RESOURCE_ROLES_MAP = "AUTH:RESOURCE_ROLES_MAP";
+    public static final String RESOURCE_ROLES_MAP = "auth:resource_roles_map";
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -50,7 +50,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         });
         Object obj = redisTemplate.opsForHash().get(RESOURCE_ROLES_MAP, path[0]);
         List<String> authorities = Convert.toList(String.class, obj);
-        authorities = authorities.stream().map(i -> i = BaseContextConstants.AUTHORITY_PREFIX + i).collect(Collectors.toList());
+        authorities = authorities.stream().map(i -> i = BaseContextConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
         //认证通过且角色匹配的用户可访问当前路径
         return mono
                 .filter(Authentication::isAuthenticated)

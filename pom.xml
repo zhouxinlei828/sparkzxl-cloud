@@ -47,7 +47,7 @@
     <modules>
         <module>sparksys-activiti</module>
         <module>sparksys-admin-server</module>
-        <module>sparksys-authorization</module>
+        <module>sparksys-authority</module>
         <module>sparksys-code-generator</module>
         <module>sparksys-file</module>
         <module>sparksys-gateway</module>

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Component
 public class InitRolePathApplicationRunner implements CommandLineRunner {
 
-    public static final String RESOURCE_ROLES_MAP = "AUTH:RESOURCE_ROLES_MAP";
+    public static final String RESOURCE_ROLES_MAP = "auth:resource_roles_map";
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
