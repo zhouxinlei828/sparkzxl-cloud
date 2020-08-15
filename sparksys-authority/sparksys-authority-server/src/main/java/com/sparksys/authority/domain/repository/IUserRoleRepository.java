@@ -1,6 +1,9 @@
 package com.sparksys.authority.domain.repository;
 
+import com.sparksys.authority.infrastructure.entity.AuthUser;
+
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,4 +31,12 @@ public interface IUserRoleRepository {
      * @return
      */
     boolean deleteAuthRoleUser(Long id, Set<Serializable> userIds);
+
+    /**
+     * 查询角色用户列表
+     *
+     * @param roleId 角色id
+     * @return List<AuthUser>
+     */
+    List<AuthUser> getRoleUserList(Long roleId);
 }

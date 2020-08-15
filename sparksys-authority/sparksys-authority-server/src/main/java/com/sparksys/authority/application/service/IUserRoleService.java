@@ -1,9 +1,11 @@
 package com.sparksys.authority.application.service;
 
 
-import com.sparksys.database.base.service.SuperCacheService;
 import com.sparksys.authority.infrastructure.entity.UserRole;
 import com.sparksys.authority.interfaces.dto.role.RoleUserDTO;
+import com.sparksys.authority.interfaces.dto.role.RoleUserDeleteDTO;
+import com.sparksys.authority.interfaces.dto.role.RoleUserSaveDTO;
+import com.sparksys.database.base.service.SuperCacheService;
 
 /**
  * description: 账号角色绑定 服务类
@@ -16,16 +18,24 @@ public interface IUserRoleService extends SuperCacheService<UserRole> {
     /**
      * 账号角色绑定
      *
-     * @param roleUserDTO
+     * @param roleUserSaveDTO
      * @return boolean
      */
-    boolean saveAuthRoleUser(RoleUserDTO roleUserDTO);
+    boolean saveAuthRoleUser(RoleUserSaveDTO roleUserSaveDTO);
 
     /**
      * 账号角色解除绑定
      *
-     * @param roleUserDTO
+     * @param roleUserDeleteDTO 角色用户删除DTO
      * @return boolean
      */
-    boolean deleteAuthRoleUser(RoleUserDTO roleUserDTO);
+    boolean deleteAuthRoleUser(RoleUserDeleteDTO roleUserDeleteDTO);
+
+    /**
+     * 查询角色下的用户
+     *
+     * @param roleId 角色id
+     * @return RoleUserDTO
+     */
+    RoleUserDTO getRoleUserList(Long roleId);
 }

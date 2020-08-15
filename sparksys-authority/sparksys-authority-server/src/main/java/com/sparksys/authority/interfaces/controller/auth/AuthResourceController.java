@@ -40,5 +40,4 @@ public class AuthResourceController extends SuperCacheController<IAuthResourceSe
     public List<AuthResource> visible(@ApiIgnore AuthUserInfo authUserInfo, ResourceQueryDTO resource) {
         return baseService.findVisibleResource(authUserInfo.getId(), resource);
     }
-
 }

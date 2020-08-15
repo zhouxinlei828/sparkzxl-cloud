@@ -23,4 +23,5 @@ public interface IAuthResourceService extends SuperCacheService<AuthResource> {
      * @return List<AuthResource>
      */
     List<AuthResource> findVisibleResource(Long userId, ResourceQueryDTO resource);
+
 }

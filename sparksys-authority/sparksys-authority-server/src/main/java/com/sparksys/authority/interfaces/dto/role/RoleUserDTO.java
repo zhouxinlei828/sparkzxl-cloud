@@ -1,10 +1,10 @@
 package com.sparksys.authority.interfaces.dto.role;
 
+import com.sparksys.authority.interfaces.dto.user.AuthUserDTO;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 /**
  * description：
@@ -15,10 +15,10 @@ import java.util.Set;
 @Data
 public class RoleUserDTO {
 
-    @NotNull(message = "角色id不能为空")
+    @NotNull(message = "角色id")
     private Long id;
 
-    @NotNull(message = "至少选择一个用户")
-    private Set<Serializable> userIds;
+    @NotNull(message = "用户列表")
+    private List<AuthUserDTO> authUsers;
 
 }
