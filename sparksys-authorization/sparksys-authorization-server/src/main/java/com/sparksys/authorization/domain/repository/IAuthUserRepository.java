@@ -66,4 +66,11 @@ public interface IAuthUserRepository {
      * @param account 账户
      */
     void incrPasswordErrorNumByAccount(String account);
+
+    /**
+     * 删除用户关联信息
+     *
+     * @param ids 用户ids
+     */
+    void deleteUserRelation(List<Long> ids);
 }

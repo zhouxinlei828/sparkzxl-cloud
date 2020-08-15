@@ -89,7 +89,13 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * 更新用户组织
      *
      * @param id 组织id
-     * @return boolean
      */
-    boolean deleteOrgId(Long id);
+    void deleteOrgId(Long id);
+
+    /**
+     * 删除用户关联信息
+     *
+     * @param userId 用户id
+     */
+    void deleteUserRelation(List<Long> ids);
 }

@@ -1,6 +1,7 @@
 package com.sparksys.authorization.interfaces.controller.auth;
 
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.sparksys.database.base.controller.SuperCacheController;
 import com.sparksys.log.annotation.WebLog;
 import com.sparksys.authorization.application.service.IRoleAuthorityService;
@@ -10,8 +11,11 @@ import com.sparksys.authorization.interfaces.dto.role.RoleAuthoritySaveDTO;
 import com.sparksys.authorization.interfaces.dto.role.RoleAuthorityUpdateDTO;
 import com.sparksys.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * description: 角色资源管理
@@ -27,4 +31,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoleAuthorityController extends SuperCacheController<IRoleAuthorityService, Long,
         RoleAuthority, RoleAuthorityPageDTO, RoleAuthoritySaveDTO, RoleAuthorityUpdateDTO> {
 
+    @ApiOperation("批量保存角色资源")
+    @PostMapping("/batch")
+    public boolean saveRoleAuthorityBatch(@Validated @RequestBody RoleAuthoritySaveDTO roleAuthoritySaveDTO) {
+        return baseService.saveRoleAuthorityBatch(roleAuthoritySaveDTO);
+    }
+
+    @ApiOperation("批量删除角色资源")
+    @DeleteMapping("/batch")
+    public boolean deleteRoleAuthorityBatch(@RequestParam(value = "roleIds") List<Long> roleIds) {
+        return baseService.remove(new LambdaUpdateWrapper<RoleAuthority>().in(RoleAuthority::getRoleId, roleIds));
+    }
 }

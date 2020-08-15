@@ -9,7 +9,6 @@ import com.sparksys.database.utils.PageInfoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,8 +26,8 @@ public class ActReModelRepositoryImpl implements IActReModelRepository {
     @Override
     public PageInfo<ActReModel> actReModelList(String key, String name) {
         QueryWrapper<ActReModel> modelQueryWrapper = new QueryWrapper<>();
-        Optional.ofNullable(key).ifPresent((value) -> modelQueryWrapper.eq("KEY_", value));
-        Optional.ofNullable(name).ifPresent((value) -> modelQueryWrapper.likeRight("NAME_", value));
+        Optional.ofNullable(key).ifPresent((value) -> modelQueryWrapper.lambda().eq(ActReModel::getKey, value));
+        Optional.ofNullable(name).ifPresent((value) -> modelQueryWrapper.lambda().likeRight(ActReModel::getName, value));
         return PageInfoUtils.pageInfo(actReModelMapper.selectList(modelQueryWrapper));
     }
 }

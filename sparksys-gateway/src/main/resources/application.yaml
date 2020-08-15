@@ -1,5 +1,3 @@
-application:
-  version: @sparksys-cloud.version@
 spring:
   profiles:
     active: dev #默认为开发环境

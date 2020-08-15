@@ -1,19 +1,18 @@
 package com.sparksys.activiti.domain.service.process;
 
 import com.github.pagehelper.PageInfo;
+import com.sparksys.activiti.application.service.process.IProcessTaskStatusService;
 import com.sparksys.activiti.domain.repository.IProcessTaskStatusRepository;
 import com.sparksys.activiti.infrastructure.constant.ActivitiCache;
 import com.sparksys.activiti.infrastructure.entity.ProcessInstance;
 import com.sparksys.activiti.infrastructure.entity.ProcessTaskStatus;
 import com.sparksys.activiti.infrastructure.mapper.ProcessTaskStatusMapper;
-import com.sparksys.activiti.application.service.process.IProcessTaskStatusService;
 import com.sparksys.activiti.interfaces.dto.act.InstancePageDTO;
 import com.sparksys.core.utils.DateUtils;
 import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * description: 流程历史状态记录 服务实现类
@@ -40,9 +39,7 @@ public class ProcessTaskStatusServiceImpl extends AbstractSuperCacheServiceImpl<
         PageInfo<ProcessInstance> processInstancePageInfo = taskStatusRepository.getProcessInstanceList(instancePageDTO.getPageNum(),
                 instancePageDTO.getPageSize(), instancePageDTO.getName());
         List<ProcessInstance> processInstances = processInstancePageInfo.getList();
-        processInstances.forEach(item -> {
-            item.setDueTime(DateUtils.getDatePoor(item.getDuration()));
-        });
+        processInstances.forEach(item -> item.setDueTime(DateUtils.formatBetween(item.getDuration())));
         processInstancePageInfo.setList(processInstances);
         return processInstancePageInfo;
     }

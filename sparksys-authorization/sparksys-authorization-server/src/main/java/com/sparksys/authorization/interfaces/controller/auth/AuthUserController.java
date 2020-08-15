@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.List;
+
 /**
  * description: 用户管理
  *
@@ -49,6 +51,12 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
     @Override
     public boolean handlerSave(AuthUserSaveDTO model) {
         model.setPassword(passwordEncoder.encode(model.getPassword()));
+        return true;
+    }
+
+    @Override
+    public boolean handlerDelete(List<Long> ids) {
+        baseService.deleteUserRelation(ids);
         return true;
     }
 

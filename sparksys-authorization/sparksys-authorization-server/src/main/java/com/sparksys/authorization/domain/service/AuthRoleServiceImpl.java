@@ -1,12 +1,14 @@
 package com.sparksys.authorization.domain.service;
 
-import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.authorization.application.service.IAuthRoleService;
 import com.sparksys.authorization.domain.repository.IAuthRoleRepository;
 import com.sparksys.authorization.infrastructure.constant.CacheConstant;
 import com.sparksys.authorization.infrastructure.entity.AuthRole;
 import com.sparksys.authorization.infrastructure.mapper.AuthRoleMapper;
+import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * description: 角色 服务实现类
@@ -24,8 +26,8 @@ public class AuthRoleServiceImpl extends AbstractSuperCacheServiceImpl<AuthRoleM
     }
 
     @Override
-    public boolean deleteAuthRole(Long id) {
-        return authRoleRepository.deleteAuthRole(id);
+    public void deleteAuthRoleRelation(List<Long> ids) {
+        authRoleRepository.deleteAuthRoleRelation(ids);
     }
 
     @Override

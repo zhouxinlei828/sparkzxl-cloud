@@ -1,9 +1,7 @@
 package com.sparksys.authorization.infrastructure.mapper;
 
-import com.sparksys.database.base.mapper.SuperMapper;
 import com.sparksys.authorization.infrastructure.entity.RoleOrg;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Param;
+import com.sparksys.database.base.mapper.SuperMapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,11 +13,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoleOrgMapper extends SuperMapper<RoleOrg> {
 
-    /**
-     * 删除角色关联组织
-     *
-     * @param id 角色id
-     */
-    @Delete("DELETE FROM c_auth_role_org WHERE role_id = #{roleId}")
-    void deleteByRoleId(@Param("roleId") Long id);
 }

@@ -28,8 +28,8 @@ public class ProcessDetailRepositoryImpl implements IProcessDetailRepository {
     @Override
     public PageInfo<ProcessDetail> getProcessDetailList(int pageNum, int pageSize, String processName) {
         QueryWrapper<ProcessDetail> detailQueryWrapper = new QueryWrapper<>();
-        Optional.ofNullable(processName).ifPresent((value) -> detailQueryWrapper.eq("process_name", processName));
-        detailQueryWrapper.groupBy("model_id");
+        Optional.ofNullable(processName).ifPresent((value) -> detailQueryWrapper.lambda().eq(ProcessDetail::getProcessName, processName));
+        detailQueryWrapper.lambda().groupBy(ProcessDetail::getModelId);
         PageHelper.startPage(pageNum, pageSize);
         return PageInfoUtils.pageInfo(processDetailMapper.selectList(detailQueryWrapper));
     }

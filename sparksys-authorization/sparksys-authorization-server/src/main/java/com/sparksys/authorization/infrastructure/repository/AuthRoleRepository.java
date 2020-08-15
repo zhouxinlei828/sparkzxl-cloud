@@ -1,12 +1,18 @@
 package com.sparksys.authorization.infrastructure.repository;
 
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.sparksys.authorization.domain.repository.IAuthRoleRepository;
+import com.sparksys.authorization.infrastructure.entity.RoleAuthority;
+import com.sparksys.authorization.infrastructure.entity.RoleOrg;
+import com.sparksys.authorization.infrastructure.entity.UserRole;
 import com.sparksys.authorization.infrastructure.mapper.AuthRoleMapper;
 import com.sparksys.authorization.infrastructure.mapper.RoleAuthorityMapper;
 import com.sparksys.authorization.infrastructure.mapper.RoleOrgMapper;
 import com.sparksys.authorization.infrastructure.mapper.UserRoleMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * description: 角色 仓储层实现类
@@ -30,10 +36,9 @@ public class AuthRoleRepository implements IAuthRoleRepository {
     }
 
     @Override
-    public boolean deleteAuthRole(Long id) {
-        userRoleMapper.deleteByRoleId(id);
-        roleOrgMapper.deleteByRoleId(id);
-        roleAuthorityMapper.deleteByRoleId(id);
-        return authRoleMapper.deleteById(id) == 1;
+    public void deleteAuthRoleRelation(List<Long> ids) {
+        userRoleMapper.delete(new LambdaUpdateWrapper<UserRole>().in(UserRole::getRoleId, ids));
+        roleOrgMapper.delete(new LambdaUpdateWrapper<RoleOrg>().eq(RoleOrg::getRoleId, ids));
+        roleAuthorityMapper.delete(new LambdaUpdateWrapper<RoleAuthority>().eq(RoleAuthority::getRoleId, ids));
     }
 }

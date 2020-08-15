@@ -2,8 +2,6 @@ package com.sparksys.authorization.infrastructure.mapper;
 
 import com.sparksys.database.base.mapper.SuperMapper;
 import com.sparksys.authorization.infrastructure.entity.UserRole;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,11 +13,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRoleMapper extends SuperMapper<UserRole> {
 
-    /**
-     * 删除账号角色绑定关系
-     *
-     * @param id 角色id
-     */
-    @Delete("DELETE FROM c_auth_user_role WHERE role_id = #{roleId}")
-    void deleteByRoleId(@Param("roleId") Long id);
 }

@@ -1,6 +1,8 @@
 package com.sparksys.authorization.domain.repository;
 
 
+import java.util.List;
+
 /**
  * description: 角色 仓储类
  *
@@ -12,8 +14,7 @@ public interface IAuthRoleRepository {
     /**
      * 删除角色以及关联信息
      *
-     * @param id 角色id
-     * @return boolean
+     * @param ids ids
      */
-    boolean deleteAuthRole(Long id);
+    void deleteAuthRoleRelation(List<Long> ids);
 }

@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.google.common.collect.Sets;
 import com.sparksys.authorization.infrastructure.entity.*;
 import com.sparksys.authorization.interfaces.dto.user.AuthUserDTO;
-import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.utils.ListUtils;
 import com.sparksys.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.sparksys.authorization.application.service.IAuthUserService;
@@ -14,7 +13,6 @@ import com.sparksys.authorization.infrastructure.constant.CacheConstant;
 import com.sparksys.authorization.infrastructure.convert.AuthUserConvert;
 import com.sparksys.authorization.infrastructure.mapper.AuthUserMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +51,7 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
         authUser.setPasswordErrorNum(0);
         authUser.setPasswordErrorLastTime(null);
         UpdateWrapper<AuthUser> userUpdateWrapper = new UpdateWrapper<>();
-        userUpdateWrapper.eq("account", account);
+        userUpdateWrapper.lambda().eq(AuthUser::getAccount, account);
         update(authUser, userUpdateWrapper);
     }
 
@@ -135,10 +133,15 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     }
 
     @Override
-    public boolean deleteOrgId(Long id) {
+    public void deleteOrgId(Long id) {
         UpdateWrapper<AuthUser> userUpdateWrapper = new UpdateWrapper<>();
         userUpdateWrapper.set("org_id", null);
         userUpdateWrapper.eq("org_id", id);
-        return update(userUpdateWrapper);
+        update(userUpdateWrapper);
+    }
+
+    @Override
+    public void deleteUserRelation(List<Long> ids) {
+        authUserRepository.deleteUserRelation(ids);
     }
 }

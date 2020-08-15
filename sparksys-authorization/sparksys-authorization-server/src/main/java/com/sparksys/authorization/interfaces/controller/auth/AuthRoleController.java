@@ -14,6 +14,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.List;
+
 /**
  * description: 角色 前端控制器
  *
@@ -28,10 +30,10 @@ import springfox.documentation.annotations.ApiIgnore;
 public class AuthRoleController extends SuperCacheController<IAuthRoleService, Long,
         AuthRole, AuthRolePageDTO, AuthRoleSaveDTO, AuthRoleUpdateDTO> {
 
-    @ApiOperation("删除角色信息")
-    @DeleteMapping("/role/{id}")
-    public boolean deleteAuthRole(@PathVariable("id") Long id) {
-        return baseService.deleteAuthRole(id);
+    @Override
+    public boolean handlerDelete(List<Long> ids) {
+        baseService.deleteAuthRoleRelation(ids);
+        return true;
     }
 
     @ApiOperation("更新角色状态")
@@ -40,8 +42,6 @@ public class AuthRoleController extends SuperCacheController<IAuthRoleService, L
                                         @RequestParam(value = "status") Boolean status) {
         return baseService.updateAuthRoleStatus(authUserInfo.getId(), id, status);
     }
-
-
 
 
 }

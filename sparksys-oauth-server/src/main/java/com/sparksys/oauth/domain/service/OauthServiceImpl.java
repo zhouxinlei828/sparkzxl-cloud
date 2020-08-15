@@ -3,21 +3,19 @@ package com.sparksys.oauth.domain.service;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.sparksys.cache.template.CacheTemplate;
-
-import com.sparksys.core.constant.BaseContextConstants;
+import com.sparksys.core.constant.BaseContextConstant;
 import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.core.spring.SpringContextUtils;
 import com.sparksys.core.support.ResponseResultStatus;
 import com.sparksys.core.utils.KeyUtils;
-import com.sparksys.oauth.entity.AuthorizationRequest;
-import com.sparksys.oauth.enums.GrantTypeEnum;
-import com.sparksys.oauth.service.OauthService;
 import com.sparksys.oauth.entity.AuthUserDetail;
-import com.sparksys.oauth.event.LoginEvent;
+import com.sparksys.oauth.entity.AuthorizationRequest;
 import com.sparksys.oauth.entity.LoginStatus;
+import com.sparksys.oauth.enums.GrantTypeEnum;
+import com.sparksys.oauth.event.LoginEvent;
+import com.sparksys.oauth.service.OauthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -94,7 +92,7 @@ public class OauthServiceImpl implements OauthService {
         AuthUserInfo authUserInfo = authUserDetail.getAuthUserInfo();
         authUserInfo.setPassword(null);
         log.info("AuthUserInfo json is {}", JSON.toJSONString(authUserInfo));
-        String buildKey = KeyUtils.buildKey(BaseContextConstants.AUTH_USER, oAuth2AccessToken.getValue());
+        String buildKey = KeyUtils.buildKey(BaseContextConstant.AUTH_USER, oAuth2AccessToken.getValue());
         cacheTemplate.set(buildKey, authUserInfo, (long) oAuth2AccessToken.getExpiresIn());
     }
 

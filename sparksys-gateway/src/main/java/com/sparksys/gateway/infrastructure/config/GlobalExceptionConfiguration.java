@@ -1,3 +1,4 @@
+/*
 package com.sparksys.gateway.infrastructure.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,12 +16,14 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+*/
 /**
  * description：gateway 全局异常处理
  *
  * @author zhoux
  * @date 2020-05-28 11:15:32
- */
+ *//*
+
 @Slf4j
 @Order(-1)
 @RequiredArgsConstructor
@@ -53,3 +56,4 @@ public class GlobalExceptionConfiguration implements ErrorWebExceptionHandler {
         }));
     }
 }
+*/
