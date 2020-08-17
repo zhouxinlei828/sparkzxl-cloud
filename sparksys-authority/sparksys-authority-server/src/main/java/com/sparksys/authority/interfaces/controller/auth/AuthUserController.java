@@ -1,5 +1,6 @@
 package com.sparksys.authority.interfaces.controller.auth;
 
+import com.sparksys.authority.infrastructure.entity.LoginAuthUser;
 import com.sparksys.authority.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.authority.interfaces.dto.user.AuthUserPageDTO;
 import com.sparksys.authority.interfaces.dto.user.AuthUserSaveDTO;
@@ -44,7 +45,7 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
 
     @ApiOperation("获取用户信息")
     @GetMapping("/authUser/{id}")
-    public AuthUserDTO updateAuthUser(@PathVariable("id") Long id) {
+    public AuthUserDTO getAuthUser(@PathVariable("id") Long id) {
         return baseService.getAuthUser(id);
     }
 
@@ -60,9 +61,9 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
         return true;
     }
 
-    @ApiOperation("获取用户信息")
+    @ApiOperation("获取登录用户信息")
     @GetMapping("/currentUser")
-    public AuthUserInfo getCurrentUser(@ApiIgnore AuthUserInfo authUserInfo) {
-        return authUserInfo;
+    public LoginAuthUser getCurrentUser(@ApiIgnore AuthUserInfo authUserInfo) {
+        return baseService.getLoginAuthUser(authUserInfo.getId());
     }
 }

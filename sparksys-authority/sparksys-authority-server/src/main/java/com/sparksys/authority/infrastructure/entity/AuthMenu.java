@@ -24,6 +24,10 @@ public class AuthMenu extends TreeEntity<AuthMenu, Long> {
 
     private static final long serialVersionUID = -5664444970808472308L;
 
+    @ApiModelProperty(value = "code")
+    @TableField("code")
+    private String code;
+
     @ApiModelProperty(value = "描述")
     @TableField("describe_")
     private String describe;

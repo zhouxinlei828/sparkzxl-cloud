@@ -144,4 +144,9 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     public void deleteUserRelation(List<Long> ids) {
         authUserRepository.deleteUserRelation(ids);
     }
+
+    @Override
+    public LoginAuthUser getLoginAuthUser(Long id) {
+        return authUserRepository.getLoginAuthUser(id);
+    }
 }

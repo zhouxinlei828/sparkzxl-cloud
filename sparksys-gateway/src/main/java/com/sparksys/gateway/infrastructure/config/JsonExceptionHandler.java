@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
+import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.server.*;
@@ -25,10 +27,10 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
      * 获取异常属性
      */
     @Override
-    protected Map<String, Object> getErrorAttributes(ServerRequest request, boolean includeStackTrace) {
+    protected Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
         int code = HttpStatus.INTERNAL_SERVER_ERROR.value();
         Throwable error = super.getError(request);
-        if (error instanceof org.springframework.cloud.gateway.support.NotFoundException) {
+        if (error instanceof NotFoundException) {
             code = HttpStatus.NOT_FOUND.value();
         }
         return response(code, this.buildMessage(request, error));
@@ -43,19 +45,6 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
     protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
         return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
     }
-
-
-    /**
-     * 根据code获取对应的HttpStatus
-     *
-     * @param errorAttributes
-     * @return
-     */
-    @Override
-    protected int getHttpStatus(Map<String, Object> errorAttributes) {
-        return (int) errorAttributes.get("code");
-    }
-
     /**
      * 构建异常信息
      *

@@ -1,29 +1,22 @@
-package com.sparksys.authority.interfaces.dto.user;
+package com.sparksys.authority.infrastructure.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sparksys.database.entity.RemoteData;
-import com.sparksys.authority.infrastructure.entity.CoreOrg;
-import com.sparksys.authority.infrastructure.entity.CoreStation;
 import com.sparksys.authority.infrastructure.enums.SexEnum;
-import io.swagger.annotations.ApiModel;
+import com.sparksys.database.entity.RemoteData;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
 
 /**
- * description: 用户信息
+ * description: 登录用户信息
  *
- * @author zhouxinlei
- * @date 2020-05-24 12:24:03
+ * @author: zhouxinlei
+ * @date: 2020-08-17 11:43:38
  */
 @Data
-@Accessors(chain = true)
-@ApiModel(value = "AuthUserDTO查询对象", description = "AuthUserDTO查询对象")
-public class AuthUserDTO {
-
+public class LoginAuthUser {
 
     @ApiModelProperty(value = "id")
     private Long id;
@@ -36,7 +29,6 @@ public class AuthUserDTO {
 
     @ApiModelProperty(value = "组织")
     private RemoteData<Long, CoreOrg> org;
-
 
     @ApiModelProperty(value = "岗位")
     private RemoteData<Long, CoreStation> station;
@@ -72,18 +64,7 @@ public class AuthUserDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime lastLoginTime;
 
-    @ApiModelProperty(value = "创建人id")
-    private Long createUser;
+    private List<LoginRole> roles;
 
-    @ApiModelProperty(value = "创建时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "更新人id")
-    private Long updateUser;
-
-    @ApiModelProperty(value = "更新时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime updateTime;
 
 }

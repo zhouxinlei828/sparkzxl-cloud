@@ -1,11 +1,14 @@
 package com.sparksys.authority.infrastructure.convert;
 
 import com.sparksys.authority.infrastructure.entity.AuthRole;
+import com.sparksys.authority.infrastructure.entity.LoginRole;
 import com.sparksys.authority.interfaces.dto.role.AuthRoleDTO;
 import com.sparksys.authority.interfaces.dto.role.AuthRoleSaveDTO;
 import com.sparksys.authority.interfaces.dto.role.AuthRoleUpdateDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * description: AuthRole对象Convert
@@ -42,4 +45,11 @@ public interface AuthRoleConvert {
      */
     AuthRoleDTO convertAuthUserDTO(AuthRole authRole);
 
+    /**
+     * authRole转化为List<LoginRole>
+     *
+     * @param authRoles 角色
+     * @return List<LoginRole>
+     */
+    List<LoginRole> convertLoginRoles(List<AuthRole> authRoles);
 }

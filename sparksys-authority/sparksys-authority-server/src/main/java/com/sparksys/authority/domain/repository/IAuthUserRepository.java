@@ -1,6 +1,7 @@
 package com.sparksys.authority.domain.repository;
 
 import com.sparksys.authority.infrastructure.entity.AuthUser;
+import com.sparksys.authority.infrastructure.entity.LoginAuthUser;
 import com.sparksys.authority.infrastructure.entity.RoleResource;
 
 import java.util.List;
@@ -73,4 +74,12 @@ public interface IAuthUserRepository {
      * @param ids 用户ids
      */
     void deleteUserRelation(List<Long> ids);
+
+    /**
+     * 获取登录用户信息
+     *
+     * @param id 用户id
+     * @return LoginAuthUser
+     */
+    LoginAuthUser getLoginAuthUser(Long id);
 }

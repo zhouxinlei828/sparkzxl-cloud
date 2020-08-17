@@ -1,11 +1,8 @@
 package com.sparksys.authority.application.service;
 
+import com.sparksys.authority.infrastructure.entity.*;
 import com.sparksys.authority.interfaces.dto.user.AuthUserDTO;
 import com.sparksys.database.base.service.SuperCacheService;
-import com.sparksys.authority.infrastructure.entity.AuthUser;
-import com.sparksys.authority.infrastructure.entity.UserActivities;
-import com.sparksys.authority.infrastructure.entity.UserInfo;
-import com.sparksys.authority.infrastructure.entity.UserNotices;
 
 import java.util.List;
 import java.util.Set;
@@ -95,7 +92,15 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 删除用户关联信息
      *
-     * @param userId 用户id
+     * @param ids 用户id列表
      */
     void deleteUserRelation(List<Long> ids);
+
+    /**
+     * 查询登录用户信息
+     *
+     * @param id 用户id
+     * @return LoginAuthUser
+     */
+    LoginAuthUser getLoginAuthUser(Long id);
 }

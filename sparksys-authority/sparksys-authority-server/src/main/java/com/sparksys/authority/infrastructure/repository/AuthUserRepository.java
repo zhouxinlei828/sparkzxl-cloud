@@ -1,18 +1,23 @@
 package com.sparksys.authority.infrastructure.repository;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.sparksys.authority.infrastructure.entity.UserRole;
-import com.sparksys.authority.infrastructure.mapper.UserRoleMapper;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.sparksys.authority.infrastructure.convert.AuthRoleConvert;
+import com.sparksys.authority.infrastructure.convert.AuthUserConvert;
+import com.sparksys.authority.infrastructure.entity.*;
+import com.sparksys.authority.infrastructure.mapper.*;
 import com.sparksys.database.annonation.InjectionResult;
 import com.sparksys.authority.domain.repository.IAuthUserRepository;
-import com.sparksys.authority.infrastructure.entity.AuthUser;
-import com.sparksys.authority.infrastructure.entity.RoleResource;
-import com.sparksys.authority.infrastructure.mapper.AuthUserMapper;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * description：用户仓储层实现类
@@ -27,6 +32,14 @@ public class AuthUserRepository implements IAuthUserRepository {
     public AuthUserMapper authUserMapper;
     @Autowired
     private UserRoleMapper userRoleMapper;
+    @Autowired
+    private AuthRoleMapper authRoleMapper;
+    @Autowired
+    private RoleAuthorityMapper roleAuthorityMapper;
+    @Autowired
+    private AuthResourceMapper authResourceMapper;
+    @Autowired
+    private AuthMenuMapper authMenuMapper;
 
     @Override
     public AuthUser selectById(Long id) {
@@ -70,5 +83,55 @@ public class AuthUserRepository implements IAuthUserRepository {
     @Override
     public void deleteUserRelation(List<Long> ids) {
         userRoleMapper.delete(new LambdaUpdateWrapper<UserRole>().in(UserRole::getUserId, ids));
+    }
+
+    @Override
+    public LoginAuthUser getLoginAuthUser(Long id) {
+        AuthUser authUser = selectById(id);
+        LoginAuthUser loginAuthUser = AuthUserConvert.INSTANCE.convertLoginAuthUser(authUser);
+        List<Long> roleIds =
+                userRoleMapper.selectList(new LambdaUpdateWrapper<UserRole>().eq(UserRole::getUserId, id)).stream().map(UserRole::getRoleId)
+                        .collect(Collectors.toList());
+        List<RoleAuthority> roleAuthorities =
+                roleAuthorityMapper.selectList(new LambdaQueryWrapper<RoleAuthority>().in(RoleAuthority::getRoleId, roleIds));
+        List<Long> authorityIds = roleAuthorityMapper.selectList(new LambdaQueryWrapper<RoleAuthority>().in(RoleAuthority::getRoleId,
+                roleIds)).stream().filter(x -> "RESOURCE".equals(x.getAuthorityType()))
+                .map(RoleAuthority::getAuthorityId).collect(Collectors.toList());
+        Map<Long, Long> roleAuthorityIdMap =
+                roleAuthorities.stream().collect(Collectors.toMap(RoleAuthority::getAuthorityId, RoleAuthority::getRoleId));
+        List<AuthResource> resourceList = authResourceMapper.selectBatchIds(authorityIds);
+        List<LoginPermission> loginPermissionList = Lists.newArrayList();
+        Map<Long, List<LoginPermission>> loginPermissionMap = Maps.newHashMap();
+        if (CollectionUtils.isNotEmpty(resourceList)) {
+            resourceList.forEach(resource -> {
+                LoginPermission loginPermission = new LoginPermission();
+                loginPermission.setPermissionId(resource.getCode());
+                loginPermission.setPermissionName(resource.getName());
+                loginPermission.setRoleId(roleAuthorityIdMap.get(resource.getId()));
+                loginPermissionList.add(loginPermission);
+            });
+        }
+        List<Long> menuIds = roleAuthorityMapper.selectList(new LambdaQueryWrapper<RoleAuthority>().in(RoleAuthority::getRoleId,
+                roleIds)).stream().filter(x -> "MENU".equals(x.getAuthorityType()))
+                .map(RoleAuthority::getAuthorityId).collect(Collectors.toList());
+
+        List<AuthMenu> menuList = authMenuMapper.selectBatchIds(menuIds);
+        if (CollectionUtils.isNotEmpty(menuList)) {
+            menuList.forEach(menu -> {
+                LoginPermission loginPermission = new LoginPermission();
+                loginPermission.setPermissionId(menu.getCode());
+                loginPermission.setPermissionName(menu.getLabel());
+                loginPermission.setRoleId(roleAuthorityIdMap.get(menu.getId()));
+                loginPermissionList.add(loginPermission);
+            });
+        }
+
+        loginPermissionMap = loginPermissionList.stream().collect(Collectors.groupingBy(LoginPermission::getRoleId));
+        List<AuthRole> roleList = authRoleMapper.selectBatchIds(roleIds);
+        List<LoginRole> loginRoles = AuthRoleConvert.INSTANCE.convertLoginRoles(roleList);
+        Map<Long, List<LoginPermission>> finalLoginPermissionMap = loginPermissionMap;
+        loginRoles.forEach(x -> x.setPermissions(finalLoginPermissionMap.get(x.getId())));
+        loginAuthUser.setRoles(loginRoles);
+        return loginAuthUser;
     }
 }

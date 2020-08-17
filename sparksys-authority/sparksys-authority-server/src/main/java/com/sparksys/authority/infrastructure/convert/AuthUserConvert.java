@@ -1,6 +1,7 @@
 package com.sparksys.authority.infrastructure.convert;
 
 import com.github.pagehelper.PageInfo;
+import com.sparksys.authority.infrastructure.entity.LoginAuthUser;
 import com.sparksys.authority.interfaces.dto.user.*;
 import com.sparksys.core.entity.AuthUserInfo;
 import com.sparksys.authority.domain.bo.AuthUserBO;
@@ -92,5 +93,13 @@ public interface AuthUserConvert {
             @Mapping(source = "mobile", target = "phone")
     })
     UserInfo convertUserInfo(AuthUser authUser);
+
+    /**
+     * AuthUser转化为LoginAuthUser
+     *
+     * @param authUser
+     * @return LoginAuthUser
+     */
+    LoginAuthUser convertLoginAuthUser(AuthUser authUser);
 
 }
