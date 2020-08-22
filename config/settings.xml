@@ -1,62 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-  <pluginGroups/>
-  <proxies/>
-  <servers>
-    <server>
-      <!--maven的pom中可以根据这个id找到这个server节点的配置-->  
-		<id>harbor.en2hr.com:8084</id>
-		<username>zhouxinlei</username>
-		<password>Zxl298828</password>
-		<configuration>
-			<email>charles.zhou@farben.com.cn</email>
-		</configuration>
-    </server>
-	<server>
-		<id>maven-releases</id>
-		<username>admin</username>
-		<password>123456</password>
-    </server>
-	<server>
-        <id>maven-snapshots</id>
-        <username>admin</username>
-        <password>123456</password>
-    </server>
-  </servers>
-  <mirrors>
-    <mirror>
-        <id>alimaven</id>
-        <name>aliyun maven</name>
-        <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-        <mirrorOf>central</mirrorOf>
-	</mirror>
-	<mirror>
-		<id>repo1</id>
-		<name>repo1 maven</name>
-		<mirrorOf>central</mirrorOf>
-		<url>http://repo1.maven.org/maven2/</url>
-	</mirror>
-	<mirror>
-		<id>spring-milestones</id>
-		<name>Spring Milestones</name>
-		<mirrorOf>central</mirrorOf>
-		<url>https://repo.spring.io/libs-milestone</url>
-	</mirror>
-	<mirror>
-		<id>jboss-public-repository-group</id>
-		<name>JBoss Public Repository Group</name>
-		<mirrorOf>central</mirrorOf>
-		<url>http://repository.jboss.org/nexus/content/groups/public</url>
-	</mirror>
-	<mirror>
-		  <id>ibiblio</id>
-		  <name>Human Readable Name for this Mirror.</name>
-		  <mirrorOf>central</mirrorOf>
-		  <url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
-	</mirror>
-  </mirrors>
-  <profiles/>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	<pluginGroups/>
+	<proxies/>
+	<servers>
+		<server>
+			<!--maven的pom中可以根据这个id找到这个server节点的配置-->
+			<id>harbor.en2hr.com:8084</id>
+			<username>zhouxinlei</username>
+			<password>Zxl298828</password>
+			<configuration>
+				<email>charles.zhou@farben.com.cn</email>
+			</configuration>
+		</server>
+		<server>
+			<id>maven-releases</id>
+			<username>admin</username>
+			<password>farben123</password>
+		</server>
+		<server>
+			<id>maven-snapshots</id>
+			<username>admin</username>
+			<password>farben123</password>
+		</server>
+	</servers>
+	<mirrors>
+		<mirror>
+			<id>alimaven</id>
+			<name>aliyun maven</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<mirrorOf>central</mirrorOf>
+		</mirror>
+		<mirror>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<mirrorOf>central</mirrorOf>
+			<url>https://repo.spring.io/libs-milestone</url>
+		</mirror>
+		<mirror>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Repository Group</name>
+			<mirrorOf>central</mirrorOf>
+			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+		</mirror>
+	</mirrors>
+	<profiles/>
 </settings>
-
