@@ -10,18 +10,18 @@
 
     <properties>
         <sparksys-cloud.version>1.0</sparksys-cloud.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
+        <java.version>1.8</java.version>
         <!-- spring-cloud-->
         <spring-cloud-alibaba-dependencies.version>2.2.0.RELEASE</spring-cloud-alibaba-dependencies.version>
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
         <spring-cloud-dependencies.version>Hoxton.SR5</spring-cloud-dependencies.version>
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
 
-        <sparksys.version>1.1.2.RELEASE</sparksys.version>
+        <sparksys.version>1.0-SNAPSHOT</sparksys.version>
 
         <!-- maven -->
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
