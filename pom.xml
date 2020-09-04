@@ -9,12 +9,17 @@
     <packaging>pom</packaging>
 
     <properties>
-        <sparksys-cloud.version>1.0</sparksys-cloud.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <!-- maven -->
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <jib-maven-plugin.version>2.5.0</jib-maven-plugin.version>
+        <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
         <!-- spring-cloud-->
         <spring-cloud-alibaba-dependencies.version>2.2.0.RELEASE</spring-cloud-alibaba-dependencies.version>
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
@@ -23,12 +28,6 @@
 
         <sparksys.version>1.2.0.RELEASE</sparksys.version>
 
-        <!-- maven -->
-        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-        <jib-maven-plugin.version>2.5.0</jib-maven-plugin.version>
-        <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
-        <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
 
         <!-- datasource-->
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
@@ -176,7 +175,7 @@
             <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-file-api</artifactId>
-                <version>${sparksys-cloud.version}</version>
+                <version>${project.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.projectlombok</groupId>
