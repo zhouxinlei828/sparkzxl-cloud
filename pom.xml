@@ -21,7 +21,7 @@
         <spring-cloud-dependencies.version>Hoxton.SR5</spring-cloud-dependencies.version>
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
 
-        <sparksys.version>1.0-SNAPSHOT</sparksys.version>
+        <sparksys.version>1.2.0.RELEASE</sparksys.version>
 
         <!-- maven -->
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -121,6 +121,11 @@
                 <version>${spring-boot-admin.version}</version>
             </dependency>
             <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.sparksys</groupId>
                 <artifactId>sparksys-commons</artifactId>
                 <version>${sparksys.version}</version>
@@ -130,7 +135,7 @@
             <!-- sparksys-commons 组件-->
             <dependency>
                 <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-cloud-starter</artifactId>
+                <artifactId>sparksys-distributed-cloud-starter</artifactId>
                 <version>${sparksys.version}</version>
             </dependency>
             <dependency>

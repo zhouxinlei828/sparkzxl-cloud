@@ -13,8 +13,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+        <!-- Micrometer 对 Prometheus 的支持 -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.sparksys</groupId>
-            <artifactId>sparksys-cloud-starter</artifactId>
+            <artifactId>sparksys-distributed-cloud-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sparksys</groupId>
