@@ -1,4 +1,4 @@
-package com.sparksys.gateway.infrastructure.config;
+package com.sparksys.gateway.infrastructure.handler;
 
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;

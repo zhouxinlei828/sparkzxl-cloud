@@ -1,4 +1,4 @@
-package com.sparksys.gateway.infrastructure.config;
+package com.sparksys.gateway.interfaces.controller;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import springfox.documentation.swagger.web.UiConfigurationBuilder;
  * @date  2020-05-24 12:16:41
  */
 @RestController
-public class SwaggerHandler {
+public class SwaggerHandlerController {
 
     private final SwaggerResourcesProvider swaggerResources;
     @Autowired(required = false)
@@ -29,7 +29,7 @@ public class SwaggerHandler {
     private UiConfiguration uiConfiguration;
 
     @Autowired
-    public SwaggerHandler(SwaggerResourcesProvider swaggerResources) {
+    public SwaggerHandlerController(SwaggerResourcesProvider swaggerResources) {
         this.swaggerResources = swaggerResources;
     }
 

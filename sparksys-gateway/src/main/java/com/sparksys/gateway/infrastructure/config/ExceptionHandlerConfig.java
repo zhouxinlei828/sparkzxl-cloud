@@ -1,5 +1,6 @@
 package com.sparksys.gateway.infrastructure.config;
 
+import com.sparksys.gateway.infrastructure.handler.JsonExceptionHandler;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -25,7 +26,7 @@ import java.util.List;
  */
 @Configuration
 @EnableConfigurationProperties({ServerProperties.class, ResourceProperties.class})
-public class ExceptionHandlerConfiguration {
+public class ExceptionHandlerConfig {
 
     private final ServerProperties serverProperties;
 
@@ -37,11 +38,11 @@ public class ExceptionHandlerConfiguration {
 
     private final ServerCodecConfigurer serverCodecConfigurer;
 
-    public ExceptionHandlerConfiguration(ServerProperties serverProperties,
-                                         ResourceProperties resourceProperties,
-                                         ObjectProvider<List<ViewResolver>> viewResolversProvider,
-                                         ServerCodecConfigurer serverCodecConfigurer,
-                                         ApplicationContext applicationContext) {
+    public ExceptionHandlerConfig(ServerProperties serverProperties,
+                                  ResourceProperties resourceProperties,
+                                  ObjectProvider<List<ViewResolver>> viewResolversProvider,
+                                  ServerCodecConfigurer serverCodecConfigurer,
+                                  ApplicationContext applicationContext) {
         this.serverProperties = serverProperties;
         this.applicationContext = applicationContext;
         this.resourceProperties = resourceProperties;

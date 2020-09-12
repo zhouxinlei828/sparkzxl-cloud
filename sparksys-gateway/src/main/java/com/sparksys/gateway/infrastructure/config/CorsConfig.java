@@ -35,7 +35,7 @@ import reactor.core.publisher.Mono;
  * @date 2020-05-24 12:16:27
  */
 @Configuration
-public class CorsConfiguration {
+public class CorsConfig {
     private static final String ALL = "*";
     private static final String MAX_AGE = "18000L";
 

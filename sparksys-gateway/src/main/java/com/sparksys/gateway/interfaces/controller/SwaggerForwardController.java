@@ -14,7 +14,7 @@ import org.springframework.web.reactive.result.view.Rendering;
  * @date 2020-05-24 12:18:02
  */
 @Controller
-public class SwaggerController {
+public class SwaggerForwardController {
 
     @Autowired
     private ServerProperties serverProperties;
