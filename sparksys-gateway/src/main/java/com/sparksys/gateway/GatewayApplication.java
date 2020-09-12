@@ -1,9 +1,7 @@
 package com.sparksys.gateway;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * description: 网关启动类
@@ -12,8 +10,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @date 2020-05-24 12:18:18
  */
 @SpringBootApplication(scanBasePackages = {"com.sparksys.gateway"})
-@Slf4j
-@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
 public class GatewayApplication {
 
     public static void main(String[] args) {
