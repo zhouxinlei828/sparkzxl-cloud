@@ -30,7 +30,7 @@
 
 
         <!-- datasource-->
-        <mybatis-plus.version>3.3.2</mybatis-plus.version>
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <freemarker.version>2.3.28</freemarker.version>
 
         <aliyun-sdk-oss.version>3.8.1</aliyun-sdk-oss.version>
