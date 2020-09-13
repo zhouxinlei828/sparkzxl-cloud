@@ -5,7 +5,7 @@ import com.nimbusds.jose.JWSObject;
 import com.github.sparkzxl.core.base.result.ApiResult;
 import com.github.sparkzxl.core.constant.BaseContextConstant;
 import com.github.sparkzxl.core.support.ResponseResultStatus;
-import com.github.sparkzxl.oauth.resource.utils.WebFluxUtils;
+import com.github.sparkzxl.oauth.utils.WebFluxUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

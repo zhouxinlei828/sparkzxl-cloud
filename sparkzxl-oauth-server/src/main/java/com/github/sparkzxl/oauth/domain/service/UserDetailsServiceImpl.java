@@ -2,7 +2,7 @@ package com.github.sparkzxl.oauth.domain.service;
 
 import com.github.sparkzxl.core.support.ResponseResultStatus;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
-import com.github.sparkzxl.oauth.server.entity.AuthUserDetail;
+import com.github.sparkzxl.oauth.entity.AuthUserDetail;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

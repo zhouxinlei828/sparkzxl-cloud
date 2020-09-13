@@ -1,7 +1,7 @@
 package com.github.sparkzxl.oauth.application.service;
 
 import com.github.sparkzxl.database.base.service.SuperCacheService;
-import com.github.sparkzxl.oauth.server.entity.AuthUserDetail;
+import com.github.sparkzxl.oauth.entity.AuthUserDetail;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
 
 /**

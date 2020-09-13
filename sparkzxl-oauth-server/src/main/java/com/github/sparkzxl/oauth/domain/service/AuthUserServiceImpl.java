@@ -3,7 +3,7 @@ package com.github.sparkzxl.oauth.domain.service;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
-import com.github.sparkzxl.oauth.server.entity.AuthUserDetail;
+import com.github.sparkzxl.oauth.entity.AuthUserDetail;
 import com.github.sparkzxl.oauth.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.oauth.infrastructure.entity.*;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;

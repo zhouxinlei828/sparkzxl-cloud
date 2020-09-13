@@ -2,8 +2,8 @@ package com.github.sparkzxl.oauth.application.event.listener;
 
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.github.sparkzxl.oauth.application.service.ILoginLogService;
-import com.github.sparkzxl.oauth.server.event.LoginEvent;
-import com.github.sparkzxl.oauth.server.entity.LoginStatus;
+import com.github.sparkzxl.oauth.event.LoginEvent;
+import com.github.sparkzxl.oauth.entity.LoginStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;

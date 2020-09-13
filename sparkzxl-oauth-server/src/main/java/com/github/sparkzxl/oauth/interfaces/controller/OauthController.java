@@ -1,8 +1,8 @@
 package com.github.sparkzxl.oauth.interfaces.controller;
 
 import com.github.sparkzxl.log.annotation.WebLog;
-import com.github.sparkzxl.oauth.server.entity.AuthorizationRequest;
-import com.github.sparkzxl.oauth.server.service.OauthService;
+import com.github.sparkzxl.oauth.entity.AuthorizationRequest;
+import com.github.sparkzxl.oauth.service.OauthService;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
