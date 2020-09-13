@@ -7,7 +7,7 @@ server:
     always-set-keep-alive: true
 spring:
   application:
-    name: sparkzxl-file
+    name: sparkzxl-file-server
   lifecycle:
     timeout-per-shutdown-phase: 30s
   cloud:

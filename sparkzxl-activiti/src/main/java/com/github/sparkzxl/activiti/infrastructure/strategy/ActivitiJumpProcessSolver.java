@@ -13,7 +13,7 @@ import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
 import com.github.sparkzxl.activiti.infrastructure.enums.ProcessStatusEnum;
 import com.github.sparkzxl.activiti.infrastructure.enums.TaskStatusEnum;
 import com.github.sparkzxl.activiti.infrastructure.utils.ActivitiUtils;
-import com.github.sparkzxl.core.support.SparkSysExceptionAssert;
+import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.*;
 import org.activiti.bpmn.model.Process;
@@ -72,7 +72,7 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
         // 获取目标节点task定义key
         ProcessTaskRule actRuTaskRule = processTaskRuleService.findActRuTaskRule(processDefinitionKey, currentTask.getTaskDefinitionKey(), actType);
         if (ObjectUtils.isEmpty(actRuTaskRule)) {
-            SparkSysExceptionAssert.businessFail("请设置流程跳转规则");
+            SparkZxlExceptionAssert.businessFail("请设置流程跳转规则");
         }
         String taskDefKey = actRuTaskRule.getTaskDefKey();
         String taskName = actRuTaskRule.getTaskName();

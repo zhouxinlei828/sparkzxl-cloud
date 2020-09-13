@@ -5,8 +5,6 @@ import com.github.sparkzxl.file.dto.FileDTO;
 import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import com.github.sparkzxl.file.application.service.IFileService;
-import com.github.sparkzxl.file.interfaces.dto.OssPolicyResult;
-import com.github.sparkzxl.file.interfaces.dto.OssCallbackDTO;
 import com.github.sparkzxl.file.interfaces.dto.FileMaterialDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,7 +31,7 @@ public class FileController implements FileApi {
     @ApiOperation("文件上传")
     @ResponseResult
     @PostMapping("/file/upload")
-    public FileMaterialDTO upload(@RequestParam("file") MultipartFile multipartFile) {
+    public FileMaterialDTO upload(@RequestParam("file") MultipartFile multipartFile) throws Exception {
         return fileService.upload(multipartFile);
     }
 
@@ -46,22 +44,8 @@ public class FileController implements FileApi {
 
     @Override
     @ApiOperation("转换html文件")
-    public FileDTO getHtml(@RequestBody FileDTO fileDTO) {
+    public FileDTO getHtml(@RequestBody FileDTO fileDTO) throws Exception {
         return fileService.getHtml(fileDTO);
-    }
-
-    @ApiOperation("获取oss配置信息")
-    @ResponseResult
-    @GetMapping("/file/ossPolicy")
-    public OssPolicyResult ossPolicy() {
-        return fileService.policy();
-    }
-
-    @ApiOperation("文件上传回调")
-    @ResponseResult
-    @PostMapping("/file/callback")
-    public FileMaterialDTO callback(@RequestBody OssCallbackDTO ossCallbackDTO) {
-        return fileService.callback(ossCallbackDTO);
     }
 
     @Override

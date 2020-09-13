@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.sparkzxl.activiti.application.service.process.IProcessDetailService;
 import com.github.sparkzxl.activiti.application.service.model.IModelService;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessDetail;
-import com.github.sparkzxl.core.support.SparkSysExceptionAssert;
+import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.engine.RepositoryService;
@@ -68,7 +68,7 @@ public class ModelServiceImpl implements IModelService {
                 modelNode.set("model", editorJsonNode);
             } catch (Exception e) {
                 log.error("Error creating model JSON {}", e.getMessage());
-                SparkSysExceptionAssert.businessFail("Error creating model JSON");
+                SparkZxlExceptionAssert.businessFail("Error creating model JSON");
             }
         }
         return modelNode;
@@ -99,7 +99,7 @@ public class ModelServiceImpl implements IModelService {
             outStream.close();
         } catch (Exception e) {
             log.error("Error saving model", e);
-            SparkSysExceptionAssert.businessFail("Error saving model");
+            SparkZxlExceptionAssert.businessFail("Error saving model");
         }
         return true;
     }
@@ -153,7 +153,7 @@ public class ModelServiceImpl implements IModelService {
             return IOUtils.toString(stencilsetStream, StandardCharsets.UTF_8);
         } catch (Exception e) {
             log.error("Error while loading stencil set", e);
-            SparkSysExceptionAssert.businessFail("Error while loading stencil set");
+            SparkZxlExceptionAssert.businessFail("Error while loading stencil set");
         }
         return null;
     }

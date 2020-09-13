@@ -7,7 +7,7 @@ server:
     always-set-keep-alive: true
 spring:
   application:
-    name: sparkzxl-file
+    name: sparkzxl-file-server
   lifecycle:
     timeout-per-shutdown-phase: 30s
   cloud:
@@ -22,6 +22,9 @@ spring:
         prefix: ${spring.application.name}
         shared-configs:
           - dataId: actuator.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+          - dataId: redis.yaml
             group: DEFAULT_GROUP
             refresh: false
         enable-remote-sync-config: true

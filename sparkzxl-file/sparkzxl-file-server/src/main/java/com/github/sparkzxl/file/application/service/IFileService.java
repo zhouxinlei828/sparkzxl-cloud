@@ -2,10 +2,9 @@ package com.github.sparkzxl.file.application.service;
 
 import com.github.sparkzxl.core.support.BusinessException;
 import com.github.sparkzxl.file.dto.FileDTO;
-import com.github.sparkzxl.file.interfaces.dto.OssCallbackDTO;
-import com.github.sparkzxl.file.interfaces.dto.OssPolicyResult;
 import com.github.sparkzxl.file.interfaces.dto.FileMaterialDTO;
 import org.springframework.web.multipart.MultipartFile;
+
 
 /**
  * description: 文件上传服务
@@ -22,7 +21,7 @@ public interface IFileService {
      * @return
      * @throws Exception
      */
-    FileMaterialDTO upload(MultipartFile multipartFile);
+    FileMaterialDTO upload(MultipartFile multipartFile) throws Exception;
 
     /**
      * 删除文件
@@ -34,28 +33,12 @@ public interface IFileService {
     boolean deleteFile(String objectName);
 
     /**
-     * 文件上传回调
-     *
-     * @param ossCallbackDTO 回调参数
-     * @return
-     */
-    FileMaterialDTO callback(OssCallbackDTO ossCallbackDTO);
-
-    /**
      * 转换html文件
      *
      * @param fileDTO 文件入参
      * @return
      * @throws Exception
      */
-    FileDTO getHtml(FileDTO fileDTO);
+    FileDTO getHtml(FileDTO fileDTO) throws Exception;
 
-
-
-    /**
-     * 获取oss配置信息
-     *
-     * @return
-     */
-    OssPolicyResult policy();
 }

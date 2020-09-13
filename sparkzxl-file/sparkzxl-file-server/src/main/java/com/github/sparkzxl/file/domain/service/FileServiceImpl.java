@@ -1,23 +1,23 @@
 package com.github.sparkzxl.file.domain.service;
 
 import cn.hutool.core.io.FileUtil;
+import com.github.sparkzxl.core.constant.FileConstant;
 import com.github.sparkzxl.core.utils.Mht2HtmlUtil;
 import com.github.sparkzxl.file.application.service.IFileService;
 import com.github.sparkzxl.file.dto.FileDTO;
-import com.github.sparkzxl.file.interfaces.dto.OssCallbackDTO;
-import com.github.sparkzxl.file.interfaces.dto.OssPolicyResult;
 import com.github.sparkzxl.file.infrastructure.entity.FileMaterial;
-import com.github.sparkzxl.file.infrastructure.entity.UploadResult;
 import com.github.sparkzxl.file.domain.repository.IFileMaterialRepository;
 import com.github.sparkzxl.file.infrastructure.convert.FileMaterialConvert;
-import com.github.sparkzxl.file.infrastructure.upload.AliOssFileHandler;
 import com.github.sparkzxl.file.interfaces.dto.FileMaterialDTO;
+import com.github.sparkzxl.oss.service.OssTemplate;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.io.BufferedInputStream;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -28,26 +28,34 @@ import java.util.Objects;
  */
 @Service
 @Slf4j
+@AllArgsConstructor
 public class FileServiceImpl implements IFileService {
 
 
-    private final AliOssFileHandler aliOssFileHandler;
     private final IFileMaterialRepository fileMaterialRepository;
-
-    public FileServiceImpl(AliOssFileHandler aliOssFileHandler, IFileMaterialRepository fileMaterialRepository) {
-        this.aliOssFileHandler = aliOssFileHandler;
-        this.fileMaterialRepository = fileMaterialRepository;
-    }
+    private final OssTemplate ossTemplate;
 
     @Override
-    public FileMaterialDTO upload(MultipartFile multipartFile) {
+    public FileMaterialDTO upload(MultipartFile multipartFile) throws Exception {
         FileMaterial fileMaterial;
-        String fileName = FileUtil.mainName(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        String originalFilename = multipartFile.getOriginalFilename();
+        String fileName = FileUtil.mainName(Objects.requireNonNull(originalFilename));
+        String extension = FileUtil.extName(originalFilename);
         fileMaterial = fileMaterialRepository.selectByFileName(fileName);
         if (ObjectUtils.isEmpty(fileMaterial)) {
+            fileMaterial = new FileMaterial();
+            String objectName = "images".concat(FileConstant.URL_SEPARATOR).concat(originalFilename);
             // 上传到阿里云
-            UploadResult uploadResult = aliOssFileHandler.upload(multipartFile);
-            fileMaterial = uploadResult.builder(uploadResult);
+            ossTemplate.putObject("sparkzxl",
+                    objectName,
+                    multipartFile.getInputStream());
+            fileMaterial.setFileName(fileName);
+            fileMaterial.setSuffix(extension);
+            fileMaterial.setFilePath(ossTemplate.getObjectURL("sparkzxl", objectName));
+            fileMaterial.setSize((double) multipartFile.getSize());
+            fileMaterial.setContentType(multipartFile.getContentType());
+            fileMaterial.setUid(String.valueOf(System.currentTimeMillis()));
+            fileMaterial.setCreateTime(LocalDateTime.now());
             boolean result = fileMaterialRepository.saveFileMaterial(fileMaterial);
             log.info("文件上传结果 result is {}", result);
         }
@@ -56,38 +64,23 @@ public class FileServiceImpl implements IFileService {
 
     @Override
     public boolean deleteFile(String fileName) {
-        aliOssFileHandler.delete(fileName);
+        ossTemplate.removeObject("sparkzxl", fileName);
         return fileMaterialRepository.deleteFile(fileName);
     }
 
     @Override
-    public FileMaterialDTO callback(OssCallbackDTO ossCallbackDTO) {
-        FileMaterial fileMaterialDO;
-        fileMaterialDO = fileMaterialRepository.selectByFilePath(ossCallbackDTO.getFilePath());
-        if (ObjectUtils.isEmpty(fileMaterialDO)) {
-            fileMaterialDO = ossCallbackDTO.builder(ossCallbackDTO);
-            boolean result = fileMaterialRepository.saveFileMaterial(fileMaterialDO);
-            log.info("文件上传结果 result is {}", result);
-        }
-        return FileMaterialConvert.INSTANCE.convertFileMaterialDTO(fileMaterialDO);
-    }
-
-    @Override
-    public FileDTO getHtml(FileDTO fileDTO) {
+    public FileDTO getHtml(FileDTO fileDTO) throws Exception {
         String fileName = FileUtil.getName(fileDTO.getFilePath());
         String baseName = FileUtil.mainName(fileName);
         String tempFilePath = "/data/" + baseName + ".html";
         Mht2HtmlUtil.mht2html(fileDTO.getFilePath(), tempFilePath);
-        File file = FileUtil.file(tempFilePath);
-        UploadResult uploadResult = aliOssFileHandler.upload(file);
+        BufferedInputStream bufferedInputStream = FileUtil.getInputStream(tempFilePath);
+        String objectName = "images".concat(FileConstant.URL_SEPARATOR).concat(fileName);
+        ossTemplate.putObject("sparkzxl",
+                objectName,
+                bufferedInputStream);
         FileDTO outDto = new FileDTO();
-        outDto.setFilePath(uploadResult.getFilePath());
-        file.delete();
+        outDto.setFilePath(ossTemplate.getObjectURL("sparkzxl", objectName));
         return outDto;
-    }
-
-    @Override
-    public OssPolicyResult policy() {
-        return aliOssFileHandler.policy();
     }
 }

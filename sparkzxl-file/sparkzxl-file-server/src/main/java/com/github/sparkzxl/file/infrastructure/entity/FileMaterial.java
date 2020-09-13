@@ -1,5 +1,6 @@
 package com.github.sparkzxl.file.infrastructure.entity;
 
+import com.amazonaws.services.s3.model.PutObjectResult;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -59,6 +60,5 @@ public class FileMaterial implements Serializable {
     @TableField("create_time")
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
-
 
 }

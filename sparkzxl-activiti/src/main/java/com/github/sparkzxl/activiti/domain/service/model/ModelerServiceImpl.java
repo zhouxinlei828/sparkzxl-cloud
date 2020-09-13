@@ -10,7 +10,7 @@ import com.github.sparkzxl.activiti.application.service.act.IProcessRepositorySe
 import com.github.sparkzxl.activiti.application.service.process.IProcessTaskRuleService;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessDetail;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessTaskRule;
-import com.github.sparkzxl.core.support.SparkSysExceptionAssert;
+import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import com.github.sparkzxl.core.utils.ListUtils;
 import com.github.sparkzxl.database.entity.SuperEntity;
 import lombok.extern.slf4j.Slf4j;
@@ -143,7 +143,7 @@ public class ModelerServiceImpl implements IModelerService {
             try {
                 ProcessInstance pi = runtimeService.createProcessInstanceQuery().processDefinitionKey(modelData.getKey()).singleResult();
                 if (null != pi) {
-                    SparkSysExceptionAssert.businessFail("该流程正在运作，请勿删除");
+                    SparkZxlExceptionAssert.businessFail("该流程正在运作，请勿删除");
                 }
                 if (StringUtils.isNotEmpty(modelData.getDeploymentId())) {
                     repositoryService.deleteDeployment(modelData.getDeploymentId());

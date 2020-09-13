@@ -30,7 +30,7 @@ public interface FileApi {
      * @return
      */
     @PostMapping("/html")
-    FileDTO getHtml(@RequestBody FileDTO fileDTO);
+    FileDTO getHtml(@RequestBody FileDTO fileDTO) throws Exception;
 
     /**
      * @return String
