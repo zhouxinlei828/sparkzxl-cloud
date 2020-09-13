@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.sparksys</groupId>
-    <artifactId>sparksys-cloud</artifactId>
+    <groupId>com.github.sparkzxl</groupId>
+    <artifactId>sparkzxl-cloud</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
 
@@ -26,7 +26,7 @@
         <spring-cloud-dependencies.version>Hoxton.SR7</spring-cloud-dependencies.version>
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
 
-        <sparksys.version>1.2.0.RELEASE</sparksys.version>
+        <sparkzxl-component.version>1.2.0.RELEASE</sparkzxl-component.version>
 
 
         <!-- datasource-->
@@ -46,15 +46,15 @@
     </properties>
 
     <modules>
-        <module>sparksys-activiti</module>
-        <module>sparksys-admin-server</module>
-        <module>sparksys-authority</module>
-        <module>sparksys-code-generator</module>
-        <module>sparksys-file</module>
-        <module>sparksys-gateway</module>
-        <module>sparksys-oauth-server</module>
-        <module>sparksys-sharding-demo</module>
-        <module>sparksys-test-demo</module>
+        <module>sparkzxl-activiti</module>
+        <module>sparkzxl-admin-server</module>
+        <module>sparkzxl-authority</module>
+        <module>sparkzxl-code-generator</module>
+        <module>sparkzxl-file</module>
+        <module>sparkzxl-gateway</module>
+        <module>sparkzxl-oauth-server</module>
+        <module>sparkzxl-sharding-demo</module>
+        <module>sparkzxl-test-demo</module>
     </modules>
 
     <repositories>
@@ -124,57 +124,57 @@
                 <artifactId>spring-boot-admin-starter-client</artifactId>
                 <version>${spring-boot-admin.version}</version>
             </dependency>
+            <!-- sparkzxl-commons 组件-->
             <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-commons</artifactId>
-                <version>${sparksys.version}</version>
+                <groupId>com.github.sparkzxl</groupId>
+                <artifactId>sparkzxl-component</artifactId>
+                <version>${sparkzxl-component.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- sparksys-commons 组件-->
             <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-distributed-cloud-starter</artifactId>
-                <version>${sparksys.version}</version>
+                <groupId>com.github.sparkzxl</groupId>
+                <artifactId>sparkzxl-distributed-cloud-starter</artifactId>
+                <version>${sparkzxl-component.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-boot-starter</artifactId>
-                <version>${sparksys.version}</version>
+                <groupId>com.github.sparkzxl</groupId>
+                <artifactId>sparkzxl-boot-starter</artifactId>
+                <version>${sparkzxl-component.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-cache-starter</artifactId>
-                <version>${sparksys.version}</version>
+                <groupId>com.github.sparkzxl</groupId>
+                <artifactId>sparkzxl-cache-starter</artifactId>
+                <version>${sparkzxl-component.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-core</artifactId>
-                <version>${sparksys.version}</version>
+                <groupId>com.github.sparkzxl</groupId>
+                <artifactId>sparkzxl-core</artifactId>
+                <version>${sparkzxl-component.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-oauth2-server-starter</artifactId>
-                <version>${sparksys.version}</version>
+                <groupId>com.github.sparkzxl</groupId>
+                <artifactId>sparkzxl-oauth2-server-starter</artifactId>
+                <version>${sparkzxl-component.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-oauth2-resource-starter</artifactId>
-                <version>${sparksys.version}</version>
+                <groupId>com.github.sparkzxl</groupId>
+                <artifactId>sparkzxl-oauth2-resource-starter</artifactId>
+                <version>${sparkzxl-component.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-security-starter</artifactId>
-                <version>${sparksys.version}</version>
+                <groupId>com.github.sparkzxl</groupId>
+                <artifactId>sparkzxl-security-starter</artifactId>
+                <version>${sparkzxl-component.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-user-starter</artifactId>
-                <version>${sparksys.version}</version>
+                <groupId>com.github.sparkzxl</groupId>
+                <artifactId>sparkzxl-user-starter</artifactId>
+                <version>${sparkzxl-component.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sparksys</groupId>
-                <artifactId>sparksys-file-api</artifactId>
+                <groupId>com.github.sparkzxl</groupId>
+                <artifactId>sparkzxl-file-api</artifactId>
                 <version>${project.version}</version>
                 <exclusions>
                     <exclusion>

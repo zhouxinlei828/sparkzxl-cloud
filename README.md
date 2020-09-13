@@ -1,4 +1,4 @@
-# sparksys-cloud
+# sparkzxl-cloud
 ## spring cloud 项目基础架构组件
 **采用spring cloud基本组件以及spring boot组件，对常见组件进行封装成业务开发组件，使用DDD领域驱动模型架构，构建分布式脚手架，减少不必要的环境的搭建，开箱即用，已有组件有授权登录，用户管理，网关，监控组件的通用集成**
 
@@ -6,15 +6,15 @@
 > 主要是统一了对外接口的api访问格式，web模块进行了封装，基于DDD领域驱动模型设计代码，具体落地实施，对常用的core包进行二次封装，简单易用，elasticsearch，mybatis组件。集成了oauth2，redis多级缓存的构建，分布式锁的封装等等
 
 ```text
-sparksys-cloud
-├── sparksys-activiti       	                  -- activiti微服务
-├── sparksys-admin-server                         -- admin监控微服务
-├── sparksys-authorization                        -- 用户微服务
-├── sparksys-code-generator                       -- 代码生成工具
-├── sparksys-file                                 -- 文件微服务
-├── sparksys-gateway                              -- 网关微服务
-├── sparksys-oauth-server                         -- 授权微服务
-├── sparksys-sharding-demo                        -- 分库分表示例微服务
+sparkzxl-cloud
+├── sparkzxl-activiti       	                  -- activiti微服务
+├── sparkzxl-admin-server                         -- admin监控微服务
+├── sparkzxl-authorization                        -- 用户微服务
+├── sparkzxl-code-generator                       -- 代码生成工具
+├── sparkzxl-file                                 -- 文件微服务
+├── sparkzxl-gateway                              -- 网关微服务
+├── sparkzxl-oauth-server                         -- 授权微服务
+├── sparkzxl-sharding-demo                        -- 分库分表示例微服务
 ```
 
 ### 分布式系统架构

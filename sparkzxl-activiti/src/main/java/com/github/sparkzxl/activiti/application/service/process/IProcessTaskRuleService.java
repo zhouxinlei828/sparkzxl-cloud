@@ -1,0 +1,53 @@
+package com.github.sparkzxl.activiti.application.service.process;
+
+import com.github.sparkzxl.activiti.infrastructure.entity.ProcessTaskRule;
+import com.github.sparkzxl.activiti.interfaces.dto.process.ProcessActionDTO;
+import com.github.sparkzxl.activiti.interfaces.dto.process.TaskRuleSaveDTO;
+import com.github.sparkzxl.database.base.service.SuperCacheService;
+
+import java.util.List;
+
+/**
+ * description: 流程跳转控制 服务类
+ *
+ * @author: zhouxinlei
+ * @date: 2020-07-17 13:20:37
+ */
+public interface IProcessTaskRuleService extends SuperCacheService<ProcessTaskRule> {
+
+
+    /**
+     * 查询任务流程控制规则
+     *
+     * @param processDefinitionKey 流程定义key
+     * @param sourceTaskDefKey     源任务定义key
+     * @param actType              流程类型
+     * @return ProcessTaskRule
+     */
+    ProcessTaskRule findActRuTaskRule(String processDefinitionKey, String sourceTaskDefKey, Integer actType);
+
+    /**
+     * 保存流程跳转规则
+     *
+     * @param taskRuleSaveDTO 流程跳转规则保存实体类
+     * @return boolean
+     */
+    boolean saveProcessTaskRule(TaskRuleSaveDTO taskRuleSaveDTO);
+
+    /**
+     * 查询流程跳转规则
+     *
+     * @param processId  流程定义key
+     * @param taskDefKey 任务定义key
+     * @return List<ProcessTaskRule>
+     */
+    List<ProcessTaskRule> getProcessTaskRule(String processId, String taskDefKey);
+
+    /**
+     * 获取流程动作类型
+     *
+     * @return List<ProcessActionDTO>
+     */
+    List<ProcessActionDTO> getProcessAction();
+
+}
