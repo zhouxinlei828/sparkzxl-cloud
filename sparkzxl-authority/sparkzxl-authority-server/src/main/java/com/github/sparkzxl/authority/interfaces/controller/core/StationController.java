@@ -42,14 +42,14 @@ public class StationController {
 
     @ApiOperation("新增岗位")
     @PostMapping("/station")
-    public boolean saveCoreStation(@ApiIgnore AuthUserInfo authUserInfo,
+    public boolean saveCoreStation(@ApiIgnore AuthUserInfo<Long> authUserInfo,
                                    @Validated @RequestBody StationSaveDTO stationSaveDTO) {
         return stationService.saveCoreStation(authUserInfo.getId(), stationSaveDTO);
     }
 
     @ApiOperation("修改岗位")
     @PutMapping("/station")
-    public boolean updateCoreStation(@ApiIgnore AuthUserInfo authUserInfo,
+    public boolean updateCoreStation(@ApiIgnore AuthUserInfo<Long> authUserInfo,
                                      @Validated @RequestBody StationUpdateDTO stationUpdateDTO) {
         return stationService.updateCoreStation(authUserInfo.getId(), stationUpdateDTO);
     }

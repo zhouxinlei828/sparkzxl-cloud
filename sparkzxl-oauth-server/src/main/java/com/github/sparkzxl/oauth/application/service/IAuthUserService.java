@@ -55,5 +55,5 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * @param username 用户账户
      * @return
      */
-    AuthUserInfo getAuthUserInfo(String username);
+    AuthUserInfo<Long> getAuthUserInfo(String username);
 }

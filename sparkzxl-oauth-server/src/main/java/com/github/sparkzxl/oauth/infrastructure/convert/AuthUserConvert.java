@@ -22,5 +22,5 @@ public interface AuthUserConvert {
      * @param authUser
      * @return AuthUserInfo
      */
-    AuthUserInfo convertAuthUserInfo(AuthUser authUser);
+    AuthUserInfo<Long> convertAuthUserInfo(AuthUser authUser);
 }

@@ -77,10 +77,10 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     }
 
     @Override
-    public AuthUserInfo getAuthUserInfo(String username) {
+    public AuthUserInfo<Long> getAuthUserInfo(String username) {
         AuthUser authUser = authUserRepository.selectByAccount(username);
         if (ObjectUtils.isNotEmpty(authUser)) {
-            AuthUserInfo authUserInfo = AuthUserConvert.INSTANCE.convertAuthUserInfo(authUser);
+            AuthUserInfo<Long> authUserInfo = AuthUserConvert.INSTANCE.convertAuthUserInfo(authUser);
             authUserInfo.setExtraInfo(JSONUtil.toJsonStr(authUser));
             return authUserInfo;
         }

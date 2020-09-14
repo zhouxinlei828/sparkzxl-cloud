@@ -30,7 +30,7 @@ public class LoginListener {
     @Async
     @EventListener({LoginEvent.class})
     public void saveSysLog(LoginEvent event) {
-        LoginStatus loginStatus = (LoginStatus) event.getSource();
+        LoginStatus<Long> loginStatus = (LoginStatus) event.getSource();
         if (LoginStatus.Type.SUCCESS == loginStatus.getType()) {
             // 重置错误次数 和 最后登录时间
             if (loginStatus.getId() == null) {

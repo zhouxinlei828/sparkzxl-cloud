@@ -63,7 +63,7 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
 
     @ApiOperation("获取登录用户信息")
     @GetMapping("/currentUser")
-    public LoginAuthUser getCurrentUser(@ApiIgnore AuthUserInfo authUserInfo) {
+    public LoginAuthUser getCurrentUser(@ApiIgnore AuthUserInfo<Long> authUserInfo) {
         return baseService.getLoginAuthUser(authUserInfo.getId());
     }
 }

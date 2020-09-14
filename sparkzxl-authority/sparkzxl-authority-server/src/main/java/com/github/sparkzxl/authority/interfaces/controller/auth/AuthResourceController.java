@@ -37,7 +37,7 @@ public class AuthResourceController extends SuperCacheController<IAuthResourceSe
 
     @ApiOperation("查询用户可用的所有资源")
     @GetMapping("/visible")
-    public List<AuthResource> visible(@ApiIgnore AuthUserInfo authUserInfo, ResourceQueryDTO resource) {
+    public List<AuthResource> visible(@ApiIgnore AuthUserInfo<Long> authUserInfo, ResourceQueryDTO resource) {
         return baseService.findVisibleResource(authUserInfo.getId(), resource);
     }
 }

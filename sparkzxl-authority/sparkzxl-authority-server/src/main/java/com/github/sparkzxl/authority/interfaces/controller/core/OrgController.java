@@ -43,13 +43,13 @@ public class OrgController {
 
     @ApiOperation("新增组织")
     @PostMapping("/org")
-    public boolean saveCoreOrg(@ApiIgnore AuthUserInfo authUserInfo, @Validated @RequestBody OrgSaveDTO orgSaveDTO) {
+    public boolean saveCoreOrg(@ApiIgnore AuthUserInfo<Long> authUserInfo, @Validated @RequestBody OrgSaveDTO orgSaveDTO) {
         return coreOrgService.saveCoreOrg(authUserInfo.getId(), orgSaveDTO);
     }
 
     @ApiOperation("修改组织")
     @PutMapping("/org")
-    public boolean updateCoreOrg(@ApiIgnore AuthUserInfo authUserInfo, @Validated @RequestBody OrgUpdateDTO orgUpdateDTO) {
+    public boolean updateCoreOrg(@ApiIgnore AuthUserInfo<Long> authUserInfo, @Validated @RequestBody OrgUpdateDTO orgUpdateDTO) {
         return coreOrgService.updateCoreOrg(authUserInfo.getId(), orgUpdateDTO);
     }
 

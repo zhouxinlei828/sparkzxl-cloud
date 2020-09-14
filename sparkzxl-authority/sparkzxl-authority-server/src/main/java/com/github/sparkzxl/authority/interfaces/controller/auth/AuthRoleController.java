@@ -38,7 +38,7 @@ public class AuthRoleController extends SuperCacheController<IAuthRoleService, L
 
     @ApiOperation("更新角色状态")
     @PatchMapping("/role/{id}")
-    public boolean updateAuthRoleStatus(@ApiIgnore AuthUserInfo authUserInfo, @PathVariable("id") Long id,
+    public boolean updateAuthRoleStatus(@ApiIgnore AuthUserInfo<Long> authUserInfo, @PathVariable("id") Long id,
                                         @RequestParam(value = "status") Boolean status) {
         return baseService.updateAuthRoleStatus(authUserInfo.getId(), id, status);
     }
