@@ -1,5 +1,6 @@
 package com.github.sparkzxl.oauth.domain.service;
 
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
@@ -66,7 +67,22 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
             AuthUserInfo authUserInfo = AuthUserConvert.INSTANCE.convertAuthUserInfo(authUser);
             List<String> userRoles = authUserRepository.getAuthUserRoles(authUser.getId());
             authUserInfo.setAuthorityList(userRoles);
-            return new AuthUserDetail(authUserInfo);
+            return new AuthUserDetail(authUser.getId(),
+                    authUser.getAccount(),
+                    authUser.getPassword(),
+                    authUser.getStatus(),
+                    userRoles);
+        }
+        return null;
+    }
+
+    @Override
+    public AuthUserInfo getAuthUserInfo(String username) {
+        AuthUser authUser = authUserRepository.selectByAccount(username);
+        if (ObjectUtils.isNotEmpty(authUser)) {
+            AuthUserInfo authUserInfo = AuthUserConvert.INSTANCE.convertAuthUserInfo(authUser);
+            authUserInfo.setExtraInfo(JSONUtil.toJsonStr(authUser));
+            return authUserInfo;
         }
         return null;
     }

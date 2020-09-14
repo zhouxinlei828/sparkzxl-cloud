@@ -1,5 +1,6 @@
 package com.github.sparkzxl.oauth.application.service;
 
+import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.base.service.SuperCacheService;
 import com.github.sparkzxl.oauth.entity.AuthUserDetail;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
@@ -47,4 +48,12 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * @return AuthUserDetail
      */
     AuthUserDetail getAuthUserDetail(String username);
+
+    /**
+     * 获取全局用户信息
+     *
+     * @param username 用户账户
+     * @return
+     */
+    AuthUserInfo getAuthUserInfo(String username);
 }

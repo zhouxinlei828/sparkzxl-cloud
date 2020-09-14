@@ -1,6 +1,8 @@
 package com.github.sparkzxl.oauth.domain.service;
 
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
+import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.google.common.collect.Maps;
 import com.github.sparkzxl.cache.template.CacheTemplate;
 import com.github.sparkzxl.core.constant.BaseContextConstant;
@@ -43,8 +45,7 @@ public class OauthServiceImpl implements OauthService {
     @Autowired
     private CacheTemplate cacheTemplate;
     @Autowired
-    @Qualifier("oauthUserDetailsService")
-    private UserDetailsService userDetailsService;
+    private IAuthUserService authUserService;
 
     @Override
     public OAuth2AccessToken getAccessToken(Principal principal, AuthorizationRequest authorizationRequest)
@@ -88,10 +89,8 @@ public class OauthServiceImpl implements OauthService {
      * @param oAuth2AccessToken 认证token
      */
     private void accessToken(String username, OAuth2AccessToken oAuth2AccessToken) {
-        AuthUserDetail authUserDetail = (AuthUserDetail) userDetailsService.loadUserByUsername(username);
-        AuthUserInfo authUserInfo = authUserDetail.getAuthUserInfo();
-        authUserInfo.setPassword(null);
-        log.info("AuthUserInfo json is {}", JSON.toJSONString(authUserInfo));
+        AuthUserInfo authUserInfo = authUserService.getAuthUserInfo(username);
+        log.info("AuthUserInfo json is {}", JSONUtil.toJsonPrettyStr(authUserInfo));
         String buildKey = KeyUtils.buildKey(BaseContextConstant.AUTH_USER, oAuth2AccessToken.getValue());
         cacheTemplate.set(buildKey, authUserInfo, (long) oAuth2AccessToken.getExpiresIn());
     }
