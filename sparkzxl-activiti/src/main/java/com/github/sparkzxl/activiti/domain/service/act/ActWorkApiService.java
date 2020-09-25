@@ -95,7 +95,7 @@ public class ActWorkApiService {
      */
     public void saveProcessTaskStatus(String userId, String processInstanceId, String businessId, String processStatus) {
 
-        ProcessTaskStatus actHiTaskStatus = processTaskStatusService.getProcessTaskStatus(processInstanceId);
+        ProcessTaskStatus actHiTaskStatus = processTaskStatusService.getProcessTaskStatus(businessId);
         //记录当前任务流程状态
         if (ObjectUtils.isNotEmpty(actHiTaskStatus)) {
             actHiTaskStatus.setProcessStatus(processStatus);
