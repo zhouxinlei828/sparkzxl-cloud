@@ -49,14 +49,24 @@ public interface IProcessHistoryService {
     HistoricTaskInstance getHistoricTasksByTaskId(String taskId);
 
     /**
-     * 获取流程历史
+     * 根据业务主键获取流程历史
+     *
+     * @param businessId 业务主键
+     * @return List<ProcessHistory>
+     * @throws ExecutionException   运行异常
+     * @throws InterruptedException 中断异常
+     */
+    List<ProcessHistory> getProcessHistoryByBusinessId(String businessId) throws ExecutionException, InterruptedException;
+
+    /**
+     * 根据流程实例id获取流程历史
      *
      * @param processInstanceId 流程实例id
      * @return List<ProcessHistory>
      * @throws ExecutionException   运行异常
      * @throws InterruptedException 中断异常
      */
-    List<ProcessHistory> getProcessHistory(String processInstanceId) throws ExecutionException, InterruptedException;
+    List<ProcessHistory> getProcessHistoryByProcessInstanceId(String processInstanceId) throws ExecutionException, InterruptedException;
 
     /**
      * 获取流程图

@@ -30,8 +30,8 @@ public class ProcessTaskStatusServiceImpl extends AbstractSuperCacheServiceImpl<
     }
 
     @Override
-    public ProcessTaskStatus getProcessTaskStatus(String processInstanceId) {
-        return taskStatusRepository.getProcessTaskStatus(processInstanceId);
+    public ProcessTaskStatus getProcessTaskStatus(String businessId) {
+        return taskStatusRepository.getProcessTaskStatus(businessId);
     }
 
     @Override

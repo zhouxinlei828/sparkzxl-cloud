@@ -48,11 +48,19 @@ public class ActProcessController {
         return processTaskStatusService.getProcessInstanceList(instancePageDTO);
     }
 
-    @ApiOperation("获取流程历史")
+    @ApiOperation("根据流程实例id获取流程历史")
     @GetMapping("/histories/{processInstanceId}")
     @ResponseResult
-    public List<ProcessHistory> getProcessHistory(@ApiParam("流程实例id") @PathVariable String processInstanceId) throws ExecutionException, InterruptedException {
-        return processHistoryService.getProcessHistory(processInstanceId);
+    public List<ProcessHistory> getProcessHistoryByProcessInstanceId(@ApiParam("流程实例id") @PathVariable("processInstanceId") String processInstanceId) throws ExecutionException,
+            InterruptedException {
+        return processHistoryService.getProcessHistoryByProcessInstanceId(processInstanceId);
+    }
+
+    @ApiOperation("根据业务主键获取流程历史")
+    @GetMapping("/histories/{businessId}")
+    @ResponseResult
+    public List<ProcessHistory> getProcessHistoryByBusinessId(@ApiParam("业务主键") @PathVariable("businessId") String businessId) throws ExecutionException, InterruptedException {
+        return processHistoryService.getProcessHistoryByBusinessId(businessId);
     }
 
 }

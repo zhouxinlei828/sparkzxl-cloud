@@ -1,5 +1,6 @@
 package com.github.sparkzxl.activiti.domain.service.act;
 
+import com.github.sparkzxl.activiti.infrastructure.entity.ProcessTaskStatus;
 import com.google.common.collect.Lists;
 import com.github.sparkzxl.activiti.application.service.act.IProcessHistoryService;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRepositoryService;
@@ -70,6 +71,9 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
     @Autowired
     private CustomProcessDiagramGeneratorImpl processDiagramGenerator;
 
+    @Autowired
+    private IProcessTaskStatusService processTaskStatusService;
+
     @Override
     public HistoricProcessInstance getHistoricProcessInstance(String processInstanceId) {
         return historyService.createHistoricProcessInstanceQuery()
@@ -92,8 +96,13 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
     }
 
     @Override
-    public List<ProcessHistory> getProcessHistory(String processInstanceId) throws ExecutionException, InterruptedException {
+    public List<ProcessHistory> getProcessHistoryByBusinessId(String businessId) throws ExecutionException, InterruptedException {
+        ProcessTaskStatus processTaskStatus = processTaskStatusService.getProcessTaskStatus(businessId);
+        String processInstanceId = processTaskStatus.getProcessInstanceId();
+        return getProcessHistories(processInstanceId);
+    }
 
+    private List<ProcessHistory> getProcessHistories(String processInstanceId) throws InterruptedException, ExecutionException {
         CompletableFuture<List<ProcessHistory>> hiActInsCompletableFuture =
                 CompletableFuture.supplyAsync(() -> buildActivityProcessHistory(processInstanceId));
 
@@ -107,6 +116,10 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
         return processHistories;
     }
 
+    @Override
+    public List<ProcessHistory> getProcessHistoryByProcessInstanceId(String processInstanceId) throws ExecutionException, InterruptedException {
+        return getProcessHistories(processInstanceId);
+    }
 
     private List<ProcessHistory> buildTaskProcessHistory(String processInstanceId) {
         List<ProcessHistory> processHistories = Lists.newArrayList();

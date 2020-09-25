@@ -27,6 +27,7 @@ public class DriveProcessDTO {
     private String processDefinitionKey;
 
     @ApiModelProperty(value = "业务主键")
+    @NotEmpty(message = "业务主键不能为空")
     protected String businessId;
 
     @ApiModelProperty(value = "流程动作类型")

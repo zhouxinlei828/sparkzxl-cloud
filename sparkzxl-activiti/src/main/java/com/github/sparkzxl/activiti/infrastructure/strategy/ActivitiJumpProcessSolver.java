@@ -92,6 +92,7 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
         String processInstanceId = processInstance.getProcessInstanceId();
         CompletableFuture.runAsync(() -> actWorkApiService.saveProcessTaskStatus(userId,
                 processInstanceId,
+                businessId,
                 processStatus));
         CompletableFuture.runAsync(() -> actWorkApiService.saveActHiTaskStatus(userId, processInstanceId,
                 taskId, taskDefinitionKey, TaskStatusEnum.getValue(actType)));

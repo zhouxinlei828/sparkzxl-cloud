@@ -24,8 +24,8 @@ public class ProcessTaskStatusRepositoryImpl implements IProcessTaskStatusReposi
     private ProcessTaskStatusMapper taskStatusMapper;
 
     @Override
-    public ProcessTaskStatus getProcessTaskStatus(String processInstanceId) {
-        return taskStatusMapper.selectOne(new QueryWrapper<ProcessTaskStatus>().lambda().eq(ProcessTaskStatus::getProcessInstanceId, processInstanceId));
+    public ProcessTaskStatus getProcessTaskStatus(String businessId) {
+        return taskStatusMapper.selectOne(new QueryWrapper<ProcessTaskStatus>().lambda().eq(ProcessTaskStatus::getBusinessId, businessId));
     }
 
     @Override

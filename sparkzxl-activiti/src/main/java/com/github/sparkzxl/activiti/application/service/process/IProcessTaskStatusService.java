@@ -17,10 +17,10 @@ public interface IProcessTaskStatusService extends SuperCacheService<ProcessTask
     /**
      * 获取流程状态
      *
-     * @param processInstanceId 流程实例id
+     * @param businessId 业务主键
      * @return ProcessTaskStatus
      */
-    ProcessTaskStatus getProcessTaskStatus(String processInstanceId);
+    ProcessTaskStatus getProcessTaskStatus(String businessId);
 
     /**
      * 查询流程实例列表

@@ -48,7 +48,7 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
         log.info("启动activiti流程------++++++ProcessInstanceId：{}------++++++", processInstanceId);
         variables.put("actType", WorkflowConstants.WorkflowAction.SUBMIT);
         String comment = "开始节点跳过";
-        return actWorkApiService.promoteProcess(userId, processInstanceId, WorkflowConstants.WorkflowAction.SUBMIT, comment
+        return actWorkApiService.promoteProcess(userId, processInstanceId, businessId,WorkflowConstants.WorkflowAction.SUBMIT, comment
                 , variables);
     }
 

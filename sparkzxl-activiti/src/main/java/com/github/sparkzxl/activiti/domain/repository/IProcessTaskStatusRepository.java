@@ -13,12 +13,12 @@ import com.github.sparkzxl.activiti.infrastructure.entity.ProcessTaskStatus;
 public interface IProcessTaskStatusRepository {
 
     /**
-     * 根据流程实例id查询流程状态
+     * 根据业务主键查询流程状态
      *
-     * @param processInstanceId 流程实例id
+     * @param businessId 业务主键
      * @return ProcessTaskStatus
      */
-    ProcessTaskStatus getProcessTaskStatus(String processInstanceId);
+    ProcessTaskStatus getProcessTaskStatus(String businessId);
 
     /**
      * 查询流程实例列表

@@ -1,13 +1,11 @@
 package com.github.sparkzxl.activiti.infrastructure.strategy;
 
 import com.google.common.collect.Maps;
-import com.github.sparkzxl.activiti.application.service.act.IProcessRepositoryService;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
 import com.github.sparkzxl.activiti.domain.service.act.ActWorkApiService;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
 import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
 import lombok.extern.slf4j.Slf4j;
-import org.activiti.engine.repository.Model;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +27,6 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
     private IProcessRuntimeService processRuntimeService;
     @Autowired
     private ActWorkApiService actWorkApiService;
-    @Autowired
-    private IProcessRepositoryService processRepositoryService;
 
     @Override
     public boolean slove(DriveProcess driveProcess) {
@@ -43,7 +39,7 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
         }
         variables.put("actType", driveProcess.getActType());
         ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
-        return actWorkApiService.promoteProcess(userId, processInstance.getProcessInstanceId(), driveProcess.getActType(),
+        return actWorkApiService.promoteProcess(userId, processInstance.getProcessInstanceId(), businessId, driveProcess.getActType(),
                 driveProcess.getComment(), variables);
     }
 
