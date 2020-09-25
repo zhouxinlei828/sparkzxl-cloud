@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.*;
 import org.activiti.bpmn.model.Process;
 import org.activiti.engine.ManagementService;
-import org.activiti.engine.repository.Model;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.ObjectUtils;
@@ -50,8 +49,6 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
     private ManagementService managementService;
     @Autowired
     private IProcessTaskRuleService processTaskRuleService;
-    @Autowired
-    private IProcessRepositoryService processRepositoryService;
 
     @Override
     public boolean slove(DriveProcess driveProcess) {
@@ -93,11 +90,8 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
             processStatus = ProcessStatusEnum.SUBMIT.getDesc();
         }
         String processInstanceId = processInstance.getProcessInstanceId();
-        String deploymentId = processInstance.getDeploymentId();
-        Model model = processRepositoryService.getModelByDeploymentId(deploymentId);
         CompletableFuture.runAsync(() -> actWorkApiService.saveProcessTaskStatus(userId,
                 processInstanceId,
-                model.getId(),
                 processStatus));
         CompletableFuture.runAsync(() -> actWorkApiService.saveActHiTaskStatus(userId, processInstanceId,
                 taskId, taskDefinitionKey, TaskStatusEnum.getValue(actType)));

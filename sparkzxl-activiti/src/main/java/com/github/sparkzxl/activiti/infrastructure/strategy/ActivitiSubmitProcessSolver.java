@@ -43,9 +43,7 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
         }
         variables.put("actType", driveProcess.getActType());
         ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
-        String deploymentId = processInstance.getDeploymentId();
-        Model model = processRepositoryService.getModelByDeploymentId(deploymentId);
-        return actWorkApiService.promoteProcess(userId, processInstance.getProcessInstanceId(), model.getId(), driveProcess.getActType(),
+        return actWorkApiService.promoteProcess(userId, processInstance.getProcessInstanceId(), driveProcess.getActType(),
                 driveProcess.getComment(), variables);
     }
 

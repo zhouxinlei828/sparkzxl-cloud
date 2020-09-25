@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -22,6 +23,7 @@ public class DriveProcessDTO {
 
 
     @ApiModelProperty(value = "流程定义key", required = true)
+    @NotEmpty(message = "流程定义key不能为空")
     private String processDefinitionKey;
 
     @ApiModelProperty(value = "业务主键")
