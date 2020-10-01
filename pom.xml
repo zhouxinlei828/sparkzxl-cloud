@@ -177,17 +177,6 @@
                 <artifactId>sparkzxl-user-starter</artifactId>
                 <version>${sparkzxl-component.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.github.sparkzxl</groupId>
-                <artifactId>sparkzxl-file-api</artifactId>
-                <version>${project.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
             <!-- skywalking-apm-toolkit-trace -->
             <dependency>
                 <groupId>org.apache.skywalking</groupId>
@@ -272,6 +261,16 @@
                 <groupId>org.eweb4j</groupId>
                 <artifactId>fel</artifactId>
                 <version>${fel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.sparkzxl</groupId>
+                <artifactId>sparkzxl-file-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.sparkzxl</groupId>
+                <artifactId>sparkzxl-activiti-api</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
