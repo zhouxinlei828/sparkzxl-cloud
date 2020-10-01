@@ -1,5 +1,6 @@
 package com.github.sparkzxl.activiti.infrastructure.repository;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -27,9 +28,9 @@ public class ProcessDetailRepositoryImpl implements IProcessDetailRepository {
 
     @Override
     public PageInfo<ProcessDetail> getProcessDetailList(int pageNum, int pageSize, String processName) {
-        QueryWrapper<ProcessDetail> detailQueryWrapper = new QueryWrapper<>();
-        Optional.ofNullable(processName).ifPresent((value) -> detailQueryWrapper.lambda().eq(ProcessDetail::getProcessName, processName));
-        detailQueryWrapper.lambda().groupBy(ProcessDetail::getModelId);
+        LambdaQueryWrapper<ProcessDetail> detailQueryWrapper = new LambdaQueryWrapper<>();
+        Optional.ofNullable(processName).ifPresent((value) -> detailQueryWrapper.eq(ProcessDetail::getProcessName, processName));
+        detailQueryWrapper.groupBy(ProcessDetail::getModelId);
         PageHelper.startPage(pageNum, pageSize);
         return PageInfoUtils.pageInfo(processDetailMapper.selectList(detailQueryWrapper));
     }

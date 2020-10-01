@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -16,11 +17,12 @@ import javax.validation.constraints.NotNull;
 @ApiModel("创建模型入参")
 public class ModelSaveDTO {
 
+    @ApiModelProperty(value = "模型key", required = true)
+    @NotEmpty(message = "模型key不能为空")
+    private String key;
+    
     @ApiModelProperty(value = "模型名称", required = true)
-    @NotNull(message = "模型名称不能为空")
+    @NotEmpty(message = "模型名称不能为空")
     private String name;
 
-    @ApiModelProperty(value = "模型key", required = true)
-    @NotNull(message = "模型key不能为空")
-    private String key;
 }
