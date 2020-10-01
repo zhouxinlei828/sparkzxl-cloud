@@ -1,7 +1,7 @@
 package com.github.sparkzxl.activiti.api;
 
 import com.github.sparkzxl.activiti.dto.ActivitiDataDTO;
-import com.github.sparkzxl.activiti.dto.DriveProcessDTO;
+import com.github.sparkzxl.activiti.dto.DriverProcessDTO;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
@@ -23,12 +23,12 @@ public interface ActivitiDriverApi {
     /**
      * 驱动业务流程
      *
-     * @param driveProcessDTO 流程驱动入参
+     * @param driverProcessDTO 流程驱动入参
      * @return DriverResult
      */
     @ApiOperation("驱动业务流程")
     @PostMapping("/driverProcess")
-    DriverResult driverProcess(@RequestBody @Validated DriveProcessDTO driveProcessDTO);
+    DriverResult driverProcess(@RequestBody @Validated DriverProcessDTO driverProcessDTO);
 
     /**
      * 查询业务activiti任务数据
@@ -53,4 +53,14 @@ public interface ActivitiDriverApi {
     @GetMapping("/activitiDataList")
     List<ActivitiDataDTO> findActivitiDataList(@RequestParam("businessIds") List<String> businessIds,
                                                @RequestParam("processDefinitionKey") String processDefinitionKey);
+
+    /**
+     * 挂起流程
+     *
+     * @param businessId 业务主键
+     * @return boolean
+     */
+    @ApiOperation("挂起流程")
+    @GetMapping("/suspendProcess")
+    boolean suspendProcess(@RequestParam("businessId") String businessId);
 }

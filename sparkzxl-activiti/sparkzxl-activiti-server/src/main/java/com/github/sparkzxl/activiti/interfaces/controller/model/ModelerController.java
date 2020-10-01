@@ -60,13 +60,13 @@ public class ModelerController {
 
     @ApiOperation("撤销流程定义")
     @DeleteMapping("/revokePublish/{modelId}")
-    public Object revokePublish(@ApiParam("模型ID") @PathVariable("modelId") String modelId) {
+    public boolean revokePublish(@ApiParam("模型ID") @PathVariable("modelId") String modelId) {
         return modelerService.revokePublish(modelId);
     }
 
     @ApiOperation("删除流程")
     @DeleteMapping("/processInstance/{modelId}")
-    public Object deleteProcessInstance(@ApiParam("模型ID") @PathVariable("modelId") String modelId) {
+    public boolean deleteProcessInstance(@ApiParam("模型ID") @PathVariable("modelId") String modelId) {
         return modelerService.deleteProcessInstance(modelId);
     }
 

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @ApiModel("流程驱动入参")
-public class DriveProcessDTO {
+public class DriverProcessDTO {
 
     @ApiModelProperty(value = "流程定义key", required = true)
     @NotEmpty(message = "流程定义key不能为空")

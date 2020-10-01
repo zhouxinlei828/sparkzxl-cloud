@@ -4,13 +4,13 @@ import com.github.sparkzxl.activiti.application.service.act.IProcessRepositorySe
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
 import com.github.sparkzxl.activiti.application.service.driver.IActivitiDriverService;
 import com.github.sparkzxl.activiti.application.service.process.IActHiTaskStatusService;
-import com.github.sparkzxl.activiti.application.service.process.IProcessTaskStatusService;
 import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
 import com.github.sparkzxl.activiti.dto.ActivitiDataDTO;
-import com.github.sparkzxl.activiti.dto.DriveProcessDTO;
+import com.github.sparkzxl.activiti.dto.DriverProcessDTO;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.dto.UserNextTask;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
+import com.github.sparkzxl.activiti.infrastructure.convert.ActivitiDriverConvert;
 import com.github.sparkzxl.activiti.infrastructure.entity.ActHiTaskStatus;
 import com.github.sparkzxl.activiti.infrastructure.strategy.AbstractActivitiSolver;
 import com.github.sparkzxl.activiti.infrastructure.strategy.ActivitiSolverChooser;
@@ -27,7 +27,6 @@ import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,11 +60,10 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
     private IProcessRuntimeService processRuntimeService;
 
     @Override
-    public DriverResult driverProcess(DriveProcessDTO driveProcessDTO) {
-        int actType = driveProcessDTO.getActType();
+    public DriverResult driverProcess(DriverProcessDTO driverProcessDTO) {
+        int actType = driverProcessDTO.getActType();
         AbstractActivitiSolver activitiSolver = activitiSolverChooser.chooser(actType);
-        DriveProcess driveProcess = new DriveProcess();
-        BeanUtils.copyProperties(driveProcessDTO, driveProcess);
+        DriveProcess driveProcess = ActivitiDriverConvert.INSTANCE.convertDriveProcess(driverProcessDTO);
         return activitiSolver.slove(driveProcess);
     }
 
@@ -137,5 +135,14 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
         List<ActivitiDataDTO> activitiDataDTOList = Lists.newArrayList();
         businessIds.forEach(x -> activitiDataDTOList.add(findActivitiData(x, processDefinitionKey)));
         return activitiDataDTOList;
+    }
+
+    @Override
+    public boolean suspendProcess(String businessId) {
+        ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
+        if (ObjectUtils.isEmpty(processInstance)) {
+            processRuntimeService.suspendProcess(processInstance.getProcessInstanceId());
+        }
+        return false;
     }
 }

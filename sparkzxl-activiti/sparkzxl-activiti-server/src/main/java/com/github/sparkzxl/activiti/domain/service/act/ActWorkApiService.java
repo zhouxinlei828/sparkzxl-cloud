@@ -44,13 +44,13 @@ public class ActWorkApiService {
         String taskId = task.getId();
         String taskDefinitionKey = task.getTaskDefinitionKey();
         ResponseResultStatus.FAILURE.assertNotNull(task);
-        Object assignee = variables.get("assignee");
+        String assignee = String.valueOf(variables.get("assignee"));
         //添加审核人
-        Authentication.setAuthenticatedUserId(String.valueOf(assignee));
+        Authentication.setAuthenticatedUserId(assignee);
         if (StringUtils.isNotEmpty(message)) {
             processTaskService.addComment(taskId, processInstanceId, message);
         }
-        processTaskService.claimTask(taskId, String.valueOf(assignee));
+        processTaskService.claimTask(taskId, assignee);
         processTaskService.completeTask(taskId, variables);
         DriverResult driverResult = new DriverResult();
         boolean processIsEnd = processRuntimeService.processIsEnd(processInstanceId);

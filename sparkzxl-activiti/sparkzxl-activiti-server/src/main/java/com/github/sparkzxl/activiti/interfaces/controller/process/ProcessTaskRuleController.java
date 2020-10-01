@@ -42,8 +42,7 @@ public class ProcessTaskRuleController {
     @GetMapping("processTaskRule/{processId}/{taskDefKey}")
     @ApiOperation("查询流程跳转规则")
     public List<ProcessTaskRule> getProcessTaskRule(@PathVariable("processId") @ApiParam("流程定义key") String processId,
-                                                    @PathVariable("taskDefKey") @ApiParam(
-                                                            "任务定义key") String taskDefKey) {
+                                                    @PathVariable("taskDefKey") @ApiParam("任务定义key") String taskDefKey) {
         return processTaskRuleService.getProcessTaskRule(processId, taskDefKey);
     }
 

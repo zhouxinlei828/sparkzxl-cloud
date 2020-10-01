@@ -75,7 +75,6 @@ public class ProcessRepositoryServiceImpl implements IProcessRepositoryService {
     }
 
     @Override
-    @Transactional(transactionManager = "transactionManager", rollbackFor = Exception.class)
     public void saveModel(Model model) {
         repositoryService.saveModel(model);
     }

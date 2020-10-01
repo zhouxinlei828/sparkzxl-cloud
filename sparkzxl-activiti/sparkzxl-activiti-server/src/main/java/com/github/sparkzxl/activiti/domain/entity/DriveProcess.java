@@ -41,9 +41,4 @@ public class DriveProcess {
      */
     private String userId;
 
-    /**
-     * 任务id
-     */
-    private String taskId;
-
 }

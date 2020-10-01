@@ -1,7 +1,7 @@
 package com.github.sparkzxl.activiti.application.service.driver;
 
 import com.github.sparkzxl.activiti.dto.ActivitiDataDTO;
-import com.github.sparkzxl.activiti.dto.DriveProcessDTO;
+import com.github.sparkzxl.activiti.dto.DriverProcessDTO;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.dto.UserNextTask;
 import com.github.sparkzxl.activiti.interfaces.dto.process.ProcessNextTaskDTO;
@@ -19,10 +19,10 @@ public interface IActivitiDriverService {
     /**
      * activiti流程驱动接口
      *
-     * @param driveProcessDTO 流程驱动入参
+     * @param driverProcessDTO 流程驱动入参
      * @return DriverResult
      */
-    DriverResult driverProcess(DriveProcessDTO driveProcessDTO);
+    DriverResult driverProcess(DriverProcessDTO driverProcessDTO);
 
     /**
      * 获取下一步任务详情
@@ -49,4 +49,12 @@ public interface IActivitiDriverService {
      * @return ActivitiDataDTO
      */
     List<ActivitiDataDTO> findActivitiDataList(List<String> businessIds, String processDefinitionKey);
+
+    /**
+     * 挂起流程
+     *
+     * @param businessId 业务主键
+     * @return boolean
+     */
+    boolean suspendProcess(String businessId);
 }

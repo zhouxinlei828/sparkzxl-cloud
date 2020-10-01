@@ -1,5 +1,6 @@
 package com.github.sparkzxl.activiti.domain.service.act;
 
+import cn.hutool.core.date.DatePattern;
 import com.github.sparkzxl.activiti.application.service.act.IProcessHistoryService;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRepositoryService;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
@@ -259,16 +260,16 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
 
     private List<String> getHighLightedFlows(BpmnModel bpmnModel, List<HistoricActivityInstance> historicActivityInstances) {
         // 24小时制
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat(DatePattern.NORM_DATETIME_PATTERN);
         // 用以保存高亮的线flowId
-        List<String> highFlows = new ArrayList<String>();
+        List<String> highFlows = Lists.newArrayList();
 
         for (int i = 0; i < historicActivityInstances.size() - 1; i++) {
             // 对历史流程节点进行遍历
             // 得到节点定义的详细信息
             FlowNode activityImpl = (FlowNode) bpmnModel.getMainProcess().getFlowElement(historicActivityInstances.get(i).getActivityId());
             // 用以保存后续开始时间相同的节点
-            List<FlowNode> sameStartTimeNodes = new ArrayList<FlowNode>();
+            List<FlowNode> sameStartTimeNodes = Lists.newArrayList();
             FlowNode sameActivityImpl1 = null;
             // 第一个节点
             HistoricActivityInstance activityInstance = historicActivityInstances.get(i);
@@ -281,7 +282,6 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
                 // 都是usertask，且主节点与后续节点的开始时间相同，说明不是真实的后继节点
                 if ("userTask".equals(activityInstance.getActivityType()) && "userTask".equals(activityInstance1.getActivityType()) &&
                         df.format(activityInstance.getStartTime()).equals(df.format(activityInstance1.getStartTime()))) {
-
                 } else {
                     // 找到紧跟在后面的一个节点
                     sameActivityImpl1 = (FlowNode) bpmnModel.getMainProcess().getFlowElement(historicActivityInstances.get(k).getActivityId());
