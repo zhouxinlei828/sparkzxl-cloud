@@ -11,7 +11,9 @@ import com.github.sparkzxl.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.activiti.engine.RepositoryService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,6 +25,7 @@ import javax.validation.Valid;
  * @author: zhouxinlei
  * @date: 2020-07-17 14:46:24
  */
+@AllArgsConstructor
 @RestController
 @RequestMapping("/modeler")
 @ResponseResult
@@ -33,11 +36,7 @@ public class ModelerController {
 
     private final IModelerService modelerService;
     private final IActReModelService actReModelService;
-
-    public ModelerController(IModelerService modelerService, IActReModelService actReModelService) {
-        this.modelerService = modelerService;
-        this.actReModelService = actReModelService;
-    }
+    private final RepositoryService repositoryService;
 
     @ApiOperation("查询流程模型列表")
     @GetMapping("model/list")

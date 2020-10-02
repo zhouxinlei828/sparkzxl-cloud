@@ -68,6 +68,9 @@ public class ActReModel implements Serializable {
     private boolean status;
 
     @TableField(exist = false)
+    private String deployed;
+
+    @TableField(exist = false)
     private String description;
 
 }

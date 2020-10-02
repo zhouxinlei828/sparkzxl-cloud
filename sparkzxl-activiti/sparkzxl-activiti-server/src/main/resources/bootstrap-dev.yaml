@@ -1,15 +1,17 @@
 server:
   shutdown: graceful
   port: 8080
-  undertow:
-    buffer-size: 1024
-    direct-buffers: on
-    always-set-keep-alive: true
 spring:
   application:
     name: sparkzxl-activiti-server
   lifecycle:
     timeout-per-shutdown-phase: 30s
+  freemarker:
+    enabled: true
+    content-type: text/html
+    charset: utf-8
+    template-loader-path: classpath:/templates/
+    suffix: .ftl
   cloud:
     nacos:
       discovery:

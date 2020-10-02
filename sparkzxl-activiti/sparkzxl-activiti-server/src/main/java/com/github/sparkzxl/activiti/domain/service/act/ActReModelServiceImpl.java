@@ -29,13 +29,14 @@ public class ActReModelServiceImpl extends AbstractSuperCacheServiceImpl<ActReMo
 
     @Override
     public PageInfo<ActReModel> actReModelList(ModelPageDTO modelPageDTO) {
-        PageHelper.startPage(modelPageDTO.getPageNum(), modelPageDTO.getPageNum());
+        PageHelper.startPage(modelPageDTO.getPageNum(), modelPageDTO.getPageSize());
         PageInfo<ActReModel> actReModelPageInfo = actReModelRepository.actReModelList(modelPageDTO.getKey(), modelPageDTO.getName());
         List<ActReModel> actReModels = actReModelPageInfo.getList();
         actReModels.forEach(item -> {
             item.setStatus(item.getDeploymentId() != null);
             MetaInfo metaInfo = JSONObject.parseObject(item.getMetaInfo(), MetaInfo.class);
             item.setDescription(metaInfo.getDescription());
+            item.setDeployed(item.getDeploymentId() != null ? "已发布":"未发布");
         });
         actReModelPageInfo.setList(actReModels);
         return actReModelPageInfo;
