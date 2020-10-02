@@ -36,7 +36,6 @@ public class ModelerController {
 
     private final IModelerService modelerService;
     private final IActReModelService actReModelService;
-    private final RepositoryService repositoryService;
 
     @ApiOperation("查询流程模型列表")
     @GetMapping("model/list")
