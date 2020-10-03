@@ -37,6 +37,9 @@ public class ProcessHistory implements Serializable {
     @ApiModelProperty(value = "时长，耗时")
     private Long duration;
 
+    @ApiModelProperty(value = "耗时时间")
+    private String durationTime;
+
     @ApiModelProperty(value = "候选人")
     private String candidate;
 

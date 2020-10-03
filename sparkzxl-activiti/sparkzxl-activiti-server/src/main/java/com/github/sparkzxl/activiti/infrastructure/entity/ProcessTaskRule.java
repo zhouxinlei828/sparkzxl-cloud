@@ -46,9 +46,13 @@ public class ProcessTaskRule extends Entity<Long> {
     @TableField(exist = false)
     private String processName;
 
-    @ApiModelProperty(value = "任务定义key")
+    @ApiModelProperty(value = "开始任务定义key")
     @TableField(exist = false)
     private String sourceTaskDefKey;
+
+    @ApiModelProperty(value = "开始任务名称")
+    @TableField(exist = false)
+    private String sourceTaskName;
 
     @ApiModelProperty(value = "目标任务定义key")
     @TableField(exist = false)

@@ -14,6 +14,7 @@ import com.github.sparkzxl.activiti.infrastructure.entity.ProcessHistory;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessTaskStatus;
 import com.github.sparkzxl.activiti.infrastructure.enums.TaskStatusEnum;
 import com.github.sparkzxl.activiti.infrastructure.utils.CloseableUtils;
+import com.github.sparkzxl.core.utils.DateUtils;
 import com.github.sparkzxl.core.utils.ListUtils;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -146,6 +147,7 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
                         .startTime(historicTaskInstance.getStartTime())
                         .endTime(historicTaskInstance.getEndTime())
                         .duration(historicTaskInstance.getDurationInMillis())
+                        .durationTime(DateUtils.formatBetween(historicTaskInstance.getDurationInMillis()))
                         .assignee(historicTaskInstance.getAssignee())
                         .dueDate(historicTaskInstance.getDueDate())
                         .build();
@@ -190,10 +192,12 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
             if (WorkflowConstants.ActType.START_EVENT.equals(historicActivityInstance.getActivityType())) {
                 processHistory.setTaskStatus(TaskStatusEnum.START.getDesc());
                 processHistory.setTaskName("启动流程");
+                processHistory.setDurationTime(DateUtils.formatBetween(historicActivityInstance.getStartTime(),historicActivityInstance.getEndTime()));
             }
             if (WorkflowConstants.ActType.END_EVENT.equals(historicActivityInstance.getActivityType())) {
                 processHistory.setTaskStatus(TaskStatusEnum.END.getDesc());
                 processHistory.setTaskName("完成流程");
+                processHistory.setDurationTime(DateUtils.formatBetween(historicActivityInstance.getStartTime(),historicActivityInstance.getEndTime()));
             }
             processHistories.add(processHistory);
         });

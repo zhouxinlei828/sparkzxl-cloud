@@ -32,7 +32,7 @@ public class ProcessInstance implements Serializable {
     private String processKey;
 
     @ApiModelProperty(value = "是否挂起")
-    private Boolean suspensionState;
+    private Integer suspensionState;
 
     @ApiModelProperty(value = "流程状态")
     private String processStatus;

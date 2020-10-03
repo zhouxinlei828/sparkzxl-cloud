@@ -17,9 +17,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "流程实例分页查询")
 public class InstancePageDTO extends PageDTO {
 
-    @ApiModelProperty("流程标题")
-    private String title;
-
     @ApiModelProperty("流程名称")
     private String name;
 }

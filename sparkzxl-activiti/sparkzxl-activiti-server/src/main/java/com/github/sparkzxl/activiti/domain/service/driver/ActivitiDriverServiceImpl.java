@@ -140,8 +140,9 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
     @Override
     public boolean suspendProcess(String businessId) {
         ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
-        if (ObjectUtils.isEmpty(processInstance)) {
+        if (ObjectUtils.isNotEmpty(processInstance)) {
             processRuntimeService.suspendProcess(processInstance.getProcessInstanceId());
+            return true;
         }
         return false;
     }

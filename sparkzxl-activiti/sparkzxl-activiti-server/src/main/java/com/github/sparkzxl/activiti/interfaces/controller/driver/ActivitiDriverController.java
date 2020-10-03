@@ -1,7 +1,6 @@
 package com.github.sparkzxl.activiti.interfaces.controller.driver;
 
 import com.github.sparkzxl.activiti.api.ActivitiDriverApi;
-import com.github.sparkzxl.activiti.application.service.act.IProcessHistoryService;
 import com.github.sparkzxl.activiti.application.service.driver.IActivitiDriverService;
 import com.github.sparkzxl.activiti.dto.ActivitiDataDTO;
 import com.github.sparkzxl.activiti.dto.DriverProcessDTO;
@@ -12,12 +11,10 @@ import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -35,7 +32,6 @@ import java.util.List;
 public class ActivitiDriverController implements ActivitiDriverApi {
 
     private final IActivitiDriverService activitiDriverService;
-    private final IProcessHistoryService processHistoryService;
 
     @Override
     public DriverResult driverProcess(DriverProcessDTO driverProcessDTO) {
@@ -56,12 +52,6 @@ public class ActivitiDriverController implements ActivitiDriverApi {
     @PostMapping("nextUserTask")
     public List<UserNextTask> getNextUserTask(@RequestBody @Validated ProcessNextTaskDTO processNextTaskDTO) {
         return activitiDriverService.getNextUserTask(processNextTaskDTO);
-    }
-
-    @ApiOperation("获取流程图并显示")
-    @GetMapping("/history/processImg/{processInstanceId}")
-    public void getProcessImg(@ApiParam("流程实例id") @PathVariable String processInstanceId, HttpServletResponse response) {
-        processHistoryService.getProcessImage(processInstanceId, response);
     }
 
     @Override

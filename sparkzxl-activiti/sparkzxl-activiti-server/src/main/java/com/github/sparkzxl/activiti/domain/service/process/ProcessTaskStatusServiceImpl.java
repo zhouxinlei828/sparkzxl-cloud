@@ -10,6 +10,7 @@ import com.github.sparkzxl.activiti.infrastructure.mapper.ProcessTaskStatusMappe
 import com.github.sparkzxl.activiti.interfaces.dto.act.InstancePageDTO;
 import com.github.sparkzxl.core.utils.DateUtils;
 import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,7 +40,11 @@ public class ProcessTaskStatusServiceImpl extends AbstractSuperCacheServiceImpl<
         PageInfo<ProcessInstance> processInstancePageInfo = taskStatusRepository.getProcessInstanceList(instancePageDTO.getPageNum(),
                 instancePageDTO.getPageSize(), instancePageDTO.getName());
         List<ProcessInstance> processInstances = processInstancePageInfo.getList();
-        processInstances.forEach(item -> item.setDueTime(DateUtils.formatBetween(item.getDuration())));
+        processInstances.forEach(item -> {
+            if (ObjectUtils.isNotEmpty(item.getDuration())){
+                item.setDueTime(DateUtils.formatBetween(item.getDuration()));
+            }
+        });
         processInstancePageInfo.setList(processInstances);
         return processInstancePageInfo;
     }

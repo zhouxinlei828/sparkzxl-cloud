@@ -5,10 +5,7 @@ import com.github.sparkzxl.activiti.dto.DriverProcessDTO;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -61,6 +58,6 @@ public interface ActivitiDriverApi {
      * @return boolean
      */
     @ApiOperation("挂起流程")
-    @GetMapping("/suspendProcess")
+    @DeleteMapping("/suspendProcess")
     boolean suspendProcess(@RequestParam("businessId") String businessId);
 }

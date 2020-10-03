@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -49,7 +50,7 @@ public class ActProcessController {
     }
 
     @ApiOperation("根据流程实例id获取流程历史")
-    @GetMapping("/histories/{processInstanceId}")
+    @GetMapping("/processHistoryByProcessInstanceId/{processInstanceId}")
     @ResponseResult
     public List<ProcessHistory> getProcessHistoryByProcessInstanceId(@ApiParam("流程实例id") @PathVariable("processInstanceId") String processInstanceId) throws ExecutionException,
             InterruptedException {
@@ -57,10 +58,16 @@ public class ActProcessController {
     }
 
     @ApiOperation("根据业务主键获取流程历史")
-    @GetMapping("/histories/{businessId}")
+    @GetMapping("/processHistoryByBusinessId/{businessId}")
     @ResponseResult
     public List<ProcessHistory> getProcessHistoryByBusinessId(@ApiParam("业务主键") @PathVariable("businessId") String businessId) throws ExecutionException, InterruptedException {
         return processHistoryService.getProcessHistoryByBusinessId(businessId);
+    }
+
+    @ApiOperation("获取流程图并显示")
+    @GetMapping("/history/processImg/{processInstanceId}")
+    public void getProcessImg(@ApiParam("流程实例id") @PathVariable String processInstanceId, HttpServletResponse response) {
+        processHistoryService.getProcessImage(processInstanceId, response);
     }
 
 }
