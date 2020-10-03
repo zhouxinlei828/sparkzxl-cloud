@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.sparkzxl.activiti.application.service.act.IProcessRepositoryService;
 import com.github.sparkzxl.activiti.application.service.model.IModelerService;
 import com.github.sparkzxl.activiti.application.service.process.IProcessDetailService;
 import com.github.sparkzxl.activiti.application.service.process.IProcessTaskRuleService;
@@ -45,8 +44,6 @@ public class ModelerServiceImpl implements IModelerService {
     @Autowired
     private RepositoryService repositoryService;
 
-    @Autowired
-    private IProcessRepositoryService processRepositoryService;
     @Autowired
     private RuntimeService runtimeService;
 
