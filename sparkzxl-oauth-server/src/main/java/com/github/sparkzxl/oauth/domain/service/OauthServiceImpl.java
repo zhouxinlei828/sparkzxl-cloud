@@ -2,6 +2,7 @@ package com.github.sparkzxl.oauth.domain.service;
 
 import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.google.common.collect.Maps;
 import com.github.sparkzxl.cache.template.CacheTemplate;
@@ -16,6 +17,7 @@ import com.github.sparkzxl.oauth.entity.LoginStatus;
 import com.github.sparkzxl.oauth.enums.GrantTypeEnum;
 import com.github.sparkzxl.oauth.event.LoginEvent;
 import com.github.sparkzxl.oauth.service.OauthService;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,9 +49,9 @@ public class OauthServiceImpl implements OauthService {
     @Autowired
     private IAuthUserService authUserService;
 
+    @SneakyThrows
     @Override
-    public OAuth2AccessToken getAccessToken(Principal principal, AuthorizationRequest authorizationRequest)
-            throws HttpRequestMethodNotSupportedException {
+    public OAuth2AccessToken getAccessToken(Principal principal, AuthorizationRequest authorizationRequest) {
         Map<String, String> parameters = builderAccessTokenParameters(authorizationRequest);
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity = tokenEndpoint.getAccessToken(principal, parameters);
         return loginEventAndBack(authorizationRequest, oAuth2AccessTokenResponseEntity);
@@ -63,20 +65,20 @@ public class OauthServiceImpl implements OauthService {
                 String username = authorizationRequest.getUsername();
                 assert oAuth2AccessToken != null;
                 accessToken(username, oAuth2AccessToken);
-                SpringContextUtils.publishEvent(new LoginEvent(LoginStatus.success(null,username)));
+                SpringContextUtils.publishEvent(new LoginEvent(LoginStatus.success(null, username)));
             }
             return oAuth2AccessToken;
         }
         if (GrantTypeEnum.PASSWORD.getType().equals(grantType)) {
-            SpringContextUtils.publishEvent(new LoginEvent(LoginStatus.fail(null,authorizationRequest.getUsername(), "授权登录失败")));
+            SpringContextUtils.publishEvent(new LoginEvent(LoginStatus.fail(null, authorizationRequest.getUsername(), "授权登录失败")));
         }
         ResponseResultStatus.AUTHORIZED_FAIL.newException(oAuth2AccessTokenResponseEntity);
         return null;
     }
 
+    @SneakyThrows
     @Override
-    public OAuth2AccessToken postAccessToken(Principal principal, AuthorizationRequest authorizationRequest)
-            throws HttpRequestMethodNotSupportedException {
+    public OAuth2AccessToken postAccessToken(Principal principal, AuthorizationRequest authorizationRequest) {
         Map<String, String> parameters = builderAccessTokenParameters(authorizationRequest);
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity = tokenEndpoint.postAccessToken(principal, parameters);
         return loginEventAndBack(authorizationRequest, oAuth2AccessTokenResponseEntity);

@@ -28,7 +28,7 @@ public class InitRolePathApplicationRunner implements CommandLineRunner {
     private AuthUserMapper authUserMapper;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         List<RoleResource> roleResources = authUserMapper.getRoleResourceList();
         Map<String, Object> roleResourceMap = roleResources.stream().collect(Collectors.toMap(RoleResource::getPath, RoleResource::getRoleCode));
         redisTemplate.opsForHash().putAll(RESOURCE_ROLES_MAP, roleResourceMap);

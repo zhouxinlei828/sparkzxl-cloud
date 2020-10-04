@@ -27,6 +27,9 @@ spring:
           - dataId: redis.yaml
             group: DEFAULT_GROUP
             refresh: false
+          - dataId: kafka.yaml
+            group: DEFAULT_GROUP
+            refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
 logging:

@@ -1,6 +1,7 @@
 package com.github.sparkzxl.oauth.domain.repository;
 
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
+import com.github.sparkzxl.oauth.infrastructure.entity.LoginAuthUser;
 import com.github.sparkzxl.oauth.infrastructure.entity.RoleResource;
 
 import java.util.List;
@@ -31,13 +32,6 @@ public interface IAuthUserRepository {
     AuthUser selectByAccount(String account);
 
     /**
-     * 密码输错自增
-     *
-     * @param id id
-     */
-    void incrPasswordErrorNumById(Long id);
-
-    /**
      * 获取用户权限集
      *
      * @param id id
@@ -60,10 +54,19 @@ public interface IAuthUserRepository {
      */
     List<RoleResource> getRoleResourceList();
 
+
     /**
-     * 密码输错自增
+     * 删除用户关联信息
      *
-     * @param account 账户
+     * @param ids 用户ids
      */
-    void incrPasswordErrorNumByAccount(String account);
+    void deleteUserRelation(List<Long> ids);
+
+    /**
+     * 获取登录用户信息
+     *
+     * @param id 用户id
+     * @return LoginAuthUser
+     */
+    LoginAuthUser getLoginAuthUser(Long id);
 }

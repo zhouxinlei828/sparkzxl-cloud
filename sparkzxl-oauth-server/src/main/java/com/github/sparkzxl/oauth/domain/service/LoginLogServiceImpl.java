@@ -1,21 +1,23 @@
 package com.github.sparkzxl.oauth.domain.service;
 
 import cn.hutool.core.util.StrUtil;
-import com.github.sparkzxl.core.entity.UserAgentEntity;
-import com.github.sparkzxl.core.utils.KeyUtils;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.github.sparkzxl.oauth.application.service.ILoginLogService;
 import com.github.sparkzxl.oauth.domain.repository.IAuthUserRepository;
 import com.github.sparkzxl.oauth.domain.repository.ILoginLogRepository;
 import com.github.sparkzxl.oauth.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.oauth.infrastructure.entity.LoginLog;
+import com.github.sparkzxl.oauth.infrastructure.entity.LoginLogCount;
 import com.github.sparkzxl.oauth.infrastructure.mapper.LoginLogMapper;
+import com.github.sparkzxl.core.entity.UserAgentEntity;
+import com.github.sparkzxl.core.utils.KeyUtils;
+import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * description：系统日志 服务实现类
@@ -89,6 +91,47 @@ public class LoginLogServiceImpl extends AbstractSuperCacheServiceImpl<LoginLogM
         if (authUser != null) {
             cacheTemplate.remove(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TEN_DAY, tenDays, account));
         }
+    }
+
+    @Override
+    public Long findTotalVisitCount() {
+        return cacheTemplate.get(CacheConstant.LOGIN_LOG_TOTAL);
+    }
+
+    @Override
+    public Long findTodayVisitCount() {
+        LocalDate now = LocalDate.now();
+        return cacheTemplate.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TODAY, now));
+    }
+
+    @Override
+    public Long findTodayIp() {
+        LocalDate now = LocalDate.now();
+        return cacheTemplate.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TODAY_IP, now));
+    }
+
+    @Override
+    public List<LoginLogCount> findLastTenDaysVisitCount(String account) {
+        LocalDate tenDays = LocalDate.now().plusDays(-9);
+        return cacheTemplate.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_TEN_DAY, tenDays, account),
+                (key) -> loginLogRepository.findLastTenDaysVisitCount(tenDays, account));
+    }
+
+    @Override
+    public List<LoginLogCount> findByBrowser() {
+        return cacheTemplate.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_BROWSER),
+                (key) -> loginLogRepository.findByBrowser());
+    }
+
+    @Override
+    public List<LoginLogCount> findByOperatingSystem() {
+        return cacheTemplate.get(KeyUtils.buildKey(CacheConstant.LOGIN_LOG_SYSTEM),
+                (key) -> loginLogRepository.findByOperatingSystem());
+    }
+
+    @Override
+    public boolean clearLog(LocalDateTime clearBeforeTime, Integer clearBeforeNum) {
+        return loginLogRepository.clearLog(clearBeforeTime, clearBeforeNum);
     }
 
     @Override

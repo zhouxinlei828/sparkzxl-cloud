@@ -4,6 +4,7 @@ import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.github.sparkzxl.oauth.application.service.ILoginLogService;
 import com.github.sparkzxl.oauth.event.LoginEvent;
 import com.github.sparkzxl.oauth.entity.LoginStatus;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -15,37 +16,17 @@ import org.springframework.stereotype.Component;
  * @author zhouxinlei
  * @date 2020/6/17 0017
  */
+@AllArgsConstructor
 @Component
 @Slf4j
 public class LoginListener {
 
     private final ILoginLogService loginLogService;
-    private final IAuthUserService authUserService;
-
-    public LoginListener(ILoginLogService loginLogService, IAuthUserService authUserService) {
-        this.loginLogService = loginLogService;
-        this.authUserService = authUserService;
-    }
 
     @Async
     @EventListener({LoginEvent.class})
     public void saveSysLog(LoginEvent event) {
         LoginStatus<Long> loginStatus = (LoginStatus) event.getSource();
-        if (LoginStatus.Type.SUCCESS == loginStatus.getType()) {
-            // 重置错误次数 和 最后登录时间
-            if (loginStatus.getId() == null) {
-                authUserService.resetPassErrorNum(loginStatus.getAccount());
-            } else {
-                authUserService.resetPassErrorNum(loginStatus.getId());
-            }
-        } else if (LoginStatus.Type.PWD_ERROR == loginStatus.getType()) {
-            // 密码错误
-            if (loginStatus.getId() == null) {
-                authUserService.incrPasswordErrorNum(loginStatus.getAccount());
-            } else {
-                authUserService.incrPasswordErrorNum(loginStatus.getId());
-            }
-        }
         loginLogService.save(loginStatus.getId(),
                 loginStatus.getAccount(),
                 loginStatus.getUserAgentEntity(),

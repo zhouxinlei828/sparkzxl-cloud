@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.sparkzxl.database.entity.Entity;
 import com.github.sparkzxl.oauth.infrastructure.enums.SexEnum;
+import com.github.sparkzxl.database.annonation.InjectionField;
+import com.github.sparkzxl.database.entity.Entity;
+import com.github.sparkzxl.database.entity.RemoteData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,6 +19,7 @@ import lombok.experimental.Accessors;
 import java.time.LocalDateTime;
 
 import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE_RIGHT;
+import static com.github.sparkzxl.oauth.infrastructure.constant.InjectionFieldConstants.*;
 
 /**
  * description: 用户信息
@@ -53,11 +56,13 @@ public class AuthUser extends Entity<Long> {
 
     @ApiModelProperty(value = "组织ID")
     @TableField("org_id")
-    private Long orgId;
+    @InjectionField(api = ORG_ID_CLASS, method = ORG_ID_METHOD, beanClass = CoreOrg.class)
+    private RemoteData<Long, CoreOrg> org;
 
     @ApiModelProperty(value = "岗位ID")
     @TableField("station_id")
-    private Long stationId;
+    @InjectionField(api = STATION_ID_CLASS, method = STATION_ID_NAME_METHOD)
+    private RemoteData<Long, CoreStation> station;
 
     @ApiModelProperty(value = "邮箱")
     @TableField("email")
@@ -95,17 +100,9 @@ public class AuthUser extends Entity<Long> {
     @TableField("work_describe")
     private String workDescribe;
 
-    @ApiModelProperty(value = "最后一次输错密码时间")
-    @TableField("password_error_last_time")
-    private LocalDateTime passwordErrorLastTime;
-
     @ApiModelProperty(value = "密码错误次数")
     @TableField("password_error_num")
     private Integer passwordErrorNum;
-
-    @ApiModelProperty(value = "密码过期时间")
-    @TableField("password_expire_time")
-    private LocalDateTime passwordExpireTime;
 
     @ApiModelProperty(value = "最后登录时间")
     @TableField("last_login_time")
