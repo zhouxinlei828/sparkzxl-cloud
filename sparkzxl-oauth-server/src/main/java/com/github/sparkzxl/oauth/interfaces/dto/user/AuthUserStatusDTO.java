@@ -1,5 +1,6 @@
 package com.github.sparkzxl.oauth.interfaces.dto.user;
 
+import com.github.sparkzxl.database.entity.RemoteData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,7 +29,7 @@ public class AuthUserStatusDTO {
     private Boolean status;
 
     @ApiModelProperty(value = "职位状态")
-    private String positionStatus;
+    private RemoteData<String, String> positionStatus;
 
     @ApiModelProperty(value = "更新人id")
     private Long updateUser;

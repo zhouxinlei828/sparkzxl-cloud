@@ -42,17 +42,22 @@ public class InjectionFieldConstants {
 
 
     /**
-     * 组织 仓储查询类
+     * 职位 仓储查询类
      */
     public static final String STATION_ID_CLASS = "coreStationRepository";
-    /**
-     * 组织 feign查询类
-     */
-    public static final String STATION_ID_FEIGN_CLASS = "stationApi";
 
     /**
-     * 组织 查询方法
+     * 职位 查询方法
      */
     public static final String STATION_ID_METHOD = "findStationByIds";
-    public static final String STATION_ID_NAME_METHOD = "findStationNameByIds";
+
+    /**
+     * 数据字典项 service查询类
+     */
+    public static final String DICTIONARY_ITEM_CLASS = "commonDictionaryItemServiceImpl";
+
+    /**
+     * 数据字典项 api查询方法
+     */
+    public static final String DICTIONARY_ITEM_METHOD = "findDictionaryItem";
 }

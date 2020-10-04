@@ -1,5 +1,6 @@
 package com.github.sparkzxl.oauth.interfaces.dto.user;
 
+import com.github.sparkzxl.database.entity.RemoteData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -55,13 +56,13 @@ public class AuthUserSaveDTO {
     private String avatar;
 
     @ApiModelProperty(value = "民族")
-    private String nation;
+    private RemoteData<String, String> nation;
 
     @ApiModelProperty(value = "学历")
-    private String education;
+    private RemoteData<String, String> education;
 
     @ApiModelProperty(value = "职位状态")
-    private String positionStatus;
+    private RemoteData<String, String> positionStatus;
 
     @ApiModelProperty(value = "工作描述比如：市长、管理员、局长等等   用于登陆展示")
     private String workDescribe;

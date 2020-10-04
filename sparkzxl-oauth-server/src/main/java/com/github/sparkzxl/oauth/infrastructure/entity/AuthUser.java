@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.sparkzxl.oauth.infrastructure.constant.DictionaryType;
 import com.github.sparkzxl.oauth.infrastructure.enums.SexEnum;
 import com.github.sparkzxl.database.annonation.InjectionField;
 import com.github.sparkzxl.database.entity.Entity;
@@ -18,6 +19,7 @@ import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 
+import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE;
 import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE_RIGHT;
 import static com.github.sparkzxl.oauth.infrastructure.constant.InjectionFieldConstants.*;
 
@@ -61,7 +63,7 @@ public class AuthUser extends Entity<Long> {
 
     @ApiModelProperty(value = "岗位ID")
     @TableField("station_id")
-    @InjectionField(api = STATION_ID_CLASS, method = STATION_ID_NAME_METHOD)
+    @InjectionField(api = STATION_ID_CLASS, method = STATION_ID_METHOD)
     private RemoteData<Long, CoreStation> station;
 
     @ApiModelProperty(value = "邮箱")
@@ -86,15 +88,18 @@ public class AuthUser extends Entity<Long> {
 
     @ApiModelProperty(value = "民族")
     @TableField("nation")
-    private String nation;
+    @InjectionField(api = DICTIONARY_ITEM_CLASS, method = DICTIONARY_ITEM_METHOD, dictType = DictionaryType.NATION)
+    private RemoteData<String, String> nation;
 
     @ApiModelProperty(value = "学历")
     @TableField("education")
-    private String education;
+    @InjectionField(api = DICTIONARY_ITEM_CLASS, method = DICTIONARY_ITEM_METHOD, dictType = DictionaryType.EDUCATION)
+    private RemoteData<String, String> education;
 
     @ApiModelProperty(value = "职位状态")
     @TableField("position_status")
-    private String positionStatus;
+    @InjectionField(api = DICTIONARY_ITEM_CLASS, method = DICTIONARY_ITEM_METHOD, dictType = DictionaryType.POSITION_STATUS)
+    private RemoteData<String, String> positionStatus;
 
     @ApiModelProperty(value = "工作描述比如：市长、管理员、局长等等   用于登陆展示")
     @TableField("work_describe")

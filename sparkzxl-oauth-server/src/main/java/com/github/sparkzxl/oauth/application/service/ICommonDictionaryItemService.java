@@ -1,7 +1,11 @@
 package com.github.sparkzxl.oauth.application.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.sparkzxl.oauth.infrastructure.entity.CommonDictionaryItem;
-import com.github.sparkzxl.database.base.service.SuperCacheService;
+
+import java.io.Serializable;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * description: 字典项 服务类
@@ -9,6 +13,13 @@ import com.github.sparkzxl.database.base.service.SuperCacheService;
  * @author: zhouxinlei
  * @date: 2020-07-28 19:42:04
  */
-public interface ICommonDictionaryItemService extends SuperCacheService<CommonDictionaryItem> {
+public interface ICommonDictionaryItemService extends IService<CommonDictionaryItem> {
 
+    /**
+     * 根据类型编码查询字典项
+     *
+     * @param codes 字典编码
+     * @return Map<Serializable, Object>
+     */
+    Map<Serializable, Object> findDictionaryItem(Set<Serializable> codes);
 }

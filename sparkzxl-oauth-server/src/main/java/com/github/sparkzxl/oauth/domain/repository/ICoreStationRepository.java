@@ -22,7 +22,7 @@ public interface ICoreStationRepository {
      * @param ids
      * @return
      */
-    Map<Serializable, Object> findStationNameByIds(Set<Serializable> ids);
+    Map<Serializable, Object> findStationByIds(Set<Serializable> ids);
 
     /**
      * 分页查询岗位列表

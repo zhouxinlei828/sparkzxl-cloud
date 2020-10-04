@@ -1,5 +1,6 @@
 package com.github.sparkzxl.oauth.interfaces.dto.user;
 
+import com.github.sparkzxl.database.entity.RemoteData;
 import com.github.sparkzxl.oauth.infrastructure.enums.SexEnum;
 import com.github.sparkzxl.database.dto.PageDTO;
 import io.swagger.annotations.ApiModel;
@@ -38,7 +39,7 @@ public class AuthUserPageDTO extends PageDTO {
     private Boolean status;
 
     @ApiModelProperty(value = "职位状态")
-    private String positionStatus;
+    private RemoteData<String, String> positionStatus;
 
     public void setSex(SexEnum sex) {
         this.sex = sex.getDesc();

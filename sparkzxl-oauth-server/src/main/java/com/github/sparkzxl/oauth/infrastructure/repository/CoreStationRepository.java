@@ -30,7 +30,7 @@ public class CoreStationRepository implements ICoreStationRepository {
     private final CoreStationMapper coreStationMapper;
 
     @Override
-    public Map<Serializable, Object> findStationNameByIds(Set<Serializable> ids) {
+    public Map<Serializable, Object> findStationByIds(Set<Serializable> ids) {
         List<CoreStation> stations = getStations(ids);
         return MapHelper.uniqueIndex(stations, CoreStation::getId, (station) -> station);
     }

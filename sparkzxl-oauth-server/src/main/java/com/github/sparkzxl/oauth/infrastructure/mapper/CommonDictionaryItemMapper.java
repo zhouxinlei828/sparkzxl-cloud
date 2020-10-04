@@ -1,7 +1,7 @@
 package com.github.sparkzxl.oauth.infrastructure.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.sparkzxl.oauth.infrastructure.entity.CommonDictionaryItem;
-import com.github.sparkzxl.database.base.mapper.SuperMapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @date: 2020-07-28 19:39:58
  */
 @Repository
-public interface CommonDictionaryItemMapper extends SuperMapper<CommonDictionaryItem> {
+public interface CommonDictionaryItemMapper extends BaseMapper<CommonDictionaryItem> {
 
 }
