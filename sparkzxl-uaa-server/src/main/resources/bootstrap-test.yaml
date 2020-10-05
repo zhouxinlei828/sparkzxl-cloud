@@ -1,13 +1,13 @@
 server:
   shutdown: graceful
-  port: 8904
+  port: 8901
   undertow:
     buffer-size: 1024
     direct-buffers: on
     always-set-keep-alive: true
 spring:
   application:
-    name: sparkzxl-activiti
+    name: sparkzxl-uaa-server
   lifecycle:
     timeout-per-shutdown-phase: 30s
   cloud:
@@ -31,6 +31,6 @@ spring:
         refresh-enabled: true
 logging:
   level:
-    com.github.sparkzxl.activiti.infrastructure.mapper: debug
+    com.github.sparkzxl.oauth.infrastructure.mapper: debug
   file:
     path: C:/logs/${spring.application.name}

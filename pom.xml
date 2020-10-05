@@ -51,9 +51,9 @@
         <module>sparkzxl-code-generator</module>
         <module>sparkzxl-file</module>
         <module>sparkzxl-gateway</module>
-        <module>sparkzxl-oauth-server</module>
         <module>sparkzxl-sharding-demo</module>
         <module>sparkzxl-test-demo</module>
+        <module>sparkzxl-uaa-server</module>
     </modules>
 
     <repositories>
