@@ -29,4 +29,22 @@ public enum SexEnum implements Enumerator {
 
     final String desc;
 
+    public static String getValue(int code) {
+        for (SexEnum ele : values()) {
+            if (ele.getCode() == code) {
+                return ele.getDesc();
+            }
+        }
+        return null;
+    }
+
+    public static SexEnum getEnum(int code) {
+        for (SexEnum ele : values()) {
+            if (ele.getCode() == code) {
+                return ele;
+            }
+        }
+        return null;
+    }
+
 }

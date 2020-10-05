@@ -2,11 +2,12 @@ package com.github.sparkzxl.oauth.infrastructure.convert;
 
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
-import com.github.sparkzxl.oauth.domain.bo.AuthUserBO;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.oauth.infrastructure.entity.LoginAuthUser;
 import com.github.sparkzxl.oauth.infrastructure.entity.UserInfo;
+import com.github.sparkzxl.oauth.infrastructure.enums.SexEnum;
 import com.github.sparkzxl.oauth.interfaces.dto.user.*;
+import org.apache.commons.lang3.ObjectUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -61,8 +62,22 @@ public interface AuthUserConvert {
      * @param authUserPageDTO AuthUserDTO分页查询对象
      * @return AuthUserBO
      */
+    @Mapping(target = "sex", expression = "java(convertSex(authUserPageDTO.getSex()))")
     AuthUser convertAuthUser(AuthUserPageDTO authUserPageDTO);
 
+
+    /**
+     * 转换sex枚举
+     *
+     * @param sex
+     * @return
+     */
+    default SexEnum convertSex(Integer sex) {
+        if (ObjectUtils.isNotEmpty(sex)) {
+            return SexEnum.getEnum(sex);
+        }
+        return null;
+    }
 
     /**
      * AuthUser转化为AuthUserDTO

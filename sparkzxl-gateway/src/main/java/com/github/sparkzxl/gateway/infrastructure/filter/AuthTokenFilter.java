@@ -46,18 +46,20 @@ public class AuthTokenFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         String header = WebFluxUtils.getHeader(BaseContextConstant.JWT_TOKEN_HEADER, request);
-        if (header.startsWith(BaseContextConstant.BASIC_AUTH)) {
-            return chain.filter(exchange);
+        if (StringUtils.isNotEmpty(header)) {
+            if (header.startsWith(BaseContextConstant.BASIC_AUTH)) {
+                return chain.filter(exchange);
+            }
+            String accessToken = StringUtils.removeStartIgnoreCase(header, BaseContextConstant.BEARER_TOKEN);
+            if (StringUtils.isBlank(accessToken)) {
+                return chain.filter(exchange);
+            }
+            JWSObject jwsObject = JWSObject.parse(accessToken);
+            String userStr = jwsObject.getPayload().toString();
+            log.info("AuthTokenFilter.filter() user:{}", userStr);
+            request.mutate().header("user", userStr).build();
+            exchange = exchange.mutate().request(request).build();
         }
-        String accessToken = StringUtils.removeStartIgnoreCase(header, BaseContextConstant.BEARER_TOKEN);
-        if (StringUtils.isBlank(accessToken)) {
-            return chain.filter(exchange);
-        }
-        JWSObject jwsObject = JWSObject.parse(accessToken);
-        String userStr = jwsObject.getPayload().toString();
-        log.info("AuthTokenFilter.filter() user:{}", userStr);
-        request.mutate().header("user", userStr).build();
-        exchange = exchange.mutate().request(request).build();
         return chain.filter(exchange);
     }
 

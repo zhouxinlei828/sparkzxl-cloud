@@ -2,6 +2,7 @@ package com.github.sparkzxl.gateway.infrastructure.handler;
 
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
@@ -45,6 +46,16 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
     protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
         return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
     }
+
+    @Override
+    protected int getHttpStatus(Map<String, Object> errorAttributes) {
+        Object status = errorAttributes.get("status");
+        if (ObjectUtils.isEmpty(status)) {
+            return (int) errorAttributes.get("code");
+        }
+        return (int) status;
+    }
+
     /**
      * 构建异常信息
      *

@@ -15,6 +15,8 @@ import com.github.sparkzxl.database.annonation.InjectionResult;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -128,7 +130,22 @@ public class AuthUserRepository implements IAuthUserRepository {
     @Override
     @InjectionResult
     public List<AuthUser> getAuthUserList(AuthUser authUser) {
-        QueryWrapper<AuthUser> queryWrapper = new QueryWrapper<>(authUser);
+        LambdaQueryWrapper<AuthUser> queryWrapper = new LambdaQueryWrapper<>();
+        if (StringUtils.isNotEmpty(authUser.getAccount())) {
+            queryWrapper.like(AuthUser::getAccount, authUser.getAccount());
+        }
+        if (StringUtils.isNotEmpty(authUser.getName())) {
+            queryWrapper.like(AuthUser::getName, authUser.getName());
+        }
+        if (ObjectUtils.isNotEmpty(authUser.getStatus())) {
+            queryWrapper.eq(AuthUser::getStatus, authUser.getStatus());
+        }
+        if (ObjectUtils.isNotEmpty(authUser.getSex()) && ObjectUtils.isNotEmpty(authUser.getSex().getCode())) {
+            queryWrapper.eq(AuthUser::getSex, authUser.getSex());
+        }
+        if (ObjectUtils.isNotEmpty(authUser.getNation()) && StringUtils.isNotEmpty(authUser.getNation().getKey())) {
+            queryWrapper.eq(AuthUser::getNation, authUser.getNation());
+        }
         return authUserMapper.selectList(queryWrapper);
     }
 }

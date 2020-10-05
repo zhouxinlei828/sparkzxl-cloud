@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.sparkzxl.oauth.infrastructure.entity.CommonDictionaryItem;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,4 +23,12 @@ public interface ICommonDictionaryItemService extends IService<CommonDictionaryI
      * @return Map<Serializable, Object>
      */
     Map<Serializable, Object> findDictionaryItem(Set<Serializable> codes);
+
+    /**
+     * 根据字典类型查询字典数据
+     *
+     * @param dictionaryType 字典类型
+     * @return List<CommonDictionaryItem>
+     */
+    List<CommonDictionaryItem> findDictionaryItemByDictionaryType(String dictionaryType);
 }

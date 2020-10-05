@@ -8,7 +8,6 @@ import com.github.sparkzxl.database.properties.InjectionProperties;
 import com.github.sparkzxl.oauth.application.service.ICommonDictionaryItemService;
 import com.github.sparkzxl.oauth.infrastructure.entity.CommonDictionaryItem;
 import com.github.sparkzxl.oauth.infrastructure.mapper.CommonDictionaryItemMapper;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
  */
 @Service
 public class CommonDictionaryItemServiceImpl extends ServiceImpl<CommonDictionaryItemMapper, CommonDictionaryItem> implements ICommonDictionaryItemService {
-
 
     @Autowired
     private InjectionProperties injectionProperties;
@@ -57,5 +55,14 @@ public class CommonDictionaryItemServiceImpl extends ServiceImpl<CommonDictionar
         Map<Serializable, Object> typeCodeNameMap = new HashMap<>(typeMap.size());
         typeMap.forEach(typeCodeNameMap::put);
         return typeCodeNameMap;
+    }
+
+    @Override
+    public List<CommonDictionaryItem> findDictionaryItemByDictionaryType(String dictionaryType) {
+        LambdaQueryWrapper<CommonDictionaryItem> dictionaryItemLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        dictionaryItemLambdaQueryWrapper.in(CommonDictionaryItem::getDictionaryType, dictionaryType)
+                .eq(CommonDictionaryItem::getStatus, true)
+                .orderByAsc(CommonDictionaryItem::getSortValue);
+        return super.list(dictionaryItemLambdaQueryWrapper);
     }
 }
