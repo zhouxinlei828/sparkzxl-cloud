@@ -1,6 +1,8 @@
 package com.github.sparkzxl.oauth.domain.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.sparkzxl.database.entity.TreeEntity;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.github.sparkzxl.oauth.application.service.ICoreOrgService;
 import com.github.sparkzxl.oauth.application.service.IRoleOrgService;
@@ -35,9 +37,9 @@ public class CoreOrgServiceImpl extends AbstractSuperCacheServiceImpl<CoreOrgMap
 
     @Override
     public List<CoreOrg> getCoreOrgList(String name, Boolean status) {
-        QueryWrapper<CoreOrg> orgQueryWrapper = new QueryWrapper<>();
-        Optional.ofNullable(name).ifPresent(value -> orgQueryWrapper.likeRight("label", value));
-        Optional.ofNullable(status).ifPresent(value -> orgQueryWrapper.likeRight("status", value));
+        LambdaQueryWrapper<CoreOrg> orgQueryWrapper = new LambdaQueryWrapper<>();
+        Optional.ofNullable(name).ifPresent(value -> orgQueryWrapper.likeRight(TreeEntity::getLabel, value));
+        Optional.ofNullable(status).ifPresent(value -> orgQueryWrapper.eq(CoreOrg::getStatus, value));
         List<CoreOrg> coreOrgList = list(orgQueryWrapper);
         return TreeUtil.buildTree(coreOrgList);
     }

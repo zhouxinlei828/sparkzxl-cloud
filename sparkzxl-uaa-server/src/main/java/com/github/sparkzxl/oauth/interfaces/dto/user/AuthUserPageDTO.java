@@ -1,13 +1,9 @@
 package com.github.sparkzxl.oauth.interfaces.dto.user;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.deser.std.EnumDeserializer;
-import com.github.sparkzxl.core.enums.EnumeratorDeserializer;
 import com.github.sparkzxl.database.annonation.InjectionField;
 import com.github.sparkzxl.database.entity.RemoteData;
 import com.github.sparkzxl.database.dto.PageDTO;
 import com.github.sparkzxl.oauth.infrastructure.constant.DictionaryType;
-import com.github.sparkzxl.oauth.infrastructure.enums.SexEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

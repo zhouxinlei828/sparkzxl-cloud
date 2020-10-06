@@ -11,6 +11,8 @@ import com.github.sparkzxl.database.base.service.SuperCacheService;
 import com.github.sparkzxl.oauth.entity.AuthUserDetail;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserPageDTO;
+import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserSaveDTO;
+import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserUpdateDTO;
 
 import java.util.List;
 import java.util.Set;
@@ -102,8 +104,25 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
 
     /**
      * 获取用户分页
+     *
      * @param authUserPageDTO 分页入参
      * @return PageInfo<AuthUser>
      */
     PageInfo<AuthUser> getAuthUserPage(AuthUserPageDTO authUserPageDTO);
+
+    /**
+     * 保存用户信息
+     *
+     * @param authUserSaveDTO AuthUserSaveDTO保存对象
+     * @return boolean
+     */
+    boolean saveAuthUser(AuthUserSaveDTO authUserSaveDTO);
+
+    /**
+     * 修改用户信息
+     *
+     * @param authUserUpdateDTO AuthUserSaveDTO修改对象
+     * @return boolean
+     */
+    boolean updateAuthUser(AuthUserUpdateDTO authUserUpdateDTO);
 }

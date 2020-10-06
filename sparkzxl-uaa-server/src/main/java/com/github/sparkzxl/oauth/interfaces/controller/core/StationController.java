@@ -16,6 +16,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.List;
+
 /**
  * description: 岗位 前端控制器
  *
@@ -26,6 +28,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @ResponseResult
 @WebLog
 @Api(tags = "岗位管理")
+@RequestMapping("/station")
 public class StationController {
 
     private final ICoreStationService stationService;
@@ -34,10 +37,16 @@ public class StationController {
         this.stationService = stationService;
     }
 
-    @ApiOperation("查询岗位列表")
+    @ApiOperation("查询岗位分页列表")
     @GetMapping("/stations")
     public PageInfo<CoreStation> getStationPageList(StationPageDTO stationPageDTO) {
         return stationService.getStationPageList(stationPageDTO);
+    }
+
+    @ApiOperation("查询岗位列表")
+    @GetMapping("/stationList")
+    public List<CoreStation> getStationList() {
+        return stationService.list();
     }
 
     @ApiOperation("新增岗位")

@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -51,6 +52,24 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
     @GetMapping("/authUser/{id}")
     public AuthUserDTO getAuthUser(@PathVariable("id") Long id) {
         return baseService.getAuthUser(id);
+    }
+
+    @ApiOperation("保存用户信息")
+    @PostMapping("/saveAuthUser")
+    public boolean saveAuthUser(@Valid @RequestBody AuthUserSaveDTO authUserSaveDTO) {
+        return baseService.saveAuthUser(authUserSaveDTO);
+    }
+
+    @ApiOperation("修改用户信息")
+    @PostMapping("/updateAuthUser")
+    public boolean updateAuthUser(@Valid @RequestBody AuthUserUpdateDTO authUserUpdateDTO) {
+        return baseService.updateAuthUser(authUserUpdateDTO);
+    }
+
+    @ApiOperation("删除用户信息")
+    @DeleteMapping("/deleteAuthUser")
+    public boolean deleteAuthUser(@RequestParam("id") Long id) {
+        return baseService.removeById(id);
     }
 
     @Override

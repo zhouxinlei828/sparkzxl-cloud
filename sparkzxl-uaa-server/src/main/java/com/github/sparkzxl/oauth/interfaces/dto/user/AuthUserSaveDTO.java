@@ -1,6 +1,9 @@
 package com.github.sparkzxl.oauth.interfaces.dto.user;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.github.sparkzxl.database.entity.RemoteData;
+import com.github.sparkzxl.oauth.infrastructure.entity.CoreOrg;
+import com.github.sparkzxl.oauth.infrastructure.entity.CoreStation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -8,7 +11,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 /**
  * description: 用户信息
@@ -35,12 +37,11 @@ public class AuthUserSaveDTO {
     private String password;
 
     @ApiModelProperty(value = "组织ID")
-    @NotNull(message = "组织不能为空")
-    private Long orgId;
+    private RemoteData<Long, CoreOrg> org;
 
     @ApiModelProperty(value = "岗位ID")
-    @NotNull(message = "岗位不能为空")
-    private Long stationId;
+    @TableField("station_id")
+    private RemoteData<Long, CoreStation> station;
 
     @ApiModelProperty(value = "邮箱")
     private String email;
@@ -49,8 +50,7 @@ public class AuthUserSaveDTO {
     private String mobile;
 
     @ApiModelProperty(value = "性别")
-    @NotEmpty(message = "性别不能为空")
-    private String sex;
+    private Integer sex;
 
     @ApiModelProperty(value = "头像")
     private String avatar;

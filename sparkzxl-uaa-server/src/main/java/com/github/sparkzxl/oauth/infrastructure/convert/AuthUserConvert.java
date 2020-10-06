@@ -38,6 +38,7 @@ public interface AuthUserConvert {
      * @param authUserSaveDTO AuthUserSaveDTO保存对象
      * @return AuthUser
      */
+    @Mapping(target = "sex", expression = "java(convertSex(authUserSaveDTO.getSex()))")
     AuthUser convertAuthUser(AuthUserSaveDTO authUserSaveDTO);
 
     /**
@@ -64,7 +65,6 @@ public interface AuthUserConvert {
      */
     @Mapping(target = "sex", expression = "java(convertSex(authUserPageDTO.getSex()))")
     AuthUser convertAuthUser(AuthUserPageDTO authUserPageDTO);
-
 
     /**
      * 转换sex枚举

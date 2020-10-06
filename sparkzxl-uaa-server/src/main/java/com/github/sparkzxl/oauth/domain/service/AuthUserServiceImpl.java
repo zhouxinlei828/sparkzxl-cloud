@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
-import com.github.sparkzxl.database.injection.InjectionCore;
 import com.github.sparkzxl.database.utils.PageInfoUtils;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.github.sparkzxl.oauth.domain.repository.IAuthUserRepository;
@@ -20,10 +19,13 @@ import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserDTO;
 import com.github.sparkzxl.core.utils.ListUtils;
 import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserPageDTO;
+import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserSaveDTO;
+import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserUpdateDTO;
 import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -34,14 +36,16 @@ import java.util.*;
  * @author zhouxinlei
  * @date 2020-05-24 12:22:57
  */
-@AllArgsConstructor
 @Service
 @Slf4j
 public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserMapper, AuthUser> implements IAuthUserService {
 
-    private final IAuthUserRepository authUserRepository;
-    private final ObjectMapper objectMapper;
-    private final InjectionCore injectionCore;
+    @Autowired
+    private IAuthUserRepository authUserRepository;
+    @Autowired
+    private ObjectMapper objectMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public AuthUserDTO getAuthUser(Long id) {
@@ -170,5 +174,19 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
         PageHelper.startPage(authUserPageDTO.getPageNum(), authUserPageDTO.getPageSize());
         List<AuthUser> authUserList = authUserRepository.getAuthUserList(authUser);
         return PageInfoUtils.pageInfo(authUserList);
+    }
+
+    @Override
+    public boolean saveAuthUser(AuthUserSaveDTO authUserSaveDTO) {
+        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserSaveDTO);
+        String password = passwordEncoder.encode(authUser.getPassword());
+        authUser.setPassword(password);
+        return save(authUser);
+    }
+
+    @Override
+    public boolean updateAuthUser(AuthUserUpdateDTO authUserUpdateDTO) {
+        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserUpdateDTO);
+        return updateById(authUser);
     }
 }

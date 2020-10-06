@@ -26,6 +26,7 @@ import java.util.List;
 @ResponseResult
 @WebLog
 @Api(tags = "组织管理")
+@RequestMapping("/org")
 public class OrgController {
 
     private final ICoreOrgService coreOrgService;

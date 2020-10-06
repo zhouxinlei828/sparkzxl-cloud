@@ -3,6 +3,7 @@ package com.github.sparkzxl.oauth.domain.service;
 import com.github.sparkzxl.core.support.ResponseResultStatus;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.github.sparkzxl.oauth.entity.AuthUserDetail;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,11 +18,8 @@ import org.springframework.stereotype.Service;
 @Service("oauthUserDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final IAuthUserService authUserService;
-
-    public UserDetailsServiceImpl(IAuthUserService authUserService) {
-        this.authUserService = authUserService;
-    }
+    @Autowired
+    private IAuthUserService authUserService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
