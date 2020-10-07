@@ -189,4 +189,12 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
         AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserUpdateDTO);
         return updateById(authUser);
     }
+
+    @Override
+    public void deleteOrgIds(List<Long> orgIds) {
+        UpdateWrapper<AuthUser> userUpdateWrapper = new UpdateWrapper<>();
+        userUpdateWrapper.set("org_id", null);
+        userUpdateWrapper.in("org_id", orgIds);
+        update(userUpdateWrapper);
+    }
 }

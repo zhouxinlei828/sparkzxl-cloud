@@ -19,7 +19,7 @@ public interface ICoreOrgService extends SuperCacheService<CoreOrg> {
     /**
      * 查询组织列表
      *
-     * @param name 名称
+     * @param name   名称
      * @param status 状态
      * @return List<CoreOrg>
      */
@@ -37,16 +37,24 @@ public interface ICoreOrgService extends SuperCacheService<CoreOrg> {
     /**
      * 修改组织
      *
-     * @param userId       用户id
      * @param orgUpdateDTO 组织更新DTO
      * @return boolean
      */
-    boolean updateCoreOrg(Long userId, OrgUpdateDTO orgUpdateDTO);
+    boolean updateCoreOrg(OrgUpdateDTO orgUpdateDTO);
 
     /**
      * 删除组织
+     *
      * @param id 组织id
      * @return boolean
      */
     boolean deleteCoreOrg(Long id);
+
+    /**
+     * 批量删除组织
+     *
+     * @param ids 组织id列表
+     * @return
+     */
+    boolean deleteBatchCoreOrg(List<Long> ids);
 }

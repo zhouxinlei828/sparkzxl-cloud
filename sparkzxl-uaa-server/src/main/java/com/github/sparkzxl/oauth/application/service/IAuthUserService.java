@@ -125,4 +125,10 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * @return boolean
      */
     boolean updateAuthUser(AuthUserUpdateDTO authUserUpdateDTO);
+
+    /**
+     * 批量更新用户组织
+     * @param orgIds 组织ids
+     */
+    void deleteOrgIds(List<Long> orgIds);
 }

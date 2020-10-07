@@ -53,9 +53,8 @@ public class CoreOrgServiceImpl extends AbstractSuperCacheServiceImpl<CoreOrgMap
     }
 
     @Override
-    public boolean updateCoreOrg(Long userId, OrgUpdateDTO orgUpdateDTO) {
+    public boolean updateCoreOrg(OrgUpdateDTO orgUpdateDTO) {
         CoreOrg coreOrg = CoreOrgConvert.INSTANCE.convertCoreOrg(orgUpdateDTO);
-        coreOrg.setUpdateUser(userId);
         return updateById(coreOrg);
     }
 
@@ -64,6 +63,13 @@ public class CoreOrgServiceImpl extends AbstractSuperCacheServiceImpl<CoreOrgMap
         roleOrgService.deleteRoleOrgByOrgId(id);
         authUserService.deleteOrgId(id);
         return removeById(id);
+    }
+
+    @Override
+    public boolean deleteBatchCoreOrg(List<Long> ids) {
+        roleOrgService.deleteRoleOrgByOrgIds(ids);
+        authUserService.deleteOrgIds(ids);
+        return removeByIds(ids);
     }
 
     @Override

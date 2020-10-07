@@ -8,6 +8,8 @@ import com.github.sparkzxl.oauth.infrastructure.mapper.RoleOrgMapper;
 import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * description: 角色组织关系 服务实现类
  *
@@ -20,6 +22,11 @@ public class RoleOrgServiceImpl extends AbstractSuperCacheServiceImpl<RoleOrgMap
     @Override
     public boolean deleteRoleOrgByOrgId(Long orgId) {
         return remove(new UpdateWrapper<RoleOrg>().lambda().eq(RoleOrg::getOrgId, orgId));
+    }
+
+    @Override
+    public void deleteRoleOrgByOrgIds(List<Long> orgIds) {
+        remove(new UpdateWrapper<RoleOrg>().lambda().in(RoleOrg::getOrgId, orgIds));
     }
 
     @Override

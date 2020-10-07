@@ -3,6 +3,8 @@ package com.github.sparkzxl.oauth.application.service;
 import com.github.sparkzxl.oauth.infrastructure.entity.RoleOrg;
 import com.github.sparkzxl.database.base.service.SuperCacheService;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色组织关系 服务类
@@ -17,7 +19,15 @@ public interface IRoleOrgService extends SuperCacheService<RoleOrg> {
      * 删除角色组织
      *
      * @param orgId 组织id
-     * @return
+     * @return boolean
      */
     boolean deleteRoleOrgByOrgId(Long orgId);
+
+    /**
+     * 批量删除角色组织
+     *
+     * @param orgIds 组织ids
+     * @return boolean
+     */
+    void deleteRoleOrgByOrgIds(List<Long> orgIds);
 }

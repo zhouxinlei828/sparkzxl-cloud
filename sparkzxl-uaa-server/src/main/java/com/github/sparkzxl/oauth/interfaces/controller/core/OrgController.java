@@ -50,13 +50,19 @@ public class OrgController {
 
     @ApiOperation("修改组织")
     @PutMapping("/org")
-    public boolean updateCoreOrg(@ApiIgnore AuthUserInfo<Long> authUserInfo, @Validated @RequestBody OrgUpdateDTO orgUpdateDTO) {
-        return coreOrgService.updateCoreOrg(authUserInfo.getId(), orgUpdateDTO);
+    public boolean updateCoreOrg(@Validated @RequestBody OrgUpdateDTO orgUpdateDTO) {
+        return coreOrgService.updateCoreOrg(orgUpdateDTO);
     }
 
     @ApiOperation("删除组织")
-    @DeleteMapping("/org/{id}")
-    public boolean deleteCoreOrg(@PathVariable("id") Long id){
+    @DeleteMapping("/org")
+    public boolean deleteCoreOrg(@RequestParam("id") Long id){
         return coreOrgService.deleteCoreOrg(id);
+    }
+
+    @ApiOperation("批量删除组织")
+    @DeleteMapping("/org/batch")
+    public boolean deleteBatchCoreOrg(@RequestParam("ids") List<Long> ids){
+        return coreOrgService.deleteBatchCoreOrg(ids);
     }
 }
