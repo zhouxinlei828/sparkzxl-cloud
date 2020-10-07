@@ -7,14 +7,12 @@ import com.github.sparkzxl.oauth.infrastructure.entity.CoreStation;
 import com.github.sparkzxl.oauth.interfaces.dto.station.StationPageDTO;
 import com.github.sparkzxl.oauth.interfaces.dto.station.StationSaveDTO;
 import com.github.sparkzxl.oauth.interfaces.dto.station.StationUpdateDTO;
-import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -38,8 +36,8 @@ public class StationController {
     }
 
     @ApiOperation("查询岗位分页列表")
-    @GetMapping("/stations")
-    public PageInfo<CoreStation> getStationPageList(StationPageDTO stationPageDTO) {
+    @PostMapping("/stations")
+    public PageInfo<CoreStation> getStationPageList(@RequestBody StationPageDTO stationPageDTO) {
         return stationService.getStationPageList(stationPageDTO);
     }
 
@@ -51,16 +49,14 @@ public class StationController {
 
     @ApiOperation("新增岗位")
     @PostMapping("/station")
-    public boolean saveCoreStation(@ApiIgnore AuthUserInfo<Long> authUserInfo,
-                                   @Validated @RequestBody StationSaveDTO stationSaveDTO) {
-        return stationService.saveCoreStation(authUserInfo.getId(), stationSaveDTO);
+    public boolean saveCoreStation(@Validated @RequestBody StationSaveDTO stationSaveDTO) {
+        return stationService.saveCoreStation(stationSaveDTO);
     }
 
     @ApiOperation("修改岗位")
     @PutMapping("/station")
-    public boolean updateCoreStation(@ApiIgnore AuthUserInfo<Long> authUserInfo,
-                                     @Validated @RequestBody StationUpdateDTO stationUpdateDTO) {
-        return stationService.updateCoreStation(authUserInfo.getId(), stationUpdateDTO);
+    public boolean updateCoreStation(@Validated @RequestBody StationUpdateDTO stationUpdateDTO) {
+        return stationService.updateCoreStation(stationUpdateDTO);
     }
 
     @ApiOperation("删除岗位")

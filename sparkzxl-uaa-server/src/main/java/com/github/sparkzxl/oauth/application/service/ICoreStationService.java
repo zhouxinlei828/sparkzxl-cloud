@@ -27,18 +27,16 @@ public interface ICoreStationService extends SuperCacheService<CoreStation> {
     /**
      * 新增岗位
      *
-     * @param userId         用户id
      * @param stationSaveDTO 岗位保存对象
      * @return boolean
      */
-    boolean saveCoreStation(Long userId, StationSaveDTO stationSaveDTO);
+    boolean saveCoreStation(StationSaveDTO stationSaveDTO);
 
     /**
      * 修改岗位
      *
-     * @param userId           用户id
      * @param stationUpdateDTO 岗位更新对象
      * @return boolean
      */
-    boolean updateCoreStation(Long userId, StationUpdateDTO stationUpdateDTO);
+    boolean updateCoreStation(StationUpdateDTO stationUpdateDTO);
 }

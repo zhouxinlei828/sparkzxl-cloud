@@ -1,10 +1,12 @@
 package com.github.sparkzxl.oauth.domain.repository;
 
 
-import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.database.entity.RemoteData;
+import com.github.sparkzxl.oauth.infrastructure.entity.CoreOrg;
 import com.github.sparkzxl.oauth.infrastructure.entity.CoreStation;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,13 +27,13 @@ public interface ICoreStationRepository {
     Map<Serializable, Object> findStationByIds(Set<Serializable> ids);
 
     /**
-     * 分页查询岗位列表
+     * 注入分页查询岗位列表
      *
      * @param pageNum  当前页
      * @param pageSize 分页大小
      * @param name     岗位名称
-     * @param orgId    组织id
-     * @return PageInfo<CoreStation>
+     * @param org      组织id
+     * @return List<CoreStation>
      */
-    PageInfo<CoreStation> getStationPageList(int pageNum, int pageSize, String name, Long orgId);
+    List<CoreStation> getStationPageList(int pageNum, int pageSize, String name, RemoteData<Long, CoreOrg> org);
 }

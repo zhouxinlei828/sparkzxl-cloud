@@ -2,15 +2,19 @@ package com.github.sparkzxl.oauth.infrastructure.repository;
 
 
 import cn.hutool.core.convert.Convert;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.database.annonation.InjectionResult;
+import com.github.sparkzxl.database.entity.RemoteData;
 import com.github.sparkzxl.oauth.domain.repository.ICoreStationRepository;
+import com.github.sparkzxl.oauth.infrastructure.entity.CoreOrg;
 import com.github.sparkzxl.oauth.infrastructure.entity.CoreStation;
 import com.github.sparkzxl.oauth.infrastructure.mapper.CoreStationMapper;
 import com.github.sparkzxl.core.utils.MapHelper;
-import com.github.sparkzxl.database.utils.PageInfoUtils;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
@@ -53,11 +57,16 @@ public class CoreStationRepository implements ICoreStationRepository {
     }
 
     @Override
-    public PageInfo<CoreStation> getStationPageList(int pageNum, int pageSize, String name, Long orgId) {
-        QueryWrapper<CoreStation> stationQueryWrapper = new QueryWrapper<>();
-        Optional.ofNullable(name).ifPresent(value -> stationQueryWrapper.likeRight("name", value));
-        Optional.ofNullable(orgId).ifPresent(value -> stationQueryWrapper.eq("org_id", value));
+    @InjectionResult
+    public List<CoreStation> getStationPageList(int pageNum, int pageSize, String name, RemoteData<Long, CoreOrg> org) {
+        LambdaQueryWrapper<CoreStation> stationQueryWrapper = new LambdaQueryWrapper<>();
+        if (StringUtils.isNotEmpty(name)){
+            stationQueryWrapper.likeRight(CoreStation::getName, name);
+        }
+        if (ObjectUtils.isNotEmpty(org)&&ObjectUtils.isNotEmpty(org.getKey())){
+            stationQueryWrapper.eq(CoreStation::getOrg, org);
+        }
         PageHelper.startPage(pageNum, pageSize);
-        return PageInfoUtils.pageInfo(coreStationMapper.selectList(stationQueryWrapper));
+        return coreStationMapper.selectList(stationQueryWrapper);
     }
 }

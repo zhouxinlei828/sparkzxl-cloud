@@ -1,6 +1,7 @@
 package com.github.sparkzxl.oauth.domain.service;
 
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.database.utils.PageInfoUtils;
 import com.github.sparkzxl.oauth.application.service.ICoreStationService;
 import com.github.sparkzxl.oauth.domain.repository.ICoreStationRepository;
 import com.github.sparkzxl.oauth.infrastructure.constant.CacheConstant;
@@ -28,24 +29,20 @@ public class CoreStationServiceImpl extends AbstractSuperCacheServiceImpl<CoreSt
 
     @Override
     public PageInfo<CoreStation> getStationPageList(StationPageDTO stationPageDTO) {
-        return coreStationRepository.getStationPageList(stationPageDTO.getPageNum(),
-                stationPageDTO.getPageSize(),
-                stationPageDTO.getName(),
-                stationPageDTO.getOrgId());
+        return PageInfoUtils.pageInfo(coreStationRepository.getStationPageList(stationPageDTO.getPageNum(),
+                stationPageDTO.getPageSize(),stationPageDTO.getName(),
+                stationPageDTO.getOrg()));
     }
 
     @Override
-    public boolean saveCoreStation(Long userId, StationSaveDTO stationSaveDTO) {
+    public boolean saveCoreStation(StationSaveDTO stationSaveDTO) {
         CoreStation coreStation = CoreStationConvert.INSTANCE.convertCoreStation(stationSaveDTO);
-        coreStation.setCreateUser(userId);
-        coreStation.setUpdateUser(userId);
         return save(coreStation);
     }
 
     @Override
-    public boolean updateCoreStation(Long userId, StationUpdateDTO stationUpdateDTO) {
+    public boolean updateCoreStation(StationUpdateDTO stationUpdateDTO) {
         CoreStation coreStation = CoreStationConvert.INSTANCE.convertCoreStation(stationUpdateDTO);
-        coreStation.setUpdateUser(userId);
         return updateById(coreStation);
     }
 

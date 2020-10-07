@@ -1,6 +1,5 @@
 package com.github.sparkzxl.oauth.infrastructure.mapper;
 
-import com.github.sparkzxl.database.annonation.InjectionResult;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.oauth.infrastructure.entity.RoleResource;
 import com.github.sparkzxl.database.base.mapper.SuperMapper;
@@ -48,6 +47,5 @@ public interface AuthUserMapper extends SuperMapper<AuthUser> {
      * @param id 主键
      * @return AuthUser
      */
-    @InjectionResult
     AuthUser getById(@Param("id") Long id);
 }

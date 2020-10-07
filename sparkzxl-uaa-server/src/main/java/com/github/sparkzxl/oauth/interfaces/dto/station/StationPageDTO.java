@@ -1,6 +1,8 @@
 package com.github.sparkzxl.oauth.interfaces.dto.station;
 
 import com.github.sparkzxl.database.dto.PageDTO;
+import com.github.sparkzxl.database.entity.RemoteData;
+import com.github.sparkzxl.oauth.infrastructure.entity.CoreOrg;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,7 +22,7 @@ public class StationPageDTO extends PageDTO {
     @ApiModelProperty(value = "名称")
     private String name;
 
-    @ApiModelProperty(value = "组织ID")
-    private Long orgId;
+    @ApiModelProperty(value = "组织")
+    private RemoteData<Long, CoreOrg> org;
 
 }

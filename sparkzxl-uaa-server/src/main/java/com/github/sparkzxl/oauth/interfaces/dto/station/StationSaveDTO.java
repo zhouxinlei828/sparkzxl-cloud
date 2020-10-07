@@ -1,6 +1,8 @@
 package com.github.sparkzxl.oauth.interfaces.dto.station;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.github.sparkzxl.database.entity.RemoteData;
+import com.github.sparkzxl.oauth.infrastructure.entity.CoreOrg;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,7 +25,7 @@ public class StationSaveDTO {
 
     @ApiModelProperty(value = "组织ID")
     @NotNull(message = "组织不能为空")
-    private Long orgId;
+    private RemoteData<Long, CoreOrg> org;
 
     @ApiModelProperty(value = "状态")
     @NotNull(message = "状态不能为空")

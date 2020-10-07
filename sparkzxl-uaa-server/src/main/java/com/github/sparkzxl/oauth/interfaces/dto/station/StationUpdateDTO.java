@@ -1,6 +1,8 @@
 package com.github.sparkzxl.oauth.interfaces.dto.station;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.github.sparkzxl.database.entity.RemoteData;
+import com.github.sparkzxl.oauth.infrastructure.entity.CoreOrg;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,7 +28,7 @@ public class StationUpdateDTO {
     private String name;
 
     @ApiModelProperty(value = "组织ID")
-    private Long orgId;
+    private RemoteData<Long, CoreOrg> org;
 
     @ApiModelProperty(value = "状态")
     private Boolean status;
