@@ -31,7 +31,7 @@ public class AuthRoleRepository implements IAuthRoleRepository {
     @Override
     public void deleteAuthRoleRelation(List<Long> ids) {
         userRoleMapper.delete(new LambdaUpdateWrapper<UserRole>().in(UserRole::getRoleId, ids));
-        roleOrgMapper.delete(new LambdaUpdateWrapper<RoleOrg>().eq(RoleOrg::getRoleId, ids));
-        roleAuthorityMapper.delete(new LambdaUpdateWrapper<RoleAuthority>().eq(RoleAuthority::getRoleId, ids));
+        roleOrgMapper.delete(new LambdaUpdateWrapper<RoleOrg>().in(RoleOrg::getRoleId, ids));
+        roleAuthorityMapper.delete(new LambdaUpdateWrapper<RoleAuthority>().in(RoleAuthority::getRoleId, ids));
     }
 }

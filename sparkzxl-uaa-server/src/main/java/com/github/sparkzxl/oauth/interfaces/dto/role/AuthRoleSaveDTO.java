@@ -21,13 +21,13 @@ public class AuthRoleSaveDTO {
     private String name;
 
     @ApiModelProperty(value = "编码")
+    @NotEmpty(message = "编码不能为空")
     private String code;
 
     @ApiModelProperty(value = "描述")
     private String describe;
 
     @ApiModelProperty(value = "状态")
-    @NotEmpty(message = "状态不能为空")
     private Boolean status;
 
     @ApiModelProperty(value = "是否内置角色")

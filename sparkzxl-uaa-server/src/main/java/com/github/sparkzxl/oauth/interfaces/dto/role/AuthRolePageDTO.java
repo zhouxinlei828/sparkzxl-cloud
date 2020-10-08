@@ -14,11 +14,12 @@ import lombok.EqualsAndHashCode;
  */
 
 @Data
-@EqualsAndHashCode(callSuper = true)
 @ApiModel("角色分页查询对象")
-public class AuthRolePageDTO extends PageDTO {
+public class AuthRolePageDTO {
+
+    @ApiModelProperty(value = "角色编码")
+    private String code;
 
     @ApiModelProperty(value = "角色名称")
     private String name;
-
 }
