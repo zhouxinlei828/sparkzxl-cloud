@@ -16,6 +16,7 @@ import com.github.sparkzxl.activiti.infrastructure.enums.TaskStatusEnum;
 import com.github.sparkzxl.activiti.infrastructure.utils.CloseableUtils;
 import com.github.sparkzxl.core.utils.DateUtils;
 import com.github.sparkzxl.core.utils.ListUtils;
+import com.github.sparkzxl.database.factory.CustomThreadFactory;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.BpmnModel;
@@ -40,8 +41,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 /**
@@ -55,6 +55,13 @@ import java.util.stream.Collectors;
 public class ProcessHistoryServiceImpl implements IProcessHistoryService {
 
     private static final String PNG = "image/png";
+
+    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2,
+            Runtime.getRuntime().availableProcessors() + 1,
+            10,
+            TimeUnit.MILLISECONDS,
+            new LinkedBlockingDeque<>(30),
+            new CustomThreadFactory());
 
     @Autowired
     private HistoryService historyService;
@@ -107,10 +114,10 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
 
     private List<ProcessHistory> getProcessHistories(String processInstanceId) throws InterruptedException, ExecutionException {
         CompletableFuture<List<ProcessHistory>> hiActInsCompletableFuture =
-                CompletableFuture.supplyAsync(() -> buildActivityProcessHistory(processInstanceId));
+                CompletableFuture.supplyAsync(() -> buildActivityProcessHistory(processInstanceId),threadPoolExecutor);
 
         CompletableFuture<List<ProcessHistory>> hiTaskInsCompletableFuture =
-                CompletableFuture.supplyAsync(() -> buildTaskProcessHistory(processInstanceId));
+                CompletableFuture.supplyAsync(() -> buildTaskProcessHistory(processInstanceId),threadPoolExecutor);
 
         CompletableFuture<List<ProcessHistory>> processHistoryCompletableFuture = hiActInsCompletableFuture
                 .thenCombine(hiTaskInsCompletableFuture, org.apache.commons.collections4.ListUtils::union);
@@ -167,11 +174,11 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
     }
 
     public CompletableFuture<List<HistoricTaskInstance>> hiTakInsCompletableFuture(String processInstanceId) {
-        return CompletableFuture.supplyAsync(() -> getHistoricTasksByProcessInstanceId(processInstanceId));
+        return CompletableFuture.supplyAsync(() -> getHistoricTasksByProcessInstanceId(processInstanceId),threadPoolExecutor);
     }
 
     public CompletableFuture<List<Comment>> hiCommentCompletableFuture(List<String> taskIds, String type) {
-        return CompletableFuture.supplyAsync(() -> processTaskService.getTaskComments(taskIds, type));
+        return CompletableFuture.supplyAsync(() -> processTaskService.getTaskComments(taskIds, type),threadPoolExecutor);
     }
 
     private List<ProcessHistory> buildActivityProcessHistory(String processInstanceId) {
@@ -192,12 +199,12 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
             if (WorkflowConstants.ActType.START_EVENT.equals(historicActivityInstance.getActivityType())) {
                 processHistory.setTaskStatus(TaskStatusEnum.START.getDesc());
                 processHistory.setTaskName("启动流程");
-                processHistory.setDurationTime(DateUtils.formatBetween(historicActivityInstance.getStartTime(),historicActivityInstance.getEndTime()));
+                processHistory.setDurationTime(DateUtils.formatBetween(historicActivityInstance.getStartTime(), historicActivityInstance.getEndTime()));
             }
             if (WorkflowConstants.ActType.END_EVENT.equals(historicActivityInstance.getActivityType())) {
                 processHistory.setTaskStatus(TaskStatusEnum.END.getDesc());
                 processHistory.setTaskName("完成流程");
-                processHistory.setDurationTime(DateUtils.formatBetween(historicActivityInstance.getStartTime(),historicActivityInstance.getEndTime()));
+                processHistory.setDurationTime(DateUtils.formatBetween(historicActivityInstance.getStartTime(), historicActivityInstance.getEndTime()));
             }
             processHistories.add(processHistory);
         });
