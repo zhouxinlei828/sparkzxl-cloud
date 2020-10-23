@@ -164,4 +164,9 @@ public class ProcessTaskServiceImpl implements IProcessTaskService {
             }
         }
     }
+
+    @Override
+    public void setAssignee(String taskId, String userId) {
+        taskService.setAssignee(taskId, userId);
+    }
 }

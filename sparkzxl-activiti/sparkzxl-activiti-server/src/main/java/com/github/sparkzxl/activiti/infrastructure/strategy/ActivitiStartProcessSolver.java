@@ -36,10 +36,10 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
     @Override
     public DriverResult slove(DriveProcess driveProcess) {
         String businessId = driveProcess.getBusinessId();
-        String userId = driveProcess.getApplyUserId();
+        String userId = driveProcess.getUserId();
         ResponseResultStatus.FAILURE.assertNotTrue(processRuntimeService.getProcessInstanceByBusinessId(businessId) == null);
         Map<String, Object> variables = Maps.newHashMap();
-        variables.put("assignee", userId);
+        variables.put("assignee", driveProcess.getApplyUserId());
         variables.put("actType", driveProcess.getActType());
         identityService.setAuthenticatedUserId(String.valueOf(userId));
         ProcessInstance processInstance = processRuntimeService.startProcessInstanceByKey(driveProcess.getProcessDefinitionKey(),

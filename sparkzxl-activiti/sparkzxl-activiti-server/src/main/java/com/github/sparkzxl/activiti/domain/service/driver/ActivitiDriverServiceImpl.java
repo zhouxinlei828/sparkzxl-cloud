@@ -106,7 +106,7 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
         activitiDataDTO.setBusinessId(businessId);
         ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
         Map<Object, Object> actionMap = Maps.newHashMap();
-        if (ObjectUtils.isEmpty(processInstance)) {
+        if (ObjectUtils.isNotEmpty(processInstance)) {
             actionMap.put(WorkflowConstants.WorkflowAction.SUBMIT, "提交");
             actionMap.put(WorkflowConstants.WorkflowAction.AGREE, "同意");
             actionMap.put(WorkflowConstants.WorkflowAction.JUMP, "跳转");

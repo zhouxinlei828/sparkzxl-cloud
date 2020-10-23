@@ -227,4 +227,11 @@ public interface IProcessTaskService {
      * @param taskId 任务id
      */
     void deleteTaskAttachment(String taskId);
+
+    /**
+     * 设置任务处理人
+     * @param taskId
+     * @param userId
+     */
+    void setAssignee(String taskId, String userId);
 }
