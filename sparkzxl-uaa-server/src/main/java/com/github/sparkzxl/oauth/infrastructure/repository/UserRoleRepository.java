@@ -1,6 +1,7 @@
 package com.github.sparkzxl.oauth.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.sparkzxl.oauth.domain.repository.IUserRoleRepository;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
@@ -31,15 +32,19 @@ public class UserRoleRepository implements IUserRoleRepository {
     private final AuthUserMapper authUserMapper;
 
     @Override
-    public boolean saveAuthRoleUser(Long id, Set<Serializable> userIds) {
+    public boolean saveAuthRoleUser(Long roleId, List<Long> userIds) {
         List<UserRole> userRoles = new ArrayList<>(userIds.size());
-        userIds.forEach(userId -> {
-            UserRole userRole = new UserRole();
-            userRole.setRoleId(id);
-            userRole.setUserId((Long) userId);
-            userRoles.add(userRole);
-        });
-        return userRoleMapper.insertBatchSomeColumn(userRoles) > 0;
+        userRoleMapper.delete(new LambdaUpdateWrapper<UserRole>().eq(UserRole::getRoleId,roleId));
+        if (CollectionUtils.isNotEmpty(userIds)){
+            userIds.forEach(userId -> {
+                UserRole userRole = new UserRole();
+                userRole.setRoleId(roleId);
+                userRole.setUserId(userId);
+                userRoles.add(userRole);
+            });
+            userRoleMapper.insertBatchSomeColumn(userRoles);
+        }
+        return true;
     }
 
     @Override

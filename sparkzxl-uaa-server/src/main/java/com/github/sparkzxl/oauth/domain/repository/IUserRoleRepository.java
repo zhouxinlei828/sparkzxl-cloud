@@ -17,11 +17,11 @@ public interface IUserRoleRepository {
     /**
      * 保存角色用户
      *
-     * @param id
+     * @param roleId
      * @param userIds
      * @return
      */
-    boolean saveAuthRoleUser(Long id, Set<Serializable> userIds);
+    boolean saveAuthRoleUser(Long roleId, List<Long> userIds);
 
     /**
      * 删除角色用户

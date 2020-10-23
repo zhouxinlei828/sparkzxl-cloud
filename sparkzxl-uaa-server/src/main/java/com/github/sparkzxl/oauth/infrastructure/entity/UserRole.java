@@ -25,7 +25,7 @@ public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 3730006313872866511L;
 
-    @TableId(value = "id", type = IdType.INPUT)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty(value = "角色ID")

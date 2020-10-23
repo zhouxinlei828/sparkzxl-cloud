@@ -3,8 +3,7 @@ package com.github.sparkzxl.oauth.interfaces.dto.role;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 /**
  * description：
@@ -16,9 +15,8 @@ import java.util.Set;
 public class RoleUserSaveDTO {
 
     @NotNull(message = "角色id不能为空")
-    private Long id;
+    private Long roleId;
 
-    @NotNull(message = "至少选择一个用户")
-    private Set<Serializable> userIds;
+    private List<Long> userIds;
 
 }

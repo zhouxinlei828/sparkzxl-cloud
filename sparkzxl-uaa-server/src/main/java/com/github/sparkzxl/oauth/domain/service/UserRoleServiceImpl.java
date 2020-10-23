@@ -38,7 +38,7 @@ public class UserRoleServiceImpl extends AbstractSuperCacheServiceImpl<UserRoleM
 
     @Override
     public boolean saveAuthRoleUser(RoleUserSaveDTO roleUserSaveDTO) {
-        return userRoleRepository.saveAuthRoleUser(roleUserSaveDTO.getId(), roleUserSaveDTO.getUserIds());
+        return userRoleRepository.saveAuthRoleUser(roleUserSaveDTO.getRoleId(), roleUserSaveDTO.getUserIds());
     }
 
     @Override

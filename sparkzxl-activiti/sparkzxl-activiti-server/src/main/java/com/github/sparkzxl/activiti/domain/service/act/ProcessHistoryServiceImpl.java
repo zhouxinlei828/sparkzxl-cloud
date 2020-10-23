@@ -159,8 +159,8 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
                         .dueDate(historicTaskInstance.getDueDate())
                         .build();
                 Optional<ActHiTaskStatus> actHiTaskStatusOptional =
-                        actHiTaskStatusList.stream().filter(item -> StringUtils.equals(historicTaskInstance.getTaskDefinitionKey(),
-                                item.getTaskDefKey())).findFirst();
+                        actHiTaskStatusList.stream().filter(item -> StringUtils.equals(historicTaskInstance.getId(),
+                                item.getTaskId())).findFirst();
                 actHiTaskStatusOptional.ifPresent(value -> processHistory.setTaskStatus(value.getTaskStatus()));
                 if (ListUtils.isNotEmpty(commentList)) {
                     processHistory.setComment(commentList.stream().filter(item -> historicTaskInstance.getId().equals(item.getTaskId())).map(Comment::getFullMessage).collect(Collectors.toList()));
