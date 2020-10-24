@@ -18,6 +18,7 @@ import com.github.sparkzxl.activiti.infrastructure.enums.TaskStatusEnum;
 import com.github.sparkzxl.activiti.infrastructure.utils.ActivitiUtils;
 import com.github.sparkzxl.core.support.ResponseResultStatus;
 import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.FlowNode;
@@ -41,6 +42,7 @@ import java.util.concurrent.CompletableFuture;
  * @date: 2020-07-20 18:35:56
  */
 @Service
+@Slf4j
 public class ActWorkApiService {
 
     @Autowired
@@ -63,82 +65,91 @@ public class ActWorkApiService {
     public DriverResult promoteProcess(String userId, String processInstanceId, String businessId, int actType, String message,
                                        Map<String, Object> variables) {
         Task task = processTaskService.getLatestTaskByProInstId(processInstanceId);
-        String taskId = task.getId();
+        String currentTaskId = task.getId();
         String taskDefinitionKey = task.getTaskDefinitionKey();
         ResponseResultStatus.FAILURE.assertNotNull(task);
         //添加审核人
         Authentication.setAuthenticatedUserId(userId);
         if (StringUtils.isNotEmpty(message)) {
-            processTaskService.addComment(taskId, processInstanceId, message);
+            processTaskService.addComment(currentTaskId, processInstanceId, message);
         }
-        processTaskService.setAssignee(taskId, userId);
-        processTaskService.claimTask(taskId, userId);
-        processTaskService.completeTask(taskId, variables);
-        DriverResult driverResult = new DriverResult();
+        processTaskService.setAssignee(currentTaskId, userId);
+        processTaskService.claimTask(currentTaskId, userId);
+        processTaskService.completeTask(currentTaskId, variables);
+        return recordProcessState(processInstanceId, businessId, actType, currentTaskId, taskDefinitionKey);
+    }
+
+    /**
+     * 记录流程状态
+     *
+     * @param processInstanceId 流程实例id
+     * @param businessId        业务主键
+     * @param actType           流程动作类型
+     * @param currentTaskId     任务id
+     * @param taskDefinitionKey 任务定义key
+     * @return DriverResult
+     */
+    public DriverResult recordProcessState(String processInstanceId, String businessId,
+                                           int actType, String currentTaskId,
+                                           String taskDefinitionKey) {
         boolean processIsEnd = processRuntimeService.processIsEnd(processInstanceId);
-        driverResult.setProcessIsEnd(processIsEnd);
         String status;
-        if (processIsEnd) {
+        String taskStatus;
+        if (WorkflowConstants.WorkflowAction.ROLLBACK == actType) {
+            status = ProcessStatusEnum.getValue(actType);
+            taskStatus = TaskStatusEnum.getValue(actType);
+        } else if (processIsEnd) {
             status = ProcessStatusEnum.END.getDesc();
+            taskStatus = TaskStatusEnum.AGREE.getDesc();
         } else {
             status = ProcessStatusEnum.SUBMIT.getDesc();
+            taskStatus = TaskStatusEnum.AGREE.getDesc();
         }
-        driverResult.setOperateSuccess(true);
+        DriverResult driverResult = new DriverResult();
+        driverResult.setProcessIsEnd(processIsEnd);
         CompletableFuture.runAsync(() -> saveProcessTaskStatus(
                 processInstanceId,
                 businessId,
                 status));
-        CompletableFuture.runAsync(() -> saveActHiTaskStatus(
-                processInstanceId,
-                taskId,
-                taskDefinitionKey,
-                TaskStatusEnum.getValue(actType)));
+        CompletableFuture.runAsync(() -> saveExtHiTaskStatus(processInstanceId,
+                currentTaskId, taskDefinitionKey, taskStatus));
+        driverResult.setOperateSuccess(true);
         return driverResult;
     }
 
-    public DriverResult jumpProcess(String processInstanceId, String processDefinitionKey, String businessId, int actType) {
+    public DriverResult jumpProcess(String userId, String processInstanceId,
+                                    String processDefinitionKey, String businessId,
+                                    String comment, int actType) {
         Task currentTask = taskService.getLatestTaskByProInstId(processInstanceId);
+        String currentTaskId = currentTask.getId();
+        //添加审核人
+        Authentication.setAuthenticatedUserId(userId);
+        if (StringUtils.isNotEmpty(comment)) {
+            processTaskService.addComment(currentTaskId, processInstanceId, comment);
+        }
+        processTaskService.setAssignee(currentTaskId, userId);
         String taskDefinitionKey = currentTask.getTaskDefinitionKey();
-        String taskId = currentTask.getId();
-        BpmnModel bpmnModel = repositoryService.getBpmnModel(currentTask.getProcessDefinitionId());
+        String processDefinitionId = currentTask.getProcessDefinitionId();
+        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
         // 获取流程定义
         Process process = bpmnModel.getMainProcess();
         //获取所有的FlowElement信息
         Collection<FlowElement> flowElements = process.getFlowElements();
         // 获取目标节点task定义key
-        ExtProcessTaskRule actRuTaskRule = processTaskRuleService.findActRuTaskRule(processDefinitionKey, currentTask.getTaskDefinitionKey(), actType);
+        ExtProcessTaskRule actRuTaskRule = processTaskRuleService.findActRuTaskRule(processDefinitionKey, taskDefinitionKey, actType);
         if (ObjectUtils.isEmpty(actRuTaskRule)) {
             SparkZxlExceptionAssert.businessFail("请设置流程跳转规则");
         }
         String taskDefKey = actRuTaskRule.getTaskDefKey();
-        String taskName = actRuTaskRule.getTaskName();
         FlowElement flowElement = ActivitiUtils.getFlowElementById(taskDefKey, flowElements);
         // 获取目标节点定义
         assert flowElement != null;
         FlowNode targetNode = (FlowNode) process.getFlowElement(flowElement.getId());
         // 删除当前运行任务，同时返回执行id，该id在并发情况下也是唯一的
-        String executionEntityId = managementService.executeCommand(new DeleteTaskCmd(currentTask.getId()));
+        String executionEntityId = managementService.executeCommand(new DeleteTaskCmd(currentTaskId));
         // 流程执行到来源节点
         managementService.executeCommand(new SetFlowNodeAndGoCmd(targetNode, executionEntityId));
-        boolean processIsEnd = processRuntimeService.processIsEnd(processInstanceId);
-        String status;
-        if (WorkflowConstants.WorkflowAction.ROLLBACK == actType) {
-            status = ProcessStatusEnum.getValue(actType);
-        } else if (processIsEnd) {
-            status = ProcessStatusEnum.END.getDesc();
-        } else {
-            status = ProcessStatusEnum.SUBMIT.getDesc();
-        }
-        DriverResult driverResult = new DriverResult();
-        driverResult.setProcessIsEnd(processIsEnd);
-        CompletableFuture.runAsync(() -> saveProcessTaskStatus(
-                processInstanceId,
-                businessId,
-                status));
-        CompletableFuture.runAsync(() -> saveActHiTaskStatus(processInstanceId,
-                taskId, taskDefinitionKey, TaskStatusEnum.getValue(actType)));
-        driverResult.setOperateSuccess(true);
-        return driverResult;
+        return recordProcessState(processInstanceId, businessId, actType, currentTaskId, taskDefinitionKey);
     }
 
     /**
@@ -149,7 +160,9 @@ public class ActWorkApiService {
      * @param taskDefinitionKey 任务定义key
      * @param taskStatus        任务状态
      */
-    public void saveActHiTaskStatus(String processInstanceId, String taskId, String taskDefinitionKey, String taskStatus) {
+    public void saveExtHiTaskStatus(String processInstanceId, String taskId,
+                                    String taskDefinitionKey, String taskStatus) {
+        log.info("保存任务历史记录 processInstanceId：{}，taskId：{}", processInstanceId, taskId);
         ExtHiTaskStatus actHiTaskStatus = new ExtHiTaskStatus();
         actHiTaskStatus.setProcessInstanceId(processInstanceId);
         actHiTaskStatus.setTaskId(taskId);
@@ -165,17 +178,18 @@ public class ActWorkApiService {
      * @param status            流程状态
      */
     public void saveProcessTaskStatus(String processInstanceId, String businessId, String status) {
-        ExtProcessStatus actHiTaskStatus = processTaskStatusService.getExtProcessStatus(businessId);
+        log.info("记录当前任务流程状态 processInstanceId：{}，businessId：{}", processInstanceId, businessId);
+        ExtProcessStatus extProcessStatus = processTaskStatusService.getExtProcessStatus(businessId);
         //记录当前任务流程状态
-        if (ObjectUtils.isNotEmpty(actHiTaskStatus)) {
-            actHiTaskStatus.setStatus(status);
+        if (ObjectUtils.isNotEmpty(extProcessStatus)) {
+            extProcessStatus.setStatus(status);
         } else {
-            actHiTaskStatus = new ExtProcessStatus();
-            actHiTaskStatus.setProcessInstanceId(processInstanceId);
-            actHiTaskStatus.setBusinessId(businessId);
-            actHiTaskStatus.setStatus(status);
+            extProcessStatus = new ExtProcessStatus();
+            extProcessStatus.setProcessInstanceId(processInstanceId);
+            extProcessStatus.setBusinessId(businessId);
+            extProcessStatus.setStatus(status);
         }
-        processTaskStatusService.saveOrUpdate(actHiTaskStatus);
+        processTaskStatusService.saveOrUpdate(extProcessStatus);
     }
 
 }

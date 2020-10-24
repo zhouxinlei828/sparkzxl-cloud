@@ -1,9 +1,11 @@
 package com.github.sparkzxl.activiti.domain.service.driver;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRepositoryService;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
 import com.github.sparkzxl.activiti.application.service.driver.IActivitiDriverService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtHiTaskStatusService;
+import com.github.sparkzxl.activiti.application.service.ext.IExtProcessStatusService;
 import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
 import com.github.sparkzxl.activiti.dto.ActivitiDataDTO;
 import com.github.sparkzxl.activiti.dto.DriverProcessDTO;
@@ -12,6 +14,7 @@ import com.github.sparkzxl.activiti.dto.UserNextTask;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
 import com.github.sparkzxl.activiti.infrastructure.convert.ActivitiDriverConvert;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtHiTaskStatus;
+import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessStatus;
 import com.github.sparkzxl.activiti.infrastructure.strategy.AbstractActivitiSolver;
 import com.github.sparkzxl.activiti.infrastructure.strategy.ActivitiSolverChooser;
 import com.github.sparkzxl.activiti.infrastructure.utils.ActivitiUtils;
@@ -27,6 +30,7 @@ import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,7 +55,10 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
     private ActivitiSolverChooser activitiSolverChooser;
 
     @Autowired
-    private IExtHiTaskStatusService actHiTaskStatusService;
+    private IExtHiTaskStatusService extHiTaskStatusService;
+
+    @Autowired
+    private IExtProcessStatusService extProcessStatusService;
 
     @Autowired
     private IProcessRepositoryService processRepositoryService;
@@ -113,7 +120,7 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
             actionMap.put(WorkflowConstants.WorkflowAction.ROLLBACK, "驳回");
             ProcessNextTaskDTO processNextTaskDTO = new ProcessNextTaskDTO();
             processNextTaskDTO.setProcessDefinitionId(processInstance.getProcessDefinitionId());
-            ExtHiTaskStatus actHiTaskStatus = actHiTaskStatusService.getExtHiTaskStatus(processInstance.getProcessInstanceId());
+            ExtHiTaskStatus actHiTaskStatus = extHiTaskStatusService.getExtHiTaskStatus(processInstance.getProcessInstanceId());
             processNextTaskDTO.setTaskDefKey(actHiTaskStatus.getTaskDefKey());
             Map<String, Object> variables = Maps.newHashMap();
             variables.put("actType", 1);
@@ -139,11 +146,20 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
 
     @Override
     public boolean suspendProcess(String businessId) {
+        return processRuntimeService.suspendProcess(businessId);
+    }
+
+    @Override
+    public boolean deleteProcessInstance(String businessId, String deleteReason) {
         ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
         if (ObjectUtils.isNotEmpty(processInstance)) {
-            processRuntimeService.suspendProcess(processInstance.getProcessInstanceId());
-            return true;
+            String processInstanceId = processInstance.getProcessInstanceId();
+            processRuntimeService.deleteProcessInstance(processInstanceId, deleteReason);
+            extHiTaskStatusService.remove(new LambdaUpdateWrapper<ExtHiTaskStatus>().eq(ExtHiTaskStatus::getProcessInstanceId,
+                    processInstanceId));
         }
-        return false;
+        extProcessStatusService.remove(new LambdaUpdateWrapper<ExtProcessStatus>().eq(ExtProcessStatus::getBusinessId,
+                businessId));
+        return true;
     }
 }

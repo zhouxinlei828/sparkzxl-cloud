@@ -20,7 +20,7 @@ public enum ProcessStatusEnum {
      */
     SUBMIT(1, "运行中"),
     ROLLBACK(-1, "驳回"),
-    END(-2,"终止");
+    END(-2,"结束");
 
     @EnumValue
     @JsonValue

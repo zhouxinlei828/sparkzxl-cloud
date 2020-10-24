@@ -50,10 +50,10 @@ public class ModelerServiceImpl implements IModelerService {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private IExtProcessDetailService processDetailService;
+    private IExtProcessDetailService extProcessDetailService;
 
     @Autowired
-    private IExtProcessTaskRuleService taskRuleService;
+    private IExtProcessTaskRuleService extProcessTaskRuleService;
 
     @Override
     public String createModel(String name, String key) {
@@ -145,12 +145,12 @@ public class ModelerServiceImpl implements IModelerService {
                     repositoryService.deleteDeployment(modelData.getDeploymentId());
                 }
                 List<ExtProcessDetail> processDetails =
-                        processDetailService.list(new QueryWrapper<ExtProcessDetail>().lambda().eq(ExtProcessDetail::getModelId, modelId));
+                        extProcessDetailService.list(new QueryWrapper<ExtProcessDetail>().lambda().eq(ExtProcessDetail::getModelId, modelId));
                 List<Long> processDetailIds = processDetails.stream().map(ExtProcessDetail::getId).collect(Collectors.toList());
                 if (ListUtils.isNotEmpty(processDetailIds)) {
-                    taskRuleService.remove(new QueryWrapper<ExtProcessTaskRule>().lambda().in(ExtProcessTaskRule::getProcessDetailId,
+                    extProcessTaskRuleService.remove(new QueryWrapper<ExtProcessTaskRule>().lambda().in(ExtProcessTaskRule::getProcessDetailId,
                             processDetailIds));
-                    processDetailService.removeByIds(processDetailIds);
+                    extProcessDetailService.removeByIds(processDetailIds);
                 }
                 repositoryService.deleteModel(modelId);
                 return true;

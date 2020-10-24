@@ -126,7 +126,16 @@ public interface IProcessRuntimeService {
     /**
      * 挂起流程
      *
-     * @param processInstanceId 流程实例id
+     * @param businessId 业务主键
+     * @return boolean
      */
-    void suspendProcess(String processInstanceId);
+    boolean suspendProcess(String businessId);
+
+    /**
+     * 删除流程实例
+     *
+     * @param processInstanceId 流程实例id
+     * @param deleteReason      删除原因
+     */
+    void deleteProcessInstance(String processInstanceId, String deleteReason);
 }

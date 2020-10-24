@@ -57,4 +57,12 @@ public interface IActivitiDriverService {
      * @return boolean
      */
     boolean suspendProcess(String businessId);
+
+    /**
+     * 删除流程实例
+     * @param businessId 业务主键
+     * @param deleteReason 删除原因
+     * @return boolean
+     */
+    boolean deleteProcessInstance(String businessId, String deleteReason);
 }

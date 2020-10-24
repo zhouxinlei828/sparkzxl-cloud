@@ -60,4 +60,16 @@ public interface ActivitiDriverApi {
     @ApiOperation("挂起流程")
     @DeleteMapping("/suspendProcess")
     boolean suspendProcess(@RequestParam("businessId") String businessId);
+
+    /**
+     * 删除流程
+     *
+     * @param businessId   业务主键
+     * @param deleteReason 删除原因
+     * @return boolean
+     */
+    @ApiOperation("删除流程实例")
+    @DeleteMapping("/deleteProcessInstance")
+    boolean deleteProcessInstance(@RequestParam("businessId") String businessId,
+                                  @RequestParam("deleteReason") String deleteReason);
 }

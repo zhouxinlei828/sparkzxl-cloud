@@ -47,19 +47,21 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
                 variables);
         String processInstanceId = processInstance.getProcessInstanceId();
         log.info("启动activiti流程------++++++ProcessInstanceId：{}------++++++", processInstanceId);
+        String comment = driveProcess.getComment();
+        if (StringUtils.isEmpty(comment)) {
+            comment = "开始节点跳过";
+        }
         boolean needJump = driveProcess.isNeedJump();
         if (needJump) {
             return actWorkApiService.jumpProcess(
+                    userId,
                     processInstanceId,
                     processInstance.getProcessDefinitionKey(),
                     businessId,
+                    comment,
                     WorkflowConstants.WorkflowAction.JUMP);
         } else {
             variables.put("actType", WorkflowConstants.WorkflowAction.SUBMIT);
-            String comment = driveProcess.getComment();
-            if (StringUtils.isEmpty(comment)) {
-                comment = "开始节点跳过";
-            }
             return actWorkApiService.promoteProcess(
                     userId,
                     processInstanceId,

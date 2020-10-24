@@ -7,6 +7,7 @@ import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,8 +104,17 @@ public class ProcessRuntimeServiceImpl implements IProcessRuntimeService {
     }
 
     @Override
-    public void suspendProcess(String processInstanceId) {
-        runtimeService.suspendProcessInstanceById(processInstanceId);
+    public boolean suspendProcess(String businessId) {
+        ProcessInstance processInstance = getProcessInstanceByBusinessId(businessId);
+        if (ObjectUtils.isNotEmpty(processInstance)) {
+            runtimeService.suspendProcessInstanceById(processInstance.getProcessInstanceId());
+            return true;
+        }
+        return false;
     }
 
+    @Override
+    public void deleteProcessInstance(String processInstanceId, String deleteReason) {
+        runtimeService.deleteProcessInstance(processInstanceId, deleteReason);
+    }
 }

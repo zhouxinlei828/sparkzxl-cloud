@@ -58,4 +58,9 @@ public class ActivitiDriverController implements ActivitiDriverApi {
     public boolean suspendProcess(String businessId) {
         return activitiDriverService.suspendProcess(businessId);
     }
+
+    @Override
+    public boolean deleteProcessInstance(String businessId, String deleteReason) {
+        return activitiDriverService.deleteProcessInstance(businessId, deleteReason);
+    }
 }
