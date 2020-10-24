@@ -38,4 +38,7 @@ public class DriverProcessDTO {
     @ApiModelProperty(value = "用户id")
     private String userId;
 
+    @ApiModelProperty(value = "是否需要跳转")
+    private boolean needJump;
+
 }

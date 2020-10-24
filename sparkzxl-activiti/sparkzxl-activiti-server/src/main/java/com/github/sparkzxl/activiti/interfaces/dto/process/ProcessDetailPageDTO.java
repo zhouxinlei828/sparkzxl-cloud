@@ -22,7 +22,7 @@ public class ProcessDetailPageDTO extends PageDTO {
     protected Long id;
 
     @ApiModelProperty(value = "流程定义key")
-    private String processId;
+    private String processDefinitionKey;
 
     @ApiModelProperty(value = "流程名称")
     private String processName;

@@ -10,6 +10,7 @@ import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +33,6 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
     @Autowired
     private ActWorkApiService actWorkApiService;
 
-
     @Override
     public DriverResult slove(DriveProcess driveProcess) {
         String businessId = driveProcess.getBusinessId();
@@ -47,10 +47,27 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
                 variables);
         String processInstanceId = processInstance.getProcessInstanceId();
         log.info("启动activiti流程------++++++ProcessInstanceId：{}------++++++", processInstanceId);
-        variables.put("actType", WorkflowConstants.WorkflowAction.SUBMIT);
-        String comment = "开始节点跳过";
-        return actWorkApiService.promoteProcess(userId, processInstanceId, businessId,WorkflowConstants.WorkflowAction.SUBMIT, comment
-                , variables);
+        boolean needJump = driveProcess.isNeedJump();
+        if (needJump) {
+            return actWorkApiService.jumpProcess(
+                    processInstanceId,
+                    processInstance.getProcessDefinitionKey(),
+                    businessId,
+                    WorkflowConstants.WorkflowAction.JUMP);
+        } else {
+            variables.put("actType", WorkflowConstants.WorkflowAction.SUBMIT);
+            String comment = driveProcess.getComment();
+            if (StringUtils.isEmpty(comment)) {
+                comment = "开始节点跳过";
+            }
+            return actWorkApiService.promoteProcess(
+                    userId,
+                    processInstanceId,
+                    businessId,
+                    WorkflowConstants.WorkflowAction.SUBMIT,
+                    comment,
+                    variables);
+        }
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.github.sparkzxl.activiti.interfaces.controller.driver;
 
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.activiti.application.service.act.IProcessHistoryService;
-import com.github.sparkzxl.activiti.application.service.process.IProcessTaskStatusService;
+import com.github.sparkzxl.activiti.application.service.ext.IExtProcessStatusService;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessHistory;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessInstance;
 import com.github.sparkzxl.activiti.interfaces.dto.act.InstancePageDTO;
@@ -35,10 +35,10 @@ import java.util.concurrent.ExecutionException;
 public class ActProcessController {
 
     private final IProcessHistoryService processHistoryService;
-    private final IProcessTaskStatusService processTaskStatusService;
+    private final IExtProcessStatusService processTaskStatusService;
 
     public ActProcessController(IProcessHistoryService processHistoryService,
-                                IProcessTaskStatusService processTaskStatusService) {
+                                IExtProcessStatusService processTaskStatusService) {
         this.processHistoryService = processHistoryService;
         this.processTaskStatusService = processTaskStatusService;
     }

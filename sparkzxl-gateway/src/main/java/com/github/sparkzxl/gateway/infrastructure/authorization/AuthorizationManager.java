@@ -2,7 +2,6 @@ package com.github.sparkzxl.gateway.infrastructure.authorization;
 
 import cn.hutool.core.convert.Convert;
 import com.github.sparkzxl.core.constant.BaseContextConstant;
-import com.github.sparkzxl.core.constant.FileConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.cloud.gateway.config.GatewayProperties;
@@ -45,7 +44,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         URI uri = authorizationContext.getExchange().getRequest().getURI();
         final String[] path = {uri.getPath()};
         gatewayProperties.getRoutes().forEach(route -> {
-            String prefix = serverProperties.getServlet().getContextPath().concat(FileConstant.URL_SEPARATOR).concat(route.getId());
+            String prefix = serverProperties.getServlet().getContextPath().concat("/").concat(route.getId());
             path[0] = path[0].replace(prefix, "");
         });
         Object obj = redisTemplate.opsForHash().get(RESOURCE_ROLES_MAP, path[0]);

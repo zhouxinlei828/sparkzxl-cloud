@@ -5,13 +5,13 @@ import com.github.sparkzxl.activiti.application.service.act.IProcessHistoryServi
 import com.github.sparkzxl.activiti.application.service.act.IProcessRepositoryService;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
 import com.github.sparkzxl.activiti.application.service.act.IProcessTaskService;
-import com.github.sparkzxl.activiti.application.service.process.IActHiTaskStatusService;
-import com.github.sparkzxl.activiti.application.service.process.IProcessTaskStatusService;
+import com.github.sparkzxl.activiti.application.service.ext.IExtHiTaskStatusService;
+import com.github.sparkzxl.activiti.application.service.ext.IExtProcessStatusService;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
 import com.github.sparkzxl.activiti.infrastructure.diagram.CustomProcessDiagramGeneratorImpl;
-import com.github.sparkzxl.activiti.infrastructure.entity.ActHiTaskStatus;
+import com.github.sparkzxl.activiti.infrastructure.entity.ExtHiTaskStatus;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessHistory;
-import com.github.sparkzxl.activiti.infrastructure.entity.ProcessTaskStatus;
+import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessStatus;
 import com.github.sparkzxl.activiti.infrastructure.enums.TaskStatusEnum;
 import com.github.sparkzxl.activiti.infrastructure.utils.CloseableUtils;
 import com.github.sparkzxl.core.utils.DateUtils;
@@ -76,13 +76,13 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
     private IProcessRuntimeService processRuntimeService;
 
     @Autowired
-    private IActHiTaskStatusService actHiTaskStatusService;
+    private IExtHiTaskStatusService actHiTaskStatusService;
 
     @Autowired
     private CustomProcessDiagramGeneratorImpl processDiagramGenerator;
 
     @Autowired
-    private IProcessTaskStatusService processTaskStatusService;
+    private IExtProcessStatusService processTaskStatusService;
 
     @Override
     public HistoricProcessInstance getHistoricProcessInstance(String processInstanceId) {
@@ -107,7 +107,7 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
 
     @Override
     public List<ProcessHistory> getProcessHistoryByBusinessId(String businessId) throws ExecutionException, InterruptedException {
-        ProcessTaskStatus processTaskStatus = processTaskStatusService.getProcessTaskStatus(businessId);
+        ExtProcessStatus processTaskStatus = processTaskStatusService.getExtProcessStatus(businessId);
         String processInstanceId = processTaskStatus.getProcessInstanceId();
         return getProcessHistories(processInstanceId);
     }
@@ -135,7 +135,7 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
         List<ProcessHistory> processHistories = Lists.newArrayList();
         try {
             // 异步获取历史任务状态
-            CompletableFuture<List<ActHiTaskStatus>> hiTaskStatusCompletableFuture =
+            CompletableFuture<List<ExtHiTaskStatus>> hiTaskStatusCompletableFuture =
                     CompletableFuture.supplyAsync(() -> actHiTaskStatusService.getProcessHistory(processInstanceId));
             CompletableFuture<List<HistoricTaskInstance>> hiTakInsCompletableFuture =
                     CompletableFuture.supplyAsync(() -> getHistoricTasksByProcessInstanceId(processInstanceId));
@@ -144,7 +144,7 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
                         List<String> taskIds = historicTaskInstance.stream().map(TaskInfo::getId).collect(Collectors.toList());
                         return hiCommentCompletableFuture(taskIds, "comment");
                     });
-            List<ActHiTaskStatus> actHiTaskStatusList = hiTaskStatusCompletableFuture.get();
+            List<ExtHiTaskStatus> actHiTaskStatusList = hiTaskStatusCompletableFuture.get();
             List<HistoricTaskInstance> historicTaskInstances = hiTakInsCompletableFuture.get();
             List<Comment> commentList = completableFuture.get();
             historicTaskInstances.forEach(historicTaskInstance -> {
@@ -158,7 +158,7 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
                         .assignee(historicTaskInstance.getAssignee())
                         .dueDate(historicTaskInstance.getDueDate())
                         .build();
-                Optional<ActHiTaskStatus> actHiTaskStatusOptional =
+                Optional<ExtHiTaskStatus> actHiTaskStatusOptional =
                         actHiTaskStatusList.stream().filter(item -> StringUtils.equals(historicTaskInstance.getId(),
                                 item.getTaskId())).findFirst();
                 actHiTaskStatusOptional.ifPresent(value -> processHistory.setTaskStatus(value.getTaskStatus()));

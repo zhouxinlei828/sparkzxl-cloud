@@ -35,7 +35,7 @@ public class ProcessInstance implements Serializable {
     private Integer suspensionState;
 
     @ApiModelProperty(value = "流程状态")
-    private String processStatus;
+    private String status;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime startTime;

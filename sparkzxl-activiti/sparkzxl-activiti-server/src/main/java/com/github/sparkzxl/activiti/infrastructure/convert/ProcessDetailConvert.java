@@ -1,6 +1,6 @@
 package com.github.sparkzxl.activiti.infrastructure.convert;
 
-import com.github.sparkzxl.activiti.infrastructure.entity.ProcessDetail;
+import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessDetail;
 import com.github.sparkzxl.activiti.interfaces.dto.process.ProcessDetailDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -22,6 +22,6 @@ public interface ProcessDetailConvert {
      * @param processDetail 流程详细
      * @return ProcessDetailDTO
      */
-    ProcessDetailDTO convertProcessDetailDTO(ProcessDetail processDetail);
+    ProcessDetailDTO convertProcessDetailDTO(ExtProcessDetail processDetail);
 
 }

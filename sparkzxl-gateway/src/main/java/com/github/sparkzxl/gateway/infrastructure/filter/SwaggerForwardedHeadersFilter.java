@@ -7,7 +7,6 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
 import java.net.URI;
 import java.util.LinkedHashSet;
 
-import com.github.sparkzxl.core.constant.FileConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.cloud.gateway.filter.headers.HttpHeadersFilter;
@@ -64,7 +63,7 @@ public class SwaggerForwardedHeadersFilter implements HttpHeadersFilter, Ordered
     }
 
     private String stripTrailingSlash(URI uri) {
-        if (uri.getPath().endsWith(FileConstant.URL_SEPARATOR)) {
+        if (uri.getPath().endsWith("/")) {
             return uri.getPath().substring(0, uri.getPath().length() - 1);
         } else {
             return uri.getPath();

@@ -5,13 +5,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.sparkzxl.activiti.application.service.model.IModelerService;
-import com.github.sparkzxl.activiti.application.service.process.IProcessDetailService;
-import com.github.sparkzxl.activiti.application.service.process.IProcessTaskRuleService;
-import com.github.sparkzxl.activiti.infrastructure.entity.ProcessDetail;
-import com.github.sparkzxl.activiti.infrastructure.entity.ProcessTaskRule;
+import com.github.sparkzxl.activiti.application.service.ext.IExtProcessDetailService;
+import com.github.sparkzxl.activiti.application.service.ext.IExtProcessTaskRuleService;
+import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessDetail;
+import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessTaskRule;
 import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import com.github.sparkzxl.core.utils.ListUtils;
-import com.github.sparkzxl.database.entity.SuperEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.constants.ModelDataJsonConstants;
@@ -51,10 +50,10 @@ public class ModelerServiceImpl implements IModelerService {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private IProcessDetailService processDetailService;
+    private IExtProcessDetailService processDetailService;
 
     @Autowired
-    private IProcessTaskRuleService taskRuleService;
+    private IExtProcessTaskRuleService taskRuleService;
 
     @Override
     public String createModel(String name, String key) {
@@ -145,11 +144,11 @@ public class ModelerServiceImpl implements IModelerService {
                 if (StringUtils.isNotEmpty(modelData.getDeploymentId())) {
                     repositoryService.deleteDeployment(modelData.getDeploymentId());
                 }
-                List<ProcessDetail> processDetails =
-                        processDetailService.list(new QueryWrapper<ProcessDetail>().lambda().eq(ProcessDetail::getModelId, modelId));
-                List<Long> processDetailIds = processDetails.stream().map(SuperEntity::getId).collect(Collectors.toList());
+                List<ExtProcessDetail> processDetails =
+                        processDetailService.list(new QueryWrapper<ExtProcessDetail>().lambda().eq(ExtProcessDetail::getModelId, modelId));
+                List<Long> processDetailIds = processDetails.stream().map(ExtProcessDetail::getId).collect(Collectors.toList());
                 if (ListUtils.isNotEmpty(processDetailIds)) {
-                    taskRuleService.remove(new QueryWrapper<ProcessTaskRule>().lambda().in(ProcessTaskRule::getProcessDetailId,
+                    taskRuleService.remove(new QueryWrapper<ExtProcessTaskRule>().lambda().in(ExtProcessTaskRule::getProcessDetailId,
                             processDetailIds));
                     processDetailService.removeByIds(processDetailIds);
                 }

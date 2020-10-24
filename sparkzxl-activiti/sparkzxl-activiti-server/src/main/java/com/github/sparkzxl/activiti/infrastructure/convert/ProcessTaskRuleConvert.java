@@ -1,6 +1,6 @@
 package com.github.sparkzxl.activiti.infrastructure.convert;
 
-import com.github.sparkzxl.activiti.infrastructure.entity.ProcessTaskRule;
+import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessTaskRule;
 import com.github.sparkzxl.activiti.interfaces.dto.process.TaskRuleSaveDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -22,6 +22,6 @@ public interface ProcessTaskRuleConvert {
      * @param taskRuleSaveDTO TaskRule保存对象
      * @return ProcessTaskRule
      */
-    ProcessTaskRule convertTaskRuleSaveDTO(TaskRuleSaveDTO taskRuleSaveDTO);
+    ExtProcessTaskRule convertTaskRuleSaveDTO(TaskRuleSaveDTO taskRuleSaveDTO);
 
 }

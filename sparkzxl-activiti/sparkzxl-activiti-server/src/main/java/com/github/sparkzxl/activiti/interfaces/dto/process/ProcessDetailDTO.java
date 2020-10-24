@@ -21,7 +21,7 @@ public class ProcessDetailDTO {
     private String modelId;
 
     @ApiModelProperty(value = "流程定义key")
-    private String processId;
+    private String processDefinitionKey;
 
     @ApiModelProperty(value = "流程名称")
     private String processName;

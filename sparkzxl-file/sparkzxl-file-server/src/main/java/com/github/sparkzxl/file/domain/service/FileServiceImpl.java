@@ -1,7 +1,6 @@
 package com.github.sparkzxl.file.domain.service;
 
 import cn.hutool.core.io.FileUtil;
-import com.github.sparkzxl.core.constant.FileConstant;
 import com.github.sparkzxl.core.utils.Mht2HtmlUtil;
 import com.github.sparkzxl.file.application.service.IFileService;
 import com.github.sparkzxl.file.dto.FileDTO;
@@ -44,7 +43,7 @@ public class FileServiceImpl implements IFileService {
         fileMaterial = fileMaterialRepository.selectByFileName(fileName);
         if (ObjectUtils.isEmpty(fileMaterial)) {
             fileMaterial = new FileMaterial();
-            String objectName = "images".concat(FileConstant.URL_SEPARATOR).concat(originalFilename);
+            String objectName = "images".concat("/").concat(originalFilename);
             // 上传到阿里云
             ossTemplate.putObject("sparkzxl",
                     objectName,
@@ -75,7 +74,7 @@ public class FileServiceImpl implements IFileService {
         String tempFilePath = "/data/" + baseName + ".html";
         Mht2HtmlUtil.mht2html(fileDTO.getFilePath(), tempFilePath);
         BufferedInputStream bufferedInputStream = FileUtil.getInputStream(tempFilePath);
-        String objectName = "images".concat(FileConstant.URL_SEPARATOR).concat(fileName);
+        String objectName = "images".concat("/").concat(fileName);
         ossTemplate.putObject("sparkzxl",
                 objectName,
                 bufferedInputStream);

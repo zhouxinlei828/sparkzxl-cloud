@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.sparkzxl.activiti.application.service.model.IModelService;
-import com.github.sparkzxl.activiti.application.service.process.IProcessDetailService;
-import com.github.sparkzxl.activiti.infrastructure.entity.ProcessDetail;
+import com.github.sparkzxl.activiti.application.service.ext.IExtProcessDetailService;
+import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessDetail;
 import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.editor.constants.ModelDataJsonConstants;
@@ -48,7 +48,7 @@ public class ModelServiceImpl implements IModelService {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private IProcessDetailService processDetailService;
+    private IExtProcessDetailService processDetailService;
 
     @Override
     public ObjectNode getEditorJson(String modelId) {
@@ -108,10 +108,10 @@ public class ModelServiceImpl implements IModelService {
         JSONObject jsonObject = JSONObject.parseObject(jsonXml);
         JSONArray jsonNodes = jsonObject.getJSONArray("childShapes");
         JSONObject propertiesNode = jsonObject.getJSONObject("properties");
-        String processId = propertiesNode.getString("process_id");
-        List<ProcessDetail> processDetails = new ArrayList<>();
+        String processDefinitionKey = propertiesNode.getString("process_id");
+        List<ExtProcessDetail> processDetails = new ArrayList<>();
         if (ObjectUtils.isNotEmpty(jsonNodes)) {
-            processDetailService.remove(new QueryWrapper<ProcessDetail>().lambda().eq(ProcessDetail::getModelId, modelId));
+            processDetailService.remove(new QueryWrapper<ExtProcessDetail>().lambda().eq(ExtProcessDetail::getModelId, modelId));
             for (Object object : jsonNodes) {
                 JSONObject jsonNode = (JSONObject) object;
                 JSONObject stencilNode = jsonNode.getJSONObject("stencil");
@@ -131,9 +131,9 @@ public class ModelServiceImpl implements IModelService {
                     overrideId = "endEvent";
                     taskName = "结束";
                 }
-                ProcessDetail processDetail = new ProcessDetail();
+                ExtProcessDetail processDetail = new ExtProcessDetail();
                 processDetail.setModelId(modelId);
-                processDetail.setProcessId(processId);
+                processDetail.setProcessDefinitionKey(processDefinitionKey);
                 processDetail.setProcessName(name);
                 processDetail.setTaskDefKey(overrideId);
                 processDetail.setTaskName(taskName);

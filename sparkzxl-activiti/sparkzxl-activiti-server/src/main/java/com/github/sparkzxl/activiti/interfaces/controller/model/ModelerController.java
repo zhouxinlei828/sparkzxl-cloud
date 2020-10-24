@@ -50,20 +50,20 @@ public class ModelerController {
     }
 
     @ApiOperation("发布流程")
-    @PatchMapping("/publish/{modelId}")
-    public boolean publish(@ApiParam("模型ID") @PathVariable("modelId") String modelId) {
+    @PatchMapping("/publish")
+    public boolean publish(@ApiParam("模型ID") @RequestParam("modelId") String modelId) {
         return modelerService.publishProcess(modelId);
     }
 
     @ApiOperation("撤销流程定义")
-    @DeleteMapping("/revokePublish/{modelId}")
-    public boolean revokePublish(@ApiParam("模型ID") @PathVariable("modelId") String modelId) {
+    @DeleteMapping("/revokePublish")
+    public boolean revokePublish(@ApiParam("模型ID") @RequestParam("modelId") String modelId) {
         return modelerService.revokePublish(modelId);
     }
 
     @ApiOperation("删除流程")
-    @DeleteMapping("/processInstance/{modelId}")
-    public boolean deleteProcessInstance(@ApiParam("模型ID") @PathVariable("modelId") String modelId) {
+    @DeleteMapping("/deleteProcessInstance")
+    public boolean deleteProcessInstance(@ApiParam("模型ID") @RequestParam("modelId") String modelId) {
         return modelerService.deleteProcessInstance(modelId);
     }
 

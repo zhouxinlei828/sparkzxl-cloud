@@ -3,7 +3,7 @@ package com.github.sparkzxl.activiti.domain.service.driver;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRepositoryService;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
 import com.github.sparkzxl.activiti.application.service.driver.IActivitiDriverService;
-import com.github.sparkzxl.activiti.application.service.process.IActHiTaskStatusService;
+import com.github.sparkzxl.activiti.application.service.ext.IExtHiTaskStatusService;
 import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
 import com.github.sparkzxl.activiti.dto.ActivitiDataDTO;
 import com.github.sparkzxl.activiti.dto.DriverProcessDTO;
@@ -11,7 +11,7 @@ import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.dto.UserNextTask;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
 import com.github.sparkzxl.activiti.infrastructure.convert.ActivitiDriverConvert;
-import com.github.sparkzxl.activiti.infrastructure.entity.ActHiTaskStatus;
+import com.github.sparkzxl.activiti.infrastructure.entity.ExtHiTaskStatus;
 import com.github.sparkzxl.activiti.infrastructure.strategy.AbstractActivitiSolver;
 import com.github.sparkzxl.activiti.infrastructure.strategy.ActivitiSolverChooser;
 import com.github.sparkzxl.activiti.infrastructure.utils.ActivitiUtils;
@@ -51,7 +51,7 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
     private ActivitiSolverChooser activitiSolverChooser;
 
     @Autowired
-    private IActHiTaskStatusService actHiTaskStatusService;
+    private IExtHiTaskStatusService actHiTaskStatusService;
 
     @Autowired
     private IProcessRepositoryService processRepositoryService;
@@ -113,7 +113,7 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
             actionMap.put(WorkflowConstants.WorkflowAction.ROLLBACK, "驳回");
             ProcessNextTaskDTO processNextTaskDTO = new ProcessNextTaskDTO();
             processNextTaskDTO.setProcessDefinitionId(processInstance.getProcessDefinitionId());
-            ActHiTaskStatus actHiTaskStatus = actHiTaskStatusService.getActHiTaskStatus(processInstance.getProcessInstanceId());
+            ExtHiTaskStatus actHiTaskStatus = actHiTaskStatusService.getExtHiTaskStatus(processInstance.getProcessInstanceId());
             processNextTaskDTO.setTaskDefKey(actHiTaskStatus.getTaskDefKey());
             Map<String, Object> variables = Maps.newHashMap();
             variables.put("actType", 1);

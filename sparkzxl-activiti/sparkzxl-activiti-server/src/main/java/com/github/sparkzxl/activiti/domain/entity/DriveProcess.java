@@ -41,4 +41,9 @@ public class DriveProcess {
      */
     private String userId;
 
+    /**
+     * 是否需要跳转
+     */
+    private boolean needJump;
+
 }
