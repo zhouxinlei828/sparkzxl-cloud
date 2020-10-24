@@ -72,7 +72,7 @@ public interface IProcessHistoryService {
      * 获取流程图
      *
      * @param processInstanceId 流程实例id
-     * @param response          返回响应
+     * @return String
      */
-    void getProcessImage(String processInstanceId, HttpServletResponse response);
+    String getProcessImage(String processInstanceId);
 }

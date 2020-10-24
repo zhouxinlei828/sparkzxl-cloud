@@ -1,5 +1,6 @@
 package com.github.sparkzxl.activiti.domain.service.act;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.core.date.DatePattern;
 import com.github.sparkzxl.activiti.application.service.act.IProcessHistoryService;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRepositoryService;
@@ -36,6 +37,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -54,9 +56,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProcessHistoryServiceImpl implements IProcessHistoryService {
 
-    private static final String PNG = "image/png";
-
-    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2,
+    private final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2,
             Runtime.getRuntime().availableProcessors() + 1,
             10,
             TimeUnit.MILLISECONDS,
@@ -114,10 +114,10 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
 
     private List<ProcessHistory> getProcessHistories(String processInstanceId) throws InterruptedException, ExecutionException {
         CompletableFuture<List<ProcessHistory>> hiActInsCompletableFuture =
-                CompletableFuture.supplyAsync(() -> buildActivityProcessHistory(processInstanceId),threadPoolExecutor);
+                CompletableFuture.supplyAsync(() -> buildActivityProcessHistory(processInstanceId), threadPoolExecutor);
 
         CompletableFuture<List<ProcessHistory>> hiTaskInsCompletableFuture =
-                CompletableFuture.supplyAsync(() -> buildTaskProcessHistory(processInstanceId),threadPoolExecutor);
+                CompletableFuture.supplyAsync(() -> buildTaskProcessHistory(processInstanceId), threadPoolExecutor);
 
         CompletableFuture<List<ProcessHistory>> processHistoryCompletableFuture = hiActInsCompletableFuture
                 .thenCombine(hiTaskInsCompletableFuture, org.apache.commons.collections4.ListUtils::union);
@@ -174,11 +174,11 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
     }
 
     public CompletableFuture<List<HistoricTaskInstance>> hiTakInsCompletableFuture(String processInstanceId) {
-        return CompletableFuture.supplyAsync(() -> getHistoricTasksByProcessInstanceId(processInstanceId),threadPoolExecutor);
+        return CompletableFuture.supplyAsync(() -> getHistoricTasksByProcessInstanceId(processInstanceId), threadPoolExecutor);
     }
 
     public CompletableFuture<List<Comment>> hiCommentCompletableFuture(List<String> taskIds, String type) {
-        return CompletableFuture.supplyAsync(() -> processTaskService.getTaskComments(taskIds, type),threadPoolExecutor);
+        return CompletableFuture.supplyAsync(() -> processTaskService.getTaskComments(taskIds, type), threadPoolExecutor);
     }
 
     private List<ProcessHistory> buildActivityProcessHistory(String processInstanceId) {
@@ -217,9 +217,9 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
     }
 
     @Override
-    public void getProcessImage(String processInstanceId, HttpServletResponse response) {
+    public String getProcessImage(String processInstanceId) {
         InputStream imageStream = null;
-        ServletOutputStream outputStream = null;
+        String imageBase64 = "";
         try {
             if (StringUtils.isBlank(processInstanceId)) {
                 log.error("参数为空");
@@ -246,27 +246,27 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
             // 高亮线路id集合
             List<String> highLightedFlows = getHighLightedFlows(bpmnModel, historicActivityInstance);
 
-            Set<String> currIds =
-                    processRuntimeService.getExecutionByProcInsId(processInstanceId).stream().map(Execution::getActivityId).collect(Collectors.toSet());
+            Set<String> currIds = processRuntimeService.getExecutionByProcInsId(processInstanceId)
+                    .stream().map(Execution::getActivityId).collect(Collectors.toSet());
 
             imageStream = processDiagramGenerator.generateDiagram(bpmnModel, "png", highLightedActivitis,
                     highLightedFlows, "宋体", "宋体", "宋体",
                     null, 1.0,
                     new Color[]{WorkflowConstants.COLOR_NORMAL, WorkflowConstants.COLOR_CURRENT}, currIds);
-            // 设定输出的类型
-            response.setContentType(PNG);
-            // 输出流程图
-            outputStream = response.getOutputStream();
-            byte[] b = new byte[2048];
-            int len;
-            while ((len = imageStream.read(b, 0, b.length)) != -1) {
-                outputStream.write(b, 0, len);
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int n = 0;
+            while (-1 != (n = imageStream.read(buffer))) {
+                output.write(buffer, 0, n);
             }
+            byte[] processImageByte = output.toByteArray();
+            imageBase64 = "data:image/jpeg;base64,".concat(Base64.encode(processImageByte));
         } catch (IOException e) {
             throw new RuntimeException("获取流程图出错", e);
         } finally {
-            CloseableUtils.close(outputStream, imageStream);
+            CloseableUtils.close(imageStream);
         }
+        return imageBase64;
     }
 
     private List<String> getHighLightedFlows(BpmnModel bpmnModel, List<HistoricActivityInstance> historicActivityInstances) {
