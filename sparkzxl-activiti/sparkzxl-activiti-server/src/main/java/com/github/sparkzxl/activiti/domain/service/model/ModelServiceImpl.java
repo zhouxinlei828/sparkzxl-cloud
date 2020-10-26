@@ -9,6 +9,7 @@ import com.github.sparkzxl.activiti.application.service.model.IModelService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtProcessDetailService;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessDetail;
 import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.engine.RepositoryService;
@@ -110,27 +111,20 @@ public class ModelServiceImpl implements IModelService {
         JSONObject propertiesNode = jsonObject.getJSONObject("properties");
         String processDefinitionKey = propertiesNode.getString("process_id");
         List<ExtProcessDetail> processDetails = new ArrayList<>();
+        List<String> filterType = Lists.newArrayList("UserTask", "ServiceTask",
+                "ScriptTask", "BusinessRule", "ReceiveTask", "ManualTask", "MailTask", "CamelTask", "MuleTask");
         if (ObjectUtils.isNotEmpty(jsonNodes)) {
             processDetailService.remove(new QueryWrapper<ExtProcessDetail>().lambda().eq(ExtProcessDetail::getModelId, modelId));
             for (Object object : jsonNodes) {
                 JSONObject jsonNode = (JSONObject) object;
                 JSONObject stencilNode = jsonNode.getJSONObject("stencil");
                 String type = stencilNode.getString("id");
-                if ("SequenceFlow".equals(type)) {
+                if (!filterType.contains(type)) {
                     continue;
                 }
                 JSONObject properties = jsonNode.getJSONObject("properties");
                 String overrideId = properties.getString("overrideid");
                 String taskName = properties.getString("name");
-                System.out.println("overrideId:" + overrideId);
-                if ("StartNoneEvent".equals(type)) {
-                    overrideId = "startEvent";
-                    taskName = "开始";
-                }
-                if ("EndNoneEvent".equals(type)) {
-                    overrideId = "endEvent";
-                    taskName = "结束";
-                }
                 ExtProcessDetail processDetail = new ExtProcessDetail();
                 processDetail.setModelId(modelId);
                 processDetail.setProcessDefinitionKey(processDefinitionKey);
