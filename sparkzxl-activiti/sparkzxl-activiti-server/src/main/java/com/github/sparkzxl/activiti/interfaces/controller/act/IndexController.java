@@ -1,5 +1,7 @@
 package com.github.sparkzxl.activiti.interfaces.controller.act;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.activiti.engine.RepositoryService;
 import org.springframework.stereotype.Controller;
@@ -12,32 +14,29 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author: zhouxinlei
  * @date: 2020-10-02 10:35:45
-*/
+ */
 @AllArgsConstructor
+@Api(tags = "页面管理")
 @Controller
 public class IndexController {
 
     private final RepositoryService repositoryService;
 
-
-    @RequestMapping("index")
-    public ModelAndView index(ModelAndView modelAndView) {
-        modelAndView.setViewName("index");
+    @ApiOperation("首页")
+    @GetMapping("index")
+    public String index(ModelAndView modelAndView) {
         modelAndView.addObject("modelList", repositoryService.createModelQuery().list());
-        return modelAndView;
+        return "index";
     }
 
-    @RequestMapping("modelList")
-    public ModelAndView modelList(ModelAndView modelAndView) {
+    @ApiOperation("模型列表页")
+    @GetMapping("modelList")
+    public String modelList(ModelAndView modelAndView) {
         modelAndView.setViewName("modelList");
-        return modelAndView;
+        return "modelList";
     }
 
-    /**
-     * 跳转编辑器页面
-     *
-     * @return String
-     */
+    @ApiOperation("流程图设计也")
     @GetMapping("editor")
     public String editor() {
         return "modeler";
