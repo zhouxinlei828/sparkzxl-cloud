@@ -1,6 +1,7 @@
 package com.github.sparkzxl.file.domain.service;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.IdUtil;
 import com.github.sparkzxl.core.utils.Mht2HtmlUtil;
 import com.github.sparkzxl.file.application.service.IFileService;
 import com.github.sparkzxl.file.dto.FileDTO;
@@ -16,7 +17,6 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedInputStream;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -45,16 +45,16 @@ public class FileServiceImpl implements IFileService {
             fileMaterial = new FileMaterial();
             String objectName = "images".concat("/").concat(originalFilename);
             // 上传到阿里云
-            ossTemplate.putObject("sparkzxl",
+            ossTemplate.multipartUpload("sparkzxl",
                     objectName,
-                    multipartFile.getInputStream());
+                    multipartFile);
+            String url = ossTemplate.getObjectURL("sparkzxl", objectName);
             fileMaterial.setFileName(fileName);
             fileMaterial.setSuffix(extension);
-            fileMaterial.setFilePath(ossTemplate.getObjectURL("sparkzxl", objectName));
+            fileMaterial.setFilePath(url);
             fileMaterial.setSize((double) multipartFile.getSize());
             fileMaterial.setContentType(multipartFile.getContentType());
-            fileMaterial.setUid(String.valueOf(System.currentTimeMillis()));
-            fileMaterial.setCreateTime(LocalDateTime.now());
+            fileMaterial.setUid(IdUtil.randomUUID());
             boolean result = fileMaterialRepository.saveFileMaterial(fileMaterial);
             log.info("文件上传结果 result is {}", result);
         }

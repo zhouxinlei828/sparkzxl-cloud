@@ -1,10 +1,7 @@
 package com.github.sparkzxl.file.infrastructure.entity;
 
 import com.amazonaws.services.s3.model.PutObjectResult;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -57,7 +54,7 @@ public class FileMaterial implements Serializable {
     @ApiModelProperty(value = "媒体类型")
     private String contentType;
 
-    @TableField("create_time")
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
