@@ -410,6 +410,7 @@
                         <container>
                             <jvmFlags>
                                 <jvmFlag>-Xms512m</jvmFlag>
+                                <jvmFlag>-Xmx512m</jvmFlag>
                                 <jvmFlag>-Xdebug</jvmFlag>
                             </jvmFlags>
                             <appRoot>/home/${project.artifactId}</appRoot>
