@@ -33,4 +33,4 @@ logging:
   level:
     com.github.sparkzxl.oauth.infrastructure.mapper: debug
   file:
-    path: C:/logs/${spring.application.name}
+    path: /Users/fin-9062/logs/${spring.application.name}

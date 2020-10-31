@@ -27,7 +27,7 @@ spring:
           - dataId: redis.yaml
             group: DEFAULT_GROUP
             refresh: false
-          - dataId: kafka.yaml
+          - dataId: common.yaml
             group: DEFAULT_GROUP
             refresh: false
         enable-remote-sync-config: true
@@ -36,4 +36,4 @@ logging:
   level:
     com.github.sparkzxl.test.infrastructure.mapper: debug
   file:
-    path: C:/logs/${spring.application.name}
+    path: /Users/fin-9062/logs/${spring.application.name}

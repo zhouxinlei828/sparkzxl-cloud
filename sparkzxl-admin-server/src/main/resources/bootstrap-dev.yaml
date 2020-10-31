@@ -17,4 +17,4 @@ spring:
         namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
 logging:
   file:
-    path: C:/logs/${spring.application.name}
+    path: /Users/fin-9062/logs/${spring.application.name}

@@ -12,7 +12,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date 2020-05-24 12:21:13
  */
 @SpringBootApplication(scanBasePackages = {"com.github.sparkzxl.test"})
-@EnableFeignClients
+@EnableFeignClients("com.github.sparkzxl.test.infrastructure.client")
 public class TestApplication extends SparkBootApplication {
     public static void main(String[] args) {
         SpringApplication.run(TestApplication.class, args);
