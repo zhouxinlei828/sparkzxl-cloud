@@ -24,7 +24,7 @@ spring:
           - dataId: redis.yaml
             group: DEFAULT_GROUP
             refresh: false
-          - dataId: actuator.yaml
+          - dataId: common.yaml
             group: DEFAULT_GROUP
             refresh: false
         enable-remote-sync-config: true

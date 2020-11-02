@@ -21,13 +21,13 @@ spring:
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
-          - dataId: actuator.yaml
-            group: DEFAULT_GROUP
-            refresh: false
           - dataId: redis.yaml
             group: DEFAULT_GROUP
             refresh: false
           - dataId: kafka.yaml
+            group: DEFAULT_GROUP
+            refresh: false
+          - dataId: common.yaml
             group: DEFAULT_GROUP
             refresh: false
         enable-remote-sync-config: true

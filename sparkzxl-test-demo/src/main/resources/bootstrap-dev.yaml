@@ -21,9 +21,6 @@ spring:
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
-          - dataId: actuator.yaml
-            group: DEFAULT_GROUP
-            refresh: false
           - dataId: redis.yaml
             group: DEFAULT_GROUP
             refresh: false
@@ -32,6 +29,11 @@ spring:
             refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
+  rabbitmq:
+    host: 47.116.52.58
+    port: 5672
+    username: admin
+    password: admin
 logging:
   level:
     com.github.sparkzxl.test.infrastructure.mapper: debug
