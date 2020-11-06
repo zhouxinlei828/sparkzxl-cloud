@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+
 /**
  * description: 文件上传 前端控制器
  *
@@ -57,5 +59,12 @@ public class FileController implements FileApi {
     @Override
     public String getSayHello() {
         return "sayHello";
+    }
+
+    @Override
+    public FileDTO getLocalDateTime() {
+        FileDTO fileDTO = new FileDTO();
+        fileDTO.setLocalDateTime(LocalDateTime.now());
+        return fileDTO;
     }
 }

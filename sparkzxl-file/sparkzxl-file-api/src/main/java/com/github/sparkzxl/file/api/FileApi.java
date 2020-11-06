@@ -38,4 +38,10 @@ public interface FileApi {
     @GetMapping("/getSayHello")
     String getSayHello();
 
+    /**
+     * @return FileDTO
+     */
+    @GetMapping("/getLocalDateTime")
+    FileDTO getLocalDateTime();
+
 }

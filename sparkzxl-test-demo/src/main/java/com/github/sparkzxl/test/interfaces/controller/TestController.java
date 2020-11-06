@@ -1,5 +1,6 @@
 package com.github.sparkzxl.test.interfaces.controller;
 
+import com.github.sparkzxl.file.dto.FileDTO;
 import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.test.infrastructure.client.FileClient;
 import com.github.sparkzxl.web.annotation.ResponseResult;
@@ -29,5 +30,11 @@ public class TestController {
     @GetMapping("/boolean")
     public boolean testBoolean(){
         return true;
+    }
+
+    @GetMapping("/testLocalDateTime")
+    public FileDTO testLocalDateTime(){
+        FileDTO localDateTime = fileClient.getLocalDateTime();
+        return localDateTime;
     }
 }

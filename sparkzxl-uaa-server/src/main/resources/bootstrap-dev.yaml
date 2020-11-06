@@ -24,9 +24,6 @@ spring:
           - dataId: redis.yaml
             group: DEFAULT_GROUP
             refresh: false
-          - dataId: kafka.yaml
-            group: DEFAULT_GROUP
-            refresh: false
           - dataId: common.yaml
             group: DEFAULT_GROUP
             refresh: false
