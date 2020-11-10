@@ -21,7 +21,7 @@ sparkzxl-cloud
 ├── sparkzxl-code-generator                       -- 代码生成工具
 ├── sparkzxl-file                                 -- 文件微服务
 ├── sparkzxl-gateway                              -- 网关微服务
-├── sparkzxl-oauth-server                         -- 授权微服务
+├── sparkzxl-uaa-server                           -- 授权用户微服务
 ├── sparkzxl-sharding-demo                        -- 分库分表示例微服务
 ```
 
