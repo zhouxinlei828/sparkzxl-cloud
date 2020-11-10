@@ -41,3 +41,13 @@ OSS | 对象存储 | [https://github.com/aliyun/aliyun-oss-java-sdk](https://git
 JWT | JWT登录支持 | [https://github.com/jwtk/jjwt](https://github.com/jwtk/jjwt)
 Logback | 日志收集 | [http://logback.qos.ch/](http://logback.qos.ch/)
 Lombok | 简化对象封装工具 | [https://github.com/rzwitserloot/lombok](https://github.com/rzwitserloot/lombok)
+
+
+### 使用说明
+> 关于sparkzxl-xxx-starter组件，是我自己封装的快捷脚手架框架[sparkzxl-component](https://sparkzxl.github.io/sparkzxl-component/)，使用sparkzxl-cloud的时候，先克隆sparkzxl-component到本地，install到本地的maven仓库使用
+
+1. nacos配置中心，预先安装nacos服务，安装方法请参考[nacos官网](https://nacos.io/zh-cn/docs/quick-start.html)
+- 在config目录，导入压缩包到nacos中
+![导入zip压缩包](https://oss.sparksys.top/images/1604982963903.jpg)
+
+- 然后在bootstrap-dev.yaml修改对应你nacos注册配置地址，然后就可以启动了
