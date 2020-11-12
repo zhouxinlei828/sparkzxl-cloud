@@ -111,7 +111,6 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
         if (CollectionUtils.isNotEmpty(processStatusList)) {
             List<String> processInstanceIds = processStatusList.stream().map(ExtProcessStatus::getProcessInstanceId)
                     .collect(Collectors.toList());
-
             processInstanceIds.forEach(processInstanceId -> {
                 try {
                     List<ProcessHistory> processHistoryList = getProcessHistories(processInstanceId);
