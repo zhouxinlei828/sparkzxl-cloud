@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessInstance;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessStatus;
 
+import java.util.List;
+
 /**
  * description: 流程状态 仓储类
  *
@@ -18,7 +20,7 @@ public interface IExtProcessStatusRepository {
      * @param businessId 业务主键
      * @return ProcessTaskStatus
      */
-    ExtProcessStatus getExtProcessStatus(String businessId);
+    List<ExtProcessStatus> getExtProcessStatusList(String businessId);
 
     /**
      * 查询流程实例列表
@@ -29,4 +31,12 @@ public interface IExtProcessStatusRepository {
      * @return PageInfo<ProcessInstance>
      */
     PageInfo<ProcessInstance> getProcessInstanceList(int pageNum, int pageSize, String name);
+
+    /**
+     * 获取流程状态
+     * @param businessId 业务主键
+     * @param processInstanceId 流程实例id
+     * @return ExtProcessStatus
+     */
+    ExtProcessStatus getExtProcessStatus(String businessId, String processInstanceId);
 }

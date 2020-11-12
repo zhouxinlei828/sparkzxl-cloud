@@ -54,7 +54,7 @@ public class ActProcessController {
 
     @ApiOperation("根据业务主键获取流程历史")
     @GetMapping("/processHistoryByBusinessId")
-    public List<ProcessHistory> getProcessHistoryByBusinessId(@ApiParam("业务主键") @RequestParam("businessId") String businessId) throws ExecutionException, InterruptedException {
+    public List<ProcessHistory> getProcessHistoryByBusinessId(@ApiParam("业务主键") @RequestParam("businessId") String businessId) {
         return processHistoryService.getProcessHistoryByBusinessId(businessId);
     }
 

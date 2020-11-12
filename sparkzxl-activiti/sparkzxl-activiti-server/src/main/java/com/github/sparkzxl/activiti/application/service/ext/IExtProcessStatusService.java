@@ -6,6 +6,8 @@ import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessStatus;
 import com.github.sparkzxl.activiti.interfaces.dto.act.InstancePageDTO;
 import com.github.sparkzxl.database.base.service.SuperCacheService;
 
+import java.util.List;
+
 /**
  * description: 流程状态记录 服务类
  *
@@ -20,8 +22,16 @@ public interface IExtProcessStatusService extends SuperCacheService<ExtProcessSt
      * @param businessId 业务主键
      * @return ProcessTaskStatus
      */
-    ExtProcessStatus getExtProcessStatus(String businessId);
+    List<ExtProcessStatus> getExtProcessStatusList(String businessId);
 
+
+    /**
+     * 查询流程状态
+     * @param businessId 业务主键
+     * @param processInstanceId 流程实例id
+     * @return ExtProcessStatus
+     */
+    ExtProcessStatus getExtProcessStatus(String businessId,String processInstanceId);
     /**
      * 查询流程实例列表
      *

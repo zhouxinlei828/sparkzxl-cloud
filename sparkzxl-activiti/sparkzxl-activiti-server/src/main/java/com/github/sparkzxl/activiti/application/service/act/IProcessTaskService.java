@@ -2,6 +2,7 @@ package com.github.sparkzxl.activiti.application.service.act;
 
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Comment;
+import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.Task;
 
 import java.io.InputStream;
@@ -108,6 +109,13 @@ public interface IProcessTaskService {
      * @return Task
      */
     Task getLatestTaskByProInstId(String processInstanceId);
+
+    /**
+     * 获取任务候选人信息
+     * @param taskId 任务id
+     * @return List<IdentityLink>
+     */
+    List<IdentityLink> getIdentityLinksForTask(String taskId);
 
     /**
      * 读取直接分配给当前人的任务

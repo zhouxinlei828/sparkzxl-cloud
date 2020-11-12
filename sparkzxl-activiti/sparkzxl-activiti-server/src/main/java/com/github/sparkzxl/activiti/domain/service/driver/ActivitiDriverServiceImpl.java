@@ -3,6 +3,7 @@ package com.github.sparkzxl.activiti.domain.service.driver;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRepositoryService;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
+import com.github.sparkzxl.activiti.application.service.act.IProcessTaskService;
 import com.github.sparkzxl.activiti.application.service.driver.IActivitiDriverService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtHiTaskStatusService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtProcessStatusService;
@@ -19,6 +20,7 @@ import com.github.sparkzxl.activiti.infrastructure.strategy.AbstractActivitiSolv
 import com.github.sparkzxl.activiti.infrastructure.strategy.ActivitiSolverChooser;
 import com.github.sparkzxl.activiti.infrastructure.utils.ActivitiUtils;
 import com.github.sparkzxl.activiti.interfaces.dto.process.ProcessNextTaskDTO;
+import com.github.sparkzxl.core.utils.DateUtils;
 import com.github.sparkzxl.core.utils.ListUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -27,7 +29,10 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.UserTask;
+import org.activiti.engine.IdentityService;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.IdentityLink;
+import org.activiti.engine.task.Task;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -35,6 +40,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +71,12 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
 
     @Autowired
     private IProcessRuntimeService processRuntimeService;
+
+    @Autowired
+    private IProcessTaskService processTaskService;
+
+    @Autowired
+    private IdentityService identityService;
 
     @Override
     public DriverResult driverProcess(DriverProcessDTO driverProcessDTO) {
@@ -118,18 +130,30 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
             actionMap.put(WorkflowConstants.WorkflowAction.AGREE, "同意");
             actionMap.put(WorkflowConstants.WorkflowAction.JUMP, "跳转");
             actionMap.put(WorkflowConstants.WorkflowAction.ROLLBACK, "驳回");
-            ProcessNextTaskDTO processNextTaskDTO = new ProcessNextTaskDTO();
-            processNextTaskDTO.setProcessDefinitionId(processInstance.getProcessDefinitionId());
-            ExtHiTaskStatus actHiTaskStatus = extHiTaskStatusService.getExtHiTaskStatus(processInstance.getProcessInstanceId());
-            processNextTaskDTO.setTaskDefKey(actHiTaskStatus.getTaskDefKey());
-            Map<String, Object> variables = Maps.newHashMap();
-            variables.put("actType", 1);
-            processNextTaskDTO.setVariables(variables);
-            List<UserNextTask> userNextTasks = getNextUserTask(processNextTaskDTO);
-            if (CollectionUtils.isNotEmpty(userNextTasks)) {
-                UserNextTask userNextTask = userNextTasks.get(0);
-                activitiDataDTO.setUserNextTask(userNextTask);
+            Task lastTask = processTaskService.getLatestTaskByProInstId(processInstance.getProcessInstanceId());
+            List<IdentityLink> identityLinks = processTaskService.getIdentityLinksForTask(lastTask.getId());
+            List<String> candidateGroupList = Lists.newArrayList();
+            List<String> assigneeList = Lists.newArrayList();
+            if (CollectionUtils.isNotEmpty(identityLinks)) {
+                identityLinks.forEach(identityLink -> {
+                    if (StringUtils.isNoneEmpty(identityLink.getGroupId())) {
+                        candidateGroupList.add(identityLink.getGroupId());
+                    }
+                    if (StringUtils.isNoneEmpty(identityLink.getUserId())) {
+                        assigneeList.add(identityLink.getUserId());
+                    }
+                });
             }
+            UserNextTask userNextTask = new UserNextTask();
+            userNextTask.setAssignee(ListUtils.listToString(assigneeList));
+            userNextTask.setOwner(lastTask.getOwner());
+            userNextTask.setPriority(String.valueOf(lastTask.getPriority()));
+            userNextTask.setDueDate(DateUtils.format(lastTask.getDueDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            userNextTask.setCandidateUsers(assigneeList);
+            userNextTask.setCandidateGroups(candidateGroupList);
+            userNextTask.setTaskDefKey(lastTask.getTaskDefinitionKey());
+            userNextTask.setTaskName(lastTask.getName());
+            activitiDataDTO.setUserNextTask(userNextTask);
         } else {
             actionMap.put(WorkflowConstants.WorkflowAction.START, "启动");
         }

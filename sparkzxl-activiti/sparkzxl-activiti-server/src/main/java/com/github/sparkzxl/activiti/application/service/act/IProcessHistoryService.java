@@ -53,10 +53,8 @@ public interface IProcessHistoryService {
      *
      * @param businessId 业务主键
      * @return List<ProcessHistory>
-     * @throws ExecutionException   运行异常
-     * @throws InterruptedException 中断异常
      */
-    List<ProcessHistory> getProcessHistoryByBusinessId(String businessId) throws ExecutionException, InterruptedException;
+    List<ProcessHistory> getProcessHistoryByBusinessId(String businessId);
 
     /**
      * 根据流程实例id获取流程历史

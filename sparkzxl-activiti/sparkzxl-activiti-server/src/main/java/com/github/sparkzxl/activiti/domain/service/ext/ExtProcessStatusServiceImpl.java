@@ -31,8 +31,13 @@ public class ExtProcessStatusServiceImpl extends AbstractSuperCacheServiceImpl<E
     }
 
     @Override
-    public ExtProcessStatus getExtProcessStatus(String businessId) {
-        return extProcessStatusRepository.getExtProcessStatus(businessId);
+    public List<ExtProcessStatus> getExtProcessStatusList(String businessId) {
+        return extProcessStatusRepository.getExtProcessStatusList(businessId);
+    }
+
+    @Override
+    public ExtProcessStatus getExtProcessStatus(String businessId, String processInstanceId) {
+        return extProcessStatusRepository.getExtProcessStatus(businessId, processInstanceId);
     }
 
     @Override
@@ -41,7 +46,7 @@ public class ExtProcessStatusServiceImpl extends AbstractSuperCacheServiceImpl<E
                 instancePageDTO.getPageSize(), instancePageDTO.getName());
         List<ProcessInstance> processInstances = processInstancePageInfo.getList();
         processInstances.forEach(item -> {
-            if (ObjectUtils.isNotEmpty(item.getDuration())){
+            if (ObjectUtils.isNotEmpty(item.getDuration())) {
                 item.setDueTime(DateUtils.formatBetween(item.getDuration()));
             }
         });

@@ -1,5 +1,6 @@
 package com.github.sparkzxl.activiti.infrastructure.repository;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -10,6 +11,8 @@ import com.github.sparkzxl.activiti.infrastructure.mapper.ExtProcessStatusMapper
 import com.github.sparkzxl.database.utils.PageInfoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * description:流程状态 仓储实现类
@@ -24,9 +27,16 @@ public class ExtProcessStatusRepositoryImpl implements IExtProcessStatusReposito
     private ExtProcessStatusMapper extProcessStatusMapper;
 
     @Override
-    public ExtProcessStatus getExtProcessStatus(String businessId) {
-        return extProcessStatusMapper.selectOne(new QueryWrapper<ExtProcessStatus>().lambda().eq(ExtProcessStatus::getBusinessId,
-                businessId).last("limit 1"));
+    public List<ExtProcessStatus> getExtProcessStatusList(String businessId) {
+        return extProcessStatusMapper.selectList(new LambdaQueryWrapper<ExtProcessStatus>()
+                .eq(ExtProcessStatus::getBusinessId, businessId).orderByAsc(ExtProcessStatus::getCreateTime));
+    }
+
+    @Override
+    public ExtProcessStatus getExtProcessStatus(String businessId, String processInstanceId) {
+        return extProcessStatusMapper.selectOne(new LambdaQueryWrapper<ExtProcessStatus>()
+                .eq(ExtProcessStatus::getBusinessId, businessId)
+                .eq(ExtProcessStatus::getProcessInstanceId, processInstanceId).last("limit 1"));
     }
 
     @Override

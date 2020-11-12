@@ -179,7 +179,7 @@ public class ActWorkApiService {
      */
     public void saveProcessTaskStatus(String processInstanceId, String businessId, String status) {
         log.info("记录当前任务流程状态 processInstanceId：{}，businessId：{}", processInstanceId, businessId);
-        ExtProcessStatus extProcessStatus = processTaskStatusService.getExtProcessStatus(businessId);
+        ExtProcessStatus extProcessStatus = processTaskStatusService.getExtProcessStatus(businessId,processInstanceId);
         //记录当前任务流程状态
         if (ObjectUtils.isNotEmpty(extProcessStatus)) {
             extProcessStatus.setStatus(status);

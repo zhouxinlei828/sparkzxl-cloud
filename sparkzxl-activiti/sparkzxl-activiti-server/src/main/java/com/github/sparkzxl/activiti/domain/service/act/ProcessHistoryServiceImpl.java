@@ -30,6 +30,7 @@ import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.TaskInfo;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +55,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProcessHistoryServiceImpl implements IProcessHistoryService {
 
-    private final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2,
+    private final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4,
             Runtime.getRuntime().availableProcessors() + 1,
             10,
             TimeUnit.MILLISECONDS,
@@ -104,10 +105,23 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
     }
 
     @Override
-    public List<ProcessHistory> getProcessHistoryByBusinessId(String businessId) throws ExecutionException, InterruptedException {
-        ExtProcessStatus processTaskStatus = processTaskStatusService.getExtProcessStatus(businessId);
-        String processInstanceId = processTaskStatus.getProcessInstanceId();
-        return getProcessHistories(processInstanceId);
+    public List<ProcessHistory> getProcessHistoryByBusinessId(String businessId) {
+        List<ExtProcessStatus> processStatusList = processTaskStatusService.getExtProcessStatusList(businessId);
+        List<ProcessHistory> processHistories = Lists.newArrayList();
+        if (CollectionUtils.isNotEmpty(processStatusList)) {
+            List<String> processInstanceIds = processStatusList.stream().map(ExtProcessStatus::getProcessInstanceId)
+                    .collect(Collectors.toList());
+
+            processInstanceIds.forEach(processInstanceId -> {
+                try {
+                    List<ProcessHistory> processHistoryList = getProcessHistories(processInstanceId);
+                    processHistories.addAll(processHistoryList);
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+        return processHistories;
     }
 
     private List<ProcessHistory> getProcessHistories(String processInstanceId) throws InterruptedException, ExecutionException {

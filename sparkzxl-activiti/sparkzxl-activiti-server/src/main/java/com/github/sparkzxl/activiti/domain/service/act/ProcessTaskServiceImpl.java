@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Comment;
+import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +86,11 @@ public class ProcessTaskServiceImpl implements IProcessTaskService {
     @Override
     public Task getLatestTaskByProInstId(String processInstanceId) {
         return taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+    }
+
+    @Override
+    public List<IdentityLink> getIdentityLinksForTask(String taskId) {
+        return taskService.getIdentityLinksForTask(taskId);
     }
 
     @Override
