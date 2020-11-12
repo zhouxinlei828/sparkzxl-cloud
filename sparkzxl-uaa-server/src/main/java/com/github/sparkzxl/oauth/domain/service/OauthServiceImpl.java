@@ -1,8 +1,7 @@
 package com.github.sparkzxl.oauth.domain.service;
 
 import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.sparkzxl.core.utils.BuildKeyUtils;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.google.common.collect.Maps;
 import com.github.sparkzxl.cache.template.CacheTemplate;
@@ -10,8 +9,6 @@ import com.github.sparkzxl.core.constant.BaseContextConstant;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.core.spring.SpringContextUtils;
 import com.github.sparkzxl.core.support.ResponseResultStatus;
-import com.github.sparkzxl.core.utils.KeyUtils;
-import com.github.sparkzxl.oauth.entity.AuthUserDetail;
 import com.github.sparkzxl.oauth.entity.AuthorizationRequest;
 import com.github.sparkzxl.oauth.entity.LoginStatus;
 import com.github.sparkzxl.oauth.enums.GrantTypeEnum;
@@ -20,13 +17,10 @@ import com.github.sparkzxl.oauth.service.OauthService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.stereotype.Service;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import java.security.Principal;
 import java.util.Map;
@@ -93,7 +87,7 @@ public class OauthServiceImpl implements OauthService {
     private void accessToken(String username, OAuth2AccessToken oAuth2AccessToken) {
         AuthUserInfo<Long> authUserInfo = authUserService.getAuthUserInfo(username);
         log.info("AuthUserInfo json is {}", JSONUtil.toJsonPrettyStr(authUserInfo));
-        String buildKey = KeyUtils.buildKey(BaseContextConstant.AUTH_USER, oAuth2AccessToken.getValue());
+        String buildKey = BuildKeyUtils.generateKey(BaseContextConstant.AUTH_USER, oAuth2AccessToken.getValue());
         cacheTemplate.set(buildKey, authUserInfo, (long) oAuth2AccessToken.getExpiresIn());
     }
 

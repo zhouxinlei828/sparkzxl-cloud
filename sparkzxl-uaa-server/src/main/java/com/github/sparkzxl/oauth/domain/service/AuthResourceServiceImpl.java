@@ -1,12 +1,12 @@
 package com.github.sparkzxl.oauth.domain.service;
 
+import com.github.sparkzxl.core.utils.BuildKeyUtils;
 import com.github.sparkzxl.oauth.application.service.IAuthResourceService;
 import com.github.sparkzxl.oauth.domain.repository.IAuthResourceRepository;
 import com.github.sparkzxl.oauth.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthResource;
 import com.github.sparkzxl.oauth.infrastructure.mapper.AuthResourceMapper;
 import com.github.sparkzxl.oauth.interfaces.dto.resource.ResourceQueryDTO;
-import com.github.sparkzxl.core.utils.KeyUtils;
 import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class AuthResourceServiceImpl extends AbstractSuperCacheServiceImpl<AuthR
 
     @Override
     public List<AuthResource> findVisibleResource(Long userId, ResourceQueryDTO resource) {
-        String userResourceKey = KeyUtils.buildKey(getRegion(),userId);
+        String userResourceKey = BuildKeyUtils.generateKey(getRegion(),userId);
         List<AuthResource> visibleResource = Lists.newArrayList();
         cacheTemplate.get(userResourceKey,(key) -> {
             visibleResource.addAll(authResourceRepository.findVisibleResource(resource.getUserId(),resource.getMenuId()));
