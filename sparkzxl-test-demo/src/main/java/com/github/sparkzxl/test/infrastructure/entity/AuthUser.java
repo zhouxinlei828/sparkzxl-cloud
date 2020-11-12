@@ -94,17 +94,9 @@ public class AuthUser implements Serializable{
     @TableField("work_describe")
     private String workDescribe;
 
-    @ApiModelProperty(value = "最后一次输错密码时间")
-    @TableField("password_error_last_time")
-    private LocalDateTime passwordErrorLastTime;
-
     @ApiModelProperty(value = "密码错误次数")
     @TableField("password_error_num")
     private Integer passwordErrorNum;
-
-    @ApiModelProperty(value = "密码过期时间")
-    @TableField("password_expire_time")
-    private LocalDateTime passwordExpireTime;
 
     @ApiModelProperty(value = "最后登录时间")
     @TableField("last_login_time")
@@ -124,5 +116,8 @@ public class AuthUser implements Serializable{
     @TableField(value = EntityConstant.COLUMN_UPDATE_TIME, fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     protected Date updateTime;
+
+    @TableLogic
+    private Integer deleteFlag;
 
 }
