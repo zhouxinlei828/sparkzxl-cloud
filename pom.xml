@@ -22,8 +22,8 @@
         <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
         <!-- spring-cloud-->
         <spring-cloud-alibaba-dependencies.version>2.2.0.RELEASE</spring-cloud-alibaba-dependencies.version>
-        <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
-        <spring-cloud-dependencies.version>Hoxton.SR7</spring-cloud-dependencies.version>
+        <spring-boot.version>2.3.5.RELEASE</spring-boot.version>
+        <spring-cloud-dependencies.version>Hoxton.SR8</spring-cloud-dependencies.version>
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
 
         <sparkzxl-component.version>1.2.0.RELEASE</sparkzxl-component.version>
