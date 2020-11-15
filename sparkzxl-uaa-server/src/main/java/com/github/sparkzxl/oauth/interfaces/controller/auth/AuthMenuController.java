@@ -2,6 +2,7 @@ package com.github.sparkzxl.oauth.interfaces.controller.auth;
 
 
 import cn.hutool.core.convert.Convert;
+import com.github.sparkzxl.database.dto.DeleteDTO;
 import com.github.sparkzxl.oauth.application.service.IAuthMenuService;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthMenu;
 import com.github.sparkzxl.oauth.interfaces.dto.menu.AuthMenuPageDTO;
@@ -14,9 +15,7 @@ import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,6 +47,12 @@ public class AuthMenuController extends SuperCacheController<IAuthMenuService, L
     public List<AuthMenu> allTree() {
         List<AuthMenu> list = baseService.list(Wraps.<AuthMenu>lbQ().orderByAsc(AuthMenu::getSortValue));
         return TreeUtil.buildTree(list);
+    }
+
+    @ApiOperation(value = "删除菜单", notes = "删除菜单")
+    @DeleteMapping("/deleteMenu")
+    public boolean deleteMenu(@RequestBody DeleteDTO deleteDTO) {
+        return baseService.deleteMenu(deleteDTO.getIds());
     }
 
 }
