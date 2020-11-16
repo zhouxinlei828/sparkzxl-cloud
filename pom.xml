@@ -43,6 +43,7 @@
         <activiti.boot.version>6.0.0</activiti.boot.version>
         <apache.xmlgraphics.version>1.7</apache.xmlgraphics.version>
         <fel.version>0.8</fel.version>
+        <weixin-sdk.version>3.9.0</weixin-sdk.version>
     </properties>
 
     <modules>
@@ -54,6 +55,7 @@
         <module>sparkzxl-sharding-demo</module>
         <module>sparkzxl-test-demo</module>
         <module>sparkzxl-uaa-server</module>
+        <module>spark-wechat-admin</module>
     </modules>
 
     <repositories>
@@ -270,6 +272,30 @@
                 <groupId>com.github.sparkzxl</groupId>
                 <artifactId>sparkzxl-activiti-api</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <!-- 微信小程序SDK -->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-miniapp</artifactId>
+                <version>${weixin-sdk.version}</version>
+            </dependency>
+            <!-- 微信开放平台SDK -->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-open</artifactId>
+                <version>${weixin-sdk.version}</version>
+            </dependency>
+            <!-- 微信公众号SDK -->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-mp</artifactId>
+                <version>${weixin-sdk.version}</version>
+            </dependency>
+            <!-- 企业号/企业微信SDK -->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-cp</artifactId>
+                <version>${weixin-sdk.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
