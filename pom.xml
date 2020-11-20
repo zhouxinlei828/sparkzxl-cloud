@@ -34,7 +34,7 @@
         <freemarker.version>2.3.28</freemarker.version>
 
         <aliyun-sdk-oss.version>3.8.1</aliyun-sdk-oss.version>
-        <knife4j.version>2.0.3</knife4j.version>
+        <knife4j.version>3.0.1</knife4j.version>
 
         <mapstruct.version>1.3.0.Final</mapstruct.version>
         <lombok.version>1.18.8</lombok.version>

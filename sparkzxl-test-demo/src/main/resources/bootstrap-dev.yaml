@@ -33,9 +33,9 @@ spring:
     host: 47.116.52.58
     port: 5672
     username: admin
-    password: admin
+    password: farben123
 logging:
   level:
     com.github.sparkzxl.test.infrastructure.mapper: debug
   file:
-    path: /Users/zhouxinlei/logs/${spring.application.name}
+    path: /Users/fin-9062/logs/${spring.application.name}
