@@ -15,7 +15,7 @@ import javax.annotation.PostConstruct;
 /**
  * description: rabbitmq 配置类
  *
- * @author: fin-9062
+ * @author: zhouxinlei
  * @date: 2020-10-31 22:08:49
 */
 @Configuration

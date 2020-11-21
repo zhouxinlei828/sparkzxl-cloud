@@ -34,4 +34,4 @@ logging:
     com.github.sparkzxl.oauth.infrastructure.client: debug
     com.github.sparkzxl.oauth.infrastructure.mapper: debug
   file:
-    path: /Users/fin-9062/logs/${spring.application.name}
+    path: /Users/zhouxinlei/logs/${spring.application.name}

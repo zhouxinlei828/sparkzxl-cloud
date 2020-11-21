@@ -7,7 +7,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 /**
  * description: 消息发送到交换器Exchange回调处理类
  *
- * @author: fin-9062
+ * @author: zhouxinlei
  * @date: 2020-10-31 22:12:22
 */
 @Slf4j

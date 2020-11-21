@@ -88,6 +88,7 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
         map.put("code", status);
         map.put("msg", errorMessage);
         map.put("data", null);
+        map.put("success", status == 200);
         log.error(map.toString());
         return map;
     }

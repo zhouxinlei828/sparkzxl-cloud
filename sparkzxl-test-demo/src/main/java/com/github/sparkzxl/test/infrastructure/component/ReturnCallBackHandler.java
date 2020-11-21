@@ -7,7 +7,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 /**
  * description: 如果消息从交换器发送到对应队列失败时触发（比如根据发送消息时指定的routingKey找不到队列时会触发
  *
- * @author: fin-9062
+ * @author: zhouxinlei
  * @date: 2020-10-31 22:13:34
 */
 @Slf4j
