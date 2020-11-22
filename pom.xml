@@ -23,7 +23,7 @@
         <spring-boot-maven.version>2.3.5.RELEASE</spring-boot-maven.version>
         <mapstruct.version>1.4.0.CR1</mapstruct.version>
 
-        <sparkzxl-component.version>1.2.0.RELEASE</sparkzxl-component.version>
+        <sparkzxl-dependencies.version>1.2.0.RELEASE</sparkzxl-dependencies.version>
         <lombok.version>1.18.8</lombok.version>
     </properties>
 
@@ -74,7 +74,7 @@
             <dependency>
                 <groupId>com.github.sparkzxl</groupId>
                 <artifactId>sparkzxl-dependencies</artifactId>
-                <version>${sparkzxl-component.version}</version>
+                <version>${sparkzxl-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
