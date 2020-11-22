@@ -1,6 +1,5 @@
 package com.github.sparkzxl.file.infrastructure.entity;
 
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
