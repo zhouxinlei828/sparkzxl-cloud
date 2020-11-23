@@ -36,7 +36,7 @@ public class IndexController {
         return "modelList";
     }
 
-    @ApiOperation("流程图设计也")
+    @ApiOperation("流程图设计页")
     @GetMapping("editor")
     public String editor() {
         return "modeler";

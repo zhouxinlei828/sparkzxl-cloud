@@ -14,10 +14,10 @@ spring:
     nacos:
       discovery:
         server-addr: 47.116.52.58:8086
-        namespace: edbbdee2-5546-4f81-9861-aae13c944948
+        namespace: 2093ac51-9ced-4336-86e3-096d81e3c252
       config:
         server-addr: 47.116.52.58:8086
-        namespace: edbbdee2-5546-4f81-9861-aae13c944948
+        namespace: 2093ac51-9ced-4336-86e3-096d81e3c252
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
@@ -33,4 +33,4 @@ logging:
   level:
     com.github.sparkzxl.file.infrastructure.mapper: debug
   file:
-    path: /Users/zhouxinlei/logs/${spring.application.name}
+    path: /Users/fin-9062/logs/${spring.application.name}
