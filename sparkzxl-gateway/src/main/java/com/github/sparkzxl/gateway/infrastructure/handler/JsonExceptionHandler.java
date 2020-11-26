@@ -155,7 +155,7 @@ public class JsonExceptionHandler implements ErrorWebExceptionHandler {
      *
      * @param status       状态码
      * @param errorMessage 异常信息
-     * @return
+     * @return Map<String, Object>
      */
     public static Map<String, Object> response(int status, String errorMessage) {
         Map<String, Object> map = Maps.newHashMap();
