@@ -56,7 +56,7 @@ public class OauthController {
     @PostMapping("/oauth/token")
     @Trace(operationName = "oauth_post_token_trace")
     @ApiImplicitParams(
-            @ApiImplicitParam(name = "Authorization", value = "Basic Auth", paramType = "header", defaultValue = "Basic c3BhcmtzeXM6MTIzNDU2")
+            @ApiImplicitParam(name = "Authorization", value = "Basic Auth", paramType = "header", defaultValue = "Basic c3Bhcmt6eGw6MTIzNDU2")
     )
     public OAuth2AccessToken postAccessToken(@RequestHeader(value = "Authorization") String authorization,
                                              @ApiIgnore Principal principal,

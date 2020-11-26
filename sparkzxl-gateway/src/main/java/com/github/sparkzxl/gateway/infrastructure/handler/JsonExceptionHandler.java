@@ -98,7 +98,7 @@ public class JsonExceptionHandler implements ErrorWebExceptionHandler {
         }
         Mono<ServerResponse> serverResponseMono = ServerResponse.status(status)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(errorAttributes.get("data")));
+                .body(BodyInserters.fromValue(errorAttributes));
         exceptionHandlerResult.remove();
         return serverResponseMono;
     }
@@ -161,7 +161,7 @@ public class JsonExceptionHandler implements ErrorWebExceptionHandler {
         Map<String, Object> map = Maps.newHashMap();
         map.put("code", status);
         map.put("msg", errorMessage);
-        map.put("data", errorMessage);
+        map.put("data", null);
         map.put("success", status == 200);
         log.error(map.toString());
         return map;
