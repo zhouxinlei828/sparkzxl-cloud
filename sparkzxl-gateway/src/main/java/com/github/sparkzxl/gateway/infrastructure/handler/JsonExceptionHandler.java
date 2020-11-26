@@ -3,57 +3,131 @@ package com.github.sparkzxl.gateway.infrastructure.handler;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.boot.autoconfigure.web.ErrorProperties;
-import org.springframework.boot.autoconfigure.web.ResourceProperties;
-import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
-import org.springframework.boot.web.error.ErrorAttributeOptions;
-import org.springframework.boot.web.reactive.error.ErrorAttributes;
+import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.cloud.gateway.support.NotFoundException;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.codec.HttpMessageReader;
+import org.springframework.http.codec.HttpMessageWriter;
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.util.Assert;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.*;
+import org.springframework.web.reactive.result.view.ViewResolver;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
+public class JsonExceptionHandler implements ErrorWebExceptionHandler {
 
-
-    public JsonExceptionHandler(ErrorAttributes errorAttributes, ResourceProperties resourceProperties,
-                                ErrorProperties errorProperties, ApplicationContext applicationContext) {
-        super(errorAttributes, resourceProperties, errorProperties, applicationContext);
-    }
 
     /**
-     * 获取异常属性
+     * MessageReader
      */
+    private final List<HttpMessageReader<?>> messageReaders;
+
+    /**
+     * MessageWriter
+     */
+    private final List<HttpMessageWriter<?>> messageWriters;
+
+    /**
+     * ViewResolvers
+     */
+    private final List<ViewResolver> viewResolvers;
+
+    /**
+     * 存储处理异常后的信息
+     */
+    private final ThreadLocal<Map<String, Object>> exceptionHandlerResult = new ThreadLocal<>();
+
+    public JsonExceptionHandler(List<HttpMessageReader<?>> messageReaders,
+                                List<HttpMessageWriter<?>> messageWriters,
+                                List<ViewResolver> viewResolvers) {
+        this.messageReaders = messageReaders;
+        this.messageWriters = messageWriters;
+        this.viewResolvers = viewResolvers;
+    }
+
     @Override
-    protected Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
-        int code = HttpStatus.INTERNAL_SERVER_ERROR.value();
-        Throwable error = super.getError(request);
-        if (error instanceof NotFoundException) {
-            code = HttpStatus.NOT_FOUND.value();
+    public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
+        ServerHttpRequest request = exchange.getRequest();
+        // 按照异常类型进行处理
+        HttpStatus httpStatus;
+        String body;
+        if (ex instanceof NotFoundException) {
+            httpStatus = HttpStatus.NOT_FOUND;
+            body = "Service Not Found";
+        } else if (ex instanceof ResponseStatusException) {
+            ResponseStatusException responseStatusException = (ResponseStatusException) ex;
+            httpStatus = responseStatusException.getStatus();
+            body = responseStatusException.getMessage();
+        } else {
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            body = buildMessage(request,ex);
         }
-        return response(code, this.buildMessage(request, error));
+
+        Map<String, Object> result = response(httpStatus.value(),body);
+        //错误记录
+        log.error("[全局异常处理]异常请求路径:{},记录异常信息:{}", request.getPath(), ex.getMessage());
+        //参考AbstractErrorWebExceptionHandler
+        if (exchange.getResponse().isCommitted()) {
+            return Mono.error(ex);
+        }
+        exceptionHandlerResult.set(result);
+        ServerRequest newRequest = ServerRequest.create(exchange, this.messageReaders);
+        return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse).route(newRequest)
+                .switchIfEmpty(Mono.error(ex))
+                .flatMap((handler) -> handler.handle(newRequest))
+                .flatMap((response) -> write(exchange, response));
+
     }
 
     /**
-     * 指定响应处理方法为JSON处理的方法
-     *
-     * @param errorAttributes
+     * 参考DefaultErrorWebExceptionHandler
      */
-    @Override
-    protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
-        return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
-    }
-
-    @Override
-    protected int getHttpStatus(Map<String, Object> errorAttributes) {
-        Object status = errorAttributes.get("status");
+    protected Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
+        Map<String, Object> errorAttributes = exceptionHandlerResult.get();
+        Integer status = (Integer) errorAttributes.get("status");
         if (ObjectUtils.isEmpty(status)) {
-            return (int) errorAttributes.get("code");
+            status = (Integer) errorAttributes.get("code");
         }
-        return (int) status;
+        Mono<ServerResponse> serverResponseMono = ServerResponse.status(status)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(errorAttributes.get("data")));
+        exceptionHandlerResult.remove();
+        return serverResponseMono;
+    }
+
+    /**
+     * 参考AbstractErrorWebExceptionHandler
+     */
+    private Mono<? extends Void> write(ServerWebExchange exchange,
+                                       ServerResponse response) {
+        exchange.getResponse().getHeaders()
+                .setContentType(response.headers().getContentType());
+        return response.writeTo(exchange, new ResponseContext());
+    }
+
+    /**
+     * 参考AbstractErrorWebExceptionHandler
+     */
+    private class ResponseContext implements ServerResponse.Context {
+
+        @Override
+        public List<HttpMessageWriter<?>> messageWriters() {
+            return JsonExceptionHandler.this.messageWriters;
+        }
+
+        @Override
+        public List<ViewResolver> viewResolvers() {
+            return JsonExceptionHandler.this.viewResolvers;
+        }
+
     }
 
     /**
@@ -63,11 +137,11 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
      * @param ex
      * @return
      */
-    private String buildMessage(ServerRequest request, Throwable ex) {
+    private String buildMessage(ServerHttpRequest request, Throwable ex) {
         StringBuilder message = new StringBuilder("Failed to handle request [");
-        message.append(request.methodName());
+        message.append(request.getMethod().name());
         message.append(" ");
-        message.append(request.uri());
+        message.append(request.getPath());
         message.append("]");
         if (ex != null) {
             message.append(": ");
@@ -87,7 +161,7 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
         Map<String, Object> map = Maps.newHashMap();
         map.put("code", status);
         map.put("msg", errorMessage);
-        map.put("data", null);
+        map.put("data", errorMessage);
         map.put("success", status == 200);
         log.error(map.toString());
         return map;
