@@ -33,4 +33,4 @@ logging:
   level:
     com.github.sparkzxl.wechat.admin.infrastructure.mapper: debug
   file:
-    path: /Users/fin-9062/logs/${spring.application.name}
+    path: /logs/${spring.application.name}

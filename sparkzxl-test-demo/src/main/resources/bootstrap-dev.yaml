@@ -38,4 +38,4 @@ logging:
   level:
     com.github.sparkzxl.test.infrastructure.mapper: debug
   file:
-    path: /Users/zhouxinlei/logs/${spring.application.name}
+    path: /logs/${spring.application.name}

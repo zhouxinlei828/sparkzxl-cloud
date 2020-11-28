@@ -31,4 +31,4 @@ spring:
         refresh-enabled: true
 logging:
   file:
-    path: /Users/zhouxinlei/logs/${spring.application.name}
+    path: /logs/${spring.application.name}
