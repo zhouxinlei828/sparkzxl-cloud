@@ -1,5 +1,6 @@
 package com.github.sparkzxl.oauth.infrastructure.entity;
 
+import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.sparkzxl.database.entity.Entity;
@@ -25,11 +26,11 @@ public class AuthResource extends Entity<Long> {
     private static final long serialVersionUID = -6295580114270886981L;
 
     @ApiModelProperty(value = "编码规则： 链接： 数据列： 按钮：")
-    @TableField("code")
+    @TableField(value = "code",condition = SqlCondition.LIKE)
     private String code;
 
     @ApiModelProperty(value = "名称")
-    @TableField("name")
+    @TableField(value = "name",condition = SqlCondition.LIKE)
     private String name;
 
     @ApiModelProperty(value = "菜单ID")

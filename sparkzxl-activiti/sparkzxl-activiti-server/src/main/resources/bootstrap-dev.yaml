@@ -35,4 +35,4 @@ logging:
   level:
     com.github.sparkzxl.activiti.infrastructure.mapper: debug
   file:
-    path: /logs/${spring.application.name}
+    name: /logs/${spring.application.name}

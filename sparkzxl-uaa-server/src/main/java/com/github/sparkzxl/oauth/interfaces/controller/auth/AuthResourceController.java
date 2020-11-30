@@ -1,6 +1,7 @@
 package com.github.sparkzxl.oauth.interfaces.controller.auth;
 
 
+import com.github.sparkzxl.database.dto.PageParams;
 import com.github.sparkzxl.oauth.application.service.IAuthResourceService;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthResource;
 import com.github.sparkzxl.oauth.interfaces.dto.resource.AuthResourcePageDTO;
@@ -13,10 +14,8 @@ import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
@@ -40,5 +39,22 @@ public class AuthResourceController extends SuperCacheController<IAuthResourceSe
     @GetMapping("/visible")
     public List<AuthResource> visible(@ApiIgnore AuthUserInfo<Long> authUserInfo, ResourceQueryDTO resource) {
         return baseService.findVisibleResource(authUserInfo.getId(), resource);
+    }
+
+    @Override
+    public void handlerQueryParams(PageParams<AuthResourcePageDTO> params) {
+        AuthResourcePageDTO paramsModel = params.getModel();
+        if (StringUtils.isEmpty(paramsModel.getCode())){
+            paramsModel.setCode(null);
+        }
+        if (StringUtils.isEmpty(paramsModel.getName())){
+            paramsModel.setName(null);
+        }
+    }
+
+    @ApiOperation("删除资源")
+    @DeleteMapping("/deleteResource")
+    public boolean deleteResource(@RequestParam("id") Long resourceId) {
+        return baseService.removeById(resourceId);
     }
 }
