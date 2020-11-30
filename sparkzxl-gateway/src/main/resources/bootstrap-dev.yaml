@@ -29,6 +29,3 @@ spring:
             refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
-logging:
-  file:
-    path: /logs/${spring.application.name}

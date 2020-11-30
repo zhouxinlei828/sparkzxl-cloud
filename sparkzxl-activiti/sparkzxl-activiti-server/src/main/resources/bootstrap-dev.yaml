@@ -34,5 +34,3 @@ spring:
 logging:
   level:
     com.github.sparkzxl.activiti.infrastructure.mapper: debug
-  file:
-    name: /logs/${spring.application.name}

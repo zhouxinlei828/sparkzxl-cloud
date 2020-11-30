@@ -32,5 +32,3 @@ spring:
 logging:
   level:
     com.github.sparkzxl.sharding.infrastructure.mapper: debug
-  file:
-    path: /logs/${spring.application.name}
