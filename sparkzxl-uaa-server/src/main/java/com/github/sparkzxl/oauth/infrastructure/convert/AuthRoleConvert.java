@@ -1,5 +1,7 @@
 package com.github.sparkzxl.oauth.infrastructure.convert;
 
+import com.github.sparkzxl.oauth.domain.model.aggregates.RoleResource;
+import com.github.sparkzxl.oauth.domain.model.vo.RoleResourceVO;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthRole;
 import com.github.sparkzxl.oauth.infrastructure.entity.LoginRole;
 import com.github.sparkzxl.oauth.interfaces.dto.role.AuthRoleDTO;
@@ -52,4 +54,11 @@ public interface AuthRoleConvert {
      * @return List<LoginRole>
      */
     List<LoginRole> convertLoginRoles(List<AuthRole> authRoles);
+
+    /**
+     * 角色资源领域对象转换显示层对象
+     * @param roleResource 角色资源领域对象
+     * @return RoleResourceVO
+     */
+    RoleResourceVO convertRoleResourceVO(RoleResource roleResource);
 }

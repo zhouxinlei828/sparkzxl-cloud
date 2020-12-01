@@ -1,5 +1,8 @@
 package com.github.sparkzxl.oauth.domain.repository;
 
+
+import com.github.sparkzxl.oauth.domain.model.aggregates.RoleResource;
+
 import java.util.Set;
 
 /**
@@ -14,9 +17,16 @@ public interface IRoleAuthorityRepository {
      * 保存绝色资源
      *
      * @param roleId        角色id
-     * @param authorityType 权限类型
-     * @param authorityList 资源id
+     * @param resourceIds 菜单id列表
+     * @param menuIds 资源id列表
      * @return boolean
      */
-    boolean saveRoleAuthorityBatch(Long roleId, String authorityType, Set<Long> authorityList);
+    boolean saveRoleAuthorityBatch(Long roleId, Set<Long> resourceIds, Set<Long> menuIds);
+
+    /**
+     * 查询角色资源信息
+     * @param roleId 角色id
+     * @return RoleResource
+     */
+    RoleResource getRoleResource(Long roleId);
 }

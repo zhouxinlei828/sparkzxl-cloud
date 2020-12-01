@@ -2,6 +2,7 @@ package com.github.sparkzxl.oauth.interfaces.controller.auth;
 
 import com.github.sparkzxl.oauth.application.service.IAuthRoleService;
 import com.github.sparkzxl.oauth.application.service.IUserRoleService;
+import com.github.sparkzxl.oauth.domain.model.vo.RoleResourceVO;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthRole;
 import com.github.sparkzxl.oauth.interfaces.dto.role.*;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
@@ -66,6 +67,12 @@ public class AuthRoleController extends SuperCacheController<IAuthRoleService, L
     @GetMapping("/roleUserList")
     public RoleUserDTO getRoleUserList(@RequestParam("roleId") Long roleId) {
         return userRoleService.getRoleUserList(roleId);
+    }
+
+    @ApiOperation("查询角色资源")
+    @GetMapping("/getRoleResource")
+    public RoleResourceVO getRoleResource(@RequestParam("roleId") Long roleId) {
+        return userRoleService.getRoleResource(roleId);
     }
 
 }

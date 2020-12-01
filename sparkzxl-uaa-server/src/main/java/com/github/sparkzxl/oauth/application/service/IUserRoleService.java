@@ -1,7 +1,9 @@
 package com.github.sparkzxl.oauth.application.service;
 
 
+import com.github.sparkzxl.oauth.domain.model.vo.RoleResourceVO;
 import com.github.sparkzxl.oauth.infrastructure.entity.UserRole;
+import com.github.sparkzxl.oauth.interfaces.dto.role.RoleResourceDTO;
 import com.github.sparkzxl.oauth.interfaces.dto.role.RoleUserDTO;
 import com.github.sparkzxl.oauth.interfaces.dto.role.RoleUserDeleteDTO;
 import com.github.sparkzxl.oauth.interfaces.dto.role.RoleUserSaveDTO;
@@ -38,4 +40,11 @@ public interface IUserRoleService extends SuperCacheService<UserRole> {
      * @return RoleUserDTO
      */
     RoleUserDTO getRoleUserList(Long roleId);
+
+    /**
+     * 获取角色下的菜单资源
+     * @param roleId 角色id
+     * @return RoleResourceVO
+     */
+    RoleResourceVO getRoleResource(Long roleId);
 }

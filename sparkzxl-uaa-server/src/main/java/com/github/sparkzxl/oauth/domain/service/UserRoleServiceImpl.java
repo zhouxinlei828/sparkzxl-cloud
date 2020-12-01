@@ -1,12 +1,17 @@
 package com.github.sparkzxl.oauth.domain.service;
 
 import com.github.sparkzxl.oauth.application.service.IUserRoleService;
+import com.github.sparkzxl.oauth.domain.model.aggregates.RoleResource;
+import com.github.sparkzxl.oauth.domain.model.vo.RoleResourceVO;
+import com.github.sparkzxl.oauth.domain.repository.IRoleAuthorityRepository;
 import com.github.sparkzxl.oauth.domain.repository.IUserRoleRepository;
 import com.github.sparkzxl.oauth.infrastructure.constant.CacheConstant;
+import com.github.sparkzxl.oauth.infrastructure.convert.AuthRoleConvert;
 import com.github.sparkzxl.oauth.infrastructure.convert.AuthUserConvert;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.oauth.infrastructure.entity.UserRole;
 import com.github.sparkzxl.oauth.infrastructure.mapper.UserRoleMapper;
+import com.github.sparkzxl.oauth.interfaces.dto.role.RoleResourceDTO;
 import com.github.sparkzxl.oauth.interfaces.dto.role.RoleUserDTO;
 import com.github.sparkzxl.oauth.interfaces.dto.role.RoleUserDeleteDTO;
 import com.github.sparkzxl.oauth.interfaces.dto.role.RoleUserSaveDTO;
@@ -30,6 +35,8 @@ public class UserRoleServiceImpl extends AbstractSuperCacheServiceImpl<UserRoleM
 
     @Autowired
     private IUserRoleRepository userRoleRepository;
+    @Autowired
+    private IRoleAuthorityRepository roleAuthorityRepository;
 
     @Override
     protected String getRegion() {
@@ -54,5 +61,11 @@ public class UserRoleServiceImpl extends AbstractSuperCacheServiceImpl<UserRoleM
         Optional.ofNullable(authUsers).ifPresent(x -> roleUserDTO.setAuthUsers(authUsers.stream()
                 .map(AuthUserConvert.INSTANCE::convertAuthUserDTO).collect(Collectors.toList())));
         return roleUserDTO;
+    }
+
+    @Override
+    public RoleResourceVO getRoleResource(Long roleId) {
+        RoleResource roleResource = roleAuthorityRepository.getRoleResource(roleId);
+        return AuthRoleConvert.INSTANCE.convertRoleResourceVO(roleResource);
     }
 }

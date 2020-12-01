@@ -29,6 +29,8 @@ public class RoleAuthorityServiceImpl extends AbstractSuperCacheServiceImpl<Role
 
     @Override
     public boolean saveRoleAuthorityBatch(RoleAuthoritySaveDTO roleAuthoritySaveDTO) {
-        return authorityRepository.saveRoleAuthorityBatch(roleAuthoritySaveDTO.getRoleId(),roleAuthoritySaveDTO.getAuthorityType(),roleAuthoritySaveDTO.getAuthorityList());
+        return authorityRepository.saveRoleAuthorityBatch(roleAuthoritySaveDTO.getRoleId(),
+                roleAuthoritySaveDTO.getResourceIds(),
+                roleAuthoritySaveDTO.getMenuIds());
     }
 }

@@ -58,10 +58,10 @@ public interface AuthUserConvert {
     AuthUser convertAuthUser(AuthUserStatusDTO authUserStatusDTO);
 
     /**
-     * AuthUserPageDTO转化为AuthUserBO
+     * AuthUserPageDTO转化为AuthUser
      *
      * @param authUserPageDTO AuthUserDTO分页查询对象
-     * @return AuthUserBO
+     * @return AuthUser
      */
     @Mapping(target = "sex", expression = "java(convertSex(authUserPageDTO.getSex()))")
     AuthUser convertAuthUser(AuthUserPageDTO authUserPageDTO);
