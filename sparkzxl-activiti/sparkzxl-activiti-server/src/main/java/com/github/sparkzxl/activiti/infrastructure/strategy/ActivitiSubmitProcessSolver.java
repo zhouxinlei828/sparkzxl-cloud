@@ -5,10 +5,12 @@ import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
 import com.github.sparkzxl.activiti.domain.service.act.ActWorkApiService;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
+import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import com.github.sparkzxl.redisson.lock.RedisDistributedLock;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -46,6 +48,10 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
             }
             variables.put("actType", driveProcess.getActType());
             ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
+            if (ObjectUtils.isEmpty(processInstance)){
+                redisDistributedLock.releaseLock(businessId);
+                SparkZxlExceptionAssert.businessFail("流程实例为空，请检查参数是否正确");
+            }
             driverResult = actWorkApiService.promoteProcess(userId, processInstance.getProcessInstanceId(), businessId, driveProcess.getActType(),
                     driveProcess.getComment(), variables);
             redisDistributedLock.releaseLock(businessId);

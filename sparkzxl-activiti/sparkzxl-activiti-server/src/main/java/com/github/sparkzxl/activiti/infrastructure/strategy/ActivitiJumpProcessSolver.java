@@ -5,9 +5,11 @@ import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
 import com.github.sparkzxl.activiti.domain.service.act.ActWorkApiService;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
+import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import com.github.sparkzxl.redisson.lock.RedisDistributedLock;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,6 +39,10 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
         DriverResult driverResult = new DriverResult();
         if (lock){
             ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
+            if (ObjectUtils.isEmpty(processInstance)){
+                redisDistributedLock.releaseLock(businessId);
+                SparkZxlExceptionAssert.businessFail("流程实例为空，请检查参数是否正确");
+            }
             String processDefinitionKey = processInstance.getProcessDefinitionKey();
             String processInstanceId = processInstance.getProcessInstanceId();
             driverResult = actWorkApiService.jumpProcess(

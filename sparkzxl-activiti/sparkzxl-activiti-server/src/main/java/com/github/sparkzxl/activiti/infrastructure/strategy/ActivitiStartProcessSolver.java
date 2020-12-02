@@ -83,7 +83,6 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
                         variables);
             }
             redisDistributedLock.releaseLock(businessId);
-            return driverResult;
         }else {
             log.error("businessId = {},操作过于频繁，稍后再试！",businessId);
         }

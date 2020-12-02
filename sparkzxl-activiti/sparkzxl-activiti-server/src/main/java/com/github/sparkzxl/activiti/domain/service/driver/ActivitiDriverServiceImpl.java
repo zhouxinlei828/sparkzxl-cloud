@@ -183,4 +183,17 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
                 businessId));
         return true;
     }
+
+    @Override
+    public boolean deleteProcessByProcInsId(String processInstanceId, String deleteReason) {
+        ProcessInstance processInstance = processRuntimeService.getProcessInstance(processInstanceId);
+        if (ObjectUtils.isNotEmpty(processInstance)) {
+            processRuntimeService.deleteProcessInstance(processInstanceId, deleteReason);
+            extHiTaskStatusService.remove(new LambdaUpdateWrapper<ExtHiTaskStatus>().eq(ExtHiTaskStatus::getProcessInstanceId,
+                    processInstanceId));
+        }
+        extProcessStatusService.remove(new LambdaUpdateWrapper<ExtProcessStatus>().eq(ExtProcessStatus::getProcessInstanceId,
+                processInstanceId));
+        return true;
+    }
 }
