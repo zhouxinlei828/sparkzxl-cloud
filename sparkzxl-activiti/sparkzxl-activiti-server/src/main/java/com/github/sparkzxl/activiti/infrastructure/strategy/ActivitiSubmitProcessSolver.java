@@ -5,6 +5,7 @@ import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
 import com.github.sparkzxl.activiti.domain.service.act.ActWorkApiService;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
+import com.github.sparkzxl.redisson.lock.RedisDistributedLock;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -28,20 +29,28 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
     private IProcessRuntimeService processRuntimeService;
     @Autowired
     private ActWorkApiService actWorkApiService;
+    @Autowired
+    private RedisDistributedLock redisDistributedLock;
 
     @Override
     public DriverResult slove(DriveProcess driveProcess) {
         String businessId = driveProcess.getBusinessId();
         String applyUserId = driveProcess.getApplyUserId();
         String userId = driveProcess.getUserId();
-        Map<String, Object> variables = Maps.newHashMap();
-        if (StringUtils.isNotEmpty(applyUserId)) {
-            variables.put("assignee", applyUserId);
+        DriverResult driverResult = new DriverResult();
+        boolean lock = redisDistributedLock.lock(businessId,0,15);
+        if (lock){
+            Map<String, Object> variables = Maps.newHashMap();
+            if (StringUtils.isNotEmpty(applyUserId)) {
+                variables.put("assignee", applyUserId);
+            }
+            variables.put("actType", driveProcess.getActType());
+            ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
+            driverResult = actWorkApiService.promoteProcess(userId, processInstance.getProcessInstanceId(), businessId, driveProcess.getActType(),
+                    driveProcess.getComment(), variables);
+            redisDistributedLock.releaseLock(businessId);
         }
-        variables.put("actType", driveProcess.getActType());
-        ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
-        return actWorkApiService.promoteProcess(userId, processInstance.getProcessInstanceId(), businessId, driveProcess.getActType(),
-                driveProcess.getComment(), variables);
+        return driverResult;
     }
 
     @Override

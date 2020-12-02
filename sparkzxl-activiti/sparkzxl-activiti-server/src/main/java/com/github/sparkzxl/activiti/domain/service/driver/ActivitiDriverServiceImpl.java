@@ -29,7 +29,6 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.UserTask;
-import org.activiti.engine.IdentityService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.Task;
@@ -44,6 +43,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * description: 流程驱动 服务 实现类
@@ -74,9 +74,6 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
 
     @Autowired
     private IProcessTaskService processTaskService;
-
-    @Autowired
-    private IdentityService identityService;
 
     @Override
     public DriverResult driverProcess(DriverProcessDTO driverProcessDTO) {

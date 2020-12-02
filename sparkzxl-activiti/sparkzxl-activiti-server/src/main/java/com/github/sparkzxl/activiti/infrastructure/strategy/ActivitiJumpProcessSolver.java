@@ -5,6 +5,7 @@ import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
 import com.github.sparkzxl.activiti.domain.service.act.ActWorkApiService;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
+import com.github.sparkzxl.redisson.lock.RedisDistributedLock;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +25,30 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
     private IProcessRuntimeService processRuntimeService;
     @Autowired
     private ActWorkApiService actWorkApiService;
+    @Autowired
+    private RedisDistributedLock redisDistributedLock;
 
     @Override
     public DriverResult slove(DriveProcess driveProcess) {
         String businessId = driveProcess.getBusinessId();
         String userId = driveProcess.getUserId();
         int actType = driveProcess.getActType();
-        ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
-        String processDefinitionKey = processInstance.getProcessDefinitionKey();
-        String processInstanceId = processInstance.getProcessInstanceId();
-        return actWorkApiService.jumpProcess(
-                userId,
-                processInstanceId,
-                processDefinitionKey,
-                businessId,
-                driveProcess.getComment(),
-                actType);
+        boolean lock = redisDistributedLock.lock(businessId,0,15);
+        DriverResult driverResult = new DriverResult();
+        if (lock){
+            ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
+            String processDefinitionKey = processInstance.getProcessDefinitionKey();
+            String processInstanceId = processInstance.getProcessInstanceId();
+            driverResult = actWorkApiService.jumpProcess(
+                    userId,
+                    processInstanceId,
+                    processDefinitionKey,
+                    businessId,
+                    driveProcess.getComment(),
+                    actType);
+            redisDistributedLock.releaseLock(businessId);
+        }
+        return driverResult;
     }
 
     @Override

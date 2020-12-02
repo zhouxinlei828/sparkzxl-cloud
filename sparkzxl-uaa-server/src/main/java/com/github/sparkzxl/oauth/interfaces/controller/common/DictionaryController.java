@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @ResponseResult
 @WebLog
 @Api(tags = "字典类型管理")
-@RequestMapping("/dictionary")
+@RequestMapping("/common/dictionary")
 public class DictionaryController extends SuperCacheController<ICommonDictionaryService, Long,
         CommonDictionary, DictionaryPageDTO, DictionarySaveDTO, DictionaryUpdateDTO> {
 

@@ -31,6 +31,8 @@ spring:
             refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
+  redis:
+    redisson: redisson.yaml
 logging:
   level:
     com.github.sparkzxl.activiti.infrastructure.mapper: debug
