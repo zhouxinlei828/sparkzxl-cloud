@@ -2,6 +2,7 @@
 package com.github.sparkzxl.activiti.infrastructure.config;
 
 import com.github.sparkzxl.activiti.infrastructure.diagram.ICustomProcessDiagramGenerator;
+import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.spring.SpringAsyncExecutor;
 import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.activiti.spring.boot.AbstractProcessEngineAutoConfiguration;
@@ -32,6 +33,9 @@ public class ActivitiConfig extends AbstractProcessEngineAutoConfiguration {
     @Autowired
     private ICustomProcessDiagramGenerator customProcessDiagramGenerator;
 
+    @Autowired
+    private SnowFlakeGenerator snowFlakeGenerator;
+
     @Bean
     public SpringProcessEngineConfiguration springProcessEngineConfiguration(
             SpringAsyncExecutor springAsyncExecutor) throws IOException {
@@ -47,4 +51,12 @@ public class ActivitiConfig extends AbstractProcessEngineAutoConfiguration {
         return springProcessEngineConfiguration;
     }
 
+    @Bean
+    public ProcessEngineConfigurationImpl processEngineConfigurationImpl(ProcessEngineConfigurationImpl processEngineConfigurationImpl){
+        //设置ProcessEngineConfigurationImpl里的uuidGenerator
+        processEngineConfigurationImpl.setIdGenerator(snowFlakeGenerator);
+        //设置DbSqlSessionFactory的uuidGenerator，否则流程id，任务id，实例id依然是用DbIdGenerator生成
+        processEngineConfigurationImpl.getDbSqlSessionFactory().setIdGenerator(snowFlakeGenerator);
+        return processEngineConfigurationImpl;
+    }
 }
