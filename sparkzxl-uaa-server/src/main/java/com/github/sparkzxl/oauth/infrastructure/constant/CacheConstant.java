@@ -141,6 +141,12 @@ public class CacheConstant {
     public static String DICTIONARY_ITEM = "dictionary_item";
 
     /**
+     * 字典 前缀
+     * 完整key: dictionary:{id} -> obj
+     */
+    public static String DICTIONARY = "dictionary";
+
+    /**
      * 参数 前缀
      * 完整key: parameter:{id} -> obj
      */

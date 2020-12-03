@@ -1,6 +1,7 @@
 package com.github.sparkzxl.oauth.domain.service;
 
 import com.github.sparkzxl.oauth.application.service.ICommonDictionaryService;
+import com.github.sparkzxl.oauth.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.oauth.infrastructure.entity.CommonDictionary;
 import com.github.sparkzxl.oauth.infrastructure.mapper.CommonDictionaryMapper;
 import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
@@ -17,6 +18,6 @@ public class CommonDictionaryServiceImpl extends AbstractSuperCacheServiceImpl<C
 
     @Override
     protected String getRegion() {
-        return null;
+        return CacheConstant.DICTIONARY;
     }
 }

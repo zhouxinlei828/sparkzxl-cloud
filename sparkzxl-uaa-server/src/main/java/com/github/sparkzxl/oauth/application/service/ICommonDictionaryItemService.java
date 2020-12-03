@@ -1,6 +1,6 @@
 package com.github.sparkzxl.oauth.application.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.sparkzxl.database.base.service.SuperCacheService;
 import com.github.sparkzxl.oauth.infrastructure.entity.CommonDictionaryItem;
 
 import java.io.Serializable;
@@ -14,7 +14,7 @@ import java.util.Set;
  * @author: zhouxinlei
  * @date: 2020-07-28 19:42:04
  */
-public interface ICommonDictionaryItemService extends IService<CommonDictionaryItem> {
+public interface ICommonDictionaryItemService extends SuperCacheService<CommonDictionaryItem> {
 
     /**
      * 根据类型编码查询字典项

@@ -2,10 +2,11 @@ package com.github.sparkzxl.oauth.domain.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.sparkzxl.core.utils.MapHelper;
+import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.github.sparkzxl.database.properties.InjectionProperties;
 import com.github.sparkzxl.oauth.application.service.ICommonDictionaryItemService;
+import com.github.sparkzxl.oauth.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.oauth.infrastructure.entity.CommonDictionaryItem;
 import com.github.sparkzxl.oauth.infrastructure.mapper.CommonDictionaryItemMapper;
 import com.google.common.collect.ImmutableMap;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
  * @date: 2020-07-28 19:43:58
  */
 @Service
-public class CommonDictionaryItemServiceImpl extends ServiceImpl<CommonDictionaryItemMapper, CommonDictionaryItem> implements ICommonDictionaryItemService {
+public class CommonDictionaryItemServiceImpl extends AbstractSuperCacheServiceImpl<CommonDictionaryItemMapper, CommonDictionaryItem> implements ICommonDictionaryItemService {
 
     @Autowired
     private InjectionProperties injectionProperties;
@@ -64,5 +65,10 @@ public class CommonDictionaryItemServiceImpl extends ServiceImpl<CommonDictionar
                 .eq(CommonDictionaryItem::getStatus, true)
                 .orderByAsc(CommonDictionaryItem::getSortValue);
         return super.list(dictionaryItemLambdaQueryWrapper);
+    }
+
+    @Override
+    protected String getRegion() {
+        return CacheConstant.DICTIONARY_ITEM;
     }
 }

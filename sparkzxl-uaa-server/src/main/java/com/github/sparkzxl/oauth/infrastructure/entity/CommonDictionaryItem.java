@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE_RIGHT;
+
 /**
  * description: 字典项
  *
@@ -27,15 +29,15 @@ public class CommonDictionaryItem extends Entity<Long> {
     private Long dictionaryId;
 
     @ApiModelProperty(value = "类型")
-    @TableField("dictionary_type")
+    @TableField(value = "dictionary_type",condition = LIKE_RIGHT)
     private String dictionaryType;
 
     @ApiModelProperty(value = "编码")
-    @TableField("code")
+    @TableField(value = "code",condition = LIKE_RIGHT)
     private String code;
 
     @ApiModelProperty(value = "名称")
-    @TableField("name")
+    @TableField(value = "name",condition = LIKE_RIGHT)
     private String name;
 
     @ApiModelProperty(value = "状态")
