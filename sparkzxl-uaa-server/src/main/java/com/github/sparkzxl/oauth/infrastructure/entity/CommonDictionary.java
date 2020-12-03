@@ -8,8 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Date;
-
 import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE_RIGHT;
 
 /**
