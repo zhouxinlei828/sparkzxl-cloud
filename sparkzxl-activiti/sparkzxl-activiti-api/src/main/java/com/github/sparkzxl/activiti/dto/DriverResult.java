@@ -19,5 +19,8 @@ public class DriverResult {
 
     @ApiModelProperty("操作是否成功")
     private boolean operateSuccess;
-    
+
+    @ApiModelProperty("异常信息")
+    private String errorMsg;
+
 }

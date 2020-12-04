@@ -7,7 +7,7 @@ import com.github.sparkzxl.activiti.application.service.act.IProcessTaskService;
 import com.github.sparkzxl.activiti.application.service.driver.IActivitiDriverService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtHiTaskStatusService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtProcessStatusService;
-import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
+import com.github.sparkzxl.activiti.domain.model.DriveProcess;
 import com.github.sparkzxl.activiti.dto.ActivitiDataDTO;
 import com.github.sparkzxl.activiti.dto.DriverProcessDTO;
 import com.github.sparkzxl.activiti.dto.DriverResult;
@@ -43,7 +43,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * description: 流程驱动 服务 实现类

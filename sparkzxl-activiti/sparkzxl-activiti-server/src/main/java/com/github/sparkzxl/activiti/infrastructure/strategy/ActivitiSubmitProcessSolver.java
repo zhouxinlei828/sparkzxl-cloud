@@ -1,7 +1,8 @@
 package com.github.sparkzxl.activiti.infrastructure.strategy;
 
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
-import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
+import com.github.sparkzxl.activiti.domain.model.DriveProcess;
+import com.github.sparkzxl.activiti.domain.model.DriverData;
 import com.github.sparkzxl.activiti.domain.service.act.ActWorkApiService;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
@@ -52,8 +53,17 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
                 redisDistributedLock.releaseLock(businessId);
                 SparkZxlExceptionAssert.businessFail("流程实例为空，请检查参数是否正确");
             }
-            driverResult = actWorkApiService.promoteProcess(userId, processInstance.getProcessInstanceId(), businessId, driveProcess.getActType(),
-                    driveProcess.getComment(), variables);
+            DriverData driverData = DriverData.builder()
+                    .userId(userId)
+                    .processInstanceId(processInstance.getProcessInstanceId())
+                    .businessId(businessId)
+                    .processDefinitionKey(processInstance.getProcessDefinitionKey())
+                    .actType(driveProcess.getActType())
+                    .comment(driveProcess.getComment())
+                    .variables(variables)
+                    .build();
+
+            driverResult = actWorkApiService.promoteProcess(driverData);
             redisDistributedLock.releaseLock(businessId);
         }
         return driverResult;

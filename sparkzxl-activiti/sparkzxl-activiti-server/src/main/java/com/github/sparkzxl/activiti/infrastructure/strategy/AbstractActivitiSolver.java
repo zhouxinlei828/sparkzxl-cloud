@@ -1,6 +1,6 @@
 package com.github.sparkzxl.activiti.infrastructure.strategy;
 
-import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
+import com.github.sparkzxl.activiti.domain.model.DriveProcess;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 
 /**

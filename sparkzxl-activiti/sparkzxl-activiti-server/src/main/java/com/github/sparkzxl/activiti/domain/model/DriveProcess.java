@@ -1,4 +1,4 @@
-package com.github.sparkzxl.activiti.domain.entity;
+package com.github.sparkzxl.activiti.domain.model;
 
 import lombok.Data;
 
@@ -45,5 +45,10 @@ public class DriveProcess {
      * 是否需要跳转
      */
     private boolean needJump;
+
+    /**
+     * 是否是服务调用
+     */
+    private boolean serviceInvocation;
 
 }

@@ -1,7 +1,8 @@
 package com.github.sparkzxl.activiti.infrastructure.strategy;
 
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
-import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
+import com.github.sparkzxl.activiti.domain.model.DriveProcess;
+import com.github.sparkzxl.activiti.domain.model.DriverData;
 import com.github.sparkzxl.activiti.domain.service.act.ActWorkApiService;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
@@ -45,13 +46,16 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
             }
             String processDefinitionKey = processInstance.getProcessDefinitionKey();
             String processInstanceId = processInstance.getProcessInstanceId();
-            driverResult = actWorkApiService.jumpProcess(
-                    userId,
-                    processInstanceId,
-                    processDefinitionKey,
-                    businessId,
-                    driveProcess.getComment(),
-                    actType);
+            DriverData driverData = DriverData.builder()
+                    .userId(userId)
+                    .processInstanceId(processInstanceId)
+                    .processDefinitionKey(processDefinitionKey)
+                    .businessId(businessId)
+                    .comment(driveProcess.getComment())
+                    .actType(actType)
+                    .build();
+
+            driverResult = actWorkApiService.jumpProcess(driverData);
             redisDistributedLock.releaseLock(businessId);
         }
         return driverResult;

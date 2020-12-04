@@ -1,11 +1,11 @@
 package com.github.sparkzxl.activiti.infrastructure.strategy;
 
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
-import com.github.sparkzxl.activiti.domain.entity.DriveProcess;
+import com.github.sparkzxl.activiti.domain.model.DriveProcess;
+import com.github.sparkzxl.activiti.domain.model.DriverData;
 import com.github.sparkzxl.activiti.domain.service.act.ActWorkApiService;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
-import com.github.sparkzxl.core.support.ResponseResultStatus;
 import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import com.github.sparkzxl.redisson.lock.RedisDistributedLock;
 import com.google.common.collect.Maps;
@@ -42,13 +42,19 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
     public DriverResult slove(DriveProcess driveProcess) {
         String userId = driveProcess.getUserId();
         String businessId = driveProcess.getBusinessId();
-        boolean lock = redisDistributedLock.lock(businessId,0,15);
+        boolean serviceInvocation = driveProcess.isServiceInvocation();
+        boolean lock = redisDistributedLock.lock(businessId, 0, 15);
         DriverResult driverResult = new DriverResult();
-        if (lock){
+        if (lock) {
             //查询是否存在已有流程，如果有，则不能进行启动工作流操作
             ProcessInstance originalProcessInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
-            if (ObjectUtils.isNotEmpty(originalProcessInstance)){
-                SparkZxlExceptionAssert.businessFail("流程已存在，请勿重复启动");
+            if (ObjectUtils.isNotEmpty(originalProcessInstance)) {
+                if (serviceInvocation){
+                    driverResult.setErrorMsg("流程已存在，请勿重复启动");
+                    return driverResult;
+                }else {
+                    SparkZxlExceptionAssert.businessFail("流程已存在，请勿重复启动");
+                }
             }
             Map<String, Object> variables = Maps.newHashMap();
             variables.put("assignee", driveProcess.getApplyUserId());
@@ -65,28 +71,41 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
             }
             boolean needJump = driveProcess.isNeedJump();
             if (needJump) {
-                driverResult = actWorkApiService.jumpProcess(
-                        userId,
-                        processInstanceId,
-                        processInstance.getProcessDefinitionKey(),
-                        businessId,
-                        comment,
-                        WorkflowConstants.WorkflowAction.JUMP);
+                DriverData driverData = DriverData.builder()
+                        .userId(userId)
+                        .processInstanceId(processInstanceId)
+                        .processDefinitionKey(processInstance.getProcessDefinitionKey())
+                        .businessId(businessId)
+                        .serviceInvocation(serviceInvocation)
+                        .comment(comment)
+                        .actType(WorkflowConstants.WorkflowAction.JUMP)
+                        .build();
+                driverResult = actWorkApiService.jumpProcess(driverData);
             } else {
                 variables.put("actType", WorkflowConstants.WorkflowAction.SUBMIT);
-                driverResult = actWorkApiService.promoteProcess(
-                        userId,
-                        processInstanceId,
-                        businessId,
-                        WorkflowConstants.WorkflowAction.SUBMIT,
-                        comment,
-                        variables);
+                DriverData driverData = DriverData.builder()
+                        .userId(userId)
+                        .processInstanceId(processInstanceId)
+                        .businessId(businessId)
+                        .processDefinitionKey(processInstance.getProcessDefinitionKey())
+                        .actType(WorkflowConstants.WorkflowAction.SUBMIT)
+                        .comment(comment)
+                        .variables(variables)
+                        .build();
+                driverResult = actWorkApiService.promoteProcess(driverData);
             }
             redisDistributedLock.releaseLock(businessId);
-        }else {
-            log.error("businessId = {},操作过于频繁，稍后再试！",businessId);
+            return driverResult;
+        } else {
+            log.error("businessId = {},操作过于频繁，稍后再试！", businessId);
+            if (serviceInvocation){
+                driverResult.setErrorMsg("流程已存在，请勿重复启动");
+                return driverResult;
+            }else {
+                SparkZxlExceptionAssert.businessFail("流程已存在，请勿重复启动");
+            }
+            return driverResult;
         }
-        return driverResult;
     }
 
     @Override
