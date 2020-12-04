@@ -15,6 +15,6 @@ public class SnowFlakeGenerator implements IdGenerator {
 
     @Override
     public String getNextId() {
-        return IdUtil.createSnowflake(0,10).nextIdStr();
+        return IdUtil.getSnowflake(0,10).nextIdStr();
     }
 }
