@@ -1,7 +1,5 @@
 package com.github.sparkzxl.test.infrastructure.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.p6spy.engine.spy.P6DataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import io.seata.rm.datasource.DataSourceProxy;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -15,17 +13,10 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
 
-@Configuration
 public class DataSourceProxyConfig {
 
     @Value("${mybatis-plus.mapper-locations}")
     private String mapperLocations;
-
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource hikariDataSource(){
-        return new HikariDataSource();
-    }
 
     @Bean
     public DataSourceProxy dataSourceProxy(DataSource hikariDataSource) {

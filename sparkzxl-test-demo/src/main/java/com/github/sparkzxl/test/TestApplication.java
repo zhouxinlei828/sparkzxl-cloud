@@ -12,7 +12,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @author zhouxinlei
  * @date 2020-05-24 12:21:13
  */
-@SpringBootApplication(scanBasePackages = {"com.github.sparkzxl.test"},exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication(scanBasePackages = {"com.github.sparkzxl.test"})
 @EnableFeignClients("com.github.sparkzxl.test.infrastructure.client")
 public class TestApplication extends SparkBootApplication {
     public static void main(String[] args) {

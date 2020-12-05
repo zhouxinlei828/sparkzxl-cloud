@@ -114,7 +114,6 @@ public class AuthUser implements Serializable{
     protected Long updateUser;
 
     @TableField(value = EntityConstant.COLUMN_UPDATE_TIME, fill = FieldFill.INSERT_UPDATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     protected Date updateTime;
 
     @TableLogic
