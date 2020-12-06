@@ -4,6 +4,7 @@ import com.github.sparkzxl.file.dto.FileDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * description: 文件API
@@ -44,4 +45,10 @@ public interface FileApi {
     @GetMapping("/getLocalDateTime")
     FileDTO getLocalDateTime();
 
+    /**
+     * 保存文件
+     * @param s
+     */
+    @GetMapping("/saveFile")
+    void saveFile(@RequestParam(value = "path") String path);
 }

@@ -13,4 +13,10 @@ import com.github.sparkzxl.database.base.service.SuperCacheService;
  */
 public interface IAuthUserService extends SuperCacheService<AuthUser> {
 
+    /**
+     * 测试分布式事务
+     * @param authUser
+     * @return
+     */
+    boolean testSeataTx(AuthUser authUser);
 }

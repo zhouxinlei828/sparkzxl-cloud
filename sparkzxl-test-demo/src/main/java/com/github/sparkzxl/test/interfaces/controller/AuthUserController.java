@@ -13,10 +13,7 @@ import com.github.sparkzxl.test.interfaces.dto.AuthUserSaveDTO;
 import com.github.sparkzxl.test.interfaces.dto.AuthUserUpdateDTO;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,5 +37,10 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
         PageHelper.startPage(1,10);
         List<AuthUser> authUsers = super.baseService.list(new LambdaQueryWrapper<AuthUser>().eq(AuthUser::getName, name));
         return PageInfoUtils.pageInfo(authUsers);
+    }
+
+    @PostMapping("/testSeataTx")
+    public boolean testSeataTx(@RequestBody AuthUser authUser){
+        return super.baseService.testSeataTx(authUser);
     }
 }

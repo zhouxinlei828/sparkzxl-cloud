@@ -41,4 +41,9 @@ public interface IFileService {
      */
     FileDTO getHtml(FileDTO fileDTO) throws Exception;
 
+    /**
+     * 保存文件
+     * @param path 文件路径
+     */
+    void saveFile(String path);
 }

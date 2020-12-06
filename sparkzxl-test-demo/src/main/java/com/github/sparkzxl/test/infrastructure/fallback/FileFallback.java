@@ -31,4 +31,9 @@ public class FileFallback implements FileClient {
         FallBackHandler.fallBack();
         return null;
     }
+
+    @Override
+    public void saveFile(String path) {
+        FallBackHandler.fallBack();
+    }
 }

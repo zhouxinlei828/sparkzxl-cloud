@@ -29,6 +29,81 @@ spring:
             refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
+seata:
+  enabled: true
+  enableAutoDataSourceProxy: true
+  tx-service-group: sparkzxl_seata_tx_group # Seata 事务组编号，用于 TC 集群名
+  registry:
+    type: nacos # 注册中心类型，默认为 file
+    nacos:
+      serverAddr: 47.116.52.58:8086
+      namespace: 3cca7d98-3b1c-44d3-90e5-86abaaf0048a
+      username: nacos
+      password: nacos
+  config:
+    type: nacos
+    nacos:
+      server-addr: 47.116.52.58:8086
+      namespace: 3cca7d98-3b1c-44d3-90e5-86abaaf0048a
+      username: nacos
+      password: nacos
+  service:
+    grouplist:
+      default: 192.168.193.128:8091
+    # 虚拟组和分组的映射
+    vgroupMapping:
+      sparkzxl_seata_tx_group: default
+  client:
+    rm:
+      # 是否上报一阶段成功
+      report-success-enable: true
+      # 自动刷新缓存中的表结构
+      table-meta-check-enable: true
+      # 一阶段结果上报TC重试次数
+      report-retry-count: 5
+      # 异步提交缓存队列长度
+      async-commit-buffer-limit: 1000
+      lock:
+        # 校验或占用全局锁重试间隔, 单位毫秒
+        retry-interval: 10
+        # 校验或占用全局锁重试次数
+        retry-times: 30
+        # 分支事务与其他全局回滚事务冲突时锁策略(true表示优先释放本地锁)
+        retry-policy-branch-rollback-on-conflict: true
+    tm:
+      # 一阶段全局提交结果上报TC重试次数
+      commit-retry-count: 3
+      # 一阶段全局回滚结果上报TC重试次数
+      rollback-retry-count: 3
+    undo:
+      # 二阶段回滚镜像校验
+      data-validation: true
+      # undo序列化方式
+      log-serialization: jackson
+      # undo表名
+      log-table: undo_log
+    log:
+      # 日志异常输出频率
+      exception-rate: 100
+  transport:
+    shutdown:
+      wait: 3
+    thread-factory:
+      boss-thread-prefix: NettyBoss
+      worker-thread-prefix: NettyServerNIOWorker
+      server-executor-thread-prefix: NettyServerBizHandler
+      share-boss-worker: false
+      client-selector-thread-prefix: NettyClientSelector
+      client-selector-thread-size: 1
+      client-worker-thread-prefix: NettyClientWorkerThread
+    type: TCP
+    server: NIO
+    heartbeat: true
+    serialization: seata
+    compressor: none
+    # 客户端事务消息请求是否批量合并发送（默认true）
+    enable-client-batch-send-request: true
 logging:
   level:
     com.github.sparkzxl.file.infrastructure.mapper: debug
+    io.seata: debug

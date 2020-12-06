@@ -1,4 +1,4 @@
-package com.github.sparkzxl.test.infrastructure.config;
+package com.github.sparkzxl.file.infrastructure.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -21,5 +21,4 @@ public class DataSourceProxyConfig {
     public DataSource druidDataSource(){
         return new DruidDataSource();
     }
-
 }

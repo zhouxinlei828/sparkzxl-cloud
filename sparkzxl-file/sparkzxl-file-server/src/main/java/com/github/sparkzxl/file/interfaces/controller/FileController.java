@@ -67,4 +67,9 @@ public class FileController implements FileApi {
         fileDTO.setLocalDateTime(LocalDateTime.now());
         return fileDTO;
     }
+
+    @Override
+    public void saveFile(String path) {
+        fileService.saveFile(path);
+    }
 }
