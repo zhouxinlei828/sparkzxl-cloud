@@ -10,11 +10,9 @@ import com.github.sparkzxl.file.domain.repository.IFileMaterialRepository;
 import com.github.sparkzxl.file.infrastructure.convert.FileMaterialConvert;
 import com.github.sparkzxl.file.interfaces.dto.FileMaterialDTO;
 import com.github.sparkzxl.oss.service.OssTemplate;
-import io.seata.core.context.RootContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -83,20 +81,5 @@ public class FileServiceImpl implements IFileService {
         FileDTO outDto = new FileDTO();
         outDto.setFilePath(ossTemplate.getObjectURL("sparkzxl", objectName));
         return outDto;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void saveFile(String path) {
-        log.info("[创建附件] 当前 XID: {}", RootContext.getXID());
-        int a = 1/0;
-        FileMaterial fileMaterial = new FileMaterial();
-        fileMaterial.setContentType("111");
-        fileMaterial.setFileName(path);
-        fileMaterial.setFilePath(path);
-        fileMaterial.setSuffix("111");
-        fileMaterial.setSize(20.0);
-        fileMaterial.setUid(IdUtil.fastUUID());
-        fileMaterialRepository.saveFileMaterial(fileMaterial);
     }
 }

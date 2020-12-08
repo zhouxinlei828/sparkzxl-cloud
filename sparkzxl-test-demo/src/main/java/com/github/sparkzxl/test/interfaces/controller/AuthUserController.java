@@ -38,9 +38,4 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
         List<AuthUser> authUsers = super.baseService.list(new LambdaQueryWrapper<AuthUser>().eq(AuthUser::getName, name));
         return PageInfoUtils.pageInfo(authUsers);
     }
-
-    @PostMapping("/testSeataTx")
-    public boolean testSeataTx(@RequestBody AuthUser authUser){
-        return super.baseService.testSeataTx(authUser);
-    }
 }

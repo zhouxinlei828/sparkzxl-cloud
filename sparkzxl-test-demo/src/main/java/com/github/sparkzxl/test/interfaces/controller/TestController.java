@@ -22,32 +22,20 @@ import java.time.format.DateTimeFormatter;
 @Api(tags = "test管理")
 public class TestController {
 
-    private final FileClient fileClient;
     private final IAuthUserService authUserService;
     private final CacheTemplate cacheTemplate;
 
-    public TestController(FileClient fileClient, IAuthUserService authUserService, CacheTemplate cacheTemplate) {
-        this.fileClient = fileClient;
+    public TestController(IAuthUserService authUserService, CacheTemplate cacheTemplate) {
         this.authUserService = authUserService;
         this.cacheTemplate = cacheTemplate;
     }
 
-    @GetMapping("/ribbon")
-    public String testRibbon(){
-        return fileClient.getSayHello();
-    }
 
     @GetMapping("/boolean")
     public boolean testBoolean(){
         return true;
     }
 
-    @GetMapping("/testLocalDateTime")
-    public FileDTO testLocalDateTime(){
-        FileDTO localDateTime = fileClient.getLocalDateTime();
-        System.out.println(DateUtils.formatDate(localDateTime.getLocalDateTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        return localDateTime;
-    }
 
     @PostMapping("/testJsonTime")
     public TestDTO testJsonTime(@RequestBody TestDTO testDTO){

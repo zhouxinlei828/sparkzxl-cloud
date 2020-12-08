@@ -54,22 +54,4 @@ public class FileController implements FileApi {
     public FileDTO getPdf(FileDTO fileDTO) {
         return null;
     }
-
-    @ResponseResult
-    @Override
-    public String getSayHello() {
-        return "sayHello";
-    }
-
-    @Override
-    public FileDTO getLocalDateTime() {
-        FileDTO fileDTO = new FileDTO();
-        fileDTO.setLocalDateTime(LocalDateTime.now());
-        return fileDTO;
-    }
-
-    @Override
-    public void saveFile(String path) {
-        fileService.saveFile(path);
-    }
 }
