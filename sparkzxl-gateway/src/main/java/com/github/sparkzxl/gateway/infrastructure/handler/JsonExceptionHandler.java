@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.codec.HttpMessageReader;
 import org.springframework.http.codec.HttpMessageWriter;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.util.Assert;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.*;
 import org.springframework.web.reactive.result.view.ViewResolver;
@@ -21,6 +20,12 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * description: 异常处理（json）
+ *
+ * @author: zhouxinlei
+ * @date: 2020-12-10 11:17:23
+*/
 @Slf4j
 public class JsonExceptionHandler implements ErrorWebExceptionHandler {
 
