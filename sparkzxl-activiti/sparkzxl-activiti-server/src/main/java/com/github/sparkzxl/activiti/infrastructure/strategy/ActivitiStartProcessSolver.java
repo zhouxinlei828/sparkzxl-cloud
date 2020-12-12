@@ -43,22 +43,17 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
     @Override
     public DriverResult slove(DriveProcess driveProcess) {
         boolean lock = false;
-        String userId = driveProcess.getUserId();
         String businessId = driveProcess.getBusinessId();
         boolean serviceInvocation = driveProcess.isServiceInvocation();
         DriverResult driverResult = new DriverResult();
         try {
             lock = redisDistributedLock.lock(businessId, 0, 15);
             if (lock) {
+                String userId = driveProcess.getUserId();
                 //查询是否存在已有流程，如果有，则不能进行启动工作流操作
                 ProcessInstance originalProcessInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
                 if (ObjectUtils.isNotEmpty(originalProcessInstance)) {
-                    if (serviceInvocation) {
-                        driverResult.setErrorMsg("流程已存在，请勿重复启动");
-                        return driverResult;
-                    } else {
-                        SparkZxlExceptionAssert.businessFail("流程已存在，请勿重复启动");
-                    }
+                    SparkZxlExceptionAssert.businessFail("流程已存在，请勿重复启动");
                 }
                 Map<String, Object> variables = Maps.newHashMap();
                 variables.put("assignee", driveProcess.getApplyUserId());
@@ -98,17 +93,15 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
                             .build();
                     driverResult = actWorkApiService.promoteProcess(driverData);
                 }
-                return driverResult;
             } else {
                 log.error("businessId = {},操作过于频繁，稍后再试！", businessId);
                 if (serviceInvocation) {
-                    driverResult.setErrorMsg("流程已存在，请勿重复启动");
-                } else {
-                    SparkZxlExceptionAssert.businessFail("流程已存在，请勿重复启动");
+                    driverResult.setErrorMsg("操作过于频繁，稍后再试！");
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
+            driverResult.setErrorMsg(e.getMessage());
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             log.error("发生异常 Exception：{}", ExceptionUtil.getMessage(e));
         } finally {

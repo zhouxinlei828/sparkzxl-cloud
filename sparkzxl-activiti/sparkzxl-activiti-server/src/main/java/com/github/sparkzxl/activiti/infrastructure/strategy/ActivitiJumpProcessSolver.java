@@ -62,6 +62,7 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
         } catch (Exception e) {
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            driverResult.setErrorMsg(e.getMessage());
             log.error("发生异常 Exception：{}", ExceptionUtil.getMessage(e));
         } finally {
             if (lock) {

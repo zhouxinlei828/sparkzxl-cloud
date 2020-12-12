@@ -41,19 +41,19 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
     public DriverResult slove(DriveProcess driveProcess) {
         boolean lock = false;
         String businessId = driveProcess.getBusinessId();
-        String applyUserId = driveProcess.getApplyUserId();
-        String userId = driveProcess.getUserId();
         DriverResult driverResult = new DriverResult();
         try {
-            lock = redisDistributedLock.lock(businessId,0,15);
-            if (lock){
+            lock = redisDistributedLock.lock(businessId, 0, 15);
+            String applyUserId = driveProcess.getApplyUserId();
+            String userId = driveProcess.getUserId();
+            if (lock) {
                 Map<String, Object> variables = Maps.newHashMap();
                 if (StringUtils.isNotEmpty(applyUserId)) {
                     variables.put("assignee", applyUserId);
                 }
                 variables.put("actType", driveProcess.getActType());
                 ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
-                if (ObjectUtils.isEmpty(processInstance)){
+                if (ObjectUtils.isEmpty(processInstance)) {
                     SparkZxlExceptionAssert.businessFail("流程实例为空，请检查参数是否正确");
                 }
                 DriverData driverData = DriverData.builder()
@@ -67,12 +67,13 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
                         .build();
                 driverResult = actWorkApiService.promoteProcess(driverData);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             log.error("发生异常 Exception：{}", ExceptionUtil.getMessage(e));
-        }finally {
-            if (lock){
+            driverResult.setErrorMsg(e.getMessage());
+        } finally {
+            if (lock) {
                 redisDistributedLock.releaseLock(businessId);
             }
         }

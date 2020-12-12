@@ -146,12 +146,7 @@ public class ActWorkApiService {
         DriverResult driverResult = new DriverResult();
         boolean serviceInvocation = driverData.isServiceInvocation();
         if (ObjectUtils.isEmpty(actRuTaskRule)) {
-            if (serviceInvocation) {
-                driverResult.setErrorMsg("请设置流程跳转规则");
-                return driverResult;
-            }else {
-                SparkZxlExceptionAssert.businessFail("请设置流程跳转规则");
-            }
+            SparkZxlExceptionAssert.businessFail("请设置流程跳转规则");
         }
         String taskDefKey = actRuTaskRule.getTaskDefKey();
         FlowElement flowElement = ActivitiUtils.getFlowElementById(taskDefKey, flowElements);
