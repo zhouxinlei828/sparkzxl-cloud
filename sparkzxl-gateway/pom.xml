@@ -40,6 +40,10 @@
             <artifactId>sparkzxl-oauth2-resource-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.github.sparkzxl</groupId>
+            <artifactId>sparkzxl-jwt-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
         </dependency>

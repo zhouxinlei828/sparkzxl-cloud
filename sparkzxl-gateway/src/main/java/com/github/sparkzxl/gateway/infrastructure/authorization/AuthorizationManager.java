@@ -1,7 +1,7 @@
 package com.github.sparkzxl.gateway.infrastructure.authorization;
 
 import cn.hutool.core.convert.Convert;
-import com.github.sparkzxl.core.constant.BaseContextConstant;
+import com.github.sparkzxl.core.context.BaseContextConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.cloud.gateway.config.GatewayProperties;
@@ -49,7 +49,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         });
         Object obj = redisTemplate.opsForHash().get(RESOURCE_ROLES_MAP, path[0]);
         List<String> authorities = Convert.toList(String.class, obj);
-        authorities = authorities.stream().map(i -> i = BaseContextConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
+        authorities = authorities.stream().map(i -> i = BaseContextConstants.AUTHORITY_PREFIX + i).collect(Collectors.toList());
         //认证通过且角色匹配的用户可访问当前路径
         return mono
                 .filter(Authentication::isAuthenticated)

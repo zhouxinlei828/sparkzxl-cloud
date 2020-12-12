@@ -1,11 +1,17 @@
 package com.github.sparkzxl.gateway.infrastructure.filter;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.URLUtil;
+import com.github.sparkzxl.core.context.BaseContextConstants;
+import com.github.sparkzxl.jwt.entity.JwtUserInfo;
+import com.github.sparkzxl.jwt.service.JwtTokenService;
 import com.nimbusds.jose.JWSObject;
-import com.github.sparkzxl.core.constant.BaseContextConstant;
 import com.github.sparkzxl.oauth.utils.WebFluxUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -26,6 +32,9 @@ import reactor.core.publisher.Mono;
 @RefreshScope
 public class AuthTokenFilter implements GlobalFilter, Ordered {
 
+    @Autowired
+    private JwtTokenService jwtTokenService;
+
     @Override
     public int getOrder() {
         return -1000;
@@ -35,21 +44,36 @@ public class AuthTokenFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
-        String header = WebFluxUtils.getHeader(BaseContextConstant.JWT_TOKEN_HEADER, request);
+        ServerHttpRequest.Builder mutate = request.mutate();
+        String header = WebFluxUtils.getHeader(BaseContextConstants.JWT_TOKEN_HEADER, request);
         if (StringUtils.isNotEmpty(header)) {
-            if (header.startsWith(BaseContextConstant.BASIC_AUTH)) {
+            if (header.startsWith(BaseContextConstants.BASIC_AUTH)) {
                 return chain.filter(exchange);
             }
-            String accessToken = StringUtils.removeStartIgnoreCase(header, BaseContextConstant.BEARER_TOKEN);
+            String accessToken = StringUtils.removeStartIgnoreCase(header, BaseContextConstants.BEARER_TOKEN);
             if (StringUtils.isBlank(accessToken)) {
                 return chain.filter(exchange);
             }
-            JWSObject jwsObject = JWSObject.parse(accessToken);
-            String userStr = jwsObject.getPayload().toString();
-            log.info("AuthTokenFilter.filter() user:{}", userStr);
-            request.mutate().header("user", userStr).build();
-            exchange = exchange.mutate().request(request).build();
+            JwtUserInfo<Long> jwtUserInfo = jwtTokenService.getJwtUserInfo(accessToken);
+            if (jwtUserInfo != null) {
+                addHeader(mutate, BaseContextConstants.JWT_KEY_ACCOUNT, jwtUserInfo.getUsername());
+                addHeader(mutate, BaseContextConstants.JWT_KEY_USER_ID, jwtUserInfo.getId());
+                addHeader(mutate, BaseContextConstants.JWT_KEY_NAME, jwtUserInfo.getName());
+                MDC.put(BaseContextConstants.JWT_KEY_USER_ID, String.valueOf(jwtUserInfo.getId()));
+            }
+            ServerHttpRequest build = mutate.build();
+            exchange = exchange.mutate().request(build).build();
         }
         return chain.filter(exchange);
     }
+
+    private void addHeader(ServerHttpRequest.Builder mutate, String name, Object value) {
+        if (ObjectUtil.isEmpty(value)) {
+            return;
+        }
+        String valueStr = value.toString();
+        String valueEncode = URLUtil.encode(valueStr);
+        mutate.header(name, valueEncode);
+    }
+
 }

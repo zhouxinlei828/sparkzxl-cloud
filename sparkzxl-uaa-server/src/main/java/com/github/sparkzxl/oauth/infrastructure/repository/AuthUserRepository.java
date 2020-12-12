@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.core.context.BaseContextHandler;
 import com.github.sparkzxl.database.utils.PageInfoUtils;
 import com.github.sparkzxl.oauth.domain.repository.IAuthUserRepository;
 import com.github.sparkzxl.oauth.infrastructure.convert.AuthRoleConvert;
@@ -14,6 +15,7 @@ import com.github.sparkzxl.oauth.infrastructure.mapper.*;
 import com.github.sparkzxl.database.annonation.InjectionResult;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
  */
 @AllArgsConstructor
 @Repository
+@Slf4j
 public class AuthUserRepository implements IAuthUserRepository {
 
     public final AuthUserMapper authUserMapper;
@@ -77,6 +80,10 @@ public class AuthUserRepository implements IAuthUserRepository {
 
     @Override
     public LoginAuthUser getLoginAuthUser(Long id) {
+        String account = BaseContextHandler.getAccount();
+        Long userId = BaseContextHandler.getUserId(Long.class);
+        String name = BaseContextHandler.getName();
+        log.info("当前登录用户信息，account：{}，userId：{}，name：{}", account, userId, name);
         AuthUser authUser = selectById(id);
         LoginAuthUser loginAuthUser = AuthUserConvert.INSTANCE.convertLoginAuthUser(authUser);
         List<Long> roleIds =

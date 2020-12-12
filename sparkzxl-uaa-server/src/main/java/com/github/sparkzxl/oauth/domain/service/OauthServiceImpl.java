@@ -1,11 +1,11 @@
 package com.github.sparkzxl.oauth.domain.service;
 
 import cn.hutool.json.JSONUtil;
+import com.github.sparkzxl.core.context.BaseContextConstants;
 import com.github.sparkzxl.core.utils.BuildKeyUtils;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.google.common.collect.Maps;
 import com.github.sparkzxl.cache.template.CacheTemplate;
-import com.github.sparkzxl.core.constant.BaseContextConstant;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.core.spring.SpringContextUtils;
 import com.github.sparkzxl.core.support.ResponseResultStatus;
@@ -87,7 +87,7 @@ public class OauthServiceImpl implements OauthService {
     private void accessToken(String username, OAuth2AccessToken oAuth2AccessToken) {
         AuthUserInfo<Long> authUserInfo = authUserService.getAuthUserInfo(username);
         log.info("AuthUserInfo json is {}", JSONUtil.toJsonPrettyStr(authUserInfo));
-        String buildKey = BuildKeyUtils.generateKey(BaseContextConstant.AUTH_USER, oAuth2AccessToken.getValue());
+        String buildKey = BuildKeyUtils.generateKey(BaseContextConstants.AUTH_USER, oAuth2AccessToken.getValue());
         cacheTemplate.set(buildKey, authUserInfo, (long) oAuth2AccessToken.getExpiresIn());
     }
 
