@@ -1,5 +1,6 @@
 package com.github.sparkzxl.activiti.infrastructure.strategy;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
 import com.github.sparkzxl.activiti.domain.model.DriveProcess;
 import com.github.sparkzxl.activiti.domain.model.DriverData;
@@ -16,6 +17,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.Map;
 
@@ -40,72 +42,82 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
 
     @Override
     public DriverResult slove(DriveProcess driveProcess) {
+        boolean lock = false;
         String userId = driveProcess.getUserId();
         String businessId = driveProcess.getBusinessId();
         boolean serviceInvocation = driveProcess.isServiceInvocation();
-        boolean lock = redisDistributedLock.lock(businessId, 0, 15);
         DriverResult driverResult = new DriverResult();
-        if (lock) {
-            //查询是否存在已有流程，如果有，则不能进行启动工作流操作
-            ProcessInstance originalProcessInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
-            if (ObjectUtils.isNotEmpty(originalProcessInstance)) {
-                if (serviceInvocation){
+        try {
+            lock = redisDistributedLock.lock(businessId, 0, 15);
+            if (lock) {
+                //查询是否存在已有流程，如果有，则不能进行启动工作流操作
+                ProcessInstance originalProcessInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
+                if (ObjectUtils.isNotEmpty(originalProcessInstance)) {
+                    if (serviceInvocation) {
+                        driverResult.setErrorMsg("流程已存在，请勿重复启动");
+                        return driverResult;
+                    } else {
+                        SparkZxlExceptionAssert.businessFail("流程已存在，请勿重复启动");
+                    }
+                }
+                Map<String, Object> variables = Maps.newHashMap();
+                variables.put("assignee", driveProcess.getApplyUserId());
+                variables.put("actType", driveProcess.getActType());
+                identityService.setAuthenticatedUserId(String.valueOf(userId));
+                ProcessInstance processInstance = processRuntimeService.startProcessInstanceByKey(driveProcess.getProcessDefinitionKey(),
+                        driveProcess.getBusinessId(),
+                        variables);
+                String processInstanceId = processInstance.getProcessInstanceId();
+                log.info("启动activiti流程------++++++ProcessInstanceId：{}------++++++", processInstanceId);
+                String comment = driveProcess.getComment();
+                if (StringUtils.isEmpty(comment)) {
+                    comment = "开始节点跳过";
+                }
+                boolean needJump = driveProcess.isNeedJump();
+                if (needJump) {
+                    DriverData driverData = DriverData.builder()
+                            .userId(userId)
+                            .processInstanceId(processInstanceId)
+                            .processDefinitionKey(processInstance.getProcessDefinitionKey())
+                            .businessId(businessId)
+                            .serviceInvocation(serviceInvocation)
+                            .comment(comment)
+                            .actType(WorkflowConstants.WorkflowAction.JUMP)
+                            .build();
+                    driverResult = actWorkApiService.jumpProcess(driverData);
+                } else {
+                    variables.put("actType", WorkflowConstants.WorkflowAction.SUBMIT);
+                    DriverData driverData = DriverData.builder()
+                            .userId(userId)
+                            .processInstanceId(processInstanceId)
+                            .businessId(businessId)
+                            .processDefinitionKey(processInstance.getProcessDefinitionKey())
+                            .actType(WorkflowConstants.WorkflowAction.SUBMIT)
+                            .comment(comment)
+                            .variables(variables)
+                            .build();
+                    driverResult = actWorkApiService.promoteProcess(driverData);
+                }
+                return driverResult;
+            } else {
+                log.error("businessId = {},操作过于频繁，稍后再试！", businessId);
+                if (serviceInvocation) {
                     driverResult.setErrorMsg("流程已存在，请勿重复启动");
-                    return driverResult;
-                }else {
+                } else {
                     SparkZxlExceptionAssert.businessFail("流程已存在，请勿重复启动");
                 }
             }
-            Map<String, Object> variables = Maps.newHashMap();
-            variables.put("assignee", driveProcess.getApplyUserId());
-            variables.put("actType", driveProcess.getActType());
-            identityService.setAuthenticatedUserId(String.valueOf(userId));
-            ProcessInstance processInstance = processRuntimeService.startProcessInstanceByKey(driveProcess.getProcessDefinitionKey(),
-                    driveProcess.getBusinessId(),
-                    variables);
-            String processInstanceId = processInstance.getProcessInstanceId();
-            log.info("启动activiti流程------++++++ProcessInstanceId：{}------++++++", processInstanceId);
-            String comment = driveProcess.getComment();
-            if (StringUtils.isEmpty(comment)) {
-                comment = "开始节点跳过";
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            log.error("发生异常 Exception：{}", ExceptionUtil.getMessage(e));
+        } finally {
+            if (lock) {
+                redisDistributedLock.releaseLock(businessId);
             }
-            boolean needJump = driveProcess.isNeedJump();
-            if (needJump) {
-                DriverData driverData = DriverData.builder()
-                        .userId(userId)
-                        .processInstanceId(processInstanceId)
-                        .processDefinitionKey(processInstance.getProcessDefinitionKey())
-                        .businessId(businessId)
-                        .serviceInvocation(serviceInvocation)
-                        .comment(comment)
-                        .actType(WorkflowConstants.WorkflowAction.JUMP)
-                        .build();
-                driverResult = actWorkApiService.jumpProcess(driverData);
-            } else {
-                variables.put("actType", WorkflowConstants.WorkflowAction.SUBMIT);
-                DriverData driverData = DriverData.builder()
-                        .userId(userId)
-                        .processInstanceId(processInstanceId)
-                        .businessId(businessId)
-                        .processDefinitionKey(processInstance.getProcessDefinitionKey())
-                        .actType(WorkflowConstants.WorkflowAction.SUBMIT)
-                        .comment(comment)
-                        .variables(variables)
-                        .build();
-                driverResult = actWorkApiService.promoteProcess(driverData);
-            }
-            redisDistributedLock.releaseLock(businessId);
-            return driverResult;
-        } else {
-            log.error("businessId = {},操作过于频繁，稍后再试！", businessId);
-            if (serviceInvocation){
-                driverResult.setErrorMsg("流程已存在，请勿重复启动");
-                return driverResult;
-            }else {
-                SparkZxlExceptionAssert.businessFail("流程已存在，请勿重复启动");
-            }
-            return driverResult;
         }
+        return driverResult;
+
     }
 
     @Override

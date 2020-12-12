@@ -1,5 +1,6 @@
 package com.github.sparkzxl.activiti.infrastructure.strategy;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
 import com.github.sparkzxl.activiti.domain.model.DriveProcess;
 import com.github.sparkzxl.activiti.domain.model.DriverData;
@@ -13,6 +14,7 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * description: 推动activiti流程
@@ -33,30 +35,38 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
 
     @Override
     public DriverResult slove(DriveProcess driveProcess) {
+        boolean lock = false;
         String businessId = driveProcess.getBusinessId();
-        String userId = driveProcess.getUserId();
-        int actType = driveProcess.getActType();
-        boolean lock = redisDistributedLock.lock(businessId,0,15);
         DriverResult driverResult = new DriverResult();
-        if (lock){
-            ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
-            if (ObjectUtils.isEmpty(processInstance)){
-                redisDistributedLock.releaseLock(businessId);
-                SparkZxlExceptionAssert.businessFail("流程实例为空，请检查参数是否正确");
+        try {
+            lock = redisDistributedLock.lock(businessId, 0, 15);
+            String userId = driveProcess.getUserId();
+            int actType = driveProcess.getActType();
+            if (lock) {
+                ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
+                if (ObjectUtils.isEmpty(processInstance)) {
+                    SparkZxlExceptionAssert.businessFail("流程实例为空，请检查参数是否正确");
+                }
+                String processDefinitionKey = processInstance.getProcessDefinitionKey();
+                String processInstanceId = processInstance.getProcessInstanceId();
+                DriverData driverData = DriverData.builder()
+                        .userId(userId)
+                        .processInstanceId(processInstanceId)
+                        .processDefinitionKey(processDefinitionKey)
+                        .businessId(businessId)
+                        .comment(driveProcess.getComment())
+                        .actType(actType)
+                        .build();
+                driverResult = actWorkApiService.jumpProcess(driverData);
             }
-            String processDefinitionKey = processInstance.getProcessDefinitionKey();
-            String processInstanceId = processInstance.getProcessInstanceId();
-            DriverData driverData = DriverData.builder()
-                    .userId(userId)
-                    .processInstanceId(processInstanceId)
-                    .processDefinitionKey(processDefinitionKey)
-                    .businessId(businessId)
-                    .comment(driveProcess.getComment())
-                    .actType(actType)
-                    .build();
-
-            driverResult = actWorkApiService.jumpProcess(driverData);
-            redisDistributedLock.releaseLock(businessId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            log.error("发生异常 Exception：{}", ExceptionUtil.getMessage(e));
+        } finally {
+            if (lock) {
+                redisDistributedLock.releaseLock(businessId);
+            }
         }
         return driverResult;
     }
