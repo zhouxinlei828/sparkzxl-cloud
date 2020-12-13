@@ -143,8 +143,7 @@ public class ActWorkApiService {
         // 获取目标节点task定义key
         ExtProcessTaskRule actRuTaskRule = processTaskRuleService.findActRuTaskRule(driverData.getProcessDefinitionKey(),
                 taskDefinitionKey, driverData.getActType());
-        DriverResult driverResult = new DriverResult();
-        boolean serviceInvocation = driverData.isServiceInvocation();
+        DriverResult driverResult;
         if (ObjectUtils.isEmpty(actRuTaskRule)) {
             SparkZxlExceptionAssert.businessFail("请设置流程跳转规则");
         }

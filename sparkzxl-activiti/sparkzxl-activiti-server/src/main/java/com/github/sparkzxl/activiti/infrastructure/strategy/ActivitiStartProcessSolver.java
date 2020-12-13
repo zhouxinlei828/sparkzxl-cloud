@@ -110,7 +110,6 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
             }
         }
         return driverResult;
-
     }
 
     @Override
