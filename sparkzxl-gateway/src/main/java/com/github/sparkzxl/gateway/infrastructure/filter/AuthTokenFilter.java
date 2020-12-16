@@ -1,13 +1,12 @@
 package com.github.sparkzxl.gateway.infrastructure.filter;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.URLUtil;
 import com.github.sparkzxl.core.context.BaseContextConstants;
 import com.github.sparkzxl.jwt.entity.JwtUserInfo;
 import com.github.sparkzxl.jwt.service.JwtTokenService;
-import com.nimbusds.jose.JWSObject;
 import com.github.sparkzxl.oauth.utils.WebFluxUtils;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
@@ -33,14 +32,13 @@ import reactor.core.publisher.Mono;
 public class AuthTokenFilter implements GlobalFilter, Ordered {
 
     @Autowired
-    private JwtTokenService jwtTokenService;
+    private JwtTokenService<Long> jwtTokenService;
 
     @Override
     public int getOrder() {
         return -1000;
     }
 
-    @SneakyThrows
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
@@ -54,7 +52,13 @@ public class AuthTokenFilter implements GlobalFilter, Ordered {
             if (StringUtils.isBlank(accessToken)) {
                 return chain.filter(exchange);
             }
-            JwtUserInfo<Long> jwtUserInfo = jwtTokenService.getJwtUserInfo(accessToken);
+            JwtUserInfo<Long> jwtUserInfo = null;
+            try {
+                jwtUserInfo = jwtTokenService.getJwtUserInfo(accessToken);
+            } catch (Exception e) {
+                e.printStackTrace();
+                log.error("jwt 获取用户发生异常：{}", ExceptionUtil.getMessage(e));
+            }
             if (jwtUserInfo != null) {
                 addHeader(mutate, BaseContextConstants.JWT_KEY_ACCOUNT, jwtUserInfo.getUsername());
                 addHeader(mutate, BaseContextConstants.JWT_KEY_USER_ID, jwtUserInfo.getId());

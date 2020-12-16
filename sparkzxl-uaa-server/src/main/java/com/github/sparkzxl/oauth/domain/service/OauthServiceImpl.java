@@ -2,6 +2,7 @@ package com.github.sparkzxl.oauth.domain.service;
 
 import cn.hutool.json.JSONUtil;
 import com.github.sparkzxl.core.context.BaseContextConstants;
+import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import com.github.sparkzxl.core.utils.BuildKeyUtils;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.google.common.collect.Maps;
@@ -66,7 +67,7 @@ public class OauthServiceImpl implements OauthService {
         if (GrantTypeEnum.PASSWORD.getType().equals(grantType)) {
             SpringContextUtils.publishEvent(new LoginEvent(LoginStatus.fail(null, authorizationRequest.getUsername(), "授权登录失败")));
         }
-        ResponseResultStatus.AUTHORIZED_FAIL.newException(oAuth2AccessTokenResponseEntity);
+        SparkZxlExceptionAssert.businessFail(ResponseResultStatus.AUTHORIZED_FAIL);
         return null;
     }
 
