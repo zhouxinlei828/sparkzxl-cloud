@@ -39,10 +39,9 @@ public class ExceptionHandlerConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public ErrorWebExceptionHandler errorWebExceptionHandler() {
-        JsonExceptionHandler exceptionHandler = new JsonExceptionHandler(
+        return new JsonExceptionHandler(
                 this.serverCodecConfigurer.getReaders(),
                 this.serverCodecConfigurer.getWriters(),
                 viewResolvers);
-        return exceptionHandler;
     }
 }

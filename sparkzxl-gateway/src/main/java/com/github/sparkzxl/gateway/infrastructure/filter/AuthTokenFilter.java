@@ -52,21 +52,19 @@ public class AuthTokenFilter implements GlobalFilter, Ordered {
             if (StringUtils.isBlank(accessToken)) {
                 return chain.filter(exchange);
             }
-            JwtUserInfo<Long> jwtUserInfo = null;
             try {
-                jwtUserInfo = jwtTokenService.getJwtUserInfo(accessToken);
+                JwtUserInfo<Long> jwtUserInfo = jwtTokenService.getJwtUserInfo(accessToken);
+                if (jwtUserInfo != null) {
+                    addHeader(mutate, BaseContextConstants.JWT_KEY_ACCOUNT, jwtUserInfo.getUsername());
+                    addHeader(mutate, BaseContextConstants.JWT_KEY_USER_ID, jwtUserInfo.getId());
+                    addHeader(mutate, BaseContextConstants.JWT_KEY_NAME, jwtUserInfo.getName());
+                    MDC.put(BaseContextConstants.JWT_KEY_USER_ID, String.valueOf(jwtUserInfo.getId()));
+                }
+                ServerHttpRequest build = mutate.build();
+                exchange = exchange.mutate().request(build).build();
             } catch (Exception e) {
-                e.printStackTrace();
                 log.error("jwt 获取用户发生异常：{}", ExceptionUtil.getMessage(e));
             }
-            if (jwtUserInfo != null) {
-                addHeader(mutate, BaseContextConstants.JWT_KEY_ACCOUNT, jwtUserInfo.getUsername());
-                addHeader(mutate, BaseContextConstants.JWT_KEY_USER_ID, jwtUserInfo.getId());
-                addHeader(mutate, BaseContextConstants.JWT_KEY_NAME, jwtUserInfo.getName());
-                MDC.put(BaseContextConstants.JWT_KEY_USER_ID, String.valueOf(jwtUserInfo.getId()));
-            }
-            ServerHttpRequest build = mutate.build();
-            exchange = exchange.mutate().request(build).build();
         }
         return chain.filter(exchange);
     }
