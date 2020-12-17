@@ -2,7 +2,6 @@ package com.github.sparkzxl.activiti.interfaces.controller.model;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.sparkzxl.activiti.application.service.model.IModelService;
-import com.github.sparkzxl.log.annotation.WebLog;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/service/")
-@WebLog
 @Slf4j
 @Api(tags = "模型编辑器管理")
 public class ModelEditorController implements ModelDataJsonConstants {
