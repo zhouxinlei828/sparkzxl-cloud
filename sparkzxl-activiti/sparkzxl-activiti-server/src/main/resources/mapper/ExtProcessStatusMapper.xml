@@ -13,7 +13,7 @@
         DISTINCT(pts.process_instance_id) processInstanceId,
         ahp.BUSINESS_KEY_ businessKey,
         SUBSTRING_INDEX( ahp.PROC_DEF_ID_, ':', 1 ) processKey,
-        IFNULL( aru.suspension_state_, 1 ) suspensionState,
+        IFNULL( aru.SUSPENSION_STATE_, 1 ) suspensionState,
         pts.`status`,
         ahp.START_TIME_ startTime,
         ahp.START_USER_ID_ originator,
@@ -21,11 +21,11 @@
         ahp.DURATION_ duration
         FROM
         ext_process_status pts
-        LEFT JOIN act_hi_procinst ahp ON ahp.PROC_INST_ID_ = pts.process_instance_id
-        LEFT JOIN act_ru_execution aru ON aru.PROC_INST_ID_ = pts.process_instance_id
+        LEFT JOIN ACT_HI_PROCINST ahp ON ahp.PROC_INST_ID_ = pts.process_instance_id
+        LEFT JOIN ACT_RU_EXECUTION aru ON aru.PROC_INST_ID_ = pts.process_instance_id
         AND aru.suspension_state_ = 2
         ) t
-        LEFT JOIN act_re_model arm ON t.processKey = arm.key_
+        LEFT JOIN ACT_RE_MODEL arm ON t.processKey = arm.KEY_
         <if test="name != null">
             where arm.NAME_ like CONCAT(#{name},'%')
         </if>
