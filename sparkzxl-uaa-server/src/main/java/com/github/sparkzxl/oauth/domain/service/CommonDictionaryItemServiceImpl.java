@@ -10,6 +10,8 @@ import com.github.sparkzxl.oauth.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.oauth.infrastructure.entity.CommonDictionaryItem;
 import com.github.sparkzxl.oauth.infrastructure.mapper.CommonDictionaryItemMapper;
 import com.google.common.collect.ImmutableMap;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,10 +61,15 @@ public class CommonDictionaryItemServiceImpl extends AbstractSuperCacheServiceIm
     }
 
     @Override
-    public List<CommonDictionaryItem> findDictionaryItemByDictionaryType(String dictionaryType) {
+    public List<CommonDictionaryItem> findDictionaryItemList(Long dictionaryId, String dictionaryType) {
         LambdaQueryWrapper<CommonDictionaryItem> dictionaryItemLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        dictionaryItemLambdaQueryWrapper.in(CommonDictionaryItem::getDictionaryType, dictionaryType)
-                .eq(CommonDictionaryItem::getStatus, true)
+        if (ObjectUtils.isNotEmpty(dictionaryId)){
+            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryId,dictionaryId);
+        }
+        if (StringUtils.isNotEmpty(dictionaryType)){
+            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryType,dictionaryType);
+        }
+        dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getStatus, true)
                 .orderByAsc(CommonDictionaryItem::getSortValue);
         return super.list(dictionaryItemLambdaQueryWrapper);
     }

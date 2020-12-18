@@ -27,8 +27,9 @@ public interface ICommonDictionaryItemService extends SuperCacheService<CommonDi
     /**
      * 根据字典类型查询字典数据
      *
+     * @param dictionaryId   字典类型id
      * @param dictionaryType 字典类型
      * @return List<CommonDictionaryItem>
      */
-    List<CommonDictionaryItem> findDictionaryItemByDictionaryType(String dictionaryType);
+    List<CommonDictionaryItem> findDictionaryItemList(Long dictionaryId, String dictionaryType);
 }

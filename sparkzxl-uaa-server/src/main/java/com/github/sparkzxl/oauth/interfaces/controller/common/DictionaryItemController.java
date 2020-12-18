@@ -40,10 +40,11 @@ public class DictionaryItemController extends SuperCacheController<ICommonDictio
 
     private final ICommonDictionaryItemService dictionaryItemService;
 
-    @ApiOperation("根据字典类型查询字典数据")
-    @GetMapping("/dictionaryItem")
-    public List<CommonDictionaryItem> findDictionaryItemByDictionaryType(@RequestParam("dictionaryType") String dictionaryType) {
-        return dictionaryItemService.findDictionaryItemByDictionaryType(dictionaryType);
+    @ApiOperation("查询字典项数据列表")
+    @GetMapping("/dictionaryItemList")
+    public List<CommonDictionaryItem> findDictionaryItemList(@RequestParam(value = "dictionaryId",required = false) Long dictionaryId,
+                                                         @RequestParam(value = "dictionaryType",required = false) String dictionaryType) {
+        return dictionaryItemService.findDictionaryItemList(dictionaryId,dictionaryType);
     }
 
     @Override
