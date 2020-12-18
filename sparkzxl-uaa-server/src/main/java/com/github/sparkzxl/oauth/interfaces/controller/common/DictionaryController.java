@@ -9,7 +9,6 @@ import com.github.sparkzxl.oauth.infrastructure.entity.CommonDictionary;
 import com.github.sparkzxl.oauth.interfaces.dto.dictionary.DictionaryPageDTO;
 import com.github.sparkzxl.oauth.interfaces.dto.dictionary.DictionarySaveDTO;
 import com.github.sparkzxl.oauth.interfaces.dto.dictionary.DictionaryUpdateDTO;
-import com.github.sparkzxl.oauth.interfaces.dto.resource.AuthResourcePageDTO;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
@@ -39,5 +38,19 @@ public class DictionaryController extends SuperCacheController<ICommonDictionary
         if (StringUtils.isEmpty(paramsModel.getType())){
             paramsModel.setType(null);
         }
+    }
+
+    @Override
+    public boolean handlerSave(DictionarySaveDTO model) {
+        String type = StringUtils.toRootUpperCase(model.getType());
+        model.setType(type);
+        return true;
+    }
+
+    @Override
+    public boolean handlerUpdate(DictionaryUpdateDTO model) {
+        String type = StringUtils.toRootUpperCase(model.getType());
+        model.setType(type);
+        return true;
     }
 }
