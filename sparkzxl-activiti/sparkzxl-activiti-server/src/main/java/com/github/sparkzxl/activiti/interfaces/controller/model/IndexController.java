@@ -1,4 +1,4 @@
-package com.github.sparkzxl.activiti.interfaces.controller.act;
+package com.github.sparkzxl.activiti.interfaces.controller.model;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

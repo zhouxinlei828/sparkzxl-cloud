@@ -2,8 +2,11 @@ package com.github.sparkzxl.activiti.domain.service.ext;
 
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.activiti.application.service.ext.IExtProcessStatusService;
+import com.github.sparkzxl.activiti.domain.model.InstanceOverviewCount;
 import com.github.sparkzxl.activiti.domain.repository.IExtProcessStatusRepository;
+import com.github.sparkzxl.activiti.domain.vo.InstanceOverview;
 import com.github.sparkzxl.activiti.infrastructure.constant.ActivitiCache;
+import com.github.sparkzxl.activiti.infrastructure.convert.ExtProcessStatusConvert;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessInstance;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessStatus;
 import com.github.sparkzxl.activiti.infrastructure.mapper.ExtProcessStatusMapper;
@@ -52,6 +55,12 @@ public class ExtProcessStatusServiceImpl extends AbstractSuperCacheServiceImpl<E
         });
         processInstancePageInfo.setList(processInstances);
         return processInstancePageInfo;
+    }
+
+    @Override
+    public InstanceOverview instanceOverview() {
+        InstanceOverviewCount instanceOverviewCount = extProcessStatusRepository.instanceOverview();
+        return ExtProcessStatusConvert.INSTANCE.convertInstanceOverviewCount(instanceOverviewCount);
     }
 
     @Override

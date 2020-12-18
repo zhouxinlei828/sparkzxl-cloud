@@ -1,6 +1,7 @@
 package com.github.sparkzxl.activiti.domain.repository;
 
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.activiti.domain.model.InstanceOverviewCount;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessInstance;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessStatus;
 
@@ -34,9 +35,18 @@ public interface IExtProcessStatusRepository {
 
     /**
      * 获取流程状态
-     * @param businessId 业务主键
+     *
+     * @param businessId        业务主键
      * @param processInstanceId 流程实例id
      * @return ExtProcessStatus
      */
     ExtProcessStatus getExtProcessStatus(String businessId, String processInstanceId);
+
+
+    /**
+     * 流程统计总览
+     * @return InstanceOverviewCount
+     */
+    InstanceOverviewCount instanceOverview();
+
 }

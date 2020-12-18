@@ -37,7 +37,7 @@ public class ProcessInstance implements Serializable {
     @ApiModelProperty(value = "流程状态")
     private String status;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "开始时间")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "业务发起人")
@@ -51,4 +51,7 @@ public class ProcessInstance implements Serializable {
 
     @ApiModelProperty(value = "持续时间")
     private String dueTime;
+
+    @ApiModelProperty(value = "创建时间")
+    private LocalDateTime createTime;
 }

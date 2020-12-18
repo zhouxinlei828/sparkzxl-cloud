@@ -106,7 +106,7 @@ public class ActWorkApiService {
             status = ProcessStatusEnum.END.getDesc();
             taskStatus = TaskStatusEnum.AGREE.getDesc();
         } else {
-            status = ProcessStatusEnum.SUBMIT.getDesc();
+            status = ProcessStatusEnum.RUN_TIME.getDesc();
             taskStatus = TaskStatusEnum.AGREE.getDesc();
         }
         DriverResult driverResult = new DriverResult();

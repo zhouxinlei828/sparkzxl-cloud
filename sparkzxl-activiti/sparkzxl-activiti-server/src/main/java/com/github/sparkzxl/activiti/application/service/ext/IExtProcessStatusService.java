@@ -1,6 +1,7 @@
 package com.github.sparkzxl.activiti.application.service.ext;
 
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.activiti.domain.vo.InstanceOverview;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessInstance;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessStatus;
 import com.github.sparkzxl.activiti.interfaces.dto.act.InstancePageDTO;
@@ -27,11 +28,13 @@ public interface IExtProcessStatusService extends SuperCacheService<ExtProcessSt
 
     /**
      * 查询流程状态
-     * @param businessId 业务主键
+     *
+     * @param businessId        业务主键
      * @param processInstanceId 流程实例id
      * @return ExtProcessStatus
      */
-    ExtProcessStatus getExtProcessStatus(String businessId,String processInstanceId);
+    ExtProcessStatus getExtProcessStatus(String businessId, String processInstanceId);
+
     /**
      * 查询流程实例列表
      *
@@ -39,4 +42,12 @@ public interface IExtProcessStatusService extends SuperCacheService<ExtProcessSt
      * @return PageInfo<ProcessInstanceDTO>
      */
     PageInfo<ProcessInstance> getProcessInstanceList(InstancePageDTO instancePageDTO);
+
+    /**
+     * 流程统计总览
+     *
+     * @return InstanceOverview
+     */
+    InstanceOverview instanceOverview();
+
 }

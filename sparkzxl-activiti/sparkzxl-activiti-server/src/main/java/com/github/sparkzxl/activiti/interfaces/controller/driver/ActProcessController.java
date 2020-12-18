@@ -4,6 +4,7 @@ package com.github.sparkzxl.activiti.interfaces.controller.driver;
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.activiti.application.service.act.IProcessHistoryService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtProcessStatusService;
+import com.github.sparkzxl.activiti.domain.vo.InstanceOverview;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessHistory;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessInstance;
 import com.github.sparkzxl.activiti.interfaces.dto.act.InstancePageDTO;
@@ -43,6 +44,12 @@ public class ActProcessController {
     @GetMapping("/instances")
     public PageInfo<ProcessInstance> getProcessInstanceList(InstancePageDTO instancePageDTO) {
         return processTaskStatusService.getProcessInstanceList(instancePageDTO);
+    }
+
+    @ApiOperation("流程统计总览")
+    @GetMapping("/instanceOverview")
+    public InstanceOverview instanceOverview() {
+        return processTaskStatusService.instanceOverview();
     }
 
     @ApiOperation("根据流程实例id获取流程历史")

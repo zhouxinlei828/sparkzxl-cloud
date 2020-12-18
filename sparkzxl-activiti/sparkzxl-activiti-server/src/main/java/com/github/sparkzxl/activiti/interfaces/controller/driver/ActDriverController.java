@@ -29,7 +29,7 @@ import java.util.List;
 @ResponseResult
 @WebLog
 @Api(tags = "流程驱动管理")
-public class ActivitiDriverController implements ActivitiDriverApi {
+public class ActDriverController implements ActivitiDriverApi {
 
     private final IActivitiDriverService activitiDriverService;
 

@@ -18,7 +18,7 @@ public enum ProcessStatusEnum {
     /**
      * 流程状态
      */
-    SUBMIT(1, "运行中"),
+    RUN_TIME(1, "运行中"),
     ROLLBACK(-1, "驳回"),
     END(-2,"结束");
 
@@ -37,9 +37,27 @@ public enum ProcessStatusEnum {
         return null;
     }
 
+    public static int getCode(String desc) {
+        for (ProcessStatusEnum ele : values()) {
+            if (ele.getDesc().equals(desc)) {
+                return ele.getCode();
+            }
+        }
+        return 0;
+    }
+
     public static ProcessStatusEnum getEnum(int code) {
         for (ProcessStatusEnum ele : values()) {
             if (ele.getCode() == code) {
+                return ele;
+            }
+        }
+        return null;
+    }
+
+    public static ProcessStatusEnum getEnum(String desc) {
+        for (ProcessStatusEnum ele : values()) {
+            if (ele.getDesc().equals(desc)) {
                 return ele;
             }
         }

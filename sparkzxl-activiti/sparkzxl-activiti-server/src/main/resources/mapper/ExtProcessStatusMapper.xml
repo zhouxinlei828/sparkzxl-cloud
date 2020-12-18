@@ -18,7 +18,8 @@
         ahp.START_TIME_ startTime,
         ahp.START_USER_ID_ originator,
         ahp.END_TIME_ finishTime,
-        ahp.DURATION_ duration
+        ahp.DURATION_ duration,
+        pts.create_time createTime
         FROM
         ext_process_status pts
         LEFT JOIN ACT_HI_PROCINST ahp ON ahp.PROC_INST_ID_ = pts.process_instance_id
