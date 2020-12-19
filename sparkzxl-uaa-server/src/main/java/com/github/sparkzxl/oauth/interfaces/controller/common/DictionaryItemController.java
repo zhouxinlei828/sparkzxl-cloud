@@ -6,10 +6,7 @@ import com.github.sparkzxl.database.dto.PageParams;
 import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.oauth.application.service.ICommonDictionaryItemService;
 import com.github.sparkzxl.oauth.infrastructure.entity.CommonDictionaryItem;
-import com.github.sparkzxl.oauth.interfaces.dto.dictionary.DictionaryItemPageDTO;
-import com.github.sparkzxl.oauth.interfaces.dto.dictionary.DictionaryItemSaveDTO;
-import com.github.sparkzxl.oauth.interfaces.dto.dictionary.DictionaryItemUpdateDTO;
-import com.github.sparkzxl.oauth.interfaces.dto.dictionary.DictionaryPageDTO;
+import com.github.sparkzxl.oauth.interfaces.dto.dictionary.*;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,9 +39,8 @@ public class DictionaryItemController extends SuperCacheController<ICommonDictio
 
     @ApiOperation("查询字典项数据列表")
     @GetMapping("/dictionaryItemList")
-    public List<CommonDictionaryItem> findDictionaryItemList(@RequestParam(value = "dictionaryId",required = false) Long dictionaryId,
-                                                         @RequestParam(value = "dictionaryType",required = false) String dictionaryType) {
-        return dictionaryItemService.findDictionaryItemList(dictionaryId,dictionaryType);
+    public List<CommonDictionaryItem> findDictionaryItemList(DictionaryItemQueryDTO dictionaryItemQueryDTO) {
+        return dictionaryItemService.findDictionaryItemList(dictionaryItemQueryDTO);
     }
 
     @Override

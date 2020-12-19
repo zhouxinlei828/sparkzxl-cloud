@@ -9,6 +9,7 @@ import com.github.sparkzxl.oauth.application.service.ICommonDictionaryItemServic
 import com.github.sparkzxl.oauth.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.oauth.infrastructure.entity.CommonDictionaryItem;
 import com.github.sparkzxl.oauth.infrastructure.mapper.CommonDictionaryItemMapper;
+import com.github.sparkzxl.oauth.interfaces.dto.dictionary.DictionaryItemQueryDTO;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -61,13 +62,19 @@ public class CommonDictionaryItemServiceImpl extends AbstractSuperCacheServiceIm
     }
 
     @Override
-    public List<CommonDictionaryItem> findDictionaryItemList(Long dictionaryId, String dictionaryType) {
+    public List<CommonDictionaryItem> findDictionaryItemList(DictionaryItemQueryDTO dictionaryItemQueryDTO) {
         LambdaQueryWrapper<CommonDictionaryItem> dictionaryItemLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        if (ObjectUtils.isNotEmpty(dictionaryId)){
-            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryId,dictionaryId);
+        if (ObjectUtils.isNotEmpty(dictionaryItemQueryDTO.getDictionaryId())){
+            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryId,dictionaryItemQueryDTO.getDictionaryId());
         }
-        if (StringUtils.isNotEmpty(dictionaryType)){
-            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryType,dictionaryType);
+        if (StringUtils.isNotEmpty(dictionaryItemQueryDTO.getDictionaryType())){
+            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryType,dictionaryItemQueryDTO.getDictionaryType());
+        }
+        if (StringUtils.isNotEmpty(dictionaryItemQueryDTO.getCode())){
+            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getCode,dictionaryItemQueryDTO.getCode());
+        }
+        if (StringUtils.isNotEmpty(dictionaryItemQueryDTO.getName())){
+            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getName,dictionaryItemQueryDTO.getName());
         }
         dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getStatus, true)
                 .orderByAsc(CommonDictionaryItem::getSortValue);

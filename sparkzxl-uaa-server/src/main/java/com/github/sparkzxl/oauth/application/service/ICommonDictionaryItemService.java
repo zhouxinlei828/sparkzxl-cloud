@@ -2,6 +2,7 @@ package com.github.sparkzxl.oauth.application.service;
 
 import com.github.sparkzxl.database.base.service.SuperCacheService;
 import com.github.sparkzxl.oauth.infrastructure.entity.CommonDictionaryItem;
+import com.github.sparkzxl.oauth.interfaces.dto.dictionary.DictionaryItemQueryDTO;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,9 +28,8 @@ public interface ICommonDictionaryItemService extends SuperCacheService<CommonDi
     /**
      * 根据字典类型查询字典数据
      *
-     * @param dictionaryId   字典类型id
-     * @param dictionaryType 字典类型
+     * @param dictionaryItemQueryDTO   字典项查询入参
      * @return List<CommonDictionaryItem>
      */
-    List<CommonDictionaryItem> findDictionaryItemList(Long dictionaryId, String dictionaryType);
+    List<CommonDictionaryItem> findDictionaryItemList(DictionaryItemQueryDTO dictionaryItemQueryDTO);
 }

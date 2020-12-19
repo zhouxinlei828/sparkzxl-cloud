@@ -147,11 +147,6 @@ public class CacheConstant {
     public static String DICTIONARY = "dictionary";
 
     /**
-     * 参数 前缀
-     * 完整key: parameter:{id} -> obj
-     */
-    public static String PARAMETER = "parameter";
-    /**
      * 用户登录的客户端 前缀： 用于记录用户在那几个设备上登录了
      * 完整key: user_login_client:{userid} -> [client, client, ...] (Set)
      */

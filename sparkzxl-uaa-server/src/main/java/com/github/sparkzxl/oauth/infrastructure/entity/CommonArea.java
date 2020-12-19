@@ -26,24 +26,8 @@ public class CommonArea extends TreeEntity<CommonArea, Long> {
     @TableField("code")
     private String code;
 
-    @ApiModelProperty(value = "全名")
-    @TableField("full_name")
-    private String fullName;
-
-    @ApiModelProperty(value = "经度")
-    @TableField("longitude")
-    private String longitude;
-
-    @ApiModelProperty(value = "维度")
-    @TableField("latitude")
-    private String latitude;
-
     @ApiModelProperty(value = "行政区级")
     @TableField("level")
     private String level;
-
-    @ApiModelProperty(value = "数据来源")
-    @TableField("source_")
-    private String source;
 
 }
