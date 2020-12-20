@@ -33,7 +33,7 @@ public class AreaController extends SuperCacheController<ICommonAreaService, Lon
         CommonArea, AreaPageDTO, AreaSaveDTO, AreaUpdateDTO> {
 
 
-    @ApiOperation("查询组织列表")
+    @ApiOperation("查询地区列表")
     @GetMapping("/tree")
     public List<CommonArea> getAreaList(AreaQueryDTO areaQueryDTO) {
         return super.baseService.getAreaList(areaQueryDTO);
