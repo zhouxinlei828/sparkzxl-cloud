@@ -17,6 +17,9 @@ public class AreaUpdateDTO {
     @ApiModelProperty(value = "主键")
     private Long id;
 
+    @ApiModelProperty(value = "上级地区")
+    private Long parentId;
+
     @ApiModelProperty(value = "编码")
     private String code;
 
