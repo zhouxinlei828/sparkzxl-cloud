@@ -153,7 +153,7 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
         } else {
             actionMap.put(WorkflowConstants.WorkflowAction.START, "启动");
         }
-        activitiDataDTO.setActionMap(actionMap);
+        activitiDataDTO.setActTypeMap(actionMap);
         return activitiDataDTO;
     }
 

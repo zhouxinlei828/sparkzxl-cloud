@@ -23,7 +23,7 @@ public class ActivitiDataDTO {
     protected String businessId;
 
     @ApiModelProperty(value = "流程动作类型")
-    private Map<Object, Object> actionMap;
+    private Map<Object, Object> actTypeMap;
 
     @ApiModelProperty(value = "下一步任务")
     private UserNextTask userNextTask;
