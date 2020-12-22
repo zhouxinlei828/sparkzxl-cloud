@@ -66,6 +66,9 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
                         .variables(variables)
                         .build();
                 driverResult = actWorkApiService.promoteProcess(driverData);
+            } else {
+                log.error("businessId = {},操作过于频繁，稍后再试！", businessId);
+                driverResult.setErrorMsg("操作过于频繁，稍后再试！");
             }
         } catch (Exception e) {
             e.printStackTrace();

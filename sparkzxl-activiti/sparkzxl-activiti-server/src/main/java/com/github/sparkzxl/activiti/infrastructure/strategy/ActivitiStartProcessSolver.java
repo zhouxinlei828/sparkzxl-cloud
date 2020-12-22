@@ -44,7 +44,6 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
     public DriverResult slove(DriveProcess driveProcess) {
         boolean lock = false;
         String businessId = driveProcess.getBusinessId();
-        boolean serviceInvocation = driveProcess.isServiceInvocation();
         DriverResult driverResult = new DriverResult();
         try {
             lock = redisDistributedLock.lock(businessId, 0, 15);
@@ -75,7 +74,6 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
                             .processInstanceId(processInstanceId)
                             .processDefinitionKey(processInstance.getProcessDefinitionKey())
                             .businessId(businessId)
-                            .serviceInvocation(serviceInvocation)
                             .comment(comment)
                             .actType(WorkflowConstants.WorkflowAction.JUMP)
                             .build();
@@ -95,9 +93,7 @@ public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
                 }
             } else {
                 log.error("businessId = {},操作过于频繁，稍后再试！", businessId);
-                if (serviceInvocation) {
-                    driverResult.setErrorMsg("操作过于频繁，稍后再试！");
-                }
+                driverResult.setErrorMsg("操作过于频繁，稍后再试！");
             }
         } catch (Exception e) {
             e.printStackTrace();

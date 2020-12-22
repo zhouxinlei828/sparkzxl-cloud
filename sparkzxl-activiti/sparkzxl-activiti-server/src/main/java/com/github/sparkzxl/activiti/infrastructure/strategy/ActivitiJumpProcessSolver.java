@@ -58,6 +58,9 @@ public class ActivitiJumpProcessSolver extends AbstractActivitiSolver {
                         .actType(actType)
                         .build();
                 driverResult = actWorkApiService.jumpProcess(driverData);
+            } else {
+                log.error("businessId = {},操作过于频繁，稍后再试！", businessId);
+                driverResult.setErrorMsg("操作过于频繁，稍后再试！");
             }
         } catch (Exception e) {
             e.printStackTrace();

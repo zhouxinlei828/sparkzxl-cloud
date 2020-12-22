@@ -41,7 +41,4 @@ public class DriverProcessDTO {
     @ApiModelProperty(value = "是否需要跳转")
     private Boolean needJump;
 
-    @ApiModelProperty(value = "是否服务调用")
-    private Boolean serviceInvocation;
-
 }

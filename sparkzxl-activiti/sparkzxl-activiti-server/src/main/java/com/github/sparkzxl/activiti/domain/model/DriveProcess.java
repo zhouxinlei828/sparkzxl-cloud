@@ -46,9 +46,4 @@ public class DriveProcess {
      */
     private boolean needJump;
 
-    /**
-     * 是否是服务调用
-     */
-    private boolean serviceInvocation;
-
 }

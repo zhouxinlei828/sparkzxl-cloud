@@ -50,9 +50,4 @@ public class DriverData {
      */
     String comment;
 
-    /**
-     * 是否是服务调用
-     */
-    boolean serviceInvocation;
-
 }

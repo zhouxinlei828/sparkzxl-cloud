@@ -31,6 +31,7 @@ import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.TaskInfo;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -159,24 +160,26 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
             List<HistoricTaskInstance> historicTaskInstances = hiTakInsCompletableFuture.get();
             List<Comment> commentList = completableFuture.get();
             historicTaskInstances.forEach(historicTaskInstance -> {
-                ProcessHistory processHistory = ProcessHistory.builder()
-                        .processInstanceId(processInstanceId)
-                        .taskName(historicTaskInstance.getName())
-                        .startTime(historicTaskInstance.getStartTime())
-                        .endTime(historicTaskInstance.getEndTime())
-                        .duration(historicTaskInstance.getDurationInMillis())
-                        .durationTime(DateUtils.formatBetween(historicTaskInstance.getDurationInMillis()))
-                        .assignee(historicTaskInstance.getAssignee())
-                        .dueDate(historicTaskInstance.getDueDate())
-                        .build();
-                Optional<ExtHiTaskStatus> actHiTaskStatusOptional =
-                        actHiTaskStatusList.stream().filter(item -> StringUtils.equals(historicTaskInstance.getId(),
-                                item.getTaskId())).findFirst();
-                actHiTaskStatusOptional.ifPresent(value -> processHistory.setTaskStatus(value.getTaskStatus()));
-                if (ListUtils.isNotEmpty(commentList)) {
-                    processHistory.setComment(commentList.stream().filter(item -> historicTaskInstance.getId().equals(item.getTaskId())).map(Comment::getFullMessage).collect(Collectors.toList()));
+                if (ObjectUtils.isNotEmpty(historicTaskInstance.getEndTime())) {
+                    ProcessHistory processHistory = ProcessHistory.builder()
+                            .processInstanceId(processInstanceId)
+                            .taskName(historicTaskInstance.getName())
+                            .startTime(historicTaskInstance.getStartTime())
+                            .endTime(historicTaskInstance.getEndTime())
+                            .duration(historicTaskInstance.getDurationInMillis())
+                            .durationTime(DateUtils.formatBetween(historicTaskInstance.getDurationInMillis()))
+                            .assignee(historicTaskInstance.getAssignee())
+                            .dueDate(historicTaskInstance.getDueDate())
+                            .build();
+                    Optional<ExtHiTaskStatus> actHiTaskStatusOptional =
+                            actHiTaskStatusList.stream().filter(item -> StringUtils.equals(historicTaskInstance.getId(),
+                                    item.getTaskId())).findFirst();
+                    actHiTaskStatusOptional.ifPresent(value -> processHistory.setTaskStatus(value.getTaskStatus()));
+                    if (ListUtils.isNotEmpty(commentList)) {
+                        processHistory.setComment(commentList.stream().filter(item -> historicTaskInstance.getId().equals(item.getTaskId())).map(Comment::getFullMessage).collect(Collectors.toList()));
+                    }
+                    processHistories.add(processHistory);
                 }
-                processHistories.add(processHistory);
             });
         } catch (Exception e) {
             log.error("查询任务历史发生异常 Exception {}", e.getMessage());
