@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("act_re_model")
+@TableName("ACT_RE_MODEL")
 @ApiModel(value = "ActReModel对象", description = "模型对象")
 public class ActReModel implements Serializable {
 
