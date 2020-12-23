@@ -84,15 +84,16 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
 
     @Override
     public List<UserNextTask> getNextUserTask(ProcessNextTaskDTO processNextTaskDTO) {
+        Task currentTask = processTaskService.getLatestTaskByProInstId(processNextTaskDTO.getProcessInstanceId());
         List<UserTask> userTasks = Lists.newArrayList();
         //获取BpmnModel对象
-        BpmnModel bpmnModel = processRepositoryService.getBpmnModel(processNextTaskDTO.getProcessDefinitionId());
+        BpmnModel bpmnModel = processRepositoryService.getBpmnModel(currentTask.getProcessDefinitionId());
         //获取Process对象
         Process process = bpmnModel.getProcesses().get(bpmnModel.getProcesses().size() - 1);
         //获取所有的FlowElement信息
         Collection<FlowElement> flowElements = process.getFlowElements();
         //获取当前节点信息
-        FlowElement flowElement = ActivitiUtils.getFlowElementById(processNextTaskDTO.getTaskDefKey(), flowElements);
+        FlowElement flowElement = ActivitiUtils.getFlowElementById(currentTask.getTaskDefinitionKey(), flowElements);
         ActivitiUtils.getNextNode(flowElements, flowElement, processNextTaskDTO.getVariables(), userTasks);
         log.info("userTasks = {}", userTasks);
         List<UserNextTask> userNextTasks = Lists.newArrayList();

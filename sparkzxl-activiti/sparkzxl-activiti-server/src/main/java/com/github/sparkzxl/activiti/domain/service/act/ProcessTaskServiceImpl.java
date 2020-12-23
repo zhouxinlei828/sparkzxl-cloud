@@ -85,7 +85,7 @@ public class ProcessTaskServiceImpl implements IProcessTaskService {
 
     @Override
     public Task getLatestTaskByProInstId(String processInstanceId) {
-        return taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+        return taskService.createTaskQuery().processInstanceId(processInstanceId).orderByTaskCreateTime().desc().singleResult();
     }
 
     @Override

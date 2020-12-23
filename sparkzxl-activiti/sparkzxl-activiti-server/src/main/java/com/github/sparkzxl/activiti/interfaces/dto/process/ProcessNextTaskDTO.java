@@ -20,11 +20,8 @@ import java.util.Map;
 @ApiModel("下一步任务查询入参")
 public class ProcessNextTaskDTO {
 
-    @ApiModelProperty(value = "流程定义id", required = true)
-    private String processDefinitionId;
-
-    @ApiModelProperty(value = "任务定义key")
-    private String taskDefKey;
+    @ApiModelProperty(value = "流程实例id", required = true)
+    private String processInstanceId;
 
     @ApiModelProperty(value = "业务数据")
     private Map<String, Object> variables;

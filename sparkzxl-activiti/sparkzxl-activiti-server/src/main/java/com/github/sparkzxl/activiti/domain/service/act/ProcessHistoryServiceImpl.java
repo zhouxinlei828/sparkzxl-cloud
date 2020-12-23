@@ -160,17 +160,19 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
             List<HistoricTaskInstance> historicTaskInstances = hiTakInsCompletableFuture.get();
             List<Comment> commentList = completableFuture.get();
             historicTaskInstances.forEach(historicTaskInstance -> {
-                if (ObjectUtils.isNotEmpty(historicTaskInstance.getEndTime())) {
-                    ProcessHistory processHistory = ProcessHistory.builder()
-                            .processInstanceId(processInstanceId)
-                            .taskName(historicTaskInstance.getName())
-                            .startTime(historicTaskInstance.getStartTime())
-                            .endTime(historicTaskInstance.getEndTime())
-                            .duration(historicTaskInstance.getDurationInMillis())
-                            .durationTime(DateUtils.formatBetween(historicTaskInstance.getDurationInMillis()))
-                            .assignee(historicTaskInstance.getAssignee())
-                            .dueDate(historicTaskInstance.getDueDate())
-                            .build();
+
+                ProcessHistory processHistory = ProcessHistory.builder()
+                        .processInstanceId(processInstanceId)
+                        .taskName(historicTaskInstance.getName())
+                        .startTime(historicTaskInstance.getStartTime())
+                        .endTime(historicTaskInstance.getEndTime())
+                        .duration(historicTaskInstance.getDurationInMillis())
+                        .assignee(historicTaskInstance.getAssignee())
+                        .dueDate(historicTaskInstance.getDueDate())
+                        .build();
+                if (ObjectUtils.isNotEmpty(historicTaskInstance.getDurationInMillis())) {
+                    String durationTime = DateUtils.formatBetween(historicTaskInstance.getDurationInMillis());
+                    processHistory.setDurationTime(durationTime);
                     Optional<ExtHiTaskStatus> actHiTaskStatusOptional =
                             actHiTaskStatusList.stream().filter(item -> StringUtils.equals(historicTaskInstance.getId(),
                                     item.getTaskId())).findFirst();
@@ -178,8 +180,10 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
                     if (ListUtils.isNotEmpty(commentList)) {
                         processHistory.setComment(commentList.stream().filter(item -> historicTaskInstance.getId().equals(item.getTaskId())).map(Comment::getFullMessage).collect(Collectors.toList()));
                     }
-                    processHistories.add(processHistory);
+                } else {
+                    processHistory.setTaskStatus(TaskStatusEnum.IN_HAND.getDesc());
                 }
+                processHistories.add(processHistory);
             });
         } catch (Exception e) {
             log.error("查询任务历史发生异常 Exception {}", e.getMessage());
