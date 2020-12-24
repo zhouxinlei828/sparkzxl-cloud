@@ -163,7 +163,7 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
             List<String> userRoles = authUserRepository.getAuthUserRoles(authUser.getId());
             authUserInfo.setAuthorityList(userRoles);
             Map<String, Object> extraInfo = Maps.newHashMap();
-            extraInfo.put("org",authUser.getOrg());
+            extraInfo.put("org",authUser.getOrg().getData());
             extraInfo.put("station",authUser.getStation());
             extraInfo.put("mobile",authUser.getMobile());
             extraInfo.put("email",authUser.getEmail());
