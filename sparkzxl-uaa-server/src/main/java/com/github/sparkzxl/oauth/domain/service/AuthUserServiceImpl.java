@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
+import com.github.sparkzxl.core.jackson.JsonUtil;
+import com.github.sparkzxl.core.utils.ReflectObjectUtils;
 import com.github.sparkzxl.database.utils.PageInfoUtils;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.github.sparkzxl.oauth.domain.repository.IAuthUserRepository;
@@ -21,6 +23,7 @@ import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceI
 import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserPageDTO;
 import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserSaveDTO;
 import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserUpdateDTO;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -154,17 +157,20 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Override
     public AuthUserInfo<Long> getAuthUserInfo(String username) {
-        try {
-            AuthUser authUser = authUserRepository.selectByAccount(username);
-            if (ObjectUtils.isNotEmpty(authUser)) {
-                AuthUserInfo<Long> authUserInfo = AuthUserConvert.INSTANCE.convertAuthUserInfo(authUser);
-                List<String> userRoles = authUserRepository.getAuthUserRoles(authUser.getId());
-                authUserInfo.setAuthorityList(userRoles);
-                authUserInfo.setExtraInfo(objectMapper.writeValueAsString(authUser));
-                return authUserInfo;
-            }
-        } catch (JsonProcessingException e) {
-            log.error("转换json出错：{}", e.getMessage());
+        AuthUser authUser = authUserRepository.selectByAccount(username);
+        if (ObjectUtils.isNotEmpty(authUser)) {
+            AuthUserInfo<Long> authUserInfo = AuthUserConvert.INSTANCE.convertAuthUserInfo(authUser);
+            List<String> userRoles = authUserRepository.getAuthUserRoles(authUser.getId());
+            authUserInfo.setAuthorityList(userRoles);
+            Map<String, Object> extraInfo = Maps.newHashMap();
+            extraInfo.put("org",authUser.getOrg());
+            extraInfo.put("station",authUser.getStation());
+            extraInfo.put("mobile",authUser.getMobile());
+            extraInfo.put("email",authUser.getEmail());
+            extraInfo.put("education",authUser.getEducation());
+            extraInfo.put("positionStatus",authUser.getPositionStatus());
+            authUserInfo.setExtraInfo(extraInfo);
+            return authUserInfo;
         }
         return null;
     }
