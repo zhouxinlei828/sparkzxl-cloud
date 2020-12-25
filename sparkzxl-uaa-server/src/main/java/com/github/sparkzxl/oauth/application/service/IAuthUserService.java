@@ -51,36 +51,6 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     AuthUserDTO getAuthUser(Long id);
 
     /**
-     * 获取用户权限集
-     *
-     * @param id 用户id
-     * @return Set<String>
-     */
-    Set<String> getAuthUserPermissions(Long id);
-
-    /**
-     * 获取登录用户
-     *
-     * @param username 用户名
-     * @return UserInfo
-     */
-    UserInfo getCurrentUser(String username);
-
-    /**
-     * 获取用户通知
-     *
-     * @return List<UserNotices>
-     */
-    List<UserNotices> getUserNotices();
-
-    /**
-     * 获取文章
-     *
-     * @return
-     */
-    List<UserActivities> activities();
-
-    /**
      * 更新用户组织
      *
      * @param id 组织id
