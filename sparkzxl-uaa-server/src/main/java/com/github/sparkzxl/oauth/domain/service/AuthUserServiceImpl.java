@@ -1,9 +1,13 @@
 package com.github.sparkzxl.oauth.domain.service;
 
+import cn.hutool.extra.pinyin.PinyinUtil;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.github.javafaker.Faker;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
+import com.github.sparkzxl.database.entity.RemoteData;
 import com.github.sparkzxl.database.utils.PageInfoUtils;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.github.sparkzxl.oauth.domain.repository.IAuthUserRepository;
@@ -11,6 +15,7 @@ import com.github.sparkzxl.oauth.entity.AuthUserDetail;
 import com.github.sparkzxl.oauth.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.oauth.infrastructure.convert.AuthUserConvert;
 import com.github.sparkzxl.oauth.infrastructure.entity.*;
+import com.github.sparkzxl.oauth.infrastructure.enums.SexEnum;
 import com.github.sparkzxl.oauth.infrastructure.mapper.AuthUserMapper;
 import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserDTO;
 import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
@@ -20,6 +25,7 @@ import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserUpdateDTO;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -94,12 +100,12 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
             List<String> userRoles = authUserRepository.getAuthUserRoles(authUser.getId());
             authUserInfo.setAuthorityList(userRoles);
             Map<String, Object> extraInfo = Maps.newHashMap();
-            extraInfo.put("org",authUser.getOrg().getData());
-            extraInfo.put("station",authUser.getStation());
-            extraInfo.put("mobile",authUser.getMobile());
-            extraInfo.put("email",authUser.getEmail());
-            extraInfo.put("education",authUser.getEducation());
-            extraInfo.put("positionStatus",authUser.getPositionStatus());
+            extraInfo.put("org", authUser.getOrg().getData());
+            extraInfo.put("station", authUser.getStation());
+            extraInfo.put("mobile", authUser.getMobile());
+            extraInfo.put("email", authUser.getEmail());
+            extraInfo.put("education", authUser.getEducation());
+            extraInfo.put("positionStatus", authUser.getPositionStatus());
             authUserInfo.setExtraInfo(extraInfo);
             return authUserInfo;
         }
@@ -134,5 +140,48 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
         userUpdateWrapper.set("org_id", null);
         userUpdateWrapper.in("org_id", orgIds);
         update(userUpdateWrapper);
+    }
+
+    @Override
+    public boolean mockUserData() {
+        Faker fakerWithCN = new Faker(Locale.CHINA);
+        for (int i = 0; i < 10; i++) {
+            String password = passwordEncoder.encode("123456");
+            AuthUser userInfo = new AuthUser();
+            userInfo.setPassword(password);
+            String name = fakerWithCN.name().fullName();
+            userInfo.setName(name);
+            userInfo.setMobile(fakerWithCN.phoneNumber().cellPhone());
+            RemoteData<Long, CoreOrg> orgRemoteData = new RemoteData<>();
+            orgRemoteData.setKey(643776594376135105L);
+            userInfo.setOrg(orgRemoteData);
+            RemoteData<Long, CoreStation> stationRemoteData = new RemoteData<>();
+            stationRemoteData.setKey(643776594376135105L);
+            userInfo.setStation(stationRemoteData);
+            String pinyin = StringUtils.deleteWhitespace(PinyinUtil.getPinyin(name));
+            userInfo.setAccount(pinyin);
+            String email = pinyin.concat("@163.com");
+            userInfo.setEmail(email);
+            if (i % 2 == 0) {
+                userInfo.setSex(SexEnum.MAN);
+            }else {
+                userInfo.setSex(SexEnum.WOMAN);
+            }
+            userInfo.setStatus(true);
+            RemoteData<String, String> nationRemoteData = new RemoteData<>();
+            nationRemoteData.setKey("mz_hanz");
+            userInfo.setNation(nationRemoteData);
+
+            RemoteData<String, String> educationRemoteData = new RemoteData<>();
+            educationRemoteData.setKey("BOSHIHOU");
+            userInfo.setEducation(educationRemoteData);
+
+            RemoteData<String, String> positionRemoteData = new RemoteData<>();
+            positionRemoteData.setKey("WORKING");
+            userInfo.setPositionStatus(positionRemoteData);
+            log.info(" 仿真数据：{}", JSONUtil.toJsonPrettyStr(userInfo));
+            save(userInfo);
+        }
+        return true;
     }
 }

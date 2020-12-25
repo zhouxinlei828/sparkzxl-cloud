@@ -96,4 +96,10 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
         return passwordEncoder.encode(password);
     }
 
+    @ApiOperation("生成仿真数据")
+    @GetMapping("/mockData")
+    public boolean mockUserData() {
+        return baseService.mockUserData();
+    }
+
 }
