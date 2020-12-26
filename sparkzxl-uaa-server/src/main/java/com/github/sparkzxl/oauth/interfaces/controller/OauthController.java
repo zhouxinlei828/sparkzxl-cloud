@@ -2,11 +2,13 @@ package com.github.sparkzxl.oauth.interfaces.controller;
 
 import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.oauth.entity.AuthorizationRequest;
+import com.github.sparkzxl.oauth.entity.CaptchaInfo;
 import com.github.sparkzxl.oauth.service.OauthService;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.skywalking.apm.toolkit.trace.ActiveSpan;
 import org.apache.skywalking.apm.toolkit.trace.Trace;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.security.Principal;
-import java.util.Map;
 
 
 /**
@@ -66,4 +67,17 @@ public class OauthController {
         log.info("Authorization = {}", authorization);
         return oauthService.postAccessToken(principal, authorizationRequest);
     }
+
+    @ApiOperation(value = "验证码", notes = "验证码")
+    @GetMapping(value = "/captcha")
+    public CaptchaInfo captcha(@RequestParam(value = "type") String type) {
+        return oauthService.createCaptcha(type);
+    }
+
+    @ApiOperation(value = "验证验证码", notes = "验证验证码")
+    @GetMapping(value = "/check")
+    public boolean checkCaptcha(@RequestParam(value = "key") String key, @RequestParam(value = "code") String code) {
+        return oauthService.checkCaptcha(key, code);
+    }
+
 }

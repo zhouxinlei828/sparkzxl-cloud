@@ -1,10 +1,14 @@
 package com.github.sparkzxl.oauth.domain.service;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.github.sparkzxl.core.context.BaseContextConstants;
 import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import com.github.sparkzxl.core.utils.BuildKeyUtils;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
+import com.github.sparkzxl.oauth.entity.CaptchaInfo;
+import com.github.sparkzxl.oauth.infrastructure.constant.CacheConstant;
 import com.google.common.collect.Maps;
 import com.github.sparkzxl.cache.template.CacheTemplate;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
@@ -15,8 +19,14 @@ import com.github.sparkzxl.oauth.entity.LoginStatus;
 import com.github.sparkzxl.oauth.enums.GrantTypeEnum;
 import com.github.sparkzxl.oauth.event.LoginEvent;
 import com.github.sparkzxl.oauth.service.OauthService;
+import com.wf.captcha.ArithmeticCaptcha;
+import com.wf.captcha.ChineseCaptcha;
+import com.wf.captcha.GifCaptcha;
+import com.wf.captcha.SpecCaptcha;
+import com.wf.captcha.base.Captcha;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -111,4 +121,45 @@ public class OauthServiceImpl implements OauthService {
         return parameters;
     }
 
+    @Override
+    public CaptchaInfo createCaptcha(String type) {
+
+        if (StrUtil.isBlank(type)) {
+            SparkZxlExceptionAssert.businessFail("验证码类型不能为空");
+        }
+        CaptchaInfo captchaInfo = new CaptchaInfo();
+        Captcha captcha;
+        if (StrUtil.equalsIgnoreCase(type, "gif")) {
+            captcha = new GifCaptcha(115, 42, 4);
+        } else if (StrUtil.equalsIgnoreCase(type, "png")) {
+            captcha = new SpecCaptcha(115, 42, 4);
+        } else if (StrUtil.equalsIgnoreCase(type, "chinese")) {
+            captcha = new ChineseCaptcha(115, 42);
+        } else {
+            captcha = new ArithmeticCaptcha(115, 42);
+        }
+        captcha.setCharType(2);
+        String simpleUUID = IdUtil.simpleUUID();
+        captchaInfo.setKey(simpleUUID);
+        captchaInfo.setData(captcha.toBase64());
+        cacheTemplate.set(BuildKeyUtils.generateKey(CacheConstant.CAPTCHA, simpleUUID), captcha.text().toLowerCase());
+        return captchaInfo;
+    }
+
+    @Override
+    public boolean checkCaptcha(String key, String value) {
+        if (StrUtil.isBlank(value)) {
+            SparkZxlExceptionAssert.businessFail("请输入验证码");
+        }
+        String cacheKey = BuildKeyUtils.generateKey(CacheConstant.CAPTCHA, key);
+        String captchaData = cacheTemplate.get(cacheKey);
+        if (StringUtils.isEmpty(captchaData)) {
+            SparkZxlExceptionAssert.businessFail("验证码已过期");
+        }
+        if (!StrUtil.equalsIgnoreCase(value, captchaData)) {
+            SparkZxlExceptionAssert.businessFail("验证码不正确");
+        }
+        cacheTemplate.remove(cacheKey);
+        return true;
+    }
 }
