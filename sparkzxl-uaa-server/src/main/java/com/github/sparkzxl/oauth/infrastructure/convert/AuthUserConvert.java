@@ -1,10 +1,15 @@
 package com.github.sparkzxl.oauth.infrastructure.convert;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeNode;
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
-import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
-import com.github.sparkzxl.oauth.infrastructure.entity.LoginAuthUser;
-import com.github.sparkzxl.oauth.infrastructure.entity.UserInfo;
+import com.github.sparkzxl.database.entity.RemoteData;
+import com.github.sparkzxl.oauth.domain.model.aggregates.AuthUserBasicInfo;
+import com.github.sparkzxl.oauth.domain.model.aggregates.StationBasicInfo;
+import com.github.sparkzxl.oauth.domain.model.vo.AuthUserBasicVO;
+import com.github.sparkzxl.oauth.infrastructure.entity.*;
 import com.github.sparkzxl.oauth.infrastructure.enums.SexEnum;
 import com.github.sparkzxl.oauth.interfaces.dto.user.*;
 import org.apache.commons.lang3.ObjectUtils;
@@ -12,6 +17,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * description: AuthUser对象Convert
@@ -117,4 +124,33 @@ public interface AuthUserConvert {
      * @return LoginAuthUser
      */
     LoginAuthUser convertLoginAuthUser(AuthUser authUser);
+
+    AuthUserBasicVO convertAuthUserBasicVO(AuthUserBasicInfo authUserBasicInfo);
+
+    /**
+     * 转换AuthUser为AuthUserBasicInfo
+     * @param authUser 用户实体类
+     * @return AuthUserBasicInfo
+     */
+    @Mappings({
+            @Mapping(target = "org", ignore = true),
+            @Mapping(target = "station", expression = "java(buildStation(authUser.getStation()))")
+    })
+    AuthUserBasicInfo convertAuthUserBasicInfo(AuthUser authUser);
+
+    /**
+     * 构建职位
+     * @param station 职位实体类
+     * @return StationBasicInfo
+     */
+    default StationBasicInfo buildStation(RemoteData<Long, CoreStation> station) {
+        if (ObjectUtils.isNotEmpty(station) && ObjectUtils.isNotEmpty(station.getData())) {
+            StationBasicInfo stationBasicInfo = new StationBasicInfo();
+            stationBasicInfo.setId(station.getKey());
+            stationBasicInfo.setName(station.getData().getName());
+            return stationBasicInfo;
+        }
+        return null;
+    }
+
 }

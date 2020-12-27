@@ -1,6 +1,7 @@
 package com.github.sparkzxl.oauth.application.service;
 
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.oauth.domain.model.vo.AuthUserBasicVO;
 import com.github.sparkzxl.oauth.infrastructure.entity.LoginAuthUser;
 import com.github.sparkzxl.oauth.infrastructure.entity.UserActivities;
 import com.github.sparkzxl.oauth.infrastructure.entity.UserInfo;
@@ -109,4 +110,10 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * @return boolean
      */
     boolean mockUserData();
+
+    /**
+     * 获取登录用户全量信息
+     * @return AuthUserBasicVO
+     */
+    AuthUserBasicVO getAuthUserBasicInfo();
 }

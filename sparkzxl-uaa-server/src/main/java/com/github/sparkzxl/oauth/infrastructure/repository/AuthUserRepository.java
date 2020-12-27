@@ -1,16 +1,18 @@
 package com.github.sparkzxl.oauth.infrastructure.repository;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.core.context.BaseContextHandler;
-import com.github.sparkzxl.database.utils.PageInfoUtils;
+import com.github.sparkzxl.core.tree.TreeUtils;
+import com.github.sparkzxl.database.entity.RemoteData;
+import com.github.sparkzxl.oauth.domain.model.aggregates.*;
 import com.github.sparkzxl.oauth.domain.repository.IAuthUserRepository;
 import com.github.sparkzxl.oauth.infrastructure.convert.AuthRoleConvert;
 import com.github.sparkzxl.oauth.infrastructure.convert.AuthUserConvert;
 import com.github.sparkzxl.oauth.infrastructure.entity.*;
+import com.github.sparkzxl.oauth.infrastructure.entity.RoleResource;
 import com.github.sparkzxl.oauth.infrastructure.mapper.*;
 import com.github.sparkzxl.database.annonation.InjectionResult;
 import com.google.common.collect.Lists;
@@ -42,11 +44,11 @@ public class AuthUserRepository implements IAuthUserRepository {
     private final RoleAuthorityMapper roleAuthorityMapper;
     private final AuthResourceMapper authResourceMapper;
     private final AuthMenuMapper authMenuMapper;
+    private final CoreOrgMapper coreOrgMapper;
 
     @Override
-    @InjectionResult
     public AuthUser selectById(Long id) {
-        return authUserMapper.getById(id);
+        return authUserMapper.selectById(id);
     }
 
     @Override
@@ -154,5 +156,80 @@ public class AuthUserRepository implements IAuthUserRepository {
             queryWrapper.eq(AuthUser::getNation, authUser.getNation());
         }
         return authUserMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public AuthUserBasicInfo getAuthUserBasicInfo(Long userId) {
+        AuthUser authUser = authUserMapper.getById(userId);
+        AuthUserBasicInfo authUserBasicInfo = AuthUserConvert.INSTANCE.convertAuthUserBasicInfo(authUser);
+        RemoteData<Long, CoreOrg> org = authUser.getOrg();
+        List<OrgBasicInfo> orgTreeList = CollUtil.newArrayList();
+        if (ObjectUtils.isNotEmpty(org)) {
+            CoreOrg data = org.getData();
+            if (ObjectUtils.isNotEmpty(data)) {
+                OrgBasicInfo orgBasicInfo = new OrgBasicInfo();
+                orgBasicInfo.setId(data.getId());
+                orgBasicInfo.setLabel(data.getLabel());
+                orgBasicInfo.setParentId(data.getParentId());
+                orgBasicInfo.setSortValue(data.getSortValue());
+                orgTreeList.add(orgBasicInfo);
+                if (data.getParentId() != 0) {
+                    CoreOrg coreOrg = coreOrgMapper.selectById(data.getParentId());
+                    OrgBasicInfo parentOrgBasicInfo = new OrgBasicInfo();
+                    parentOrgBasicInfo.setId(coreOrg.getId());
+                    parentOrgBasicInfo.setLabel(coreOrg.getLabel());
+                    parentOrgBasicInfo.setParentId(coreOrg.getParentId());
+                    parentOrgBasicInfo.setSortValue(coreOrg.getSortValue());
+                    orgTreeList.add(parentOrgBasicInfo);
+                }
+                authUserBasicInfo.setOrg(TreeUtils.buildTree(orgTreeList));
+            }
+        }
+
+        List<Long> roleIds =
+                userRoleMapper.selectList(new LambdaUpdateWrapper<UserRole>().eq(UserRole::getUserId, userId)).stream().map(UserRole::getRoleId)
+                        .collect(Collectors.toList());
+        List<AuthRole> roleList = authRoleMapper.selectBatchIds(roleIds);
+        List<RoleBasicInfo> roleBasicInfos = AuthRoleConvert.INSTANCE.convertRoleBasicInfo(roleList);
+        authUserBasicInfo.setRoleBasicInfos(roleBasicInfos);
+        List<RoleAuthority> roleAuthorities =
+                roleAuthorityMapper.selectList(new LambdaQueryWrapper<RoleAuthority>().in(RoleAuthority::getRoleId, roleIds)
+                        .groupBy(RoleAuthority::getAuthorityId, RoleAuthority::getAuthorityType, RoleAuthority::getRoleId));
+        List<Long> authorityIds = roleAuthorities.stream().filter(x -> "RESOURCE".equals(x.getAuthorityType()))
+                .map(RoleAuthority::getAuthorityId).collect(Collectors.toList());
+        Map<Long, Long> roleAuthorityIdMap =
+                roleAuthorities.stream().collect(Collectors.toMap(RoleAuthority::getAuthorityId, RoleAuthority::getRoleId));
+        // 获取用户资源列表
+        List<AuthResource> resourceList = authResourceMapper.selectBatchIds(authorityIds);
+        List<ResourceBasicInfo> resourceBasicInfos = Lists.newArrayList();
+        if (CollectionUtils.isNotEmpty(resourceList)) {
+            resourceList.forEach(resource -> {
+                ResourceBasicInfo resourceBasicInfo = new ResourceBasicInfo();
+                resourceBasicInfo.setCode(resource.getCode());
+                resourceBasicInfo.setName(resource.getName());
+                resourceBasicInfo.setRoleId(roleAuthorityIdMap.get(resource.getId()));
+                resourceBasicInfos.add(resourceBasicInfo);
+            });
+        }
+        authUserBasicInfo.setResourceBasicInfos(resourceBasicInfos);
+
+        List<Long> menuIds = roleAuthorities.stream().filter(x -> "MENU".equals(x.getAuthorityType()))
+                .map(RoleAuthority::getAuthorityId).collect(Collectors.toList());
+
+        List<AuthMenu> menuList = authMenuMapper.selectBatchIds(menuIds);
+        List<MenuBasicInfo> menuBasicInfos = Lists.newArrayList();
+        if (CollectionUtils.isNotEmpty(menuList)) {
+            menuList.forEach(menu -> {
+                MenuBasicInfo menuBasicInfo = new MenuBasicInfo();
+                menuBasicInfo.setId(menu.getId());
+                menuBasicInfo.setLabel(menu.getLabel());
+                menuBasicInfo.setParentId(menu.getParentId());
+                menuBasicInfo.setSortValue(menu.getSortValue());
+                menuBasicInfos.add(menuBasicInfo);
+            });
+            authUserBasicInfo.setMenuBasicInfos(menuBasicInfos);
+            authUserBasicInfo.setMenuTree(TreeUtils.buildTree(menuBasicInfos));
+        }
+        return authUserBasicInfo;
     }
 }

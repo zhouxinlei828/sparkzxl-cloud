@@ -1,5 +1,6 @@
 package com.github.sparkzxl.oauth.infrastructure.convert;
 
+import com.github.sparkzxl.oauth.domain.model.aggregates.RoleBasicInfo;
 import com.github.sparkzxl.oauth.domain.model.aggregates.RoleResource;
 import com.github.sparkzxl.oauth.domain.model.vo.RoleResourceVO;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthRole;
@@ -61,4 +62,6 @@ public interface AuthRoleConvert {
      * @return RoleResourceVO
      */
     RoleResourceVO convertRoleResourceVO(RoleResource roleResource);
+
+    List<RoleBasicInfo> convertRoleBasicInfo(List<AuthRole> roleList);
 }

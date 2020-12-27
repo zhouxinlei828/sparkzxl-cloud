@@ -1,5 +1,6 @@
 package com.github.sparkzxl.oauth.domain.repository;
 
+import com.github.sparkzxl.oauth.domain.model.aggregates.AuthUserBasicInfo;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.oauth.infrastructure.entity.LoginAuthUser;
 import com.github.sparkzxl.oauth.infrastructure.entity.RoleResource;
@@ -78,4 +79,10 @@ public interface IAuthUserRepository {
      */
     List<AuthUser> getAuthUserList(AuthUser authUser);
 
+    /**
+     * 根据用户id获取用户全量信息
+     * @param userId 用户id
+     * @return AuthUserBasicInfo
+     */
+    AuthUserBasicInfo getAuthUserBasicInfo(Long userId);
 }

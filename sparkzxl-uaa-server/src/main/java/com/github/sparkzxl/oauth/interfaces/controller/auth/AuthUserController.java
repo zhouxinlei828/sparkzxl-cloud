@@ -2,6 +2,7 @@ package com.github.sparkzxl.oauth.interfaces.controller.auth;
 
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
+import com.github.sparkzxl.oauth.domain.model.vo.AuthUserBasicVO;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.oauth.infrastructure.entity.LoginAuthUser;
 import com.github.sparkzxl.oauth.interfaces.dto.user.AuthUserDTO;
@@ -84,10 +85,10 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
         return true;
     }
 
-    @ApiOperation("获取登录用户信息")
+    @ApiOperation("获取登录用户全量信息")
     @GetMapping("/currentUser")
-    public LoginAuthUser getCurrentUser(@ApiIgnore AuthUserInfo<Long> authUserInfo) {
-        return baseService.getLoginAuthUser(authUserInfo.getId());
+    public AuthUserBasicVO getAuthUserBasicInfo() {
+        return baseService.getAuthUserBasicInfo();
     }
 
     @ApiOperation("获取用户信息")

@@ -6,10 +6,13 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.javafaker.Faker;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.core.context.BaseContextHandler;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.entity.RemoteData;
 import com.github.sparkzxl.database.utils.PageInfoUtils;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
+import com.github.sparkzxl.oauth.domain.model.aggregates.AuthUserBasicInfo;
+import com.github.sparkzxl.oauth.domain.model.vo.AuthUserBasicVO;
 import com.github.sparkzxl.oauth.domain.repository.IAuthUserRepository;
 import com.github.sparkzxl.oauth.entity.AuthUserDetail;
 import com.github.sparkzxl.oauth.infrastructure.constant.CacheConstant;
@@ -183,5 +186,12 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
             save(userInfo);
         }
         return true;
+    }
+
+    @Override
+    public AuthUserBasicVO getAuthUserBasicInfo() {
+        Long userId = BaseContextHandler.getUserId(Long.TYPE);
+        AuthUserBasicInfo authUserBasicInfo = authUserRepository.getAuthUserBasicInfo(userId);
+        return AuthUserConvert.INSTANCE.convertAuthUserBasicVO(authUserBasicInfo);
     }
 }
