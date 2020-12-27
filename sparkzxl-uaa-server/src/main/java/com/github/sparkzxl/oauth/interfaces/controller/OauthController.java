@@ -69,13 +69,13 @@ public class OauthController {
     }
 
     @ApiOperation(value = "验证码", notes = "验证码")
-    @GetMapping(value = "/captcha")
+    @GetMapping(value = "/oauth/captcha")
     public CaptchaInfo captcha(@RequestParam(value = "type") String type) {
         return oauthService.createCaptcha(type);
     }
 
     @ApiOperation(value = "验证验证码", notes = "验证验证码")
-    @GetMapping(value = "/check")
+    @GetMapping(value = "/oauth/check")
     public boolean checkCaptcha(@RequestParam(value = "key") String key, @RequestParam(value = "code") String code) {
         return oauthService.checkCaptcha(key, code);
     }
