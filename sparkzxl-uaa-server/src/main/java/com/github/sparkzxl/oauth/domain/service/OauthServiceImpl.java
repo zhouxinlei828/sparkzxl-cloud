@@ -89,6 +89,11 @@ public class OauthServiceImpl implements OauthService {
     @SneakyThrows
     @Override
     public OAuth2AccessToken postAccessToken(Principal principal, AuthorizationRequest authorizationRequest) {
+        String captcha = authorizationRequest.getCaptchaCode();
+        if (StringUtils.isNotEmpty(captcha)){
+            String captchaKey = authorizationRequest.getCaptchaKey();
+            checkCaptcha(captchaKey,captcha);
+        }
         Map<String, String> parameters = builderAccessTokenParameters(authorizationRequest);
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity = tokenEndpoint.postAccessToken(principal, parameters);
         return loginEventAndBack(authorizationRequest, oAuth2AccessTokenResponseEntity);
