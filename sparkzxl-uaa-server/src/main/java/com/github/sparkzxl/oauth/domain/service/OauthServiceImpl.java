@@ -24,6 +24,8 @@ import com.wf.captcha.ChineseCaptcha;
 import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
+import io.vavr.API;
+import io.vavr.control.Option;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +38,9 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.Map;
 import java.util.Optional;
+
+import static io.vavr.API.$;
+import static io.vavr.API.Case;
 
 /**
  * description：授权登录 服务实现类
@@ -112,52 +117,48 @@ public class OauthServiceImpl implements OauthService {
         Map<String, String> parameters = Maps.newHashMap();
         parameters.put("grant_type", authorizationRequest.getGrantType());
         parameters.put("scope", authorizationRequest.getScope());
-        Optional.ofNullable(authorizationRequest.getCode()).ifPresent(value -> parameters.put("code", value));
-        Optional.ofNullable(authorizationRequest.getClientId()).ifPresent(value -> parameters.put("client_id", value));
-        Optional.ofNullable(authorizationRequest.getRedirectUri()).ifPresent(value -> parameters.put("redirect_uri", value));
-        Optional.ofNullable(authorizationRequest.getRefreshToken()).ifPresent(value -> parameters.put("refresh_token", value));
-        Optional.ofNullable(authorizationRequest.getUsername()).ifPresent(value -> parameters.put("username", value));
-        Optional.ofNullable(authorizationRequest.getPassword()).ifPresent(value -> parameters.put("password", value));
+        Option.of(authorizationRequest.getCode()).peek(value -> parameters.put("code", value));
+        Option.of(authorizationRequest.getClientId()).peek(value -> parameters.put("client_id", value));
+        Option.of(authorizationRequest.getRedirectUri()).peek(value -> parameters.put("redirect_uri", value));
+        Option.of(authorizationRequest.getRefreshToken()).peek(value -> parameters.put("refresh_token", value));
+        Option.of(authorizationRequest.getUsername()).peek(value -> parameters.put("username", value));
+        Option.of(authorizationRequest.getPassword()).peek(value -> parameters.put("password", value));
         return parameters;
     }
 
     @Override
     public CaptchaInfo createCaptcha(String type) {
-
         if (StrUtil.isBlank(type)) {
             SparkZxlExceptionAssert.businessFail("验证码类型不能为空");
         }
         CaptchaInfo captchaInfo = new CaptchaInfo();
         Captcha captcha;
-        if (StrUtil.equalsIgnoreCase(type, "gif")) {
-            captcha = new GifCaptcha(115, 42, 4);
-        } else if (StrUtil.equalsIgnoreCase(type, "png")) {
-            captcha = new SpecCaptcha(115, 42, 4);
-        } else if (StrUtil.equalsIgnoreCase(type, "chinese")) {
-            captcha = new ChineseCaptcha(115, 42);
-        } else {
-            captcha = new ArithmeticCaptcha(115, 42);
-        }
+        captcha = API.Match(type).of(
+                Case($("gif"), new GifCaptcha(115, 42, 4)),
+                Case($("png"), new SpecCaptcha(115, 42, 4)),
+                Case($("chinese"), new ChineseCaptcha(115, 42)),
+                Case($(), new ArithmeticCaptcha(115, 42))
+        );
         captcha.setCharType(2);
         String simpleUUID = IdUtil.simpleUUID();
         captchaInfo.setKey(simpleUUID);
         captchaInfo.setData(captcha.toBase64());
-        cacheTemplate.set(BuildKeyUtils.generateKey(CacheConstant.CAPTCHA, simpleUUID), captcha.text().toLowerCase());
+        cacheTemplate.set(BuildKeyUtils.generateKey(CacheConstant.CAPTCHA, simpleUUID), captcha.text().toLowerCase(), 1000 * 60L);
         return captchaInfo;
     }
 
     @Override
     public boolean checkCaptcha(String key, String value) {
         if (StrUtil.isBlank(value)) {
-            SparkZxlExceptionAssert.businessFail("请输入验证码");
+            SparkZxlExceptionAssert.businessFail(400, "请输入验证码");
         }
         String cacheKey = BuildKeyUtils.generateKey(CacheConstant.CAPTCHA, key);
         String captchaData = cacheTemplate.get(cacheKey);
         if (StringUtils.isEmpty(captchaData)) {
-            SparkZxlExceptionAssert.businessFail("验证码已过期");
+            SparkZxlExceptionAssert.businessFail(400, "验证码已过期");
         }
         if (!StrUtil.equalsIgnoreCase(value, captchaData)) {
-            SparkZxlExceptionAssert.businessFail("验证码不正确");
+            SparkZxlExceptionAssert.businessFail(400, "验证码不正确");
         }
         cacheTemplate.remove(cacheKey);
         return true;
