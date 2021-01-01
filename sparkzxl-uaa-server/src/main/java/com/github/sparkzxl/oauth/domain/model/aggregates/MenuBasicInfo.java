@@ -1,6 +1,7 @@
 package com.github.sparkzxl.oauth.domain.model.aggregates;
 
 import com.github.sparkzxl.core.tree.TreeNode;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,5 +19,14 @@ import java.io.Serializable;
 public class MenuBasicInfo extends TreeNode<MenuBasicInfo,Long> implements Serializable {
 
     private static final long serialVersionUID = 1126107430728988729L;
+
+    @ApiModelProperty(value = "路径")
+    private String path;
+
+    @ApiModelProperty(value = "组件")
+    private String component;
+
+    @ApiModelProperty(value = "菜单图标")
+    private String icon;
 
 }

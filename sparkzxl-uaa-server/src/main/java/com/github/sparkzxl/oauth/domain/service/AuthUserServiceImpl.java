@@ -10,8 +10,10 @@ import com.github.sparkzxl.core.context.BaseContextHandler;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.entity.RemoteData;
 import com.github.sparkzxl.database.utils.PageInfoUtils;
+import com.github.sparkzxl.oauth.application.service.IAuthMenuService;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
 import com.github.sparkzxl.oauth.domain.model.aggregates.AuthUserBasicInfo;
+import com.github.sparkzxl.oauth.domain.model.aggregates.MenuBasicInfo;
 import com.github.sparkzxl.oauth.domain.model.vo.AuthUserBasicVO;
 import com.github.sparkzxl.oauth.domain.repository.IAuthUserRepository;
 import com.github.sparkzxl.oauth.entity.AuthUserDetail;
@@ -49,6 +51,8 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     private IAuthUserRepository authUserRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private IAuthMenuService authMenuService;
 
     @Override
     public AuthUserDTO getAuthUser(Long id) {
@@ -193,5 +197,10 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
         Long userId = BaseContextHandler.getUserId(Long.TYPE);
         AuthUserBasicInfo authUserBasicInfo = authUserRepository.getAuthUserBasicInfo(userId);
         return AuthUserConvert.INSTANCE.convertAuthUserBasicVO(authUserBasicInfo);
+    }
+
+    @Override
+    public List<MenuBasicInfo> routers() {
+        return authMenuService.routers();
     }
 }

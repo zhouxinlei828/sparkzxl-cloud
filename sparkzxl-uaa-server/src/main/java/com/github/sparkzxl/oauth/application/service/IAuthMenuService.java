@@ -1,6 +1,7 @@
 package com.github.sparkzxl.oauth.application.service;
 
 
+import com.github.sparkzxl.oauth.domain.model.aggregates.MenuBasicInfo;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthMenu;
 import com.github.sparkzxl.database.base.service.SuperCacheService;
 
@@ -27,4 +28,10 @@ public interface IAuthMenuService extends SuperCacheService<AuthMenu> {
      * @return
      */
     boolean deleteMenu(List<Long> ids);
+
+    /**
+     * 查询用户路由菜单
+     * @return List<MenuBasicInfo>
+     */
+    List<MenuBasicInfo> routers();
 }

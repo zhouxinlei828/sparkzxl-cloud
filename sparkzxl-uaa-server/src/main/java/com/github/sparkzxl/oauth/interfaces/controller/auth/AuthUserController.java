@@ -2,6 +2,7 @@ package com.github.sparkzxl.oauth.interfaces.controller.auth;
 
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.oauth.application.service.IAuthUserService;
+import com.github.sparkzxl.oauth.domain.model.aggregates.MenuBasicInfo;
 import com.github.sparkzxl.oauth.domain.model.vo.AuthUserBasicVO;
 import com.github.sparkzxl.oauth.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.oauth.infrastructure.entity.LoginAuthUser;
@@ -83,6 +84,12 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
     public boolean handlerDelete(List<Long> ids) {
         baseService.deleteUserRelation(ids);
         return true;
+    }
+
+    @ApiOperation(value = "用户路由菜单", notes = "用户路由菜单")
+    @GetMapping("/routers")
+    public List<MenuBasicInfo> routers() {
+        return baseService.routers();
     }
 
     @ApiOperation("获取登录用户全量信息")

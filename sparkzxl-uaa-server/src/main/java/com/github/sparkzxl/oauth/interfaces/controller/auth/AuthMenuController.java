@@ -54,5 +54,4 @@ public class AuthMenuController extends SuperCacheController<IAuthMenuService, L
     public boolean deleteMenu(@RequestBody DeleteDTO deleteDTO) {
         return baseService.deleteMenu(deleteDTO.getIds());
     }
-
 }

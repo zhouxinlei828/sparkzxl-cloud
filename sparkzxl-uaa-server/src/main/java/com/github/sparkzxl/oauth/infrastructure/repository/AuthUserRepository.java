@@ -181,6 +181,9 @@ public class AuthUserRepository implements IAuthUserRepository {
                     parentOrgBasicInfo.setParentId(coreOrg.getParentId());
                     parentOrgBasicInfo.setSortValue(coreOrg.getSortValue());
                     orgTreeList.add(parentOrgBasicInfo);
+                    authUserBasicInfo.setOrgName(coreOrg.getLabel().concat("-").concat(data.getLabel()));
+                }else {
+                    authUserBasicInfo.setOrgName(data.getLabel());
                 }
                 authUserBasicInfo.setOrg(TreeUtils.buildTree(orgTreeList));
             }
@@ -194,9 +197,9 @@ public class AuthUserRepository implements IAuthUserRepository {
         authUserBasicInfo.setRoleBasicInfos(roleBasicInfos);
         List<RoleAuthority> roleAuthorities =
                 roleAuthorityMapper.selectList(new LambdaQueryWrapper<RoleAuthority>().in(RoleAuthority::getRoleId, roleIds)
-                        .groupBy(RoleAuthority::getAuthorityId, RoleAuthority::getAuthorityType, RoleAuthority::getRoleId));
-        List<Long> authorityIds = roleAuthorities.stream().filter(x -> "RESOURCE".equals(x.getAuthorityType()))
-                .map(RoleAuthority::getAuthorityId).collect(Collectors.toList());
+                        .eq(RoleAuthority::getAuthorityType,"RESOURCE")
+                        .groupBy(RoleAuthority::getAuthorityId, RoleAuthority::getRoleId));
+        List<Long> authorityIds = roleAuthorities.stream().map(RoleAuthority::getAuthorityId).collect(Collectors.toList());
         Map<Long, Long> roleAuthorityIdMap =
                 roleAuthorities.stream().collect(Collectors.toMap(RoleAuthority::getAuthorityId, RoleAuthority::getRoleId));
         // 获取用户资源列表
@@ -212,24 +215,6 @@ public class AuthUserRepository implements IAuthUserRepository {
             });
         }
         authUserBasicInfo.setResourceBasicInfos(resourceBasicInfos);
-
-        List<Long> menuIds = roleAuthorities.stream().filter(x -> "MENU".equals(x.getAuthorityType()))
-                .map(RoleAuthority::getAuthorityId).collect(Collectors.toList());
-
-        List<AuthMenu> menuList = authMenuMapper.selectBatchIds(menuIds);
-        List<MenuBasicInfo> menuBasicInfos = Lists.newArrayList();
-        if (CollectionUtils.isNotEmpty(menuList)) {
-            menuList.forEach(menu -> {
-                MenuBasicInfo menuBasicInfo = new MenuBasicInfo();
-                menuBasicInfo.setId(menu.getId());
-                menuBasicInfo.setLabel(menu.getLabel());
-                menuBasicInfo.setParentId(menu.getParentId());
-                menuBasicInfo.setSortValue(menu.getSortValue());
-                menuBasicInfos.add(menuBasicInfo);
-            });
-            authUserBasicInfo.setMenuBasicInfos(menuBasicInfos);
-            authUserBasicInfo.setMenuTree(TreeUtils.buildTree(menuBasicInfos));
-        }
         return authUserBasicInfo;
     }
 }

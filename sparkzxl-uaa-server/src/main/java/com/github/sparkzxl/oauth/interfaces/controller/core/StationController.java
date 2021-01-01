@@ -60,8 +60,8 @@ public class StationController {
     }
 
     @ApiOperation("删除岗位")
-    @DeleteMapping("/station/{id}")
-    public boolean updateCoreStation(@PathVariable("id") Long id) {
+    @DeleteMapping("/station")
+    public boolean updateCoreStation(@RequestParam("id") Long id) {
         return stationService.removeById(id);
     }
 

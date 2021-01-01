@@ -29,6 +29,9 @@ public class AuthUserBasicInfo {
     @ApiModelProperty(value = "组织")
     private List<OrgBasicInfo> org;
 
+    @ApiModelProperty(value = "组织全称")
+    private String orgName;
+
     @ApiModelProperty(value = "岗位")
     private StationBasicInfo station;
 
@@ -67,11 +70,5 @@ public class AuthUserBasicInfo {
 
     @ApiModelProperty(value = "资源树")
     private List<ResourceBasicInfo> resourceBasicInfos;
-
-    @ApiModelProperty(value = "菜单列表")
-    private List<MenuBasicInfo> menuBasicInfos;
-
-    @ApiModelProperty(value = "菜单树")
-    private List<MenuBasicInfo> menuTree;
 
 }

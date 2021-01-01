@@ -1,6 +1,7 @@
 package com.github.sparkzxl.oauth.application.service;
 
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.oauth.domain.model.aggregates.MenuBasicInfo;
 import com.github.sparkzxl.oauth.domain.model.vo.AuthUserBasicVO;
 import com.github.sparkzxl.oauth.infrastructure.entity.LoginAuthUser;
 import com.github.sparkzxl.oauth.infrastructure.entity.UserActivities;
@@ -116,4 +117,10 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * @return AuthUserBasicVO
      */
     AuthUserBasicVO getAuthUserBasicInfo();
+
+    /**
+     * 用户菜单
+     * @return List<MenuBasicInfo>
+     */
+    List<MenuBasicInfo> routers();
 }

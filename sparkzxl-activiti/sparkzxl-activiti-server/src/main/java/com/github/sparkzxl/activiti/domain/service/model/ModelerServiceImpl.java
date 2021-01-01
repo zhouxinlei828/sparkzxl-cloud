@@ -123,7 +123,9 @@ public class ModelerServiceImpl implements IModelerService {
             try {
                 //参数不加true:为普通删除，如果当前规则下有正在执行的流程，则抛异常
                 //参数加true:为级联删除,会删除和当前规则相关的所有信息，包括历史
-                repositoryService.deleteDeployment(modelData.getDeploymentId(), true);
+                if (StringUtils.isNotEmpty(modelData.getDeploymentId())){
+                    repositoryService.deleteDeployment(modelData.getDeploymentId(), true);
+                }
                 return true;
             } catch (Exception e) {
                 log.error("撤销已部署流程服务异常：{}", e.getMessage());
