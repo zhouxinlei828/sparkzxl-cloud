@@ -1,6 +1,7 @@
 package com.github.sparkzxl.oauth.infrastructure.repository;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ReUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -54,9 +55,15 @@ public class AuthUserRepository implements IAuthUserRepository {
     @Override
     @InjectionResult
     public AuthUser selectByAccount(String account) {
+        String pattern = "^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$";
+        boolean isMatch = ReUtil.isMatch(pattern, account);
         QueryWrapper<AuthUser> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(AuthUser::getAccount, account);
-        queryWrapper.lambda().eq(AuthUser::getStatus, 1);
+        if (isMatch) {
+            queryWrapper.lambda().eq(AuthUser::getMobile, account);
+        } else {
+            queryWrapper.lambda().eq(AuthUser::getAccount, account);
+        }
+        queryWrapper.lambda().eq(AuthUser::getStatus, true);
         return authUserMapper.selectOne(queryWrapper);
     }
 
@@ -182,7 +189,7 @@ public class AuthUserRepository implements IAuthUserRepository {
                     parentOrgBasicInfo.setSortValue(coreOrg.getSortValue());
                     orgTreeList.add(parentOrgBasicInfo);
                     authUserBasicInfo.setOrgName(coreOrg.getLabel().concat("-").concat(data.getLabel()));
-                }else {
+                } else {
                     authUserBasicInfo.setOrgName(data.getLabel());
                 }
                 authUserBasicInfo.setOrg(TreeUtils.buildTree(orgTreeList));
@@ -197,7 +204,7 @@ public class AuthUserRepository implements IAuthUserRepository {
         authUserBasicInfo.setRoleBasicInfos(roleBasicInfos);
         List<RoleAuthority> roleAuthorities =
                 roleAuthorityMapper.selectList(new LambdaQueryWrapper<RoleAuthority>().in(RoleAuthority::getRoleId, roleIds)
-                        .eq(RoleAuthority::getAuthorityType,"RESOURCE")
+                        .eq(RoleAuthority::getAuthorityType, "RESOURCE")
                         .groupBy(RoleAuthority::getAuthorityId, RoleAuthority::getRoleId));
         List<Long> authorityIds = roleAuthorities.stream().map(RoleAuthority::getAuthorityId).collect(Collectors.toList());
         Map<Long, Long> roleAuthorityIdMap =

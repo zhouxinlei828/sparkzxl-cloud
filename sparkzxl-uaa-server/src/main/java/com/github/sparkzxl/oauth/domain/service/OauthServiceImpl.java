@@ -148,7 +148,7 @@ public class OauthServiceImpl implements OauthService {
         String simpleUUID = IdUtil.simpleUUID();
         captchaInfo.setKey(simpleUUID);
         captchaInfo.setData(captcha.toBase64());
-        cacheTemplate.set(BuildKeyUtils.generateKey(CacheConstant.CAPTCHA, simpleUUID), captcha.text().toLowerCase(), 1000 * 60L);
+        cacheTemplate.set(BuildKeyUtils.generateKey(CacheConstant.CAPTCHA, simpleUUID), captcha.text().toLowerCase(), 60L);
         return captchaInfo;
     }
 
