@@ -2,6 +2,7 @@ package com.github.sparkzxl.file.domain.service;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
+import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.core.utils.Mht2HtmlUtil;
 import com.github.sparkzxl.file.application.service.IFileService;
 import com.github.sparkzxl.file.dto.FileDTO;
@@ -9,6 +10,7 @@ import com.github.sparkzxl.file.infrastructure.entity.FileMaterial;
 import com.github.sparkzxl.file.domain.repository.IFileMaterialRepository;
 import com.github.sparkzxl.file.infrastructure.convert.FileMaterialConvert;
 import com.github.sparkzxl.file.interfaces.dto.FileMaterialDTO;
+import com.github.sparkzxl.file.interfaces.dto.FileMaterialPageDTO;
 import com.github.sparkzxl.oss.service.OssTemplate;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,6 +61,14 @@ public class FileServiceImpl implements IFileService {
             log.info("文件上传结果 result is {}", result);
         }
         return FileMaterialConvert.INSTANCE.convertFileMaterialDTO(fileMaterial);
+    }
+
+    @Override
+    public PageInfo<FileMaterial> fileMaterialPageList(FileMaterialPageDTO fileMaterialPageDTO) {
+        return fileMaterialRepository.fileMaterialPageList(fileMaterialPageDTO.getPageNum(),
+                fileMaterialPageDTO.getPageSize(),
+                fileMaterialPageDTO.getFileName(),
+                fileMaterialPageDTO.getContentType());
     }
 
     @Override

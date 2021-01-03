@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("c_core_org")
+@TableName("u_core_org")
 @ApiModel(value = "CCoreOrgDO对象", description = "组织")
 public class CoreOrg extends TreeEntity<CoreOrg, Long> {
 

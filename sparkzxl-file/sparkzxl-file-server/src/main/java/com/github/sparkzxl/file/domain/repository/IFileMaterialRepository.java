@@ -1,5 +1,6 @@
 package com.github.sparkzxl.file.domain.repository;
 
+import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.file.infrastructure.entity.FileMaterial;
 
 /**
@@ -41,4 +42,14 @@ public interface IFileMaterialRepository {
      * @return FileMaterial
      */
     FileMaterial selectByFilePath(String filePath);
+
+    /**
+     *  分页查询附件列表
+     * @param pageNum 当前页
+     * @param pageSize 页面大小
+     * @param fileName 文件名
+     * @param contentType 媒体类型
+     * @return PageInfo<FileMaterial>
+     */
+    PageInfo<FileMaterial> fileMaterialPageList(int pageNum, int pageSize, String fileName, String contentType);
 }

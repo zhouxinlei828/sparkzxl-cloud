@@ -1,7 +1,10 @@
 package com.github.sparkzxl.file.interfaces.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.file.api.FileApi;
 import com.github.sparkzxl.file.dto.FileDTO;
+import com.github.sparkzxl.file.infrastructure.entity.FileMaterial;
+import com.github.sparkzxl.file.interfaces.dto.FileMaterialPageDTO;
 import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import com.github.sparkzxl.file.application.service.IFileService;
@@ -35,6 +38,12 @@ public class FileController implements FileApi {
     @PostMapping("/file/upload")
     public FileMaterialDTO upload(@RequestParam("file") MultipartFile multipartFile) throws Exception {
         return fileService.upload(multipartFile);
+    }
+
+    @ApiOperation("分页查询文件列表")
+    @GetMapping("file/page")
+    public PageInfo<FileMaterial> fileMaterialPageList(FileMaterialPageDTO fileMaterialPageDTO) {
+        return fileService.fileMaterialPageList(fileMaterialPageDTO);
     }
 
     @ApiOperation("删除文件")

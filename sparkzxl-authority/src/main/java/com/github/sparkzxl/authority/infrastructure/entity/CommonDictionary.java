@@ -18,7 +18,7 @@ import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE_RIGHT;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("c_common_dictionary")
+@TableName("u_common_dictionary")
 @ApiModel(value = "CCommonDictionary对象", description = "字典类型")
 public class CommonDictionary extends Entity<Long> {
 

@@ -1,8 +1,11 @@
 package com.github.sparkzxl.file.application.service;
 
+import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.core.support.BusinessException;
 import com.github.sparkzxl.file.dto.FileDTO;
+import com.github.sparkzxl.file.infrastructure.entity.FileMaterial;
 import com.github.sparkzxl.file.interfaces.dto.FileMaterialDTO;
+import com.github.sparkzxl.file.interfaces.dto.FileMaterialPageDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -40,4 +43,12 @@ public interface IFileService {
      * @throws Exception
      */
     FileDTO getHtml(FileDTO fileDTO) throws Exception;
+
+    /**
+     * 分页查询文件列表
+     *
+     * @param fileMaterialPageDTO 文件分页查询入参
+     * @return PageInfo<FileMaterial>
+     */
+    PageInfo<FileMaterial> fileMaterialPageList(FileMaterialPageDTO fileMaterialPageDTO);
 }

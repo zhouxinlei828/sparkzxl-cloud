@@ -1,10 +1,15 @@
 package com.github.sparkzxl.file.infrastructure.repository;
 
 import cn.hutool.core.io.FileUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.database.utils.PageInfoUtils;
 import com.github.sparkzxl.file.infrastructure.mapper.FileMaterialMapper;
 import com.github.sparkzxl.file.infrastructure.entity.FileMaterial;
 import com.github.sparkzxl.file.domain.repository.IFileMaterialRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -49,5 +54,19 @@ public class FileMaterialRepository implements IFileMaterialRepository {
         QueryWrapper<FileMaterial> materialQueryWrapper = new QueryWrapper<>();
         materialQueryWrapper.eq("file_path", filePath);
         return fileMaterialMapper.selectOne(materialQueryWrapper);
+    }
+
+
+    @Override
+    public PageInfo<FileMaterial> fileMaterialPageList(int pageNum, int pageSize, String fileName, String contentType) {
+        LambdaQueryWrapper<FileMaterial> materialQueryWrapper = new LambdaQueryWrapper<>();
+        if (StringUtils.isNotEmpty(fileName)) {
+            materialQueryWrapper.likeRight(FileMaterial::getFileName, fileName);
+        }
+        if (StringUtils.isNotEmpty(contentType)) {
+            materialQueryWrapper.eq(FileMaterial::getContentType, contentType);
+        }
+        PageHelper.startPage(pageNum, pageSize);
+        return PageInfoUtils.pageInfo(fileMaterialMapper.selectList(materialQueryWrapper));
     }
 }

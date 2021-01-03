@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("c_auth_menu")
+@TableName("u_auth_menu")
 @ApiModel(value = "CAuthMenuDO对象", description = "菜单")
 public class AuthMenu extends TreeEntity<AuthMenu, Long> {
 

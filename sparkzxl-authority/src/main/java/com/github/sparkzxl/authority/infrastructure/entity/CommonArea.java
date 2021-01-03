@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("c_common_area")
+@TableName("u_common_area")
 @ApiModel(value = "CCommonArea对象", description = "地区表")
 public class CommonArea extends TreeEntity<CommonArea, Long> {
 

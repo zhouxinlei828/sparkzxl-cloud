@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("c_auth_role")
+@TableName("u_auth_role")
 @ApiModel(value="CAuthRoleDO对象", description="角色")
 public class AuthRole extends Entity<Long> {
 

@@ -24,9 +24,9 @@ public interface AuthResourceMapper extends SuperMapper<AuthResource> {
      * @return
      */
     @Select("SELECT id, create_user, create_time, update_user, update_time, code, name, menu_id, describe"
-            + " from c_auth_resource where "
-            + " id in (SELECT authority_id FROM c_auth_role_authority ra INNER JOIN c_auth_user_role ur on ra.role_id = ur.role_id "
-            + " INNER JOIN c_auth_role r on r.id = ra.role_id "
+            + " from u_auth_resource where "
+            + " id in (SELECT authority_id FROM u_auth_role_authority ra INNER JOIN u_auth_user_role ur on ra.role_id = ur.role_id "
+            + " INNER JOIN u_auth_role r on r.id = ra.role_id "
             + " where ur.user_id = #{userId, jdbcType=BIGINT} and r.`status` = true "
             + " and ra.authority_type = 'RESOURCE')")
     List<AuthResource> findVisibleResource(Long userId, Long menuId);

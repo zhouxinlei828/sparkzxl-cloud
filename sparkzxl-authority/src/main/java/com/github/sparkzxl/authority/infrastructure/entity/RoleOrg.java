@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("c_auth_role_org")
+@TableName("u_auth_role_org")
 @ApiModel(value = "CAuthRoleOrg对象", description = "角色组织关系")
 public class RoleOrg implements Serializable {
 

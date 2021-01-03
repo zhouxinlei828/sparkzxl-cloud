@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("c_auth_role_authority")
+@TableName("u_auth_role_authority")
 @ApiModel(value = "CAuthRoleAuthority对象", description = "角色的资源")
 public class RoleAuthority extends SuperEntity<Long> {
 

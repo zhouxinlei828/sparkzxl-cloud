@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("c_auth_resource")
+@TableName("u_auth_resource")
 @ApiModel(value = "CAuthResourceDO对象", description = "资源")
 public class AuthResource extends Entity<Long> {
 
