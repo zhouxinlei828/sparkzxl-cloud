@@ -79,7 +79,7 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
         int actType = driverProcessDTO.getActType();
         AbstractActivitiSolver activitiSolver = activitiSolverChooser.chooser(actType);
         DriveProcess driveProcess = ActivitiDriverConvert.INSTANCE.convertDriveProcess(driverProcessDTO);
-        return activitiSolver.slove(driveProcess);
+        return activitiSolver.slove(driverProcessDTO.getBusinessId(), driveProcess);
     }
 
     @Override

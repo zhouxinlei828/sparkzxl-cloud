@@ -16,7 +16,7 @@ public abstract class AbstractActivitiSolver {
      * @param driveProcess 驱动model
      * @return DriverResult
      */
-    public abstract DriverResult slove(DriveProcess driveProcess);
+    public abstract DriverResult slove(String businessId, DriveProcess driveProcess);
 
     /**
      * 流程类型支持
