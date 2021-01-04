@@ -196,4 +196,10 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
         }
         return true;
     }
+
+    @Override
+    public boolean suspendProcessByProcessInstanceId(String processInstanceId) {
+        processRuntimeService.suspendProcessInstanceById(processInstanceId);
+        return true;
+    }
 }

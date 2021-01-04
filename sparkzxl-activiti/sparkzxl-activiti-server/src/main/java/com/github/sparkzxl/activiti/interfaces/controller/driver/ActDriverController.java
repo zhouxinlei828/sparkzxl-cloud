@@ -59,6 +59,12 @@ public class ActDriverController implements ActivitiDriverApi {
         return activitiDriverService.suspendProcess(businessId);
     }
 
+    @ApiOperation("根据流程实例id挂起流程")
+    @DeleteMapping("/suspendProcessByProcessInstanceId")
+    boolean suspendProcessByProcessInstanceId(@RequestParam("processInstanceId") String processInstanceId) {
+        return activitiDriverService.suspendProcessByProcessInstanceId(processInstanceId);
+    }
+
     @Override
     public boolean deleteProcessInstance(String businessId, String deleteReason) {
         return activitiDriverService.deleteProcessInstance(businessId, deleteReason);
@@ -67,14 +73,14 @@ public class ActDriverController implements ActivitiDriverApi {
     /**
      * 删除流程
      *
-     * @param processInstanceId   业务主键
-     * @param deleteReason 删除原因
+     * @param processInstanceId 业务主键
+     * @param deleteReason      删除原因
      * @return boolean
      */
     @ApiOperation("根据流程实例id删除流程实例")
     @DeleteMapping("/deleteProcessByProcInsId")
     boolean deleteProcessByProcInsId(@RequestParam("processInstanceId") String processInstanceId,
-                                  @RequestParam("deleteReason") String deleteReason){
+                                     @RequestParam("deleteReason") String deleteReason) {
         return activitiDriverService.deleteProcessByProcInsId(processInstanceId, deleteReason);
 
     }

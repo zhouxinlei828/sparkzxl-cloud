@@ -132,6 +132,11 @@ public interface IProcessRuntimeService {
     boolean suspendProcess(String businessId);
 
     /**
+     * 根据流程实例id挂起流程
+     * @param processInstanceId 流程实例id
+     */
+    void suspendProcessInstanceById(String processInstanceId);
+    /**
      * 删除流程实例
      *
      * @param processInstanceId 流程实例id
