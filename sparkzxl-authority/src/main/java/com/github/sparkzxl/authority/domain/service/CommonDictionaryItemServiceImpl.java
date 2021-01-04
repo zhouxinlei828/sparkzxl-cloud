@@ -82,6 +82,15 @@ public class CommonDictionaryItemServiceImpl extends AbstractSuperCacheServiceIm
     }
 
     @Override
+    public CommonDictionaryItem getDictionaryItemByName(String name) {
+        LambdaQueryWrapper<CommonDictionaryItem> dictionaryItemLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getName,name);
+        dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getStatus, true)
+                .last("limit 1");
+        return getOne(dictionaryItemLambdaQueryWrapper);
+    }
+
+    @Override
     protected String getRegion() {
         return CacheConstant.DICTIONARY_ITEM;
     }

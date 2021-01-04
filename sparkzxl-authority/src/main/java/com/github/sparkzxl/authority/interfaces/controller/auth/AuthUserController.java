@@ -16,6 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -106,5 +107,12 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
     public boolean mockUserData() {
         return baseService.mockUserData();
     }
+
+    @ApiOperation("Excel导入用户数据")
+    @GetMapping("/importUserData")
+    public Integer importUserData(@RequestParam("file") MultipartFile multipartFile) {
+        return baseService.importUserData(multipartFile);
+    }
+
 
 }

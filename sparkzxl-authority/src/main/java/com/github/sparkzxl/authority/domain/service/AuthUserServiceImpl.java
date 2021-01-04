@@ -2,10 +2,14 @@ package com.github.sparkzxl.authority.domain.service;
 
 import cn.hutool.extra.pinyin.PinyinUtil;
 import cn.hutool.json.JSONUtil;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.javafaker.Faker;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.authority.application.event.ImportUserDataListener;
+import com.github.sparkzxl.authority.application.service.*;
+import com.github.sparkzxl.authority.domain.model.aggregates.UserExcel;
 import com.github.sparkzxl.authority.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.authority.infrastructure.entity.CoreOrg;
 import com.github.sparkzxl.authority.infrastructure.entity.CoreStation;
@@ -13,8 +17,6 @@ import com.github.sparkzxl.core.context.BaseContextHandler;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.entity.RemoteData;
 import com.github.sparkzxl.database.utils.PageInfoUtils;
-import com.github.sparkzxl.authority.application.service.IAuthMenuService;
-import com.github.sparkzxl.authority.application.service.IAuthUserService;
 import com.github.sparkzxl.authority.domain.model.aggregates.AuthUserBasicInfo;
 import com.github.sparkzxl.authority.domain.model.aggregates.MenuBasicInfo;
 import com.github.sparkzxl.authority.domain.model.vo.AuthUserBasicVO;
@@ -35,7 +37,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -54,6 +60,12 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     private PasswordEncoder passwordEncoder;
     @Autowired
     private IAuthMenuService authMenuService;
+    @Autowired
+    private ICoreStationService coreStationService;
+    @Autowired
+    private ICoreOrgService coreOrgService;
+    @Autowired
+    private ICommonDictionaryItemService dictionaryItemService;
 
     @Override
     public AuthUserDTO getAuthUser(Long id) {
@@ -157,7 +169,7 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
             userInfo.setEmail(email);
             if (i % 2 == 0) {
                 userInfo.setSex(SexEnum.MAN);
-            }else {
+            } else {
                 userInfo.setSex(SexEnum.WOMAN);
             }
             userInfo.setStatus(true);
@@ -188,5 +200,24 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     @Override
     public List<MenuBasicInfo> routers() {
         return authMenuService.routers();
+    }
+
+    @Override
+    public Integer importUserData(MultipartFile multipartFile) {
+        ImportUserDataListener importUserDataListener = new ImportUserDataListener();
+        importUserDataListener.setAuthUserService(this);
+        importUserDataListener.setCoreOrgService(coreOrgService);
+        importUserDataListener.setCoreStationService(coreStationService);
+        importUserDataListener.setDictionaryItemService(dictionaryItemService);
+        try {
+            EasyExcel.read(multipartFile.getInputStream(), UserExcel.class, importUserDataListener)
+                    .sheet(0).doRead();
+            return importUserDataListener.getCount();
+        } catch (IOException e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            log.error("读取Excel发生异常：{}", e.getMessage());
+        }
+        return 0;
     }
 }

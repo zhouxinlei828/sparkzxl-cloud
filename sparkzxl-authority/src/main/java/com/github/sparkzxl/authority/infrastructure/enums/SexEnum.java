@@ -47,4 +47,13 @@ public enum SexEnum implements Enumerator {
         return null;
     }
 
+    public static SexEnum getEnum(String desc) {
+        for (SexEnum ele : values()) {
+            if (ele.getDesc() == desc) {
+                return ele;
+            }
+        }
+        return null;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.github.sparkzxl.authority.application.service;
 
 
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.authority.infrastructure.entity.CoreOrg;
 import com.github.sparkzxl.authority.infrastructure.entity.CoreStation;
 import com.github.sparkzxl.authority.interfaces.dto.station.StationPageDTO;
 import com.github.sparkzxl.authority.interfaces.dto.station.StationSaveDTO;
@@ -39,4 +40,11 @@ public interface ICoreStationService extends SuperCacheService<CoreStation> {
      * @return boolean
      */
     boolean updateCoreStation(StationUpdateDTO stationUpdateDTO);
+
+    /**
+     * 根据名称查询岗位信息
+     * @param stationName 岗位名称
+     * @return CoreStation
+     */
+    CoreStation getCoreStationByName(String stationName);
 }

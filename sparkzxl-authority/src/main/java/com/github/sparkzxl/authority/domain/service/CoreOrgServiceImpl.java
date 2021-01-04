@@ -44,6 +44,14 @@ public class CoreOrgServiceImpl extends AbstractSuperCacheServiceImpl<CoreOrgMap
     }
 
     @Override
+    public CoreOrg getCoreOrgByName(String name) {
+        LambdaQueryWrapper<CoreOrg> orgQueryWrapper = new LambdaQueryWrapper<>();
+        orgQueryWrapper.eq(TreeEntity::getLabel, name);
+        orgQueryWrapper.eq(CoreOrg::getStatus, true).last("limit 1");;
+        return getOne(orgQueryWrapper);
+    }
+
+    @Override
     public boolean saveCoreOrg(Long userId, OrgSaveDTO orgSaveDTO) {
         CoreOrg coreOrg = CoreOrgConvert.INSTANCE.convertCoreOrg(orgSaveDTO);
         coreOrg.setCreateUser(userId);

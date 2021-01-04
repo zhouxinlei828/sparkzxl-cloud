@@ -50,7 +50,7 @@ public class FileServiceImpl implements IFileService {
             ossTemplate.multipartUpload("sparkzxl",
                     objectName,
                     multipartFile);
-            String url = ossTemplate.getObjectURL("sparkzxl", objectName);
+            String url = ossTemplate.getObjectUrl("sparkzxl", objectName);
             fileMaterial.setFileName(fileName);
             fileMaterial.setSuffix(extension);
             fileMaterial.setFilePath(url);

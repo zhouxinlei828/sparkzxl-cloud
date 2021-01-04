@@ -1,5 +1,6 @@
 package com.github.sparkzxl.authority.domain.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.database.utils.PageInfoUtils;
 import com.github.sparkzxl.authority.application.service.ICoreStationService;
@@ -44,6 +45,14 @@ public class CoreStationServiceImpl extends AbstractSuperCacheServiceImpl<CoreSt
     public boolean updateCoreStation(StationUpdateDTO stationUpdateDTO) {
         CoreStation coreStation = CoreStationConvert.INSTANCE.convertCoreStation(stationUpdateDTO);
         return updateById(coreStation);
+    }
+
+    @Override
+    public CoreStation getCoreStationByName(String stationName) {
+        LambdaQueryWrapper<CoreStation> stationLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        stationLambdaQueryWrapper.eq(CoreStation::getName,stationName);
+        stationLambdaQueryWrapper.eq(CoreStation::getStatus,true).last("limit 1");;
+        return getOne(stationLambdaQueryWrapper);
     }
 
     @Override

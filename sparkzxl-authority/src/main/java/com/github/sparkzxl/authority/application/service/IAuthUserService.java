@@ -10,6 +10,7 @@ import com.github.sparkzxl.authority.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.authority.interfaces.dto.user.AuthUserPageDTO;
 import com.github.sparkzxl.authority.interfaces.dto.user.AuthUserSaveDTO;
 import com.github.sparkzxl.authority.interfaces.dto.user.AuthUserUpdateDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -111,4 +112,12 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * @return List<MenuBasicInfo>
      */
     List<MenuBasicInfo> routers();
+
+    /**
+     * Excel导入用户数据
+     *
+     * @param multipartFile 文件
+     * @return Integer
+     */
+    Integer importUserData(MultipartFile multipartFile);
 }

@@ -26,6 +26,14 @@ public interface ICoreOrgService extends SuperCacheService<CoreOrg> {
     List<CoreOrg> getCoreOrgList(String name, Boolean status);
 
     /**
+     * 根据名称获取组织信息
+     *
+     * @param name 名称
+     * @return CoreOrg
+     */
+    CoreOrg getCoreOrgByName(String name);
+
+    /**
      * 新增组织
      *
      * @param userId     用户id
