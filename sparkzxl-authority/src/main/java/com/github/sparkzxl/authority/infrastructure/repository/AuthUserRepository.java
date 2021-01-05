@@ -107,6 +107,9 @@ public class AuthUserRepository implements IAuthUserRepository {
         if (ObjectUtils.isNotEmpty(authUser.getNation()) && StringUtils.isNotEmpty(authUser.getNation().getKey())) {
             queryWrapper.eq(AuthUser::getNation, authUser.getNation());
         }
+        if (ObjectUtils.isNotEmpty(authUser.getOrg()) && ObjectUtils.isNotEmpty(authUser.getOrg().getKey())) {
+            queryWrapper.eq(AuthUser::getOrg, authUser.getOrg().getKey());
+        }
         return authUserMapper.selectList(queryWrapper);
     }
 

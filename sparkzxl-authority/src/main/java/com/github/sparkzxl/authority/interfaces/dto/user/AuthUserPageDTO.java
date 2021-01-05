@@ -34,4 +34,7 @@ public class AuthUserPageDTO extends PageDTO {
     @ApiModelProperty(value = "民族")
     private RemoteData<String, String> nation;
 
+    @ApiModelProperty(value = "组织id")
+    private Long orgId;
+
 }

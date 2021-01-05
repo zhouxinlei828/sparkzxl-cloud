@@ -2,6 +2,7 @@ package com.github.sparkzxl.authority.infrastructure.convert;
 
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.authority.infrastructure.entity.AuthUser;
+import com.github.sparkzxl.authority.infrastructure.entity.CoreOrg;
 import com.github.sparkzxl.authority.infrastructure.entity.CoreStation;
 import com.github.sparkzxl.authority.interfaces.dto.user.*;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
@@ -66,7 +67,10 @@ public interface AuthUserConvert {
      * @param authUserPageDTO AuthUserDTO分页查询对象
      * @return AuthUser
      */
-    @Mapping(target = "sex", expression = "java(convertSex(authUserPageDTO.getSex()))")
+    @Mappings({
+            @Mapping(target = "sex", expression = "java(convertSex(authUserPageDTO.getSex()))"),
+            @Mapping(target = "org", expression = "java(convertOrgRemoteData(authUserPageDTO.getOrgId()))")
+    })
     AuthUser convertAuthUser(AuthUserPageDTO authUserPageDTO);
 
     /**
@@ -122,6 +126,13 @@ public interface AuthUserConvert {
             stationBasicInfo.setId(station.getKey());
             stationBasicInfo.setName(station.getData().getName());
             return stationBasicInfo;
+        }
+        return null;
+    }
+
+    default RemoteData<Long,CoreOrg> convertOrgRemoteData(Long orgId) {
+        if (ObjectUtils.isNotEmpty(orgId)) {
+            return new RemoteData<>(orgId);
         }
         return null;
     }
