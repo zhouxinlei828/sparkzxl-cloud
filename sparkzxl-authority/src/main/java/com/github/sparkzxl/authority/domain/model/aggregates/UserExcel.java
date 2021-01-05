@@ -27,7 +27,7 @@ public class UserExcel {
     @ExcelProperty("邮箱")
     private String email;
 
-    @ExcelProperty("手机号")
+    @ExcelProperty("电话")
     private String mobile;
 
     @ExcelProperty("性别")

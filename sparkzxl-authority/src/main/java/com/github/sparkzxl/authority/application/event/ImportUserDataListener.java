@@ -17,6 +17,7 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -37,6 +38,7 @@ public class ImportUserDataListener extends AnalysisEventListener<UserExcel> {
     private ICoreOrgService coreOrgService;
     private ICoreStationService coreStationService;
     private ICommonDictionaryItemService dictionaryItemService;
+    private PasswordEncoder passwordEncoder;
 
     public void setAuthUserService(IAuthUserService authUserService) {
         this.authUserService = authUserService;
@@ -56,6 +58,10 @@ public class ImportUserDataListener extends AnalysisEventListener<UserExcel> {
 
     public Integer getCount() {
         return count.get();
+    }
+
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -86,6 +92,7 @@ public class ImportUserDataListener extends AnalysisEventListener<UserExcel> {
             authUser.setEmail(item.getEmail());
             authUser.setMobile(item.getMobile());
             authUser.setSex(SexEnum.getEnum(item.getSex()));
+            authUser.setPassword(passwordEncoder.encode("123456"));
             if (StringUtils.isNotEmpty(item.getNation())) {
                 CommonDictionaryItem dictionaryItem = dictionaryItemService.getDictionaryItemByName(item.getNation());
                 if (ObjectUtils.isNotEmpty(dictionaryItem)) {

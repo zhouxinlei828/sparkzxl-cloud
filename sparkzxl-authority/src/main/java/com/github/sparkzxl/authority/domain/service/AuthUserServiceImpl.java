@@ -209,6 +209,7 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
         importUserDataListener.setCoreOrgService(coreOrgService);
         importUserDataListener.setCoreStationService(coreStationService);
         importUserDataListener.setDictionaryItemService(dictionaryItemService);
+        importUserDataListener.setPasswordEncoder(passwordEncoder);
         try {
             EasyExcel.read(multipartFile.getInputStream(), UserExcel.class, importUserDataListener)
                     .sheet(0).doRead();

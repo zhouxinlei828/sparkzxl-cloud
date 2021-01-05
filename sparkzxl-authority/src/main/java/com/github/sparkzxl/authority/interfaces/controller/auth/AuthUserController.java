@@ -109,7 +109,7 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
     }
 
     @ApiOperation("Excel导入用户数据")
-    @GetMapping("/importUserData")
+    @PostMapping("/importUserData")
     public Integer importUserData(@RequestParam("file") MultipartFile multipartFile) {
         return baseService.importUserData(multipartFile);
     }

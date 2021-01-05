@@ -49,7 +49,7 @@ public enum SexEnum implements Enumerator {
 
     public static SexEnum getEnum(String desc) {
         for (SexEnum ele : values()) {
-            if (ele.getDesc() == desc) {
+            if (ele.getDesc().equals(desc)) {
                 return ele;
             }
         }

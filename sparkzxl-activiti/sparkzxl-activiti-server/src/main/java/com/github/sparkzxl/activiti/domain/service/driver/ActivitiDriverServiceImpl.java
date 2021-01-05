@@ -178,8 +178,6 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
             processRuntimeService.deleteProcessInstance(processInstanceId, deleteReason);
             extHiTaskStatusService.remove(new LambdaUpdateWrapper<ExtHiTaskStatus>().eq(ExtHiTaskStatus::getProcessInstanceId,
                     processInstanceId));
-            extProcessStatusService.remove(new LambdaUpdateWrapper<ExtProcessStatus>().eq(ExtProcessStatus::getProcessInstanceId,
-                    processInstanceId));
         }
         return true;
     }
