@@ -51,7 +51,7 @@ public class MybatisPlusGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/sparkzxl-oauth/sparkzxl-oauth-server/src/main/java");
+        gc.setOutputDir(projectPath + "/sparkzxl-activiti/sparkzxl-activiti-server/src/main/java");
         gc.setFileOverride(true);
         gc.setSwagger2(true);
         gc.setDateType(DateType.TIME_PACK);
@@ -65,7 +65,7 @@ public class MybatisPlusGenerator {
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl("jdbc:mysql://rm-bp1cp68o8t1gq604p5o.mysql.rds.aliyuncs" +
-                ".com/sparksys_authorization?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8");
+                ".com/activiti?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("zhouxinlei");
         dsc.setPassword("zxl298828");
@@ -73,7 +73,7 @@ public class MybatisPlusGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.github.sparkzxl.oauth");
+        pc.setParent("com.github.sparkzxl.activiti");
         pc.setController("interfaces.controller");
         pc.setService("application.service");
         pc.setServiceImpl("domain.service");
