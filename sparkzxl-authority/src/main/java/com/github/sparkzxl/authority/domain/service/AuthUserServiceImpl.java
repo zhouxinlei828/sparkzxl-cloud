@@ -1,5 +1,6 @@
 package com.github.sparkzxl.authority.domain.service;
 
+import cn.hutool.core.net.URLEncoder;
 import cn.hutool.extra.pinyin.PinyinUtil;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.excel.EasyExcel;
@@ -37,11 +38,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -220,5 +222,19 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
             log.error("读取Excel发生异常：{}", e.getMessage());
         }
         return 0;
+    }
+
+    @Override
+    public void exportUserData(AuthUserPageDTO authUserPageDTO, HttpServletResponse response) throws IOException {
+        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserPageDTO);
+        List<AuthUser> authUserList = authUserRepository.getAuthUserList(authUser);
+        List<UserExcel> userExcels = AuthUserConvert.INSTANCE.convertUserExcels(authUserList);
+        // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+        String fileName = URLEncoder.ALL.encode("测试", StandardCharsets.UTF_8);
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), UserExcel.class).sheet("模板").doWrite(userExcels);
     }
 }

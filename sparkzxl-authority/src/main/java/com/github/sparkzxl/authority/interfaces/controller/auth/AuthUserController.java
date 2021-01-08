@@ -18,7 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -114,5 +116,10 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
         return baseService.importUserData(multipartFile);
     }
 
+    @ApiOperation("Excel导出用户数据")
+    @GetMapping("/exportUserData")
+    public void exportUserData(AuthUserPageDTO authUserPageDTO, HttpServletResponse response) throws IOException {
+        baseService.exportUserData(authUserPageDTO, response);
+    }
 
 }

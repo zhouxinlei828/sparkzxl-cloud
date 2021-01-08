@@ -1,6 +1,7 @@
 package com.github.sparkzxl.authority.infrastructure.convert;
 
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.authority.domain.model.aggregates.UserExcel;
 import com.github.sparkzxl.authority.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.authority.infrastructure.entity.CoreOrg;
 import com.github.sparkzxl.authority.infrastructure.entity.CoreStation;
@@ -12,10 +13,13 @@ import com.github.sparkzxl.authority.domain.model.aggregates.StationBasicInfo;
 import com.github.sparkzxl.authority.domain.model.vo.AuthUserBasicVO;
 import com.github.sparkzxl.authority.infrastructure.enums.SexEnum;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * description: AuthUser对象Convert
@@ -106,6 +110,7 @@ public interface AuthUserConvert {
 
     /**
      * 转换AuthUser为AuthUserBasicInfo
+     *
      * @param authUser 用户实体类
      * @return AuthUserBasicInfo
      */
@@ -115,8 +120,51 @@ public interface AuthUserConvert {
     })
     AuthUserBasicInfo convertAuthUserBasicInfo(AuthUser authUser);
 
+    @Mappings({
+            @Mapping(target = "sex", expression = "java(convertSex(authUser.getSex()))"),
+            @Mapping(target = "nation", expression = "java(convertNation(authUser.getNation()))"),
+            @Mapping(target = "education", expression = "java(convertNation(authUser.getEducation()))"),
+            @Mapping(target = "positionStatus", expression = "java(convertNation(authUser.getPositionStatus()))"),
+            @Mapping(target = "orgName", expression = "java(convertOrg(authUser.getOrg()))"),
+            @Mapping(target = "stationName", expression = "java(convertStation(authUser.getStation()))")
+    })
+    UserExcel convertUserExcel(AuthUser authUser);
+
+
+    List<UserExcel> convertUserExcels(List<AuthUser> authUserList);
+
+    default String convertStation(RemoteData<Long, CoreStation> station) {
+        if (ObjectUtils.isNotEmpty(station) && ObjectUtils.isNotEmpty(station.getData())) {
+            return station.getData().getName();
+        }
+        return null;
+    }
+
+    default String convertOrg(RemoteData<Long, CoreOrg> org) {
+        if (ObjectUtils.isNotEmpty(org) && ObjectUtils.isNotEmpty(org.getData())) {
+            return org.getData().getLabel();
+        }
+        return null;
+    }
+
+
+    default String convertSex(SexEnum sex) {
+        if (ObjectUtils.isNotEmpty(sex)) {
+            return sex.getDesc();
+        }
+        return null;
+    }
+
+    default String convertNation(RemoteData<String, String> nation) {
+        if (ObjectUtils.isNotEmpty(nation) && StringUtils.isNotEmpty(nation.getData())) {
+            return nation.getData();
+        }
+        return null;
+    }
+
     /**
      * 构建职位
+     *
      * @param station 职位实体类
      * @return StationBasicInfo
      */
@@ -130,7 +178,7 @@ public interface AuthUserConvert {
         return null;
     }
 
-    default RemoteData<Long,CoreOrg> convertOrgRemoteData(Long orgId) {
+    default RemoteData<Long, CoreOrg> convertOrgRemoteData(Long orgId) {
         if (ObjectUtils.isNotEmpty(orgId)) {
             return new RemoteData<>(orgId);
         }

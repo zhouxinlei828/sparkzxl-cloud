@@ -12,6 +12,8 @@ import com.github.sparkzxl.authority.interfaces.dto.user.AuthUserSaveDTO;
 import com.github.sparkzxl.authority.interfaces.dto.user.AuthUserUpdateDTO;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -120,4 +122,12 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * @return Integer
      */
     Integer importUserData(MultipartFile multipartFile);
+
+    /**
+     * 导出Excel用户数据
+     *
+     * @param authUserPageDTO
+     * @param response
+     */
+    void exportUserData(AuthUserPageDTO authUserPageDTO, HttpServletResponse response) throws IOException;
 }
