@@ -11,9 +11,8 @@ import com.github.sparkzxl.authority.interfaces.dto.area.AreaUpdateDTO;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,6 +34,12 @@ public class AreaController extends SuperCacheController<ICommonAreaService, Lon
     @GetMapping("/tree")
     public List<CommonArea> getAreaList(AreaQueryDTO areaQueryDTO) {
         return super.baseService.getAreaList(areaQueryDTO);
+    }
+
+    @ApiOperation("导入城市地区信息")
+    @PostMapping("/importAreaJsonData")
+    public boolean importAreaJsonData(@RequestParam("jsonFile") MultipartFile multipartFile) {
+        return super.baseService.importAreaJsonData(multipartFile);
     }
 
 }
