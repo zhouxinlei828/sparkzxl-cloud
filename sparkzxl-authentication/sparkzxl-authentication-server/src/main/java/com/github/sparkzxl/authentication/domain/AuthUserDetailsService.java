@@ -41,6 +41,8 @@ import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountNotFoundException;
 
+import java.util.concurrent.TimeUnit;
+
 import static io.vavr.API.$;
 import static io.vavr.API.Case;
 
@@ -75,9 +77,9 @@ public class AuthUserDetailsService extends AbstractSecurityLoginService<Long> {
     @Override
     public AuthToken login(AuthRequest authRequest) throws AccountNotFoundException, PasswordException {
         String captcha = authRequest.getCaptchaCode();
-        if (StringUtils.isNotEmpty(captcha)){
+        if (StringUtils.isNotEmpty(captcha)) {
             String captchaKey = authRequest.getCaptchaKey();
-            checkCaptcha(captchaKey,captcha);
+            checkCaptcha(captchaKey, captcha);
         }
         return super.login(authRequest);
     }
@@ -94,13 +96,13 @@ public class AuthUserDetailsService extends AbstractSecurityLoginService<Long> {
         authUserInfo.setStatus(authUser.getStatus());
         authUserInfo.setAuthorityList(Lists.newArrayList("admin"));
         String buildKey = BuildKeyUtils.generateKey(BaseContextConstants.AUTH_USER, authToken.getAccessToken());
-        cacheTemplate.set(buildKey, authUserInfo, authToken.getExpiration());
+        cacheTemplate.set(buildKey, authUserInfo, authToken.getExpiration(), TimeUnit.SECONDS);
     }
 
     @Override
     public void checkPasswordError(AuthRequest authRequest, AuthUserDetail<Long> authUserDetail) throws PasswordException {
         //数据库密码比对
-        if (!passwordEncoder.matches(authRequest.getPassword(),authUserDetail.getPassword())) {
+        if (!passwordEncoder.matches(authRequest.getPassword(), authUserDetail.getPassword())) {
             SpringContextUtils.publishEvent(new LoginEvent(LoginStatus.pwdError(authUserDetail.getId(),
                     ResponseResultStatus.PASSWORD_ERROR.getMessage())));
             throw new PasswordException("密码不正确");
@@ -124,7 +126,7 @@ public class AuthUserDetailsService extends AbstractSecurityLoginService<Long> {
         String simpleUUID = IdUtil.simpleUUID();
         captchaInfo.setKey(simpleUUID);
         captchaInfo.setData(captcha.toBase64());
-        cacheTemplate.set(BuildKeyUtils.generateKey(CacheConstant.CAPTCHA, simpleUUID), captcha.text().toLowerCase(), 60L);
+        cacheTemplate.set(BuildKeyUtils.generateKey(CacheConstant.CAPTCHA, simpleUUID), captcha.text().toLowerCase(), 60L, TimeUnit.SECONDS);
         return captchaInfo;
     }
 

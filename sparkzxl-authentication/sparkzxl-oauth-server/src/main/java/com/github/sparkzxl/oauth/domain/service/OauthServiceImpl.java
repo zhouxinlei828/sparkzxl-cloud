@@ -37,6 +37,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static io.vavr.API.$;
 import static io.vavr.API.Case;
@@ -89,9 +90,9 @@ public class OauthServiceImpl implements OauthService {
     @Override
     public OAuth2AccessToken postAccessToken(Principal principal, AuthorizationRequest authorizationRequest) {
         String captcha = authorizationRequest.getCaptchaCode();
-        if (StringUtils.isNotEmpty(captcha)){
+        if (StringUtils.isNotEmpty(captcha)) {
             String captchaKey = authorizationRequest.getCaptchaKey();
-            checkCaptcha(captchaKey,captcha);
+            checkCaptcha(captchaKey, captcha);
         }
         Map<String, String> parameters = builderAccessTokenParameters(authorizationRequest);
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity = tokenEndpoint.postAccessToken(principal, parameters);
@@ -108,7 +109,7 @@ public class OauthServiceImpl implements OauthService {
         AuthUserInfo<Long> authUserInfo = authUserService.getAuthUserInfo(username);
         log.info("AuthUserInfo json is {}", JSONUtil.toJsonPrettyStr(authUserInfo));
         String buildKey = BuildKeyUtils.generateKey(BaseContextConstants.AUTH_USER, oAuth2AccessToken.getValue());
-        cacheTemplate.set(buildKey, authUserInfo, (long) oAuth2AccessToken.getExpiresIn());
+        cacheTemplate.set(buildKey, authUserInfo, (long) oAuth2AccessToken.getExpiresIn(), TimeUnit.SECONDS);
     }
 
     /**
@@ -147,7 +148,7 @@ public class OauthServiceImpl implements OauthService {
         String simpleUUID = IdUtil.simpleUUID();
         captchaInfo.setKey(simpleUUID);
         captchaInfo.setData(captcha.toBase64());
-        cacheTemplate.set(BuildKeyUtils.generateKey(CacheConstant.CAPTCHA, simpleUUID), captcha.text().toLowerCase(), 60L);
+        cacheTemplate.set(BuildKeyUtils.generateKey(CacheConstant.CAPTCHA, simpleUUID), captcha.text().toLowerCase(), 60L, TimeUnit.SECONDS);
         return captchaInfo;
     }
 
