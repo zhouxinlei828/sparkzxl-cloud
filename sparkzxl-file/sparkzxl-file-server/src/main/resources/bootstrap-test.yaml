@@ -13,10 +13,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 47.116.52.58:8086
+        server-addr: 47.114.40.129:8848
         namespace: 2093ac51-9ced-4336-86e3-096d81e3c252
       config:
-        server-addr: 47.116.52.58:8086
+        server-addr: 47.114.40.129:8848
         namespace: 2093ac51-9ced-4336-86e3-096d81e3c252
         file-extension: yaml
         prefix: ${spring.application.name}
