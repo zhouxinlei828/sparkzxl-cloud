@@ -2,7 +2,6 @@ package com.github.sparkzxl.oauth.domain.service;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import com.github.sparkzxl.authority.application.service.IAuthUserService;
 import com.github.sparkzxl.authority.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.cache.template.CacheTemplate;
@@ -30,6 +29,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
@@ -58,6 +58,8 @@ public class OauthServiceImpl implements OauthService {
     private CacheTemplate cacheTemplate;
     @Autowired
     private IAuthUserService authUserService;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     @SneakyThrows
     @Override
@@ -107,9 +109,9 @@ public class OauthServiceImpl implements OauthService {
      */
     private void accessToken(String username, OAuth2AccessToken oAuth2AccessToken) {
         AuthUserInfo<Long> authUserInfo = authUserService.getAuthUserInfo(username);
-        log.info("AuthUserInfo json is {}", JSONUtil.toJsonPrettyStr(authUserInfo));
-        String buildKey = BuildKeyUtils.generateKey(BaseContextConstants.AUTH_USER, oAuth2AccessToken.getValue());
-        cacheTemplate.set(buildKey, authUserInfo, (long) oAuth2AccessToken.getExpiresIn(), TimeUnit.SECONDS);
+        String authUserInfoKey = BuildKeyUtils.generateKey(BaseContextConstants.AUTH_USER_TOKEN, authUserInfo.getId());
+        redisTemplate.opsForHash().put(authUserInfoKey, oAuth2AccessToken.getValue(), authUserInfo);
+        redisTemplate.expire(authUserInfoKey, oAuth2AccessToken.getExpiresIn(), TimeUnit.SECONDS);
     }
 
     /**

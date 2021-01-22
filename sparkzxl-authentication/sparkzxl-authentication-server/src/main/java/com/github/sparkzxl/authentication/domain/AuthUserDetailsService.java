@@ -14,7 +14,6 @@ import com.github.sparkzxl.core.spring.SpringContextUtils;
 import com.github.sparkzxl.core.support.ResponseResultStatus;
 import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import com.github.sparkzxl.core.utils.BuildKeyUtils;
-import com.github.sparkzxl.core.utils.HuSecretUtils;
 import com.github.sparkzxl.jwt.properties.JwtProperties;
 import com.github.sparkzxl.jwt.service.JwtTokenService;
 import com.github.sparkzxl.security.entity.AuthRequest;
@@ -35,6 +34,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.openssl.PasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -61,6 +61,9 @@ public class AuthUserDetailsService extends AbstractSecurityLoginService<Long> {
 
     @Autowired
     private CacheTemplate cacheTemplate;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
     private JwtProperties jwtProperties;
@@ -95,8 +98,10 @@ public class AuthUserDetailsService extends AbstractSecurityLoginService<Long> {
         authUserInfo.setName(authUser.getName());
         authUserInfo.setStatus(authUser.getStatus());
         authUserInfo.setAuthorityList(Lists.newArrayList("admin"));
-        String buildKey = BuildKeyUtils.generateKey(BaseContextConstants.AUTH_USER, authToken.getAccessToken());
-        cacheTemplate.set(buildKey, authUserInfo, authToken.getExpiration(), TimeUnit.SECONDS);
+        String authUserInfoKey = BuildKeyUtils.generateKey(BaseContextConstants.AUTH_USER_TOKEN, authUserInfo.getId());
+        Long expiration = authToken.getExpiration();
+        redisTemplate.opsForHash().put(authUserInfoKey, authToken.getAccessToken(), authUserInfo);
+        redisTemplate.expire(authUserInfoKey, expiration, TimeUnit.SECONDS);
     }
 
     @Override
