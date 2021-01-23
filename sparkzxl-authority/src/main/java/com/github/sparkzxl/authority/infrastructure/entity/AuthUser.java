@@ -1,8 +1,6 @@
 package com.github.sparkzxl.authority.infrastructure.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.sparkzxl.authority.infrastructure.constant.DictionaryType;
@@ -38,22 +36,22 @@ public class AuthUser extends Entity<Long> {
 
     private static final long serialVersionUID = -2722880054053904869L;
 
-    @ApiModelProperty(value = "id")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private Long id;
-
     @ApiModelProperty(value = "账号")
     @TableField("account")
     private String account;
+
+    @ApiModelProperty(value = "姓名")
+    @TableField(value = "name", condition = LIKE_RIGHT)
+    private String name;
 
     @ApiModelProperty(value = "密码")
     @TableField("password")
     @JsonIgnore
     private String password;
 
-    @ApiModelProperty(value = "姓名")
-    @TableField(value = "name", condition = LIKE_RIGHT)
-    private String name;
+    @ApiModelProperty(value = "上级id")
+    @TableField("superior_id")
+    private long superiorId;
 
     @ApiModelProperty(value = "组织ID")
     @TableField("org_id")

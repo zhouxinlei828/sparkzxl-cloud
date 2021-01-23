@@ -33,7 +33,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.openssl.PasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -71,8 +70,7 @@ public class AuthUserDetailsService extends AbstractSecurityLoginService<Long> {
     private JwtTokenService<Long> jwtTokenService;
 
     @Autowired
-    @Qualifier("oauthUserDetailsService")
-    private UserDetailsService userDetailsService;
+    private UserDetailsService oauthUserDetailsService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -164,6 +162,6 @@ public class AuthUserDetailsService extends AbstractSecurityLoginService<Long> {
 
     @Override
     public UserDetailsService getUserDetailsService() {
-        return this.userDetailsService;
+        return this.oauthUserDetailsService;
     }
 }

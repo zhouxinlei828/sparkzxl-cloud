@@ -232,8 +232,9 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
         // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
         response.setContentType("application/vnd.ms-excel");
         response.setCharacterEncoding("utf-8");
-        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
-        String fileName = URLEncoder.ALL.encode("测试", StandardCharsets.UTF_8);
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easy excel没有关系
+        String fileName = URLEncoder.ALL.encode("user_data_export_".concat(String.valueOf(System.currentTimeMillis())),
+                StandardCharsets.UTF_8);
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
         EasyExcel.write(response.getOutputStream(), UserExcel.class).sheet("模板").doWrite(userExcels);
     }
