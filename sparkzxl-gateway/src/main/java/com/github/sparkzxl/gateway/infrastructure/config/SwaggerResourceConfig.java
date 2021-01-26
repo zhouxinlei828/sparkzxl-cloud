@@ -32,8 +32,11 @@ public class SwaggerResourceConfig implements SwaggerResourcesProvider {
 
     @Autowired
     RouteLocator routeLocator;
+
     @Autowired
+    @LoadBalanced
     RestTemplate restTemplate;
+
     @Autowired
     private GatewayProperties gatewayProperties;
 
