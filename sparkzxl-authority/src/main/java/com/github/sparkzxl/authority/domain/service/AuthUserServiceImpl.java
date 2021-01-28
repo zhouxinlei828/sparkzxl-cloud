@@ -58,7 +58,7 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
 
     @Autowired
     private IAuthUserRepository authUserRepository;
-    @Autowired
+    @Autowired(required = false)
     private PasswordEncoder passwordEncoder;
     @Autowired
     private IAuthMenuService authMenuService;

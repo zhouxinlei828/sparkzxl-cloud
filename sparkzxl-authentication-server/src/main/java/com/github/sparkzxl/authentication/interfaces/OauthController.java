@@ -1,3 +1,4 @@
+/*
 package com.github.sparkzxl.authentication.interfaces;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
@@ -17,12 +18,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.security.auth.login.AccountNotFoundException;
 
 
+*/
 /**
  * description：授权登录管理
  *
  * @author zhouxinlei
  * @date 2020/6/6 9:08 上午
- */
+ *//*
+
 @RestController
 @ResponseResult
 @WebLog
@@ -60,3 +63,4 @@ public class OauthController {
     }
 
 }
+*/

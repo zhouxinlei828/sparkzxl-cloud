@@ -14,10 +14,12 @@ import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.web.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -38,11 +40,8 @@ import java.util.List;
 public class AuthUserController extends SuperCacheController<IAuthUserService, Long,
         AuthUser, AuthUserPageDTO, AuthUserSaveDTO, AuthUserUpdateDTO> {
 
-    private final PasswordEncoder passwordEncoder;
-
-    public AuthUserController(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired(required = false)
+    private PasswordEncoder passwordEncoder;
 
     @ApiOperation("获取用户分页")
     @PostMapping("/listPage")

@@ -29,6 +29,15 @@ spring:
             refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
+keycloak:
+  realm: sparkzxl
+  auth-server-url: http://172.34.200.13/auth
+  ssl-required: external
+  resource: sparkzxl
+  verify-token-audience: true
+  credentials:
+    secret: 62bdd47b-88d4-4dd1-8d00-72219973a267
+  confidential-port: 0
 logging:
   level:
     com.github.sparkzxl.authentication.infrastructure.client: debug

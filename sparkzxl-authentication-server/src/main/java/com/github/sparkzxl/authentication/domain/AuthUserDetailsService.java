@@ -1,3 +1,4 @@
+/*
 package com.github.sparkzxl.authentication.domain;
 
 import cn.hutool.core.util.IdUtil;
@@ -45,12 +46,14 @@ import java.util.concurrent.TimeUnit;
 import static io.vavr.API.$;
 import static io.vavr.API.Case;
 
+*/
 /**
  * description: security 加载用户信息
  *
  * @author zhouxinlei
  * @date 2020-05-24 12:23:23
- */
+ *//*
+
 @Service
 @Slf4j
 public class AuthUserDetailsService extends AbstractSecurityLoginService<Long> {
@@ -165,3 +168,4 @@ public class AuthUserDetailsService extends AbstractSecurityLoginService<Long> {
         return this.oauthUserDetailsService;
     }
 }
+*/

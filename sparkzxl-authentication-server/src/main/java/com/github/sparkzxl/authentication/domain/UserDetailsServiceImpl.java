@@ -1,9 +1,10 @@
-package com.github.sparkzxl.oauth.domain.service;
+/*
+package com.github.sparkzxl.authentication.domain;
 
 import com.github.sparkzxl.authority.application.service.IAuthUserService;
 import com.github.sparkzxl.authority.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
-import com.github.sparkzxl.oauth.entity.AuthUserDetail;
+import com.github.sparkzxl.security.entity.AuthUserDetail;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,15 +12,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-
+*/
 /**
  * description: 获取授权用户 服务实现类
  *
  * @author: zhouxinlei
  * @date: 2020-08-03 17:16:17
- */
+ *//*
+
 @Service("oauthUserDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -45,3 +45,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return null;
     }
 }
+*/
