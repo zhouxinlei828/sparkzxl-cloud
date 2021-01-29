@@ -29,17 +29,11 @@
     </properties>
 
     <modules>
-        <module>spark-wechat-admin</module>
-        <module>sparkzxl-activiti</module>
-        <module>sparkzxl-admin-server</module>
         <module>sparkzxl-authentication-server</module>
         <module>sparkzxl-authority</module>
         <module>sparkzxl-code-generator</module>
         <module>sparkzxl-file</module>
         <module>sparkzxl-gateway</module>
-        <module>sparkzxl-sharding-demo</module>
-        <module>sparkzxl-test-demo</module>
-        <module>sparkzxl-elasticsearch</module>
     </modules>
 
     <repositories>
@@ -84,11 +78,6 @@
             <dependency>
                 <groupId>com.github.sparkzxl</groupId>
                 <artifactId>sparkzxl-file-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.sparkzxl</groupId>
-                <artifactId>sparkzxl-activiti-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- 模拟数据生成 -->

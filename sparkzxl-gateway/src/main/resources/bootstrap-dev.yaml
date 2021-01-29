@@ -51,8 +51,7 @@ spring:
             authorization-grant-type: authorization_code
             scope: openid
             client-authentication-method: post
-      oauth2:
-        resourceserver:
-          jwt:
-            issuer-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway
-            jwk-set-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway/protocol/openid-connect/certs
+      resourceserver:
+        jwt:
+          issuer-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway
+          jwk-set-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway/protocol/openid-connect/certs
