@@ -1,3 +1,4 @@
+/*
 package com.github.sparkzxl.gateway.infrastructure.filter;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
@@ -20,12 +21,14 @@ import reactor.core.publisher.Mono;
 import java.util.Arrays;
 import java.util.List;
 
+*/
 /**
  * description: 权限过滤器
  *
  * @author zhouxinlei
  * @date 2020-05-24 12:16:11
- */
+ *//*
+
 @Component
 @Slf4j
 @RefreshScope
@@ -57,3 +60,4 @@ public class AuthTokenFilter extends AbstractJwtAuthorizationFilter {
         return chain.filter(exchange);
     }
 }
+*/

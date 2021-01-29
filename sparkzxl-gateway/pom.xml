@@ -25,10 +25,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.github.sparkzxl</groupId>
             <artifactId>sparkzxl-gateway-filter</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.github.sparkzxl</groupId>
             <artifactId>sparkzxl-distributed-cloud-starter</artifactId>
@@ -40,13 +40,21 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.github.sparkzxl</groupId>
-            <artifactId>sparkzxl-oauth2-resource-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
+        <!--<dependency>
             <groupId>com.github.sparkzxl</groupId>
             <artifactId>sparkzxl-jwt-starter</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>

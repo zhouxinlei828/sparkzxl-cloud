@@ -1,3 +1,5 @@
+application:
+  frontend_url: http://127.0.0.1:8900/test/testKeycloak
 server:
   shutdown: graceful
   port: 8900
@@ -29,3 +31,18 @@ spring:
             refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway
+        registration:
+          keycloak:
+            client-id: sparkzxl
+            client-secret: 5fe69406-f5d1-4afd-ab69-f71c3d241404
+      oauth2:
+        resourceserver:
+          jwt:
+            issuer-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway
+            jwk-set-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway/protocol/openid-connect/certs

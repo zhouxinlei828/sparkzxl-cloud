@@ -1,3 +1,4 @@
+/*
 package com.github.sparkzxl.authentication.interfaces;
 
 import com.github.sparkzxl.core.utils.RequestContextHolderUtils;
@@ -45,3 +46,4 @@ public class LibraryController {
         return (KeycloakSecurityContext) RequestContextHolderUtils.getAttribute(KeycloakSecurityContext.class.getName());
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.github.sparkzxl.gateway.infrastructure.authorization;
 
 import cn.hutool.core.convert.Convert;
@@ -18,12 +19,15 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+*/
 /**
  * description: 鉴权管理器，用于判断是否有资源的访问权限
  *
  * @author: zhouxinlei
  * @date: 2020-08-02 18:00:02
  */
+
+/*
 @Component
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
 
@@ -60,3 +64,4 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
                 .defaultIfEmpty(new AuthorizationDecision(false));
     }
 }
+*/
