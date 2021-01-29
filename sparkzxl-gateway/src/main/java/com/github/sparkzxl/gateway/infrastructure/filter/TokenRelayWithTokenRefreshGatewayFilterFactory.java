@@ -1,5 +1,10 @@
 package com.github.sparkzxl.gateway.infrastructure.filter;
 
+import com.github.sparkzxl.core.context.BaseContextConstants;
+import com.github.sparkzxl.core.jackson.JsonUtil;
+import com.github.sparkzxl.gateway.infrastructure.entity.JwtAuthUserInfo;
+import com.nimbusds.jose.JWSObject;
+import org.slf4j.MDC;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.security.core.Authentication;
@@ -13,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.text.ParseException;
 import java.time.Duration;
 
 /**
@@ -20,7 +26,7 @@ import java.time.Duration;
  *
  * @author: zhouxinlei
  * @date: 2021-01-29 14:22:43
-*/
+ */
 @Component
 public class TokenRelayWithTokenRefreshGatewayFilterFactory extends AbstractGatewayFilterFactory<Object> {
 
@@ -70,6 +76,34 @@ public class TokenRelayWithTokenRefreshGatewayFilterFactory extends AbstractGate
     }
 
     private ServerWebExchange withBearerAuth(ServerWebExchange exchange, OAuth2AccessToken accessToken) {
+        JWSObject jwsObject = null;
+        try {
+            jwsObject = JWSObject.parse(accessToken.getTokenValue());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String payload = jwsObject.getPayload().toString();
+        JwtAuthUserInfo jwtAuthUserInfo = JsonUtil.parse(payload, JwtAuthUserInfo.class);
+        System.out.println(payload);
+        String username = jwtAuthUserInfo.getPreferredUsername();
+        String name = jwtAuthUserInfo.getFamilyName().concat(jwtAuthUserInfo.getGivenName());
+        String sub = jwtAuthUserInfo.getSub();
+        MDC.put(BaseContextConstants.JWT_KEY_USER_ID, sub);
+        return exchange.mutate().request(r -> r.header(BaseContextConstants.JWT_TOKEN_HEADER, accessToken.getTokenValue())
+                .header(BaseContextConstants.JWT_KEY_USER_ID, sub)
+                .header(BaseContextConstants.JWT_KEY_ACCOUNT, username)
+                .header(BaseContextConstants.JWT_KEY_NAME, name)).build();
+    }
+
+    private ServerWebExchange withAuthUserInfo(ServerWebExchange exchange, OAuth2AccessToken accessToken) {
+        JWSObject jwsObject = null;
+        try {
+            jwsObject = JWSObject.parse(accessToken.getTokenValue());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String payload = jwsObject.getPayload().toString();
+        JwtAuthUserInfo jwtAuthUserInfo = JsonUtil.parse(payload, JwtAuthUserInfo.class);
         return exchange.mutate().request(r -> r.headers(headers -> headers.setBearerAuth(accessToken.getTokenValue()))).build();
     }
 
