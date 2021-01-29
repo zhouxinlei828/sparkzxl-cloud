@@ -14,10 +14,10 @@ spring:
     nacos:
       discovery:
         server-addr: 47.114.40.129:8848
-        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
+        namespace: ad7565b2-fd07-4104-849f-1f08f85ed536
       config:
         server-addr: 47.114.40.129:8848
-        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
+        namespace: ad7565b2-fd07-4104-849f-1f08f85ed536
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:

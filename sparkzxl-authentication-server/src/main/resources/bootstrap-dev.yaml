@@ -14,10 +14,10 @@ spring:
     nacos:
       discovery:
         server-addr: 47.114.40.129:8848
-        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
+        namespace: ad7565b2-fd07-4104-849f-1f08f85ed536
       config:
         server-addr: 47.114.40.129:8848
-        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
+        namespace: ad7565b2-fd07-4104-849f-1f08f85ed536
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
@@ -31,7 +31,7 @@ spring:
         refresh-enabled: true
 keycloak:
   realm: sparkzxl
-  auth-server-url: http://172.34.200.13/auth
+  auth-server-url: http://192.168.193.128/auth
   ssl-required: external
   resource: sparkzxl
   verify-token-audience: true

@@ -84,7 +84,7 @@ public class TokenRelayWithTokenRefreshGatewayFilterFactory extends AbstractGate
         }
         String payload = jwsObject.getPayload().toString();
         JwtAuthUserInfo jwtAuthUserInfo = JsonUtil.parse(payload, JwtAuthUserInfo.class);
-        System.out.println(payload);
+        System.out.println(accessToken.getTokenValue());
         String username = jwtAuthUserInfo.getPreferredUsername();
         String name = jwtAuthUserInfo.getFamilyName().concat(jwtAuthUserInfo.getGivenName());
         String sub = jwtAuthUserInfo.getSub();

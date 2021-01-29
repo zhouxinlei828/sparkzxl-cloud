@@ -26,7 +26,6 @@ public class TestController {
     @GetMapping("testKeycloak")
     public String getAccessTokenInfo(HttpServletRequest request) {
         ServletRequestAttributes attributes = RequestContextHolderUtils.getRequestAttributes();
-        Principal principal = attributes.getRequest().getUserPrincipal();
         return "testKeycloak";
     }
 }

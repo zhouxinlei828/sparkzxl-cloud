@@ -1,6 +1,6 @@
 application:
   frontend_url: http://127.0.0.1:8900/test/testKeycloak
-  logout_url: http://172.34.200.13/auth/realms/sparkzxl-gateway/protocol/openid-connect/logout
+  logout_url: http://192.168.193.128/auth/realms/sparkzxl-gateway/protocol/openid-connect/logout
 server:
   shutdown: graceful
   port: 8900
@@ -17,10 +17,10 @@ spring:
     nacos:
       discovery:
         server-addr: 47.114.40.129:8848
-        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
+        namespace: ad7565b2-fd07-4104-849f-1f08f85ed536
       config:
         server-addr: 47.114.40.129:8848
-        namespace: 5d664600-38cc-4862-bf65-d1e24ca6ce59
+        namespace: ad7565b2-fd07-4104-849f-1f08f85ed536
         file-extension: yaml
         prefix: ${spring.application.name}
         shared-configs:
@@ -37,11 +37,11 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway
-            authorization-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway/protocol/openid-connect/auth
-            token-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway/protocol/openid-connect/token
-            jwk-set-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway/protocol/openid-connect/certs
-            user-info-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway/protocol/openid-connect/userinfo
+            issuer-uri: http://192.168.193.128/auth/realms/sparkzxl-gateway
+            authorization-uri: http://192.168.193.128/auth/realms/sparkzxl-gateway/protocol/openid-connect/auth
+            token-uri: http://192.168.193.128/auth/realms/sparkzxl-gateway/protocol/openid-connect/token
+            jwk-set-uri: http://192.168.193.128/auth/realms/sparkzxl-gateway/protocol/openid-connect/certs
+            user-info-uri: http://192.168.193.128/auth/realms/sparkzxl-gateway/protocol/openid-connect/userinfo
             user-info-authentication-method: header
         registration:
           keycloak-client:
@@ -53,5 +53,5 @@ spring:
             client-authentication-method: post
       resourceserver:
         jwt:
-          issuer-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway
-          jwk-set-uri: http://172.34.200.13/auth/realms/sparkzxl-gateway/protocol/openid-connect/certs
+          issuer-uri: http://192.168.193.128/auth/realms/sparkzxl-gateway
+          jwk-set-uri: http://192.168.193.128/auth/realms/sparkzxl-gateway/protocol/openid-connect/certs
