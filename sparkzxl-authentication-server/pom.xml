@@ -35,6 +35,10 @@
             <groupId>com.github.sparkzxl</groupId>
             <artifactId>sparkzxl-authority</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.sparkzxl</groupId>
+            <artifactId>sparkzxl-security-keycloak-starter</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
