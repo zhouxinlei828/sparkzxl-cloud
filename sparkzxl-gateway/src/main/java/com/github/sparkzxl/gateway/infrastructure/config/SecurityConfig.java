@@ -16,6 +16,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**")
                 .hasAuthority("SCOPE_openid")
                 .anyRequest().authenticated()
+                .antMatchers("/**")
+                .hasRole("USER")
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
