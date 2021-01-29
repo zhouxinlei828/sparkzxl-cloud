@@ -1,6 +1,5 @@
 package com.github.sparkzxl.gateway.infrastructure.filter;
 
-import lombok.Data;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.security.core.Authentication;
@@ -16,6 +15,12 @@ import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 
+/**
+ * description:
+ *
+ * @author: zhouxinlei
+ * @date: 2021-01-29 14:22:43
+*/
 @Component
 public class TokenRelayWithTokenRefreshGatewayFilterFactory extends AbstractGatewayFilterFactory<Object> {
 
