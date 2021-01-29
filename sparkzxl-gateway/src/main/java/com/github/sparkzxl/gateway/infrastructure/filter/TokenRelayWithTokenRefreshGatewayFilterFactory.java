@@ -32,7 +32,7 @@ public class TokenRelayWithTokenRefreshGatewayFilterFactory extends AbstractGate
 
     private final ReactiveOAuth2AuthorizedClientManager authorizedClientManager;
 
-    private static final Duration accessTokenExpiresSkew = Duration.ofSeconds(3);
+    private static final Duration accessTokenExpiresSkew = Duration.ofHours(3);
 
     public TokenRelayWithTokenRefreshGatewayFilterFactory(ServerOAuth2AuthorizedClientRepository authorizedClientRepository,
                                                           ReactiveClientRegistrationRepository clientRegistrationRepository) {
