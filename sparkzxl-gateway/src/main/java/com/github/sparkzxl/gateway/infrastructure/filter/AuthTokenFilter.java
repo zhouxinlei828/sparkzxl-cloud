@@ -1,19 +1,16 @@
-/*
 package com.github.sparkzxl.gateway.infrastructure.filter;
 
-import cn.hutool.core.exceptions.ExceptionUtil;
 import com.github.sparkzxl.core.context.BaseContextConstants;
 import com.github.sparkzxl.core.entity.JwtUserInfo;
-import com.github.sparkzxl.core.support.ResponseResultStatus;
 import com.github.sparkzxl.gateway.filter.AbstractJwtAuthorizationFilter;
-import com.github.sparkzxl.jwt.service.JwtTokenService;
-import com.github.sparkzxl.oauth.properties.ResourceProperties;
+import com.github.sparkzxl.gateway.infrastructure.handler.AuthenticationTokenHandler;
+import com.github.sparkzxl.gateway.infrastructure.properties.ResourceProperties;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -21,14 +18,12 @@ import reactor.core.publisher.Mono;
 import java.util.Arrays;
 import java.util.List;
 
-*/
 /**
  * description: 权限过滤器
  *
- * @author zhouxinlei
- * @date 2020-05-24 12:16:11
- *//*
-
+ * @author: zhouxinlei
+ * @date: 2021-01-30 22:52:36
+ */
 @Component
 @Slf4j
 @RefreshScope
@@ -38,21 +33,25 @@ public class AuthTokenFilter extends AbstractJwtAuthorizationFilter {
     private ResourceProperties resourceProperties;
 
     @Autowired
-    private JwtTokenService<Long> jwtTokenService;
+    private AuthenticationTokenHandler authenticationTokenHandler;
 
     @Override
     public String getHeaderKey() {
-        return BaseContextConstants.BASIC_HEADER_KEY;
+        return BaseContextConstants.JWT_TOKEN_HEADER;
     }
 
     @Override
     public List<String> ignorePatterns() {
-        return Arrays.asList(resourceProperties.getIgnorePatterns());
+        if (ObjectUtils.isNotEmpty(resourceProperties.getIgnorePatterns())) {
+            return Arrays.asList(resourceProperties.getIgnorePatterns());
+        } else {
+            return Lists.newArrayList();
+        }
     }
 
     @Override
-    public JwtUserInfo getJwtUserInfo(String token) throws Exception {
-        return jwtTokenService.getJwtUserInfo(token);
+    public JwtUserInfo<String> getJwtUserInfo(String token) {
+        return authenticationTokenHandler.buildJwtUserInfo(token);
     }
 
     @Override
@@ -60,4 +59,3 @@ public class AuthTokenFilter extends AbstractJwtAuthorizationFilter {
         return chain.filter(exchange);
     }
 }
-*/

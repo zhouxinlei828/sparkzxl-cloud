@@ -8,11 +8,15 @@ import com.github.sparkzxl.core.entity.JwtUserInfo;
 import com.github.sparkzxl.core.jackson.JsonUtil;
 import com.github.sparkzxl.core.utils.BuildKeyUtils;
 import com.github.sparkzxl.core.utils.DateUtils;
+import com.github.sparkzxl.core.utils.ReflectObjectUtils;
+import com.google.common.collect.Maps;
 import com.nimbusds.jose.JWSObject;
 import org.apache.commons.lang3.ObjectUtils;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
 
 import java.text.ParseException;
 import java.time.Instant;
@@ -37,7 +41,8 @@ public class AuthenticationTokenHandler {
         this.redisTemplate = redisTemplate;
     }
 
-    public <T> AuthUserInfo<T> buildAuthUserInfoCache(String accessToken, Instant expiresAt) {
+
+    public JwtUserInfo<String> buildJwtUserInfo(String accessToken) {
         JWSObject jwsObject = null;
         try {
             jwsObject = JWSObject.parse(accessToken);
@@ -45,17 +50,22 @@ public class AuthenticationTokenHandler {
             e.printStackTrace();
         }
         String payload = jwsObject.getPayload().toString();
-        JwtUserInfo<T> jwtUserInfo = JSONUtil.toBean(payload, JwtUserInfo.class);
+        JwtUserInfo<String> jwtUserInfo = JSONUtil.toBean(payload, JwtUserInfo.class);
         String username = jwtUserInfo.getPreferredUsername();
         String name = jwtUserInfo.getFamilyName().concat(jwtUserInfo.getGivenName());
         String sub = jwtUserInfo.getSub();
-        jwtUserInfo.setId((T) sub);
+        jwtUserInfo.setId(sub);
         jwtUserInfo.setUsername(username);
         jwtUserInfo.setName(name);
-        AuthUserInfo<T> authUserInfo = new AuthUserInfo();
-        authUserInfo.setId((T) sub);
-        authUserInfo.setAccount(username);
-        authUserInfo.setName(name);
+        return jwtUserInfo;
+    }
+
+    public AuthUserInfo<String> buildAuthUserInfoCache(String accessToken, Instant expiresAt) {
+        JwtUserInfo<String> jwtUserInfo = buildJwtUserInfo(accessToken);
+        AuthUserInfo<String> authUserInfo = new AuthUserInfo<>();
+        authUserInfo.setId(jwtUserInfo.getId());
+        authUserInfo.setAccount(jwtUserInfo.getUsername());
+        authUserInfo.setName(jwtUserInfo.getName());
         authUserInfo.setStatus(true);
         if (ObjectUtils.isNotEmpty(jwtUserInfo.getResourceAccess())
                 && ObjectUtils.isNotEmpty(jwtUserInfo.getResourceAccess().getAccount())
@@ -63,7 +73,7 @@ public class AuthenticationTokenHandler {
             List<String> roles = jwtUserInfo.getResourceAccess().getAccount().getRoles();
             authUserInfo.setRoleList(roles);
         }
-        Map extraInfo = JsonUtil.toMap(JSONUtil.toJsonStr(jwtUserInfo));
+        Map<String, Object> extraInfo = ReflectObjectUtils.getKeyAndValue(jwtUserInfo);
         authUserInfo.setExtraInfo(extraInfo);
         String authUserInfoKey = BuildKeyUtils.generateKey(BaseContextConstants.AUTH_USER_TOKEN, authUserInfo.getId());
         Date date = DateUtils.date(expiresAt);
@@ -72,5 +82,21 @@ public class AuthenticationTokenHandler {
         redisTemplate.expire(authUserInfoKey, expire, TimeUnit.SECONDS);
         return authUserInfo;
     }
+
+
+    public ServerWebExchange withBearerAuth(ServerWebExchange exchange, String accessToken, Instant expiresAt) {
+        AuthUserInfo<String> authUserInfo = buildAuthUserInfoCache(accessToken,
+                expiresAt);
+        String username = authUserInfo.getName();
+        String account = authUserInfo.getAccount();
+        String sub = authUserInfo.getId();
+        MDC.put(BaseContextConstants.JWT_KEY_USER_ID, sub);
+        return exchange.mutate().request(r -> r.header(BaseContextConstants.JWT_TOKEN_HEADER, accessToken)
+                .header(BaseContextConstants.JWT_KEY_USER_ID, sub)
+                .header(BaseContextConstants.KEYCLOAK_KEY, BaseContextConstants.KEYCLOAK_KEY)
+                .header(BaseContextConstants.JWT_KEY_ACCOUNT, account)
+                .header(BaseContextConstants.JWT_KEY_NAME, username)).build();
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.github.sparkzxl.gateway.infrastructure.config;
 
+import com.github.sparkzxl.gateway.infrastructure.authorization.AuthorizationManager;
 import com.github.sparkzxl.gateway.infrastructure.components.MyServerAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,9 @@ public class WebFluxSecurityConfig {
     @Autowired
     private MyServerAuthenticationSuccessHandler myServerAuthenticationSuccessHandler;
 
+    @Autowired
+    private AuthorizationManager authorizationManager;
+
     private static final Duration accessTokenExpiresSkew = Duration.ofHours(3);
 
     @Bean
@@ -45,17 +49,17 @@ public class WebFluxSecurityConfig {
 
     @Bean
     public ReactiveOAuth2AuthorizedClientManager authorizedClientManager(ServerOAuth2AuthorizedClientRepository authorizedClientRepository,
-                                                                         ReactiveClientRegistrationRepository clientRegistrationRepository){
-            final ReactiveOAuth2AuthorizedClientProvider authorizedClientProvider =
-                    ReactiveOAuth2AuthorizedClientProviderBuilder.builder()
-                            .authorizationCode()
-                            .refreshToken(configurer -> configurer.clockSkew(accessTokenExpiresSkew))
-                            .clientCredentials(configurer -> configurer.clockSkew(accessTokenExpiresSkew))
-                            .password(configurer -> configurer.clockSkew(accessTokenExpiresSkew))
-                            .build();
-            final DefaultReactiveOAuth2AuthorizedClientManager authorizedClientManager = new DefaultReactiveOAuth2AuthorizedClientManager(
-                    clientRegistrationRepository, authorizedClientRepository);
-            authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
-            return authorizedClientManager;
+                                                                         ReactiveClientRegistrationRepository clientRegistrationRepository) {
+        final ReactiveOAuth2AuthorizedClientProvider authorizedClientProvider =
+                ReactiveOAuth2AuthorizedClientProviderBuilder.builder()
+                        .authorizationCode()
+                        .refreshToken(configurer -> configurer.clockSkew(accessTokenExpiresSkew))
+                        .clientCredentials(configurer -> configurer.clockSkew(accessTokenExpiresSkew))
+                        .password(configurer -> configurer.clockSkew(accessTokenExpiresSkew))
+                        .build();
+        final DefaultReactiveOAuth2AuthorizedClientManager authorizedClientManager = new DefaultReactiveOAuth2AuthorizedClientManager(
+                clientRegistrationRepository, authorizedClientRepository);
+        authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
+        return authorizedClientManager;
     }
 }

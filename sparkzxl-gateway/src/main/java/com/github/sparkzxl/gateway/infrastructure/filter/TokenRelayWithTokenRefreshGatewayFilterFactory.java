@@ -19,6 +19,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
+import java.time.Instant;
 
 /**
  * description:
@@ -29,36 +30,11 @@ import java.time.Duration;
 @Component
 public class TokenRelayWithTokenRefreshGatewayFilterFactory extends AbstractGatewayFilterFactory<Object> {
 
-    private final ReactiveOAuth2AuthorizedClientManager authorizedClientManager;
-
-    private static final Duration accessTokenExpiresSkew = Duration.ofHours(3);
+    @Autowired
+    private ReactiveOAuth2AuthorizedClientManager authorizedClientManager;
 
     @Autowired
     private AuthenticationTokenHandler authenticationTokenHandler;
-
-    public TokenRelayWithTokenRefreshGatewayFilterFactory(ServerOAuth2AuthorizedClientRepository authorizedClientRepository,
-                                                          ReactiveClientRegistrationRepository clientRegistrationRepository) {
-        super(Object.class);
-        this.authorizedClientManager = createDefaultAuthorizedClientManager(clientRegistrationRepository, authorizedClientRepository);
-    }
-
-    private static ReactiveOAuth2AuthorizedClientManager createDefaultAuthorizedClientManager(
-            ReactiveClientRegistrationRepository clientRegistrationRepository,
-            ServerOAuth2AuthorizedClientRepository authorizedClientRepository) {
-
-        final ReactiveOAuth2AuthorizedClientProvider authorizedClientProvider =
-                ReactiveOAuth2AuthorizedClientProviderBuilder.builder()
-                        .authorizationCode()
-                        .refreshToken(configurer -> configurer.clockSkew(accessTokenExpiresSkew))
-                        .clientCredentials(configurer -> configurer.clockSkew(accessTokenExpiresSkew))
-                        .password(configurer -> configurer.clockSkew(accessTokenExpiresSkew))
-                        .build();
-        final DefaultReactiveOAuth2AuthorizedClientManager authorizedClientManager = new DefaultReactiveOAuth2AuthorizedClientManager(
-                clientRegistrationRepository, authorizedClientRepository);
-        authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
-
-        return authorizedClientManager;
-    }
 
     public GatewayFilter apply() {
         return apply((Object) null);
@@ -67,28 +43,14 @@ public class TokenRelayWithTokenRefreshGatewayFilterFactory extends AbstractGate
     @Override
     public GatewayFilter apply(Object config) {
         return (exchange, chain) -> exchange.getPrincipal()
-                // .log("token-relay-filter")
+                .log("token-relay-filter")
                 .filter(principal -> principal instanceof OAuth2AuthenticationToken)
                 .cast(OAuth2AuthenticationToken.class)
                 .flatMap(this::authorizeClient)
                 .map(OAuth2AuthorizedClient::getAccessToken)
-                .map(token -> withBearerAuth(exchange, token))
+                .map(token -> authenticationTokenHandler.withBearerAuth(exchange, token.getTokenValue(), token.getExpiresAt()))
                 // TODO: adjustable behavior if empty
                 .defaultIfEmpty(exchange).flatMap(chain::filter);
-    }
-
-    private ServerWebExchange withBearerAuth(ServerWebExchange exchange, OAuth2AccessToken accessToken) {
-        AuthUserInfo<String> authUserInfo = authenticationTokenHandler.buildAuthUserInfoCache(accessToken.getTokenValue(),
-                accessToken.getExpiresAt());
-        String username = authUserInfo.getName();
-        String account = authUserInfo.getAccount();
-        String sub = authUserInfo.getId();
-        MDC.put(BaseContextConstants.JWT_KEY_USER_ID, sub);
-        return exchange.mutate().request(r -> r.header(BaseContextConstants.JWT_TOKEN_HEADER, accessToken.getTokenValue())
-                .header(BaseContextConstants.JWT_KEY_USER_ID, sub)
-                .header(BaseContextConstants.KEYCLOAK_KEY, BaseContextConstants.KEYCLOAK_KEY)
-                .header(BaseContextConstants.JWT_KEY_ACCOUNT, account)
-                .header(BaseContextConstants.JWT_KEY_NAME, username)).build();
     }
 
     private Mono<OAuth2AuthorizedClient> authorizeClient(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
