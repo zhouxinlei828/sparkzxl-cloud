@@ -17,11 +17,11 @@ import java.util.List;
 public class JwtAuthUserInfo {
 
     @JsonProperty("exp")
-    private Integer exp;
+    private Long exp;
     @JsonProperty("iat")
-    private Integer iat;
+    private Long iat;
     @JsonProperty("auth_time")
-    private Integer authTime;
+    private Long authTime;
     @JsonProperty("jti")
     private String jti;
     @JsonProperty("iss")

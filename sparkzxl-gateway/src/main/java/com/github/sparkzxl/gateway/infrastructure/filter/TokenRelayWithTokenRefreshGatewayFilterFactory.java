@@ -1,10 +1,10 @@
 package com.github.sparkzxl.gateway.infrastructure.filter;
 
 import com.github.sparkzxl.core.context.BaseContextConstants;
-import com.github.sparkzxl.core.jackson.JsonUtil;
-import com.github.sparkzxl.gateway.infrastructure.entity.JwtAuthUserInfo;
-import com.nimbusds.jose.JWSObject;
+import com.github.sparkzxl.core.entity.AuthUserInfo;
+import com.github.sparkzxl.gateway.infrastructure.handler.AuthenticationTokenHandler;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.security.core.Authentication;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.text.ParseException;
 import java.time.Duration;
 
 /**
@@ -33,6 +32,9 @@ public class TokenRelayWithTokenRefreshGatewayFilterFactory extends AbstractGate
     private final ReactiveOAuth2AuthorizedClientManager authorizedClientManager;
 
     private static final Duration accessTokenExpiresSkew = Duration.ofHours(3);
+
+    @Autowired
+    private AuthenticationTokenHandler authenticationTokenHandler;
 
     public TokenRelayWithTokenRefreshGatewayFilterFactory(ServerOAuth2AuthorizedClientRepository authorizedClientRepository,
                                                           ReactiveClientRegistrationRepository clientRegistrationRepository) {
@@ -76,43 +78,25 @@ public class TokenRelayWithTokenRefreshGatewayFilterFactory extends AbstractGate
     }
 
     private ServerWebExchange withBearerAuth(ServerWebExchange exchange, OAuth2AccessToken accessToken) {
-        JWSObject jwsObject = null;
-        try {
-            jwsObject = JWSObject.parse(accessToken.getTokenValue());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String payload = jwsObject.getPayload().toString();
-        JwtAuthUserInfo jwtAuthUserInfo = JsonUtil.parse(payload, JwtAuthUserInfo.class);
-        System.out.println(accessToken.getTokenValue());
-        String username = jwtAuthUserInfo.getPreferredUsername();
-        String name = jwtAuthUserInfo.getFamilyName().concat(jwtAuthUserInfo.getGivenName());
-        String sub = jwtAuthUserInfo.getSub();
+        AuthUserInfo<String> authUserInfo = authenticationTokenHandler.buildAuthUserInfoCache(accessToken.getTokenValue(),
+                accessToken.getExpiresAt());
+        String username = authUserInfo.getName();
+        String account = authUserInfo.getAccount();
+        String sub = authUserInfo.getId();
         MDC.put(BaseContextConstants.JWT_KEY_USER_ID, sub);
         return exchange.mutate().request(r -> r.header(BaseContextConstants.JWT_TOKEN_HEADER, accessToken.getTokenValue())
                 .header(BaseContextConstants.JWT_KEY_USER_ID, sub)
-                .header(BaseContextConstants.JWT_KEY_ACCOUNT, username)
-                .header(BaseContextConstants.JWT_KEY_NAME, name)).build();
-    }
-
-    private ServerWebExchange withAuthUserInfo(ServerWebExchange exchange, OAuth2AccessToken accessToken) {
-        JWSObject jwsObject = null;
-        try {
-            jwsObject = JWSObject.parse(accessToken.getTokenValue());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String payload = jwsObject.getPayload().toString();
-        JwtAuthUserInfo jwtAuthUserInfo = JsonUtil.parse(payload, JwtAuthUserInfo.class);
-        return exchange.mutate().request(r -> r.headers(headers -> headers.setBearerAuth(accessToken.getTokenValue()))).build();
+                .header(BaseContextConstants.KEYCLOAK_KEY, BaseContextConstants.KEYCLOAK_KEY)
+                .header(BaseContextConstants.JWT_KEY_ACCOUNT, account)
+                .header(BaseContextConstants.JWT_KEY_NAME, username)).build();
     }
 
     private Mono<OAuth2AuthorizedClient> authorizeClient(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         final String clientRegistrationId = oAuth2AuthenticationToken.getAuthorizedClientRegistrationId();
-        return Mono.defer(() -> authorizedClientManager.authorize(createOAuth2AuthorizeRequest(clientRegistrationId, oAuth2AuthenticationToken)));
+        return Mono.defer(() -> authorizedClientManager.authorize(createOauth2AuthorizeRequest(clientRegistrationId, oAuth2AuthenticationToken)));
     }
 
-    private OAuth2AuthorizeRequest createOAuth2AuthorizeRequest(String clientRegistrationId, Authentication principal) {
+    private OAuth2AuthorizeRequest createOauth2AuthorizeRequest(String clientRegistrationId, Authentication principal) {
         return OAuth2AuthorizeRequest.withClientRegistrationId(clientRegistrationId).principal(principal).build();
     }
 }

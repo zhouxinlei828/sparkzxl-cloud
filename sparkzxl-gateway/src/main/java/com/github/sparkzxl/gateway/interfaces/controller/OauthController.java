@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "授权管理")
 @Slf4j
-@RequestMapping("/oauth1")
+@RequestMapping("/oauth")
 public class OauthController {
 
     @Value("${application.frontend_url}")
