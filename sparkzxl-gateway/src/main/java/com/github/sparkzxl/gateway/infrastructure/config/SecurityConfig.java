@@ -20,7 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole("USER")
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .headers().frameOptions().disable().xssProtection().disable()
                 .and()
                 .formLogin().disable();
