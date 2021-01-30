@@ -55,3 +55,7 @@ spring:
         jwt:
           issuer-uri: http://192.168.193.128/auth/realms/sparkzxl-gateway
           jwk-set-uri: http://192.168.193.128/auth/realms/sparkzxl-gateway/protocol/openid-connect/certs
+      resource:
+        ignore-patterns: #安全路径白名单
+          - /api/uaa/common/**
+          - /api/activiti/**
