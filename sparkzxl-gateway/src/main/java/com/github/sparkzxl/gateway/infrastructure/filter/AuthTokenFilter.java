@@ -39,7 +39,7 @@ public class AuthTokenFilter extends AbstractJwtAuthorizationFilter {
 
     @Override
     public String getHeaderKey() {
-        return BaseContextConstants.BASIC_HEADER_KEY;
+        return BaseContextConstants.JWT_TOKEN_HEADER;
     }
 
     @Override
