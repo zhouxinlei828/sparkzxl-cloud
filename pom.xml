@@ -32,8 +32,6 @@
         <module>spark-wechat-admin</module>
         <module>sparkzxl-activiti</module>
         <module>sparkzxl-admin-server</module>
-        <module>sparkzxl-authentication</module>
-        <module>sparkzxl-authority</module>
         <module>sparkzxl-code-generator</module>
         <module>sparkzxl-file</module>
         <module>sparkzxl-gateway</module>
