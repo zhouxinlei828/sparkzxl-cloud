@@ -27,7 +27,7 @@
         AND aru.suspension_state_ = 2
         ) t
         LEFT JOIN ACT_RE_MODEL arm ON t.processKey = arm.KEY_
-        <if test="name != null">
+        <if test="name != null and name != '' ">
             where arm.NAME_ like CONCAT(#{name},'%')
         </if>
         order by t.processInstanceId DESC
