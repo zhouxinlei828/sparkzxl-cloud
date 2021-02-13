@@ -1,18 +1,17 @@
 package com.github.sparkzxl.gateway.infrastructure.filter;
 
-import cn.hutool.core.exceptions.ExceptionUtil;
 import com.github.sparkzxl.core.context.BaseContextConstants;
 import com.github.sparkzxl.core.entity.JwtUserInfo;
+import com.github.sparkzxl.core.support.BaseException;
 import com.github.sparkzxl.core.support.ResponseResultStatus;
+import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import com.github.sparkzxl.gateway.filter.AbstractJwtAuthorizationFilter;
 import com.github.sparkzxl.jwt.service.JwtTokenService;
 import com.github.sparkzxl.oauth.properties.ResourceProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -48,10 +47,15 @@ public class AuthTokenFilter extends AbstractJwtAuthorizationFilter {
     }
 
     @Override
-    public JwtUserInfo getJwtUserInfo(String token) throws Exception {
-        return jwtTokenService.getJwtUserInfo(token);
+    public JwtUserInfo getJwtUserInfo(String token) throws BaseException {
+        try {
+            return jwtTokenService.getAuthJwtInfo(token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            SparkZxlExceptionAssert.businessFail(ResponseResultStatus.JSON_PARSE_ERROR);
+            return null;
+        }
     }
-
     @Override
     protected Mono<Void> handleTokenEmpty(ServerWebExchange exchange, GatewayFilterChain chain, String token) {
         return chain.filter(exchange);
