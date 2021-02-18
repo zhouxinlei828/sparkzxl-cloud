@@ -36,3 +36,7 @@ spring:
 logging:
   level:
     com.github.sparkzxl.activiti.infrastructure.mapper: debug
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
