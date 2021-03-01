@@ -44,9 +44,9 @@ spring:
       ds-orders-1:
         type: com.zaxxer.hikari.HikariDataSource # 使用 Hikari 数据库连接池
         driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://47.114.40.129:3306/sparkzxl_order_1?useSSL=false&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
-        username: root
-        password: root
+        jdbc-url: jdbc:mysql://sparkzxl.mysql.rds.aliyuncs.com/sparkzxl_order_1?useSSL=false&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
+        username: zhouxinlei
+        password: Zxl298828
     # 分片规则
     sharding:
       tables:
