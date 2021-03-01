@@ -52,7 +52,7 @@ under the License.
    | Default: ${user.home}/.m2/repository
   <localRepository>/path/to/local/repo</localRepository>
   -->
-  <localRepository>/Users/zhouxinlei/Documents/maven/repository</localRepository>
+  <localRepository>/Users/fin-9062/Documents/maven/repository</localRepository>
 
   <!-- interactiveMode
    | This will determine whether maven prompts you when it needs input. If set to false,
@@ -113,12 +113,12 @@ under the License.
     <server>
           <id>maven-releases</id>
           <username>admin</username>
-          <password>farben123</password>
+          <password>123456</password>
     </server>
     <server>
       <id>maven-snapshots</id>
       <username>admin</username>
-      <password>farben123</password>
+      <password>123456</password>
     </server>
   </servers>
 
@@ -134,12 +134,18 @@ under the License.
    | server for that repository.
    |-->
   <mirrors>
-    <mirror>
+  	<mirror>
+        <id>nexus-public</id>
+        <mirrorOf>central</mirrorOf>
+        <name>central repository</name>
+         <url>http://47.114.40.129:8764/repository/maven-public/</url>
+    </mirror>
+    <!-- <mirror>
         <id>alimaven</id>
         <name>aliyun maven</name>
         <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
         <mirrorOf>central</mirrorOf>
-	</mirror>
+	</mirror> -->
   </mirrors>
 
   <!-- profiles
