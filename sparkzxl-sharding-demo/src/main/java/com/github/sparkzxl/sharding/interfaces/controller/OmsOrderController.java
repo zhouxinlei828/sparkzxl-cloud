@@ -2,7 +2,7 @@ package com.github.sparkzxl.sharding.interfaces.controller;
 
 
 import com.github.sparkzxl.log.annotation.WebLog;
-import com.github.sparkzxl.web.annotation.ResponseResult;
+import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.sharding.application.service.IOmsOrderService;
 import com.github.sparkzxl.sharding.infrastructure.entity.OmsOrder;
 import io.swagger.annotations.Api;

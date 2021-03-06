@@ -8,7 +8,7 @@ import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.dto.UserNextTask;
 import com.github.sparkzxl.activiti.interfaces.dto.process.ProcessNextTaskDTO;
 import com.github.sparkzxl.log.annotation.WebLog;
-import com.github.sparkzxl.web.annotation.ResponseResult;
+import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

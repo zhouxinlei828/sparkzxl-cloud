@@ -2,7 +2,7 @@ package com.github.sparkzxl.activiti.interfaces.controller.ext;
 
 
 import com.github.sparkzxl.log.annotation.WebLog;
-import com.github.sparkzxl.web.annotation.ResponseResult;
+import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 

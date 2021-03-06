@@ -5,7 +5,7 @@ import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessTaskRule;
 import com.github.sparkzxl.activiti.interfaces.dto.process.ProcessActionDTO;
 import com.github.sparkzxl.activiti.interfaces.dto.process.TaskRuleSaveDTO;
 import com.github.sparkzxl.log.annotation.WebLog;
-import com.github.sparkzxl.web.annotation.ResponseResult;
+import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

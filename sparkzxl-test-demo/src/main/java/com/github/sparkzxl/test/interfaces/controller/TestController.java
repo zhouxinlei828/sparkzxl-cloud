@@ -9,7 +9,7 @@ import com.github.sparkzxl.test.application.service.IAuthUserService;
 import com.github.sparkzxl.test.infrastructure.client.FileClient;
 import com.github.sparkzxl.test.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.test.interfaces.dto.TestDTO;
-import com.github.sparkzxl.web.annotation.ResponseResult;
+import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
