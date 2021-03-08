@@ -1,6 +1,6 @@
 server:
   shutdown: graceful
-  port: 8900
+  port: 8800
   undertow:
     buffer-size: 1024
     direct-buffers: on

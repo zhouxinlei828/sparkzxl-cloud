@@ -1,6 +1,6 @@
 server:
   shutdown: graceful
-  port: 8904
+  port: 8802
 spring:
   application:
     name: sparkzxl-activiti-server
