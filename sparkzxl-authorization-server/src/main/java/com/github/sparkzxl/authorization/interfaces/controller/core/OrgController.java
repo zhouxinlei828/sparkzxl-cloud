@@ -5,14 +5,13 @@ import com.github.sparkzxl.authorization.application.service.ICoreOrgService;
 import com.github.sparkzxl.authorization.infrastructure.entity.CoreOrg;
 import com.github.sparkzxl.authorization.interfaces.dto.org.OrgSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.org.OrgUpdateDTO;
-import com.github.sparkzxl.core.entity.AuthUserInfo;
-import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.core.annotation.ResponseResult;
+import com.github.sparkzxl.database.dto.DeleteDTO;
+import com.github.sparkzxl.log.annotation.WebLog;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class OrgController {
     @GetMapping("/orgs")
     public List<CoreOrg> getCoreOrgList(@RequestParam(value = "name", required = false) String name,
                                         @RequestParam(value = "status", required = false) Boolean status) {
-        return coreOrgService.getCoreOrgList(name,status);
+        return coreOrgService.getCoreOrgList(name, status);
     }
 
     @ApiOperation("新增组织")
@@ -56,13 +55,13 @@ public class OrgController {
 
     @ApiOperation("删除组织")
     @DeleteMapping("/org")
-    public boolean deleteCoreOrg(@RequestParam("id") Long id){
+    public boolean deleteCoreOrg(@RequestParam("id") Long id) {
         return coreOrgService.deleteCoreOrg(id);
     }
 
     @ApiOperation("批量删除组织")
     @DeleteMapping("/org/batch")
-    public boolean deleteBatchCoreOrg(@RequestParam("ids") List<Long> ids){
-        return coreOrgService.deleteBatchCoreOrg(ids);
+    public boolean deleteBatchCoreOrg(@RequestBody DeleteDTO deleteDTO) {
+        return coreOrgService.deleteBatchCoreOrg(deleteDTO.getIds());
     }
 }
