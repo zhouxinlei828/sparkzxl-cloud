@@ -29,15 +29,11 @@
     </properties>
 
     <modules>
-        <module>spark-wechat-admin</module>
         <module>sparkzxl-activiti</module>
-        <module>sparkzxl-admin-server</module>
+        <module>sparkzxl-authorization-server</module>
         <module>sparkzxl-code-generator</module>
         <module>sparkzxl-file</module>
         <module>sparkzxl-gateway</module>
-        <module>sparkzxl-sharding-demo</module>
-        <module>sparkzxl-test-demo</module>
-        <module>sparkzxl-elasticsearch</module>
     </modules>
 
     <repositories>
@@ -94,11 +90,6 @@
                 <groupId>com.github.javafaker</groupId>
                 <artifactId>javafaker</artifactId>
                 <version>${javafaker.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.sparkzxl</groupId>
-                <artifactId>sparkzxl-authority</artifactId>
-                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
