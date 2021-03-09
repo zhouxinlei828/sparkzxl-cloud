@@ -34,6 +34,7 @@
         <module>sparkzxl-code-generator</module>
         <module>sparkzxl-file</module>
         <module>sparkzxl-gateway</module>
+        <module>sparkzxl-work-job</module>
     </modules>
 
     <repositories>
