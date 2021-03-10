@@ -35,6 +35,8 @@
         <module>sparkzxl-file</module>
         <module>sparkzxl-gateway</module>
         <module>sparkzxl-work-job</module>
+        <module>sparkzxl-admin-job</module>
+        <module>sparkzxl-report</module>
     </modules>
 
     <repositories>

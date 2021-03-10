@@ -36,4 +36,5 @@ powerjob:
   worker:
     akka-port: 27777
     app-name: sparkzxl-work-job
-    server-address: 172.34.200.13:7700
+    server-address: 172.34.67.112:7700
+
