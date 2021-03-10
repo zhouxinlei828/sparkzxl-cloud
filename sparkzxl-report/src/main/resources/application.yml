@@ -1,19 +1,22 @@
 server:
+  shutdown: graceful
   port: 8085
-  tomcat:
-    max-swallow-size: -1
+  undertow:
+    buffer-size: 1024
+    direct-buffers: on
+    always-set-keep-alive: true
   error:
     include-exception: true
     include-stacktrace: ALWAYS
     include-message: ALWAYS
-  servlet:
-    context-path: /jeecg-boot
   compression:
     enabled: true
     min-response-size: 1024
     mime-types: application/javascript,application/json,application/xml,text/html,text/xml,text/plain,text/css,image/*
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   aop:
     proxy-target-class: true
   #配置freemarker
@@ -35,17 +38,7 @@ spring:
     static-path-pattern: /**
   resource:
     static-locations: classpath:/static/,classpath:/public/
-  autoconfigure:
-    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
   datasource:
-    druid:
-      stat-view-servlet:
-        enabled: true
-        loginUsername: admin
-        loginPassword: 123456
-        allow:
-      web-stat-filter:
-        enabled: true
     dynamic:
       druid: # 全局druid参数，绝大部分值和默认保持一致。(现已支持的参数如下,不清楚含义不要乱设置)
         # 连接池的配置信息
@@ -76,22 +69,17 @@ spring:
           username: zhouxinlei
           password: Zxl298828
           driver-class-name: com.mysql.cj.jdbc.Driver
-#mybatis plus 设置
 mybatis-plus:
   mapper-locations: classpath*:org/jeecg/modules/**/xml/*Mapper.xml
   global-config:
-    # 关闭MP3.0自带的banner
     banner: false
     db-config:
-      #主键类型  0:"数据库ID自增",1:"该类型为未设置主键类型", 2:"用户输入ID",3:"全局唯一ID (数字类型唯一ID)", 4:"全局唯一ID UUID",5:"字符串全局唯一ID (idWorker 的字符串表示)";
       id-type: ASSIGN_ID
-      # 默认数据库表下划线命名
       table-underline: true
   configuration:
-    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
-    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    # 返回类型为Map,显示null对应的字段
     call-setters-on-nulls: true
+  custom:
+    mapper-scan: org.jeecg.modules.**.mapper*
 #jeecg专用配置
 jeecg :
   # 本地：local\Minio：minio\阿里云：alioss
@@ -121,3 +109,16 @@ jeecg :
     is_verify_token: false
     #必须校验方法
     verify_methods: remove,delete,save,add,update
+knife4j:
+  group-name: 报表应用
+  base-package: com.github.sparkzxl.report
+  title: 报表应用
+  description: 报表应用管理
+  terms-of-service-url: https://www.sparksys.top
+  version: 1.0
+  license: Powered By sparkzxl
+  licenseUrl: https://github.com/sparkzxl
+  contact:
+    url: https://github.com/sparkzxl
+    name: zhouxinlei
+    email: zhouxinlei298@163.com

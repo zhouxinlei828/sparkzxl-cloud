@@ -1,15 +1,14 @@
 package com.github.sparkzxl.report;
 
+import com.github.sparkzxl.boot.SparkBootApplication;
 import org.jeecg.modules.jmreport.common.util.oConvertUtils;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
-@MapperScan(value = {"org.jeecg.modules.**.mapper*"})
 @SpringBootApplication(scanBasePackages = {"org.jeecg.modules.jmreport"})
-public class ReportApplication {
+public class ReportApplication extends SparkBootApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext application = SpringApplication.run(ReportApplication.class, args);
         Environment env = application.getEnvironment();

@@ -33,26 +33,19 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.sparkzxl</groupId>
+            <artifactId>sparkzxl-boot-starter</artifactId>
+        </dependency>
         <!-- JimuReport -->
         <dependency>
             <groupId>org.jeecgframework.jimureport</groupId>
             <artifactId>spring-boot-starter-jimureport</artifactId>
             <version>1.2.0</version>
         </dependency>
-
-        <!-- SpringBoot-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.4.1</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -66,15 +59,6 @@
             <artifactId>minio</artifactId>
             <version>${minio.version}</version>
             <optional>true</optional>
-        </dependency>
-
-        <!-- 数据库驱动 -->
-        <!--mysql-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector-java.version}</version>
-            <scope>runtime</scope>
         </dependency>
         <!--  sqlserver-->
         <dependency>
