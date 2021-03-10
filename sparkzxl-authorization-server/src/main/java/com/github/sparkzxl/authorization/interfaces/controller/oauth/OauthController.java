@@ -101,7 +101,7 @@ public class OauthController {
     public ModelAndView callBack(@ApiIgnore ModelAndView modelAndView, @RequestParam("code") String code,
                                  @RequestParam("state") String state, RedirectAttributes redirectAttributes) {
         AuthorizationCallBackResponse callBackResponse = oauthService.callBack(code, state);
-        String redirectUrl = "redirect:".concat(callBackResponse.getFrontUrl()).concat("jump");
+        String redirectUrl = "redirect:".concat(callBackResponse.getFrontUrl());
         redirectAttributes.addAttribute("tokenState", callBackResponse.getLoginState());
         modelAndView.setViewName(redirectUrl);
         return modelAndView;

@@ -1,10 +1,8 @@
 package com.github.sparkzxl.authorization.domain.service;
 
 import cn.hutool.core.net.url.UrlBuilder;
-import cn.hutool.core.util.EscapeUtil;
-import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.RandomUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.net.url.UrlPath;
+import cn.hutool.core.util.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.sparkzxl.authorization.application.service.IAuthUserService;
 import com.github.sparkzxl.authorization.application.service.ITenantInfoService;
@@ -49,6 +47,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -229,8 +229,10 @@ public class OauthServiceImpl implements OauthService {
                 .addQuery("state", state)
                 .build();
         String referer = request.getHeader("Referer");
+        UrlBuilder builder = UrlBuilder.ofHttp(referer, CharsetUtil.CHARSET_UTF_8);
+        builder.setPath(UrlPath.of("jump", StandardCharsets.UTF_8));
         String frontStateKey = BuildKeyUtils.generateKey(CacheConstant.FRONT_STATE, state);
-        cacheTemplate.set(frontStateKey, referer, 5L, TimeUnit.MINUTES);
+        cacheTemplate.set(frontStateKey, builder.build(), 5L, TimeUnit.MINUTES);
         return EscapeUtil.safeUnescape(authorizeUrl);
     }
 
