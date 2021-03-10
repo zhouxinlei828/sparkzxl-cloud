@@ -5,7 +5,6 @@ import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.core.entity.CaptchaInfo;
 import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.open.entity.AccessTokenInfo;
-import com.github.sparkzxl.open.entity.AuthorizationCallBackResponse;
 import com.github.sparkzxl.open.entity.AuthorizationRequest;
 import com.github.sparkzxl.open.service.OauthService;
 import io.swagger.annotations.Api;
@@ -16,8 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.security.Principal;
@@ -98,18 +95,9 @@ public class OauthController {
 
     @ApiOperation(value = "授权成功回调接口", notes = "授权成功回调接口")
     @GetMapping("/oauth/callBack")
-    public ModelAndView callBack(@ApiIgnore ModelAndView modelAndView, @RequestParam("code") String code,
-                                 @RequestParam("state") String state, RedirectAttributes redirectAttributes) {
-        AuthorizationCallBackResponse callBackResponse = oauthService.callBack(code, state);
-        String redirectUrl = "redirect:".concat(callBackResponse.getFrontUrl());
-        redirectAttributes.addAttribute("tokenState", callBackResponse.getLoginState());
-        modelAndView.setViewName(redirectUrl);
-        return modelAndView;
+    public AccessTokenInfo callBack(@RequestParam("code") String code,
+                                      @RequestParam("state") String state) {
+        return oauthService.authorizationCodeCallBack(code, state);
     }
 
-    @ApiOperation(value = "授权成功回调接口", notes = "授权成功回调接口")
-    @GetMapping("/oauth/exchangeToken")
-    public AccessTokenInfo exchangeToken(@RequestParam("tokenState") String tokenState) {
-        return oauthService.exchangeToken(tokenState);
-    }
 }

@@ -78,9 +78,14 @@ public class OauthClientDetailsRepository implements IOauthClientDetailsReposito
         if (StringUtils.isEmpty(oauthClientDetails.getClientId())) {
             SparkZxlExceptionAssert.businessFail(400, "客户端id不能为空");
         }
+        OauthClientDetails clientDetails = clientDetailsMapper.selectById(oauthClientDetails.getClientId());
         String clientSecret = oauthClientDetails.getClientSecret();
         String encryptClientSecret = passwordEncoder.encode(clientSecret);
         oauthClientDetails.setClientSecret(encryptClientSecret);
-        clientDetailsMapper.updateById(oauthClientDetails);
+        if (ObjectUtils.isEmpty(clientDetails)) {
+            clientDetailsMapper.insert(oauthClientDetails);
+        } else {
+            clientDetailsMapper.updateById(oauthClientDetails);
+        }
     }
 }

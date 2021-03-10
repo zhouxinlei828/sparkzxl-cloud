@@ -88,7 +88,7 @@ public class AuthApplicationRepository implements IAuthApplicationRepository {
         List<AuthApplication> authApplications = authApplicationMapper.selectBatchIds(ids);
         List<String> clientIds = authApplications.stream().map(AuthApplication::getClientId).collect(Collectors.toList());
         oauthClientDetailsRepository.deleteClient(clientIds);
-        return true;
+        return authApplicationMapper.deleteBatchIds(ids) > 0;
     }
 
     @Override

@@ -47,7 +47,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.util.List;
@@ -236,9 +235,8 @@ public class OauthServiceImpl implements OauthService {
         return EscapeUtil.safeUnescape(authorizeUrl);
     }
 
-    @SneakyThrows
     @Override
-    public AuthorizationCallBackResponse callBack(String authorizationCode, String loginState) {
+    public AccessTokenInfo authorizationCodeCallBack(String authorizationCode, String loginState) {
         String frontStateKey = BuildKeyUtils.generateKey(CacheConstant.FRONT_STATE, loginState);
         String frontUrl = cacheTemplate.get(frontStateKey);
         if (StringUtils.isEmpty(frontUrl)) {
@@ -257,14 +255,8 @@ public class OauthServiceImpl implements OauthService {
         List<String> redirectUriList = ListUtils.setToList(clientDetails.getRegisteredRedirectUri());
         parameters.put("redirect_uri", redirectUriList.get(0));
         DefaultOAuth2AccessToken oAuth2AccessToken = (DefaultOAuth2AccessToken) customTokenGrantService.getAccessToken(parameters);
-        buildGlobalUserInfo(oAuth2AccessToken);
         Map<String, Object> additionalInformation = oAuth2AccessToken.getAdditionalInformation();
-
-        AuthorizationCallBackResponse authorizationCallBackResponse = new AuthorizationCallBackResponse();
-        authorizationCallBackResponse.setFrontUrl(frontUrl);
-        String tokenState = RandomUtil.randomString(6);
-        authorizationCallBackResponse.setLoginState(tokenState);
-        String tokenStateKey = BuildKeyUtils.generateKey(CacheConstant.LOGIN_TOKEN_STATE, tokenState);
+        buildGlobalUserInfo(oAuth2AccessToken);
         AccessTokenInfo accessTokenInfo = new AccessTokenInfo();
         accessTokenInfo.setAccessToken(oAuth2AccessToken.getValue());
         accessTokenInfo.setTokenType(oAuth2AccessToken.getTokenType());
@@ -274,35 +266,6 @@ public class OauthServiceImpl implements OauthService {
         if (StringUtils.isNotEmpty(tenant)) {
             accessTokenInfo.setTenant(tenant);
         }
-        cacheTemplate.set(tokenStateKey, accessTokenInfo, 5L, TimeUnit.MINUTES);
-        return authorizationCallBackResponse;
-    }
-
-    @Override
-    public AccessTokenInfo exchangeToken(String tokenState) {
-        String tokenStateKey = BuildKeyUtils.generateKey(CacheConstant.LOGIN_TOKEN_STATE, tokenState);
-        AccessTokenInfo accessTokenInfo = cacheTemplate.get(tokenStateKey);
-        cacheTemplate.remove(tokenStateKey);
         return accessTokenInfo;
-    }
-
-    @Override
-    public boolean logout(HttpServletRequest request) {
-        try {
-            request.logout();
-            String token = request.getHeader("token");
-            token = StringUtils.removeStartIgnoreCase(token, BaseContextConstants.BEARER_TOKEN);
-            if (token != null) {
-                OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
-                if (accessToken != null) {
-                    tokenStore.removeAccessToken(accessToken);
-                    tokenStore.removeRefreshToken(accessToken.getRefreshToken());
-                }
-            }
-            return true;
-        } catch (ServletException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 }
