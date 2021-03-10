@@ -45,6 +45,7 @@ public class AuthApplicationRepository implements IAuthApplicationRepository {
         if (application.getAppType().equals(SERVER_TYPE)) {
             OauthClientDetails oauthClientDetails = application.getOauthClientDetail();
             application.setOriginalClientSecret(oauthClientDetails.getClientSecret());
+            application.setClientId(oauthClientDetails.getClientId());
             oauthClientDetailsRepository.saveOauthClientDetails(oauthClientDetails);
         }
         authApplicationMapper.insert(application);
@@ -95,6 +96,7 @@ public class AuthApplicationRepository implements IAuthApplicationRepository {
         if (application.getAppType().equals(SERVER_TYPE)) {
             OauthClientDetails oauthClientDetails = application.getOauthClientDetail();
             application.setOriginalClientSecret(oauthClientDetails.getClientSecret());
+            application.setClientId(oauthClientDetails.getClientId());
             oauthClientDetailsRepository.updateOauthClientDetails(oauthClientDetails);
         }
         authApplicationMapper.updateById(application);

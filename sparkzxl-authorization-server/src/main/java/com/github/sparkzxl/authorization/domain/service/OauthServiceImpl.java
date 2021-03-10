@@ -19,6 +19,8 @@ import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import com.github.sparkzxl.core.utils.BuildKeyUtils;
 import com.github.sparkzxl.core.utils.ListUtils;
 import com.github.sparkzxl.core.utils.RequestContextHolderUtils;
+import com.github.sparkzxl.open.entity.AccessTokenInfo;
+import com.github.sparkzxl.open.entity.AuthorizationCallBackResponse;
 import com.github.sparkzxl.open.entity.AuthorizationRequest;
 import com.github.sparkzxl.open.properties.OpenProperties;
 import com.github.sparkzxl.open.service.OauthService;
@@ -226,19 +228,21 @@ public class OauthServiceImpl implements OauthService {
                 .addQuery("response_type", "code")
                 .addQuery("state", state)
                 .build();
+        String referer = request.getHeader("Referer");
         String frontStateKey = BuildKeyUtils.generateKey(CacheConstant.FRONT_STATE, state);
-        cacheTemplate.set(frontStateKey, StringUtils.isEmpty(frontUrl) ? "/index" : frontUrl, 6L, TimeUnit.MINUTES);
+        cacheTemplate.set(frontStateKey, referer, 5L, TimeUnit.MINUTES);
         return EscapeUtil.safeUnescape(authorizeUrl);
     }
 
     @SneakyThrows
     @Override
-    public OAuth2AccessToken callBack(String authorizationCode, String loginState) {
+    public AuthorizationCallBackResponse callBack(String authorizationCode, String loginState) {
         String frontStateKey = BuildKeyUtils.generateKey(CacheConstant.FRONT_STATE, loginState);
         String frontUrl = cacheTemplate.get(frontStateKey);
         if (StringUtils.isEmpty(frontUrl)) {
             return null;
         }
+        cacheTemplate.remove(frontStateKey);
         ClientDetails clientDetails = clientDetailsService.loadClientByClientId(openProperties.getAppId());
         Map<String, String> parameters = Maps.newHashMap();
         parameters.put("grant_type", "authorization_code");
@@ -253,11 +257,32 @@ public class OauthServiceImpl implements OauthService {
         DefaultOAuth2AccessToken oAuth2AccessToken = (DefaultOAuth2AccessToken) customTokenGrantService.getAccessToken(parameters);
         buildGlobalUserInfo(oAuth2AccessToken);
         Map<String, Object> additionalInformation = oAuth2AccessToken.getAdditionalInformation();
-        additionalInformation.put("frontUrl", frontUrl);
-        oAuth2AccessToken.setAdditionalInformation(additionalInformation);
-        return oAuth2AccessToken;
+
+        AuthorizationCallBackResponse authorizationCallBackResponse = new AuthorizationCallBackResponse();
+        authorizationCallBackResponse.setFrontUrl(frontUrl);
+        String tokenState = RandomUtil.randomString(6);
+        authorizationCallBackResponse.setLoginState(tokenState);
+        String tokenStateKey = BuildKeyUtils.generateKey(CacheConstant.LOGIN_TOKEN_STATE, tokenState);
+        AccessTokenInfo accessTokenInfo = new AccessTokenInfo();
+        accessTokenInfo.setAccessToken(oAuth2AccessToken.getValue());
+        accessTokenInfo.setTokenType(oAuth2AccessToken.getTokenType());
+        accessTokenInfo.setRefreshToken(oAuth2AccessToken.getRefreshToken().getValue());
+        accessTokenInfo.setExpiration(oAuth2AccessToken.getExpiration());
+        String tenant = (String) additionalInformation.get(BaseContextConstants.JWT_KEY_TENANT);
+        if (StringUtils.isNotEmpty(tenant)) {
+            accessTokenInfo.setTenant(tenant);
+        }
+        cacheTemplate.set(tokenStateKey, accessTokenInfo, 5L, TimeUnit.MINUTES);
+        return authorizationCallBackResponse;
     }
 
+    @Override
+    public AccessTokenInfo exchangeToken(String tokenState) {
+        String tokenStateKey = BuildKeyUtils.generateKey(CacheConstant.LOGIN_TOKEN_STATE, tokenState);
+        AccessTokenInfo accessTokenInfo = cacheTemplate.get(tokenStateKey);
+        cacheTemplate.remove(tokenStateKey);
+        return accessTokenInfo;
+    }
 
     @Override
     public boolean logout(HttpServletRequest request) {
