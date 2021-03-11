@@ -14,6 +14,7 @@ import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,9 +39,10 @@ import java.util.List;
 public class AuthUserController extends SuperCacheController<IAuthUserService, Long,
         AuthUser, AuthUserPageDTO, AuthUserSaveDTO, AuthUserUpdateDTO> {
 
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
-    public AuthUserController(PasswordEncoder passwordEncoder) {
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 

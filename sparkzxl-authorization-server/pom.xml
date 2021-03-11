@@ -43,8 +43,8 @@
             <artifactId>sparkzxl-user-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.sparkzxl</groupId>
-            <artifactId>sparkzxl-oauth2-open-starter</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.javafaker</groupId>

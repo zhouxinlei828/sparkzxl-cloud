@@ -1,10 +1,10 @@
 package com.github.sparkzxl.authorization.infrastructure.config;
 
+import com.github.sparkzxl.authorization.infrastructure.security.RestAuthenticationEntryPoint;
+import com.github.sparkzxl.authorization.infrastructure.security.RestfulAccessDeniedHandler;
+import com.github.sparkzxl.authorization.infrastructure.security.SecurityProperties;
 import com.github.sparkzxl.core.resource.SwaggerStaticResource;
 import com.github.sparkzxl.core.utils.ListUtils;
-import com.github.sparkzxl.open.component.RestAuthenticationEntryPoint;
-import com.github.sparkzxl.open.component.RestfulAccessDeniedHandler;
-import com.github.sparkzxl.open.properties.SecurityProperties;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +49,14 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .requestMatchers()
                 .antMatchers(
-                        "/menu/**", "/resource/**",
-                        "/role/**", "/user/**",
-                        "/common/**", "/org/**",
-                        "/station/**", "/application/**",
+                        "/menu/**",
+                        "/resource/**",
+                        "/role/**",
+                        "/user/**",
+                        "/common/**",
+                        "/org/**",
+                        "/station/**",
+                        "/application/**",
                         "/tenant/**");
     }
 }

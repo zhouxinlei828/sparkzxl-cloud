@@ -2,9 +2,9 @@ package com.github.sparkzxl.authorization.domain.service;
 
 import com.github.sparkzxl.authorization.application.service.IAuthUserService;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthUser;
+import com.github.sparkzxl.authorization.infrastructure.security.AuthUserDetail;
 import com.github.sparkzxl.core.context.BaseContextHandler;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
-import com.github.sparkzxl.open.entity.AuthUserDetail;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

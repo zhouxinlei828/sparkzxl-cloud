@@ -1,12 +1,12 @@
 package com.github.sparkzxl.authorization.interfaces.controller.oauth;
 
 import com.github.sparkzxl.authorization.application.service.ITenantInfoService;
+import com.github.sparkzxl.authorization.application.service.OauthService;
+import com.github.sparkzxl.authorization.infrastructure.oauth2.AccessTokenInfo;
+import com.github.sparkzxl.authorization.infrastructure.oauth2.AuthorizationRequest;
 import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.core.entity.CaptchaInfo;
 import com.github.sparkzxl.log.annotation.WebLog;
-import com.github.sparkzxl.open.entity.AccessTokenInfo;
-import com.github.sparkzxl.open.entity.AuthorizationRequest;
-import com.github.sparkzxl.open.service.OauthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -96,7 +96,7 @@ public class OauthController {
     @ApiOperation(value = "授权成功回调接口", notes = "授权成功回调接口")
     @GetMapping("/oauth/callBack")
     public AccessTokenInfo callBack(@RequestParam("code") String code,
-                                      @RequestParam("state") String state) {
+                                    @RequestParam("state") String state) {
         return oauthService.authorizationCodeCallBack(code, state);
     }
 
