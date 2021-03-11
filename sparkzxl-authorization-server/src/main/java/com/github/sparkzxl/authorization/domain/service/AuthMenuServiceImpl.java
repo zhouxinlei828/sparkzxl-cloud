@@ -10,7 +10,6 @@ import com.github.sparkzxl.authorization.infrastructure.mapper.AuthMenuMapper;
 import com.github.sparkzxl.authorization.infrastructure.repository.AuthMenuRepository;
 import com.github.sparkzxl.authorization.interfaces.dto.menu.AuthMenuSaveDTO;
 import com.github.sparkzxl.core.context.BaseContextHandler;
-import com.github.sparkzxl.core.tree.TreeUtils;
 import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.github.sparkzxl.database.utils.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +30,8 @@ public class AuthMenuServiceImpl extends AbstractSuperCacheServiceImpl<AuthMenuM
     private AuthMenuRepository authMenuRepository;
 
     @Override
-    public List<AuthMenu> findMenuTree() {
-        List<AuthMenu> authMenuList = list();
-        return TreeUtil.buildTree(authMenuList);
+    public List<AuthMenu> findMenuTree(String label) {
+        return TreeUtil.buildTree(authMenuRepository.findMenuTree(label));
     }
 
     @Override

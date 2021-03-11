@@ -15,13 +15,16 @@ import com.github.sparkzxl.authorization.infrastructure.mapper.RoleAuthorityMapp
 import com.github.sparkzxl.authorization.infrastructure.mapper.UserRoleMapper;
 import com.github.sparkzxl.core.tree.TreeUtils;
 import com.github.sparkzxl.database.entity.SuperEntity;
+import com.github.sparkzxl.database.entity.TreeEntity;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -147,5 +150,27 @@ public class AuthMenuRepository implements IAuthMenuRepository {
         resourceIds.forEach(resourceId -> authResourceRepository.deleteResource(resourceId));
         roleAuthorityMapper.delete(new LambdaQueryWrapper<RoleAuthority>().in(RoleAuthority::getAuthorityId, authorityIds));
         return authMenuMapper.deleteBatchIds(ids) > 0;
+    }
+
+    @Override
+    public List<AuthMenu> findMenuTree(String label) {
+        LambdaQueryWrapper<AuthMenu> menuLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        if (StringUtils.isNotEmpty(label)) {
+            menuLambdaQueryWrapper.likeLeft(TreeEntity::getLabel, label);
+        }
+        menuLambdaQueryWrapper.orderByAsc(TreeEntity::getSortValue);
+        List<AuthMenu> authMenuList = authMenuMapper.selectList(menuLambdaQueryWrapper);
+        if (CollectionUtils.isNotEmpty(authMenuList)){
+            List<Long> menuIdList = authMenuList.stream().map(SuperEntity::getId).collect(Collectors.toList());
+            List<AuthResource> authResources = authResourceRepository.authResourceList(menuIdList);
+            Map<Long, List<AuthResource>> resourceMap = authResources.stream().collect(Collectors.groupingBy(AuthResource::getMenuId));
+            authMenuList.forEach(authMenu -> {
+                List<AuthResource> resourceList = resourceMap.get(authMenu.getId());
+                if (CollectionUtils.isNotEmpty(resourceList)) {
+                    authMenu.setResourceList(resourceList);
+                }
+            });
+        }
+        return authMenuList;
     }
 }

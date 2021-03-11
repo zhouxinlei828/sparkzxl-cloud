@@ -54,14 +54,7 @@ public class AuthMenuController extends SuperCacheController<IAuthMenuService, L
     @ApiOperation(value = "查询系统所有的菜单", notes = "查询系统所有的菜单")
     @GetMapping("/tree")
     public List<AuthMenu> allTree(@RequestParam(value = "label", required = false) String label) {
-        LbqWrapper<AuthMenu> authMenuLbqWrapper = Wraps.lbQ();
-        if (StringUtils.isNotEmpty(label)) {
-            authMenuLbqWrapper.likeLeft(TreeEntity::getLabel, label);
-
-        }
-        authMenuLbqWrapper.orderByAsc(AuthMenu::getSortValue);
-        List<AuthMenu> list = baseService.list(authMenuLbqWrapper);
-        return TreeUtil.buildTree(list);
+        return baseService.findMenuTree(label);
     }
 
     @ApiOperation(value = "删除菜单", notes = "删除菜单")

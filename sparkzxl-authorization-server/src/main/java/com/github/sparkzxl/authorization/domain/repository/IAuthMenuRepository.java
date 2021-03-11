@@ -59,4 +59,12 @@ public interface IAuthMenuRepository {
      * @return boolean
      */
     boolean deleteMenu(List<Long> ids);
+
+    /**
+     * 查询菜单tree
+     *
+     * @param label 菜单名称
+     * @return List<AuthMenu>
+     */
+    List<AuthMenu> findMenuTree(String label);
 }

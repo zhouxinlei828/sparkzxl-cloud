@@ -3,7 +3,7 @@
 <mapper namespace="com.github.sparkzxl.authorization.infrastructure.mapper.AuthUserMapper">
 
     <select id="getRoleResourceList" resultType="com.github.sparkzxl.authorization.infrastructure.entity.RoleResource">
-        SELECT arr.`code`     roleCode,
+        SELECT DISTINCT arr.`code`     roleCode,
                ar.request_url path
         FROM auth_user_role aur
                  INNER JOIN auth_role arr ON aur.role_id = arr.id
@@ -16,7 +16,7 @@
 
     <select id="getRoleResource"
             resultType="com.github.sparkzxl.authorization.infrastructure.entity.RoleResource">
-        SELECT arr.`code`     roleCode,
+        SELECT DISTINCT arr.`code`     roleCode,
                ar.request_url path
         FROM auth_user_role aur
                  INNER JOIN auth_role arr ON aur.role_id = arr.id

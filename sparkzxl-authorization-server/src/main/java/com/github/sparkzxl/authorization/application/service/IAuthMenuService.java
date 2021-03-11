@@ -19,9 +19,10 @@ public interface IAuthMenuService extends SuperCacheService<AuthMenu> {
     /**
      * 查询菜单tree
      *
+     * @param label 菜单名称
      * @return List<AuthMenu>
      */
-    List<AuthMenu> findMenuTree();
+    List<AuthMenu> findMenuTree(String label);
 
     /**
      * 根据菜单id删除菜单
