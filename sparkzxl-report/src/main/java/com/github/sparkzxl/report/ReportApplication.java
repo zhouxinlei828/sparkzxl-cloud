@@ -7,6 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
+/**
+ * description: 报表启动类
+ *
+ * @author: zhouxinlei
+ * @date: 2021-03-12 17:44:32
+ */
 @SpringBootApplication(scanBasePackages = {"org.jeecg.modules.jmreport"})
 public class ReportApplication extends SparkBootApplication {
     public static void main(String[] args) {
