@@ -47,7 +47,8 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
             String prefix = serverProperties.getServlet().getContextPath().concat("/").concat(route.getId());
             path[0] = path[0].replace(prefix, "");
         });
-        Object obj = redisTemplate.opsForHash().get(RESOURCE_ROLES_MAP, path[0]);
+        String routePath = path[0];
+        Object obj = redisTemplate.opsForHash().get(RESOURCE_ROLES_MAP, routePath);
         List<String> authorities = Convert.toList(String.class, obj);
         authorities = authorities.stream().map(i -> i = BaseContextConstants.AUTHORITY_PREFIX + i).collect(Collectors.toList());
         //认证通过且角色匹配的用户可访问当前路径
