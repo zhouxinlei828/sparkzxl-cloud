@@ -14,9 +14,9 @@ public class ReportApplication extends SparkBootApplication {
         Environment env = application.getEnvironment();
         String port = env.getProperty("server.port");
         String path = oConvertUtils.getString(env.getProperty("server.servlet.context-path"));
-        System.out.print("\n----------------------------------------------------------\n\t" +
-                "Application JimuReport Demo is running! Access URL:\n\t" +
-                "Local: \t\thttp://localhost:" + port + path + "/jmreport/list\n\t" +
-                "----------------------------------------------------------");
+        System.out.print("\n______________________________________________________________\n\t" +
+                "Application Report is running! Access URL:\n\t" +
+                "Local: \t\thttp://localhost:" + port + path + "/jmreport/list\n" +
+                "______________________________________________________________");
     }
 }

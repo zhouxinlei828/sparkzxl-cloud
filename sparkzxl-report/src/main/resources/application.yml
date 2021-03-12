@@ -17,6 +17,8 @@ server:
 spring:
   main:
     allow-bean-definition-overriding: true
+  application:
+    name: sparkzxl-report
   aop:
     proxy-target-class: true
   #配置freemarker
