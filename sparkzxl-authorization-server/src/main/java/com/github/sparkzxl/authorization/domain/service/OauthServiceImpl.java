@@ -41,10 +41,8 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.endpoint.CustomTokenGrantService;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
@@ -82,8 +80,6 @@ public class OauthServiceImpl implements OauthService {
     private OpenProperties openProperties;
     @Autowired
     private CustomTokenGrantService customTokenGrantService;
-    @Autowired
-    private TokenStore tokenStore;
 
     @SneakyThrows
     @Override
@@ -100,7 +96,6 @@ public class OauthServiceImpl implements OauthService {
     }
 
     private OAuth2AccessToken loginEventAndBack(AuthorizationRequest authorizationRequest, ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity) {
-        String grantType = authorizationRequest.getGrantType();
         if (!oAuth2AccessTokenResponseEntity.getStatusCode().isError()) {
             OAuth2AccessToken oAuth2AccessToken = oAuth2AccessTokenResponseEntity.getBody();
             assert oAuth2AccessToken != null;

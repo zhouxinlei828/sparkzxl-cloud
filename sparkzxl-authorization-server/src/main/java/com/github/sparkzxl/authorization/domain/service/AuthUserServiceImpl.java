@@ -26,7 +26,6 @@ import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserPageDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserUpdateDTO;
-import com.github.sparkzxl.core.context.BaseContextHandler;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
 import com.github.sparkzxl.database.entity.RemoteData;
@@ -195,15 +194,14 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     }
 
     @Override
-    public AuthUserBasicVO getAuthUserBasicInfo() {
-        Long userId = BaseContextHandler.getUserId(Long.TYPE);
+    public AuthUserBasicVO getAuthUserBasicInfo(Long userId) {
         AuthUserBasicInfo authUserBasicInfo = authUserRepository.getAuthUserBasicInfo(userId);
         return AuthUserConvert.INSTANCE.convertAuthUserBasicVO(authUserBasicInfo);
     }
 
     @Override
-    public List<MenuBasicInfo> routers() {
-        return authMenuService.routers();
+    public List<MenuBasicInfo> routers(Long userId) {
+        return authMenuService.routers(userId);
     }
 
     @Override

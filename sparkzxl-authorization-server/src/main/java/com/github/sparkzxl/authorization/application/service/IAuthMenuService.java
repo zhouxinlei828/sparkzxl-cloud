@@ -35,9 +35,10 @@ public interface IAuthMenuService extends SuperCacheService<AuthMenu> {
     /**
      * 查询用户路由菜单
      *
+     * @param 用户id
      * @return List<MenuBasicInfo>
      */
-    List<MenuBasicInfo> routers();
+    List<MenuBasicInfo> routers(Long userId);
 
     /**
      * 保存菜单信息

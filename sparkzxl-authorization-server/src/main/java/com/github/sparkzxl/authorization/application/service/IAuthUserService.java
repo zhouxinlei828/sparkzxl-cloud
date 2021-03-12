@@ -104,16 +104,18 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 获取登录用户全量信息
      *
+     * @param userId 用户id
      * @return AuthUserBasicVO
      */
-    AuthUserBasicVO getAuthUserBasicInfo();
+    AuthUserBasicVO getAuthUserBasicInfo(Long userId);
 
     /**
      * 用户菜单
      *
+     * @param userId 用户id
      * @return List<MenuBasicInfo>
      */
-    List<MenuBasicInfo> routers();
+    List<MenuBasicInfo> routers(Long userId);
 
     /**
      * Excel导入用户数据

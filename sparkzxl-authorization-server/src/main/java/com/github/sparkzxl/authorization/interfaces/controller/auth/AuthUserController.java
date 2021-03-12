@@ -9,15 +9,17 @@ import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserPageDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserUpdateDTO;
+import com.github.sparkzxl.core.annotation.ResponseResult;
+import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
 import com.github.sparkzxl.log.annotation.WebLog;
-import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -52,7 +54,7 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
         return baseService.getAuthUserPage(authUserPageDTO);
     }
 
-    @ApiOperation("获取用户信息")
+    @ApiOperation("用户信息详情查询")
     @GetMapping("/authUser/{id}")
     public AuthUserDTO getAuthUser(@PathVariable("id") Long id) {
         return baseService.getAuthUser(id);
@@ -90,20 +92,14 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
 
     @ApiOperation(value = "用户路由菜单", notes = "用户路由菜单")
     @GetMapping("/routers")
-    public List<MenuBasicInfo> routers() {
-        return baseService.routers();
+    public List<MenuBasicInfo> routers(@ApiIgnore AuthUserInfo<Long> authUserInfo) {
+        return baseService.routers(authUserInfo.getId());
     }
 
-    @ApiOperation("获取登录用户全量信息")
-    @GetMapping("/currentUser")
-    public AuthUserBasicVO getAuthUserBasicInfo() {
-        return baseService.getAuthUserBasicInfo();
-    }
-
-    @ApiOperation("获取用户信息")
-    @GetMapping("/passwordEncoder")
-    public String passwordEncoder(@RequestParam("password") String password) {
-        return passwordEncoder.encode(password);
+    @ApiOperation("获取用户基本信息")
+    @GetMapping("/userinfo")
+    public AuthUserBasicVO getAuthUserBasicInfo(@ApiIgnore AuthUserInfo<Long> authUserInfo) {
+        return baseService.getAuthUserBasicInfo(authUserInfo.getId());
     }
 
     @ApiOperation("生成仿真数据")

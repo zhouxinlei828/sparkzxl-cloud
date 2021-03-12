@@ -22,10 +22,10 @@
         <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
         <spring-boot-maven.version>2.3.5.RELEASE</spring-boot-maven.version>
         <mapstruct.version>1.4.0.CR1</mapstruct.version>
-
         <sparkzxl-dependencies.version>1.3.0.RELEASE</sparkzxl-dependencies.version>
         <lombok.version>1.18.8</lombok.version>
         <javafaker.version>1.0.2</javafaker.version>
+        <mybatis-spring-boot-starter.version>2.1.4</mybatis-spring-boot-starter.version>
     </properties>
 
     <modules>
@@ -35,6 +35,7 @@
         <module>sparkzxl-file</module>
         <module>sparkzxl-gateway</module>
         <module>sparkzxl-report</module>
+        <module>sparkzxl-job-admin</module>
     </modules>
 
     <repositories>
