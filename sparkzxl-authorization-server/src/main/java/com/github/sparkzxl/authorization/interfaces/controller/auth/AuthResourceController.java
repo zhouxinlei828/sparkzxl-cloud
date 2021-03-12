@@ -46,12 +46,6 @@ public class AuthResourceController extends SuperCacheController<IAuthResourceSe
     }
 
     @Override
-    public boolean handlerUpdate(AuthResourceUpdateDTO model) {
-        SpringContextUtils.publishEvent(new RoleResourceEvent(new ResourceSource(OperationEnum.UPDATE, null, model.getRequestUrl())));
-        return false;
-    }
-
-    @Override
     public boolean update(AuthResourceUpdateDTO authResourceUpdateDTO) {
         return baseService.updateResource(authResourceUpdateDTO);
     }
