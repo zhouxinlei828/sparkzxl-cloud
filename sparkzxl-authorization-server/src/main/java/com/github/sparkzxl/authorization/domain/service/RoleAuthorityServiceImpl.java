@@ -33,4 +33,9 @@ public class RoleAuthorityServiceImpl extends AbstractSuperCacheServiceImpl<Role
                 roleAuthoritySaveDTO.getResourceIds(),
                 roleAuthoritySaveDTO.getMenuIds());
     }
+
+    @Override
+    public boolean refreshAuthority() {
+        return authorityRepository.refreshAuthority();
+    }
 }

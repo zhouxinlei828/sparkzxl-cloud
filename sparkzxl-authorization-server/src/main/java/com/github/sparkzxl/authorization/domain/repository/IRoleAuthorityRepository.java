@@ -29,4 +29,10 @@ public interface IRoleAuthorityRepository {
      * @return RoleResource
      */
     RoleResource getRoleResource(Long roleId);
+
+    /**
+     * 刷新角色权限
+     * @return boolean
+     */
+    boolean refreshAuthority();
 }

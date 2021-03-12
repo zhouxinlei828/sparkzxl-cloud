@@ -42,4 +42,10 @@ public class RoleAuthorityController extends SuperCacheController<IRoleAuthority
     public boolean deleteRoleAuthorityBatch(@RequestParam(value = "roleIds") List<Long> roleIds) {
         return baseService.remove(new LambdaUpdateWrapper<RoleAuthority>().in(RoleAuthority::getRoleId, roleIds));
     }
+
+    @ApiOperation("刷新角色权限")
+    @GetMapping("/refresh")
+    public boolean refreshAuthority() {
+        return baseService.refreshAuthority();
+    }
 }

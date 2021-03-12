@@ -21,4 +21,12 @@ public interface IRoleAuthorityService extends SuperCacheService<RoleAuthority> 
      * @return boolean
      */
     boolean saveRoleAuthorityBatch(RoleAuthoritySaveDTO roleAuthoritySaveDTO);
+
+    /**
+     * 刷新角色权限
+     *
+     * @return boolean
+     */
+    boolean refreshAuthority();
+
 }

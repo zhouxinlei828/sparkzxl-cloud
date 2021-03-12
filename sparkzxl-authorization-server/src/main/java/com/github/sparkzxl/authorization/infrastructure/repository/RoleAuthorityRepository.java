@@ -6,14 +6,18 @@ import com.github.sparkzxl.authorization.application.event.RoleResourceEvent;
 import com.github.sparkzxl.authorization.domain.model.aggregates.ResourceSource;
 import com.github.sparkzxl.authorization.domain.model.aggregates.RoleResource;
 import com.github.sparkzxl.authorization.domain.repository.IRoleAuthorityRepository;
+import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.authorization.infrastructure.entity.RoleAuthority;
 import com.github.sparkzxl.authorization.infrastructure.enums.OperationEnum;
+import com.github.sparkzxl.authorization.infrastructure.mapper.AuthUserMapper;
 import com.github.sparkzxl.authorization.infrastructure.mapper.RoleAuthorityMapper;
 import com.github.sparkzxl.core.context.BaseContextHandler;
 import com.github.sparkzxl.core.spring.SpringContextUtils;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,11 +31,27 @@ import java.util.stream.Collectors;
  * @author: zhouxinlei
  * @date: 2020-08-15 11:14:18
  */
-@AllArgsConstructor
 @Repository
 public class RoleAuthorityRepository implements IRoleAuthorityRepository {
 
-    private final RoleAuthorityMapper roleAuthorityMapper;
+    private RoleAuthorityMapper roleAuthorityMapper;
+    private AuthUserMapper authUserMapper;
+    private RedisTemplate<String, Object> redisTemplate;
+
+    @Autowired
+    public void setRoleAuthorityMapper(RoleAuthorityMapper roleAuthorityMapper) {
+        this.roleAuthorityMapper = roleAuthorityMapper;
+    }
+
+    @Autowired
+    public void setAuthUserMapper(AuthUserMapper authUserMapper) {
+        this.authUserMapper = authUserMapper;
+    }
+
+    @Autowired
+    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     @Override
     public boolean saveRoleAuthorityBatch(Long roleId, Set<Long> resourceIds, Set<Long> menuIds) {
@@ -86,5 +106,14 @@ public class RoleAuthorityRepository implements IRoleAuthorityRepository {
         }
         roleResource.setAuthMenus(authMenus);
         return roleResource;
+    }
+
+    @Override
+    public boolean refreshAuthority() {
+        redisTemplate.delete(CacheConstant.RESOURCE_ROLES_MAP);
+        List<com.github.sparkzxl.authorization.infrastructure.entity.RoleResource> roleResources = authUserMapper.getRoleResourceList();
+        Map<String, Object> roleResourceMap = roleResources.stream().collect(Collectors.toMap(com.github.sparkzxl.authorization.infrastructure.entity.RoleResource::getPath, com.github.sparkzxl.authorization.infrastructure.entity.RoleResource::getRoleCode));
+        redisTemplate.opsForHash().putAll(CacheConstant.RESOURCE_ROLES_MAP, roleResourceMap);
+        return true;
     }
 }

@@ -1,18 +1,10 @@
 package com.github.sparkzxl.authorization.application.event;
 
-import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
-import com.github.sparkzxl.authorization.infrastructure.entity.RoleResource;
-import com.github.sparkzxl.authorization.infrastructure.mapper.AuthUserMapper;
+import com.github.sparkzxl.authorization.application.service.IRoleAuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * description: 初始化角色资源加载类
@@ -24,15 +16,11 @@ import java.util.stream.Collectors;
 public class InitRolePathApplicationRunner implements CommandLineRunner, Ordered {
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-    @Autowired
-    private AuthUserMapper authUserMapper;
+    private IRoleAuthorityService roleAuthorityService;
 
     @Override
     public void run(String... args) {
-        List<RoleResource> roleResources = authUserMapper.getRoleResourceList();
-        Map<String, Object> roleResourceMap = roleResources.stream().collect(Collectors.toMap(RoleResource::getPath, RoleResource::getRoleCode));
-        redisTemplate.opsForHash().putAll(CacheConstant.RESOURCE_ROLES_MAP, roleResourceMap);
+        roleAuthorityService.refreshAuthority();
     }
 
     @Override
