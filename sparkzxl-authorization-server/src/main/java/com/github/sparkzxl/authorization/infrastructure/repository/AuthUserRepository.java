@@ -187,4 +187,11 @@ public class AuthUserRepository implements IAuthUserRepository {
     public void deleteTenantUser(String tenantCode) {
         authUserMapper.deleteTenantUser(tenantCode);
     }
+
+    @Override
+    public boolean deleteAuthUser(List<Long> ids) {
+        authUserMapper.deleteBatchIds(ids);
+        deleteUserRelation(ids);
+        return true;
+    }
 }

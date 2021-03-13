@@ -51,26 +51,26 @@ public class AuthRoleController extends SuperCacheController<IAuthRoleService, L
     }
 
     @ApiOperation("保存角色用户")
-    @PostMapping("/saveRoleUser")
+    @PostMapping("/user/save")
     public boolean saveAuthRoleUser(@Validated @RequestBody RoleUserSaveDTO roleUserSaveDTO) {
         return userRoleService.saveAuthRoleUser(roleUserSaveDTO);
     }
 
 
     @ApiOperation("删除角色用户")
-    @DeleteMapping("/deleteRoleUser")
+    @DeleteMapping("/user/delete")
     public boolean deleteAuthRoleUser(@Validated @RequestBody RoleUserDeleteDTO roleUserDeleteDTO) {
         return userRoleService.deleteAuthRoleUser(roleUserDeleteDTO);
     }
 
     @ApiOperation("查询角色用户")
-    @GetMapping("/roleUserList")
+    @GetMapping("/user/list")
     public RoleUserDTO getRoleUserList(@RequestParam("roleId") Long roleId) {
         return userRoleService.getRoleUserList(roleId);
     }
 
     @ApiOperation("查询角色资源")
-    @GetMapping("/getRoleResource")
+    @GetMapping("/resource")
     public RoleResourceVO getRoleResource(@RequestParam("roleId") Long roleId) {
         return userRoleService.getRoleResource(roleId);
     }

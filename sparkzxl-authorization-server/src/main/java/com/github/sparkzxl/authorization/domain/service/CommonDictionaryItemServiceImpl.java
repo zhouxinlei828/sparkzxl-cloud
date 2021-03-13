@@ -62,19 +62,19 @@ public class CommonDictionaryItemServiceImpl extends AbstractSuperCacheServiceIm
     }
 
     @Override
-    public List<CommonDictionaryItem> findDictionaryItemList(DictionaryItemQueryDTO dictionaryItemQueryDTO) {
+    public List<CommonDictionaryItem> findDictionaryItemList(CommonDictionaryItem dictionaryItem) {
         LambdaQueryWrapper<CommonDictionaryItem> dictionaryItemLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        if (ObjectUtils.isNotEmpty(dictionaryItemQueryDTO.getDictionaryId())){
-            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryId,dictionaryItemQueryDTO.getDictionaryId());
+        if (ObjectUtils.isNotEmpty(dictionaryItem.getDictionaryId())){
+            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryId,dictionaryItem.getDictionaryId());
         }
-        if (StringUtils.isNotEmpty(dictionaryItemQueryDTO.getDictionaryType())){
-            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryType,dictionaryItemQueryDTO.getDictionaryType());
+        if (StringUtils.isNotEmpty(dictionaryItem.getDictionaryType())){
+            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryType,dictionaryItem.getDictionaryType());
         }
-        if (StringUtils.isNotEmpty(dictionaryItemQueryDTO.getCode())){
-            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getCode,dictionaryItemQueryDTO.getCode());
+        if (StringUtils.isNotEmpty(dictionaryItem.getCode())){
+            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getCode,dictionaryItem.getCode());
         }
-        if (StringUtils.isNotEmpty(dictionaryItemQueryDTO.getName())){
-            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getName,dictionaryItemQueryDTO.getName());
+        if (StringUtils.isNotEmpty(dictionaryItem.getName())){
+            dictionaryItemLambdaQueryWrapper.likeRight(CommonDictionaryItem::getName,dictionaryItem.getName());
         }
         dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getStatus, true)
                 .orderByAsc(CommonDictionaryItem::getSortValue);

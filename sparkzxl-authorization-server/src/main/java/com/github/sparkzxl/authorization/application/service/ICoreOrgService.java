@@ -23,7 +23,7 @@ public interface ICoreOrgService extends SuperCacheService<CoreOrg> {
      * @param status 状态
      * @return List<CoreOrg>
      */
-    List<CoreOrg> getCoreOrgList(String name, Boolean status);
+    List<CoreOrg> getCoreOrgTree(String name, Boolean status);
 
     /**
      * 根据名称获取组织信息
@@ -48,14 +48,6 @@ public interface ICoreOrgService extends SuperCacheService<CoreOrg> {
      * @return boolean
      */
     boolean updateCoreOrg(OrgUpdateDTO orgUpdateDTO);
-
-    /**
-     * 删除组织
-     *
-     * @param id 组织id
-     * @return boolean
-     */
-    boolean deleteCoreOrg(Long id);
 
     /**
      * 批量删除组织

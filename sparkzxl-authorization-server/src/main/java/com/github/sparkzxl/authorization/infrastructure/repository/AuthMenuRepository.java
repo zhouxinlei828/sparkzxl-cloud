@@ -146,8 +146,8 @@ public class AuthMenuRepository implements IAuthMenuRepository {
         authorityIds.addAll(ids);
         List<AuthResource> authResources = authResourceRepository.authResourceList(ids);
         List<Long> resourceIds = authResources.stream().map(SuperEntity::getId).collect(Collectors.toList());
+        authResourceRepository.deleteResource(resourceIds);
         authorityIds.addAll(resourceIds);
-        resourceIds.forEach(resourceId -> authResourceRepository.deleteResource(resourceId));
         roleAuthorityMapper.delete(new LambdaQueryWrapper<RoleAuthority>().in(RoleAuthority::getAuthorityId, authorityIds));
         return authMenuMapper.deleteBatchIds(ids) > 0;
     }

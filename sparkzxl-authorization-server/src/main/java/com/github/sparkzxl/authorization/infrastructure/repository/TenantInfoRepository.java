@@ -158,4 +158,12 @@ public class TenantInfoRepository implements ITenantInfoRepository {
         dictionaryItemMapper.deleteTenantDictionaryItem(tenantCode);
         return tenantMapper.deleteById(tenantId) != 0;
     }
+
+    @Override
+    public boolean deleteBatchTenant(List<Long> tenantIds) {
+        if (CollectionUtils.isNotEmpty(tenantIds)){
+            tenantIds.forEach(this::deleteTenant);
+        }
+        return true;
+    }
 }

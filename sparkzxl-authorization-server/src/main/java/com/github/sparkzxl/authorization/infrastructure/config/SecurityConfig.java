@@ -27,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
+import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 
 import java.util.List;
 
@@ -55,9 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public TenantLoginPreFilter tenantLoginPreFilter(){
+    public TenantLoginPreFilter tenantLoginPreFilter() {
         return new TenantLoginPreFilter();
     }
+
     @Bean
     public LogoutSuccessHandler logoutSuccessHandler() {
         return new LogoutSuccessHandlerImpl();
@@ -105,7 +107,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         if (!securityProperties.isCsrf()) {
             http.csrf().disable();
         }
-        http.logout().logoutUrl("/customLogout")
+        http.headers(headers -> headers
+                .referrerPolicy(referrer -> referrer
+                        .policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)))
+                .logout().logoutUrl("/customLogout")
                 .logoutSuccessHandler(logoutSuccessHandler())
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)

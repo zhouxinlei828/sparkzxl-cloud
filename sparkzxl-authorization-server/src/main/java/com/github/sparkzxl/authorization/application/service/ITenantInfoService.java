@@ -11,6 +11,8 @@ import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import com.github.sparkzxl.database.dto.DeleteDTO;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
+
 /**
  * description: 租户信息 服务类
  *
@@ -50,6 +52,13 @@ public interface ITenantInfoService extends IService<TenantInfo> {
      * @return boolean
      */
     boolean deleteTenant(Long tenantId);
+
+    /**
+     * 批量删除租户
+     * @param tenantIds 租户ids
+     * @return boolean
+     */
+    boolean deleteBatchTenant(List<Long> tenantIds);
 
     /**
      * check 租户信息

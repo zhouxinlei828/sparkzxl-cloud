@@ -14,6 +14,8 @@ import com.github.sparkzxl.authorization.interfaces.dto.tenant.TenantUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * description: 租户信息 服务实现类
  *
@@ -47,6 +49,11 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
     @Override
     public boolean deleteTenant(Long tenantId) {
         return tenantRepository.deleteTenant(tenantId);
+    }
+
+    @Override
+    public boolean deleteBatchTenant(List<Long> tenantIds) {
+        return tenantRepository.deleteBatchTenant(tenantIds);
     }
 
     @Override

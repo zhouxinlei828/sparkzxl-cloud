@@ -48,8 +48,8 @@ public class AuthResourceServiceImpl extends AbstractSuperCacheServiceImpl<AuthR
     }
 
     @Override
-    public boolean deleteResource(Long resourceId) {
-        return authResourceRepository.deleteResource(resourceId);
+    public boolean deleteResource(List<Long> resourceIds) {
+        return authResourceRepository.deleteResource(resourceIds);
     }
 
     @Override

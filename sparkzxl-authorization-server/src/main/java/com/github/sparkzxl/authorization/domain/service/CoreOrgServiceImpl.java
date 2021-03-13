@@ -39,7 +39,7 @@ public class CoreOrgServiceImpl extends AbstractSuperCacheServiceImpl<CoreOrgMap
     private IIdSegmentRepository segmentRepository;
 
     @Override
-    public List<CoreOrg> getCoreOrgList(String name, Boolean status) {
+    public List<CoreOrg> getCoreOrgTree(String name, Boolean status) {
         LambdaQueryWrapper<CoreOrg> orgQueryWrapper = new LambdaQueryWrapper<>();
         Optional.ofNullable(name).ifPresent(value -> orgQueryWrapper.likeRight(TreeEntity::getLabel, value));
         Optional.ofNullable(status).ifPresent(value -> orgQueryWrapper.eq(CoreOrg::getStatus, value));
@@ -67,13 +67,6 @@ public class CoreOrgServiceImpl extends AbstractSuperCacheServiceImpl<CoreOrgMap
     public boolean updateCoreOrg(OrgUpdateDTO orgUpdateDTO) {
         CoreOrg coreOrg = CoreOrgConvert.INSTANCE.convertCoreOrg(orgUpdateDTO);
         return updateById(coreOrg);
-    }
-
-    @Override
-    public boolean deleteCoreOrg(Long id) {
-        roleOrgService.deleteRoleOrgByOrgId(id);
-        authUserService.deleteOrgId(id);
-        return removeById(id);
     }
 
     @Override

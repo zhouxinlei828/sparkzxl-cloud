@@ -45,21 +45,19 @@ public class AuthMenuController extends SuperCacheController<IAuthMenuService, L
         return true;
     }
 
-    @ApiOperation(value = "保存菜单信息", notes = "保存菜单信息")
-    @PostMapping("/saveMenu")
-    public boolean saveMenu(@RequestBody AuthMenuSaveDTO authMenuSaveDTO) {
+    @Override
+    public boolean save(AuthMenuSaveDTO authMenuSaveDTO) {
         return super.baseService.saveMenu(authMenuSaveDTO);
     }
 
-    @ApiOperation(value = "查询系统所有的菜单", notes = "查询系统所有的菜单")
+    @ApiOperation(value = "查询所有的菜单", notes = "查询所有的菜单")
     @GetMapping("/tree")
     public List<AuthMenu> allTree(@RequestParam(value = "label", required = false) String label) {
         return baseService.findMenuTree(label);
     }
 
-    @ApiOperation(value = "删除菜单", notes = "删除菜单")
-    @DeleteMapping("/deleteMenu")
-    public boolean deleteMenu(@RequestBody DeleteDTO deleteDTO) {
+    @Override
+    public boolean delete(DeleteDTO<Long> deleteDTO) {
         return baseService.deleteMenu(deleteDTO.getIds());
     }
 }

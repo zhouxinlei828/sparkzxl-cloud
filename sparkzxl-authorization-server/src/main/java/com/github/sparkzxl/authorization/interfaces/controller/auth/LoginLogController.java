@@ -31,7 +31,7 @@ public class LoginLogController {
 
 
     @ApiOperation("清空日志")
-    @DeleteMapping("/loginLog/clear")
+    @DeleteMapping("/clear")
     public Boolean clear(@RequestParam(required = false, defaultValue = "1") Integer type) {
         LocalDateTime clearBeforeTime = null;
         Integer clearBeforeNum = null;

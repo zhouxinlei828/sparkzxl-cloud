@@ -28,10 +28,10 @@ public interface IAuthResourceService extends SuperCacheService<AuthResource> {
     /**
      * 删除资源
      *
-     * @param resourceId 资源id
+     * @param resourceIds 资源ids
      * @return boolean
      */
-    boolean deleteResource(Long resourceId);
+    boolean deleteResource(List<Long> resourceIds);
 
     /**
      * 更新资源

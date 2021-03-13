@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author: zhouxinlei
  * @date: 2021-02-02 16:21:52
-*/
+ */
 @RestController
 @ResponseResult
 @Api(tags = "租户管理")
@@ -34,34 +34,34 @@ public class TenantController {
         this.tenantService = tenantService;
     }
 
-    @ApiOperation("租户列表查询")
+    @ApiOperation("租户列表")
     @GetMapping("/list")
     public List<TenantInfo> tenantList() {
         return tenantService.list();
     }
 
-    @ApiOperation("租户分页查询")
-    @PostMapping("/tenants")
+    @ApiOperation("租户分页")
+    @PostMapping("/page")
     public PageInfo<TenantInfo> getTenantPageList(@RequestBody TenantPageDTO tenantPageDTO) {
         return tenantService.getTenantPageList(tenantPageDTO);
     }
 
     @ApiOperation("新增租户信息")
-    @PostMapping("/tenant")
+    @PostMapping("/save")
     public boolean saveTenant(@Validated @RequestBody TenantSaveDTO tenantSaveDTO) {
         return tenantService.saveTenant(tenantSaveDTO);
     }
 
     @ApiOperation("修改租户信息")
-    @PutMapping("/tenant")
+    @PutMapping("/update")
     public boolean updateTenant(@Validated @RequestBody TenantUpdateDTO tenantUpdateDTO) {
         return tenantService.updateTenant(tenantUpdateDTO);
     }
 
     @ApiOperation("删除租户信息")
-    @DeleteMapping("/tenant")
-    public boolean deleteTenant(@RequestParam(value = "tenantId") Long tenantId) {
-        return tenantService.deleteTenant(tenantId);
+    @DeleteMapping("/delete")
+    public boolean deleteTenant(@RequestBody DeleteDTO<Long> deleteDTO) {
+        return tenantService.deleteBatchTenant(deleteDTO.getIds());
     }
 
 }

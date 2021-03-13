@@ -92,4 +92,11 @@ public interface IAuthUserRepository {
      * @param tenantCode 租户code
      */
     void deleteTenantUser(String tenantCode);
+
+    /**
+     * 删除用户信息
+     * @param ids 用户ids
+     * @return boolean
+     */
+    boolean deleteAuthUser(List<Long> ids);
 }

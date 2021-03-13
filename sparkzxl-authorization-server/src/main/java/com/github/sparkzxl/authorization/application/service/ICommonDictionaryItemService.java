@@ -28,10 +28,10 @@ public interface ICommonDictionaryItemService extends SuperCacheService<CommonDi
     /**
      * 根据字典类型查询字典数据
      *
-     * @param dictionaryItemQueryDTO   字典项查询入参
+     * @param dictionaryItem   字典项查询入参
      * @return List<CommonDictionaryItem>
      */
-    List<CommonDictionaryItem> findDictionaryItemList(DictionaryItemQueryDTO dictionaryItemQueryDTO);
+    List<CommonDictionaryItem> findDictionaryItemList(CommonDictionaryItem dictionaryItem);
 
     /**
      * 根据名称查询字典项信息

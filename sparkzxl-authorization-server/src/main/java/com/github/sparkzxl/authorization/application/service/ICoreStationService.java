@@ -8,6 +8,8 @@ import com.github.sparkzxl.authorization.interfaces.dto.station.StationSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationUpdateDTO;
 import com.github.sparkzxl.database.base.service.SuperCacheService;
 
+import java.util.List;
+
 /**
  * description: 岗位 服务类
  *
@@ -42,8 +44,17 @@ public interface ICoreStationService extends SuperCacheService<CoreStation> {
 
     /**
      * 根据名称查询岗位信息
+     *
      * @param stationName 岗位名称
      * @return CoreStation
      */
     CoreStation getCoreStationByName(String stationName);
+
+    /**
+     * 删除岗位
+     *
+     * @param ids 岗位ids
+     * @return boolean
+     */
+    boolean deleteCoreStation(List<Long> ids);
 }

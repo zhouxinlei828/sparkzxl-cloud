@@ -1,19 +1,16 @@
 package com.github.sparkzxl.authorization.interfaces.controller.auth;
 
 
-import com.github.sparkzxl.authorization.application.event.RoleResourceEvent;
 import com.github.sparkzxl.authorization.application.service.IAuthResourceService;
-import com.github.sparkzxl.authorization.domain.model.aggregates.ResourceSource;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthResource;
-import com.github.sparkzxl.authorization.infrastructure.enums.OperationEnum;
 import com.github.sparkzxl.authorization.interfaces.dto.resource.AuthResourcePageDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.resource.AuthResourceSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.resource.AuthResourceUpdateDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.resource.ResourceQueryDTO;
 import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
-import com.github.sparkzxl.core.spring.SpringContextUtils;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
+import com.github.sparkzxl.database.dto.DeleteDTO;
 import com.github.sparkzxl.database.dto.PageParams;
 import com.github.sparkzxl.log.annotation.WebLog;
 import io.swagger.annotations.Api;
@@ -61,9 +58,8 @@ public class AuthResourceController extends SuperCacheController<IAuthResourceSe
         }
     }
 
-    @ApiOperation("删除资源")
-    @DeleteMapping("/deleteResource")
-    public boolean deleteResource(@RequestParam("id") Long resourceId) {
-        return baseService.deleteResource(resourceId);
+    @Override
+    public boolean delete(DeleteDTO<Long> deleteDTO) {
+        return baseService.deleteResource(deleteDTO.getIds());
     }
 }

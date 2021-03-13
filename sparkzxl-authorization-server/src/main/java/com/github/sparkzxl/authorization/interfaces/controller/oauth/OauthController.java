@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
@@ -33,11 +34,16 @@ import java.security.Principal;
 @Slf4j
 public class OauthController {
 
-    private final OauthService oauthService;
-    private final ITenantInfoService tenantInfoService;
+    private OauthService oauthService;
+    private ITenantInfoService tenantInfoService;
 
-    public OauthController(OauthService oauthService, ITenantInfoService tenantInfoService) {
+    @Autowired
+    public void setOauthService(OauthService oauthService) {
         this.oauthService = oauthService;
+    }
+
+    @Autowired
+    public void setTenantInfoService(ITenantInfoService tenantInfoService) {
         this.tenantInfoService = tenantInfoService;
     }
 

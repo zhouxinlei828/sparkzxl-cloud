@@ -51,11 +51,13 @@ public class AuthResourceRepository implements IAuthResourceRepository {
     }
 
     @Override
-    public boolean deleteResource(Long resourceId) {
-        roleAuthorityMapper.delete(new LambdaQueryWrapper<RoleAuthority>().eq(RoleAuthority::getAuthorityId, resourceId));
-        AuthResource authResource = authResourceMapper.selectById(resourceId);
-        SpringContextUtils.publishEvent(new RoleResourceEvent(new ResourceSource(OperationEnum.DELETE, null, authResource.getRequestUrl())));
-        return authResourceMapper.deleteById(resourceId) == 1;
+    public boolean deleteResource(List<Long> resourceIds) {
+        roleAuthorityMapper.delete(new LambdaQueryWrapper<RoleAuthority>().in(RoleAuthority::getAuthorityId, resourceIds));
+        List<AuthResource> authResources = authResourceMapper.selectBatchIds(resourceIds);
+        authResources.forEach(authResource -> {
+            SpringContextUtils.publishEvent(new RoleResourceEvent(new ResourceSource(OperationEnum.DELETE, null, authResource.getRequestUrl())));
+        });
+        return authResourceMapper.deleteBatchIds(resourceIds) > 0;
     }
 
     @Override

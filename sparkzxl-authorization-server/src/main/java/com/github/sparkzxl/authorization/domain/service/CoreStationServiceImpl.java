@@ -17,6 +17,8 @@ import com.github.sparkzxl.database.utils.PageInfoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * description: 岗位 服务实现类
  *
@@ -59,6 +61,12 @@ public class CoreStationServiceImpl extends AbstractSuperCacheServiceImpl<CoreSt
         stationLambdaQueryWrapper.eq(CoreStation::getName,stationName);
         stationLambdaQueryWrapper.eq(CoreStation::getStatus,true).last("limit 1");;
         return getOne(stationLambdaQueryWrapper);
+    }
+
+
+    @Override
+    public boolean deleteCoreStation(List<Long> ids) {
+        return coreStationRepository.deleteCoreStation(ids);
     }
 
     @Override

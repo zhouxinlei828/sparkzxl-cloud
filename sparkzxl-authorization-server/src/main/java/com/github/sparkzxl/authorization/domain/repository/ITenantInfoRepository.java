@@ -47,4 +47,12 @@ public interface ITenantInfoRepository {
      * @return boolean
      */
     boolean deleteTenant(Long tenantId);
+
+    /**
+     * 批量删除租户信息
+     *
+     * @param tenantIds 租户ids
+     * @return boolean
+     */
+    boolean deleteBatchTenant(List<Long> tenantIds);
 }

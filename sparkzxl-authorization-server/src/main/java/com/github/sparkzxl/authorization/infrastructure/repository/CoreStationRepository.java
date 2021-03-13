@@ -60,13 +60,19 @@ public class CoreStationRepository implements ICoreStationRepository {
     @InjectionResult
     public List<CoreStation> getStationPageList(int pageNum, int pageSize, String name, RemoteData<Long, CoreOrg> org) {
         LambdaQueryWrapper<CoreStation> stationQueryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotEmpty(name)){
+        if (StringUtils.isNotEmpty(name)) {
             stationQueryWrapper.likeRight(CoreStation::getName, name);
         }
-        if (ObjectUtils.isNotEmpty(org)&&ObjectUtils.isNotEmpty(org.getKey())){
+        if (ObjectUtils.isNotEmpty(org) && ObjectUtils.isNotEmpty(org.getKey())) {
             stationQueryWrapper.eq(CoreStation::getOrg, org);
         }
         PageHelper.startPage(pageNum, pageSize);
         return coreStationMapper.selectList(stationQueryWrapper);
+    }
+
+    @Override
+    public boolean deleteCoreStation(List<Long> ids) {
+        coreStationMapper.deleteBatchIds(ids);
+        return true;
     }
 }

@@ -10,6 +10,7 @@ import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserUpdateDTO;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.base.service.SuperCacheService;
+import com.github.sparkzxl.database.dto.PageParams;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -56,20 +57,14 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      */
     void deleteOrgId(Long id);
 
-    /**
-     * 删除用户关联信息
-     *
-     * @param ids 用户id列表
-     */
-    void deleteUserRelation(List<Long> ids);
 
     /**
      * 获取用户分页
      *
-     * @param authUserPageDTO 分页入参
+     * @param params 分页入参
      * @return PageInfo<AuthUser>
      */
-    PageInfo<AuthUser> getAuthUserPage(AuthUserPageDTO authUserPageDTO);
+    PageInfo<AuthUser> getAuthUserPage(PageParams<AuthUserPageDTO> params);
 
     /**
      * 保存用户信息
@@ -128,8 +123,17 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     /**
      * 导出Excel用户数据
      *
-     * @param authUserPageDTO
-     * @param response
+     * @param authUserPageDTO 用户查询参数
+     * @param response        response
+     * @throws IOException 异常
      */
     void exportUserData(AuthUserPageDTO authUserPageDTO, HttpServletResponse response) throws IOException;
+
+    /**
+     * 删除用户信息
+     *
+     * @param ids ids
+     * @return boolean
+     */
+    boolean deleteAuthUser(List<Long> ids);
 }

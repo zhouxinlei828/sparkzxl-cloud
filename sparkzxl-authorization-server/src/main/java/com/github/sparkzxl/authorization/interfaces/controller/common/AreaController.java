@@ -37,7 +37,7 @@ public class AreaController extends SuperCacheController<ICommonAreaService, Lon
     }
 
     @ApiOperation("导入城市地区信息")
-    @PostMapping("/importAreaJsonData")
+    @PostMapping("/import")
     public boolean importAreaJsonData(@RequestParam("jsonFile") MultipartFile multipartFile) {
         return super.baseService.importAreaJsonData(multipartFile);
     }

@@ -32,25 +32,25 @@ public class AuthApplicationController {
     private IAuthApplicationService authApplicationService;
 
     @ApiOperation("保存应用信息")
-    @PostMapping("/saveApplication")
+    @PostMapping("/save")
     public boolean saveApplication(@Validated @RequestBody AuthApplicationSaveDTO authApplicationSaveDTO) {
         return authApplicationService.saveApplication(authApplicationSaveDTO);
     }
 
     @ApiOperation("更新应用信息")
-    @PutMapping("/updateApplication")
+    @PutMapping("/update")
     public boolean updateApplication(@Validated @RequestBody AuthApplicationUpdateDTO authApplicationUpdateDTO) {
         return authApplicationService.updateApplication(authApplicationUpdateDTO);
     }
 
     @ApiOperation("删除应用信息")
-    @DeleteMapping("/deleteApplication")
-    public boolean deleteClient(@RequestBody DeleteDTO deleteDTO) {
+    @DeleteMapping("/delete")
+    public boolean deleteApplication(@RequestBody DeleteDTO<Long> deleteDTO) {
         return authApplicationService.deleteApplication(deleteDTO);
     }
 
     @ApiOperation("获取应用分页")
-    @PostMapping("/listPage")
+    @PostMapping("/page")
     public PageInfo<AuthApplication> listPage(@RequestBody AuthApplicationPageDTO authApplicationPageDTO) {
         return authApplicationService.listPage(authApplicationPageDTO);
     }

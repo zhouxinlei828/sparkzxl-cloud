@@ -36,4 +36,11 @@ public interface ICoreStationRepository {
      * @return List<CoreStation>
      */
     List<CoreStation> getStationPageList(int pageNum, int pageSize, String name, RemoteData<Long, CoreOrg> org);
+
+    /**
+     * 删除岗位
+     * @param ids 岗位ids
+     * @return boolean
+     */
+    boolean deleteCoreStation(List<Long> ids);
 }

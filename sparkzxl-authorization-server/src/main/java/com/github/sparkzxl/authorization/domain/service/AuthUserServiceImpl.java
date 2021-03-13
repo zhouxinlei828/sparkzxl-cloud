@@ -4,6 +4,7 @@ import cn.hutool.core.net.URLEncoder;
 import cn.hutool.extra.pinyin.PinyinUtil;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.excel.EasyExcel;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.javafaker.Faker;
 import com.github.pagehelper.PageHelper;
@@ -28,6 +29,7 @@ import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserUpdateDTO;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.dto.PageParams;
 import com.github.sparkzxl.database.entity.RemoteData;
 import com.github.sparkzxl.database.utils.PageInfoUtils;
 import com.google.common.collect.Maps;
@@ -91,11 +93,6 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     }
 
     @Override
-    public void deleteUserRelation(List<Long> ids) {
-        authUserRepository.deleteUserRelation(ids);
-    }
-
-    @Override
     public AuthUserInfo<Long> getAuthUserInfo(String username) {
         AuthUser authUser = authUserRepository.selectByAccount(username);
         if (ObjectUtils.isNotEmpty(authUser)) {
@@ -121,9 +118,9 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
     }
 
     @Override
-    public PageInfo<AuthUser> getAuthUserPage(AuthUserPageDTO authUserPageDTO) {
-        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserPageDTO);
-        PageHelper.startPage(authUserPageDTO.getPageNum(), authUserPageDTO.getPageSize());
+    public PageInfo<AuthUser> getAuthUserPage(PageParams<AuthUserPageDTO> params) {
+        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(params.getModel());
+        params.buildPage();
         List<AuthUser> authUserList = authUserRepository.getAuthUserList(authUser);
         return PageInfoUtils.pageInfo(authUserList);
     }
@@ -237,5 +234,10 @@ public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserM
                 StandardCharsets.UTF_8);
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
         EasyExcel.write(response.getOutputStream(), UserExcel.class).sheet("模板").doWrite(userExcels);
+    }
+
+    @Override
+    public boolean deleteAuthUser(List<Long> ids) {
+        return authUserRepository.deleteAuthUser(ids);
     }
 }
