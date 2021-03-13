@@ -1,6 +1,5 @@
 package org.springframework.security.oauth2.provider.endpoint;
 
-import com.github.sparkzxl.authorization.infrastructure.oauth2.AuthorizationGrantType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
@@ -8,6 +7,7 @@ import org.springframework.security.oauth2.common.exceptions.InvalidGrantExcepti
 import org.springframework.security.oauth2.common.exceptions.InvalidRequestException;
 import org.springframework.security.oauth2.common.exceptions.UnsupportedGrantTypeException;
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.OAuth2RequestValidator;
 import org.springframework.security.oauth2.provider.TokenRequest;
@@ -71,11 +71,11 @@ public class CustomTokenGrantService {
     }
 
     private boolean isRefreshTokenRequest(Map<String, String> parameters) {
-        return "refresh_token".equals(parameters.get("grant_type")) && parameters.get("refresh_token") != null;
+        return AuthorizationGrantType.REFRESH_TOKEN.getValue().equals(parameters.get("grant_type")) && parameters.get("refresh_token") != null;
     }
 
     private boolean isAuthCodeRequest(Map<String, String> parameters) {
-        return "authorization_code".equals(parameters.get("grant_type")) && parameters.get("code") != null;
+        return AuthorizationGrantType.AUTHORIZATION_CODE.getValue().equals(parameters.get("grant_type")) && parameters.get("code") != null;
     }
 
 }
