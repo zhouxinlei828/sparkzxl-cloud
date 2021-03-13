@@ -26,8 +26,13 @@ import java.util.List;
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    @Autowired
+
     private SecurityProperties securityProperties;
+
+    @Autowired
+    public void setSecurityProperties(SecurityProperties securityProperties) {
+        this.securityProperties = securityProperties;
+    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {

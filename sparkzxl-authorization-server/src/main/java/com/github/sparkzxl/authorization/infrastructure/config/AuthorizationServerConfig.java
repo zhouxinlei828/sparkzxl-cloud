@@ -1,6 +1,5 @@
 package com.github.sparkzxl.authorization.infrastructure.config;
 
-import com.github.sparkzxl.authorization.infrastructure.oauth2.Oauth2ExceptionHandler;
 import com.github.sparkzxl.authorization.infrastructure.oauth2.OpenProperties;
 import com.github.sparkzxl.authorization.infrastructure.oauth2.enhancer.JwtTokenEnhancer;
 import com.github.sparkzxl.core.utils.HuSecretUtils;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,6 +28,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.util.ArrayList;
@@ -46,23 +45,42 @@ import java.util.Optional;
 @EnableAuthorizationServer
 @EnableConfigurationProperties(OpenProperties.class)
 @Slf4j
-@Import({Oauth2ExceptionHandler.class})
-public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Autowired(required = false)
     private AuthenticationManager authenticationManager;
 
-    @Autowired(required = false)
     private DataSource dataSource;
 
-    @Autowired(required = false)
     private KeyStoreProperties keyStoreProperties;
 
-    @Autowired(required = false)
     private UserDetailsService userDetailsService;
 
-    @Autowired(required = false)
     private RedisConnectionFactory connectionFactory;
+
+    @Autowired
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    @Autowired
+    public void setKeyStoreProperties(KeyStoreProperties keyStoreProperties) {
+        this.keyStoreProperties = keyStoreProperties;
+    }
+
+    @Autowired
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
+    @Autowired
+    public void setConnectionFactory(RedisConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
 
     @Bean
     public TokenStore tokenStore() {

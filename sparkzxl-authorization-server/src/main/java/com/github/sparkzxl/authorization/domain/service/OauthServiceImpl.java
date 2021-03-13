@@ -92,10 +92,10 @@ public class OauthServiceImpl implements OauthService {
         }
         Map<String, String> parameters = builderAccessTokenParameters(authorizationRequest);
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity = tokenEndpoint.getAccessToken(principal, parameters);
-        return loginEventAndBack(authorizationRequest, oAuth2AccessTokenResponseEntity);
+        return loginEventAndBack(oAuth2AccessTokenResponseEntity);
     }
 
-    private OAuth2AccessToken loginEventAndBack(AuthorizationRequest authorizationRequest, ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity) {
+    private OAuth2AccessToken loginEventAndBack(ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity) {
         if (!oAuth2AccessTokenResponseEntity.getStatusCode().isError()) {
             OAuth2AccessToken oAuth2AccessToken = oAuth2AccessTokenResponseEntity.getBody();
             assert oAuth2AccessToken != null;
@@ -117,7 +117,7 @@ public class OauthServiceImpl implements OauthService {
         }
         Map<String, String> parameters = builderAccessTokenParameters(authorizationRequest);
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity = tokenEndpoint.postAccessToken(principal, parameters);
-        return loginEventAndBack(authorizationRequest, oAuth2AccessTokenResponseEntity);
+        return loginEventAndBack(oAuth2AccessTokenResponseEntity);
     }
 
     /**

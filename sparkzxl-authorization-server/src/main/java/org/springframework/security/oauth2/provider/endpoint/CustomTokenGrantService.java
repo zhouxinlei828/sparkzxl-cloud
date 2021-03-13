@@ -1,5 +1,6 @@
 package org.springframework.security.oauth2.provider.endpoint;
 
+import com.github.sparkzxl.authorization.infrastructure.oauth2.AuthorizationGrantType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
@@ -28,7 +29,7 @@ public class CustomTokenGrantService {
 
     private final TokenEndpoint tokenEndpoint;
 
-    private OAuth2RequestValidator oAuth2RequestValidator = new DefaultOAuth2RequestValidator();
+    private final OAuth2RequestValidator oAuth2RequestValidator = new DefaultOAuth2RequestValidator();
 
     public CustomTokenGrantService(TokenEndpoint tokenEndpoint) {
         this.tokenEndpoint = tokenEndpoint;
@@ -47,7 +48,7 @@ public class CustomTokenGrantService {
 
             if (!StringUtils.hasText(tokenRequest.getGrantType())) {
                 throw new InvalidRequestException("Missing grant type");
-            } else if ("implicit".equals(tokenRequest.getGrantType())) {
+            } else if (AuthorizationGrantType.IMPLICIT.getValue().equals(tokenRequest.getGrantType())) {
                 throw new InvalidGrantException("Implicit grant type not supported from token endpoint");
             } else {
                 if (this.isAuthCodeRequest(parameters) && !tokenRequest.getScope().isEmpty()) {

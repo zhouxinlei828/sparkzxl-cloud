@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "CCommonArea对象", description = "地区表")
 public class CommonArea extends TreeEntity<CommonArea, Long> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -7131641099047408802L;
 
     @ApiModelProperty(value = "编码")
     @TableField("code")

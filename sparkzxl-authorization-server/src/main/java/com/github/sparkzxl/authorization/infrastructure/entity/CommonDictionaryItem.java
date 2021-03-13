@@ -22,7 +22,7 @@ import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE_RIGHT;
 @ApiModel(value = "CCommonDictionaryItem对象", description = "字典项")
 public class CommonDictionaryItem extends Entity<Long> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8505347163173853317L;
 
     @ApiModelProperty(value = "类型ID")
     @TableField("dictionary_id")

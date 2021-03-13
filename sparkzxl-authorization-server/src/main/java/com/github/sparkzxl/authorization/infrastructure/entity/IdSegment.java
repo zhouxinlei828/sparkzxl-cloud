@@ -27,7 +27,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "IdSegment对象", description = "")
 public class IdSegment implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -912732215123787770L;
 
     @ApiModelProperty(value = "业务标记")
     @TableId(value = "business_tag", type = IdType.ASSIGN_ID)
