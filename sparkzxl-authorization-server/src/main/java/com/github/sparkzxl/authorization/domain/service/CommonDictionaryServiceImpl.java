@@ -4,7 +4,7 @@ import com.github.sparkzxl.authorization.application.service.ICommonDictionarySe
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.authorization.infrastructure.entity.CommonDictionary;
 import com.github.sparkzxl.authorization.infrastructure.mapper.CommonDictionaryMapper;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @date: 2020-07-28 19:44:24
  */
 @Service
-public class CommonDictionaryServiceImpl extends AbstractSuperCacheServiceImpl<CommonDictionaryMapper, CommonDictionary> implements ICommonDictionaryService {
+public class CommonDictionaryServiceImpl extends SuperCacheServiceImpl<CommonDictionaryMapper, CommonDictionary> implements ICommonDictionaryService {
 
     @Override
     protected String getRegion() {

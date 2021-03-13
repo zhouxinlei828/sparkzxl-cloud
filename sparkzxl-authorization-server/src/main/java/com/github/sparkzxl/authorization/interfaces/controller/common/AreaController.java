@@ -27,7 +27,7 @@ import java.util.List;
 @Api(tags = "地区管理")
 @RequestMapping("/common/area")
 public class AreaController extends SuperCacheController<ICommonAreaService, Long,
-        CommonArea, AreaPageDTO, AreaSaveDTO, AreaUpdateDTO> {
+        CommonArea, AreaSaveDTO, AreaUpdateDTO, AreaPageDTO> {
 
 
     @ApiOperation("查询地区列表")

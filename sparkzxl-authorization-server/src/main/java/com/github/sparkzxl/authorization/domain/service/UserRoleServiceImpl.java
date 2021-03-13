@@ -14,7 +14,7 @@ import com.github.sparkzxl.authorization.infrastructure.mapper.UserRoleMapper;
 import com.github.sparkzxl.authorization.interfaces.dto.role.RoleUserDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.role.RoleUserDeleteDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.role.RoleUserSaveDTO;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * @date: 2020-07-19 21:01:40
  */
 @Service
-public class UserRoleServiceImpl extends AbstractSuperCacheServiceImpl<UserRoleMapper, UserRole> implements IUserRoleService {
+public class UserRoleServiceImpl extends SuperCacheServiceImpl<UserRoleMapper, UserRole> implements IUserRoleService {
 
     @Autowired
     private IUserRoleRepository userRoleRepository;

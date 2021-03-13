@@ -25,6 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 @WebLog
 @Api(tags = "角色组织关系管理")
 public class RoleOrgController extends SuperCacheController<IRoleOrgService, Long,
-        RoleOrg, RoleOrgPageDTO, RoleOrgSaveDTO, RoleOrgUpdateDTO> {
+        RoleOrg, RoleOrgSaveDTO, RoleOrgUpdateDTO, RoleOrgPageDTO> {
 
 }

@@ -9,7 +9,7 @@ import com.github.sparkzxl.authorization.infrastructure.entity.CommonArea;
 import com.github.sparkzxl.authorization.infrastructure.mapper.CommonAreaMapper;
 import com.github.sparkzxl.authorization.interfaces.dto.area.AreaQueryDTO;
 import com.github.sparkzxl.core.jackson.JsonUtil;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import com.github.sparkzxl.database.utils.TreeUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Slf4j
 @Service
-public class CommonAreaServiceImpl extends AbstractSuperCacheServiceImpl<CommonAreaMapper, CommonArea> implements ICommonAreaService {
+public class CommonAreaServiceImpl extends SuperCacheServiceImpl<CommonAreaMapper, CommonArea> implements ICommonAreaService {
 
     @Override
     public List<CommonArea> getAreaList(AreaQueryDTO areaQueryDTO) {

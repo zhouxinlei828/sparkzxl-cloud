@@ -5,7 +5,7 @@ import com.github.sparkzxl.activiti.domain.repository.IExtHiTaskStatusRepository
 import com.github.sparkzxl.activiti.infrastructure.constant.ActivitiCache;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtHiTaskStatus;
 import com.github.sparkzxl.activiti.infrastructure.mapper.ExtHiTaskStatusMapper;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * @date: 2020-07-17 13:37:57
  */
 @Service
-public class ExtHiTaskStatusServiceImpl extends AbstractSuperCacheServiceImpl<ExtHiTaskStatusMapper, ExtHiTaskStatus> implements IExtHiTaskStatusService {
+public class ExtHiTaskStatusServiceImpl extends SuperCacheServiceImpl<ExtHiTaskStatusMapper, ExtHiTaskStatus> implements IExtHiTaskStatusService {
 
     @Autowired
     private IExtHiTaskStatusRepository actHiTaskStatusRepository;

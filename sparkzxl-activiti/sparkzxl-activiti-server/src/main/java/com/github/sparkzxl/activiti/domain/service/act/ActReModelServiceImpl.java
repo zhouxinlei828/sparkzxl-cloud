@@ -9,7 +9,7 @@ import com.github.sparkzxl.activiti.infrastructure.entity.ActReModel;
 import com.github.sparkzxl.activiti.infrastructure.entity.MetaInfo;
 import com.github.sparkzxl.activiti.infrastructure.mapper.ActReModelMapper;
 import com.github.sparkzxl.activiti.interfaces.dto.act.ModelPageDTO;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ import java.util.List;
  * @date: 2020-07-25 11:14:57
  */
 @Service
-public class ActReModelServiceImpl extends AbstractSuperCacheServiceImpl<ActReModelMapper, ActReModel> implements IActReModelService {
+public class ActReModelServiceImpl extends SuperCacheServiceImpl<ActReModelMapper, ActReModel> implements IActReModelService {
 
     @Autowired
     private IActReModelRepository actReModelRepository;

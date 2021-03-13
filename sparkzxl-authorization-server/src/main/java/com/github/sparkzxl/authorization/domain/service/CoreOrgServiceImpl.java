@@ -11,7 +11,7 @@ import com.github.sparkzxl.authorization.infrastructure.entity.CoreOrg;
 import com.github.sparkzxl.authorization.infrastructure.mapper.CoreOrgMapper;
 import com.github.sparkzxl.authorization.interfaces.dto.org.OrgSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.org.OrgUpdateDTO;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import com.github.sparkzxl.database.entity.TreeEntity;
 import com.github.sparkzxl.database.utils.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import java.util.Optional;
  * @date 2020-06-07 13:37:19
  */
 @Service
-public class CoreOrgServiceImpl extends AbstractSuperCacheServiceImpl<CoreOrgMapper, CoreOrg> implements ICoreOrgService {
+public class CoreOrgServiceImpl extends SuperCacheServiceImpl<CoreOrgMapper, CoreOrg> implements ICoreOrgService {
 
     @Autowired
     private IRoleOrgService roleOrgService;

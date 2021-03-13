@@ -12,7 +12,7 @@ import com.github.sparkzxl.authorization.infrastructure.mapper.CoreStationMapper
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationPageDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationUpdateDTO;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import com.github.sparkzxl.database.utils.PageInfoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ import java.util.List;
  * @date 2020-06-07 13:37:46
  */
 @Service
-public class CoreStationServiceImpl extends AbstractSuperCacheServiceImpl<CoreStationMapper, CoreStation> implements ICoreStationService {
+public class CoreStationServiceImpl extends SuperCacheServiceImpl<CoreStationMapper, CoreStation> implements ICoreStationService {
 
     @Autowired
     private ICoreStationRepository coreStationRepository;

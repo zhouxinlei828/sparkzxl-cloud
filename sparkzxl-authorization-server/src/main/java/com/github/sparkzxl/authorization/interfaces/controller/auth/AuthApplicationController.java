@@ -4,7 +4,6 @@ package com.github.sparkzxl.authorization.interfaces.controller.auth;
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.authorization.application.service.IAuthApplicationService;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthApplication;
-import com.github.sparkzxl.authorization.infrastructure.entity.OauthClientDetails;
 import com.github.sparkzxl.authorization.interfaces.dto.application.AuthApplicationPageDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.application.AuthApplicationSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.application.AuthApplicationUpdateDTO;
@@ -28,8 +27,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/application")
 public class AuthApplicationController {
 
-    @Autowired
     private IAuthApplicationService authApplicationService;
+
+    @Autowired
+    public void setAuthApplicationService(IAuthApplicationService authApplicationService) {
+        this.authApplicationService = authApplicationService;
+    }
 
     @ApiOperation("保存应用信息")
     @PostMapping("/save")

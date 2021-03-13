@@ -34,7 +34,7 @@ import java.util.List;
 @WebLog
 @Api(tags = "菜单管理")
 public class AuthMenuController extends SuperCacheController<IAuthMenuService, Long,
-        AuthMenu, AuthMenuPageDTO, AuthMenuSaveDTO, AuthMenuUpdateDTO> {
+        AuthMenu, AuthMenuSaveDTO, AuthMenuUpdateDTO, AuthMenuPageDTO> {
 
     @Override
     public boolean handlerSave(AuthMenuSaveDTO model) {

@@ -8,7 +8,7 @@ import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessDetail;
 import com.github.sparkzxl.activiti.infrastructure.mapper.ExtProcessDetailMapper;
 import com.github.sparkzxl.activiti.interfaces.dto.process.ProcessDetailDTO;
 import com.github.sparkzxl.activiti.interfaces.dto.process.ProcessDetailPageDTO;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ import java.util.List;
  * @date: 2020-07-21 14:22:17
  */
 @Service
-public class ExtProcessDetailServiceImpl extends AbstractSuperCacheServiceImpl<ExtProcessDetailMapper, ExtProcessDetail> implements IExtProcessDetailService {
+public class ExtProcessDetailServiceImpl extends SuperCacheServiceImpl<ExtProcessDetailMapper, ExtProcessDetail> implements IExtProcessDetailService {
 
     private final IExtProcessDetailRepository processDetailRepository;
 

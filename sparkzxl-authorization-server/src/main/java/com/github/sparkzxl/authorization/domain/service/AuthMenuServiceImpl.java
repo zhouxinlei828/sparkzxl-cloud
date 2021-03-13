@@ -9,7 +9,7 @@ import com.github.sparkzxl.authorization.infrastructure.entity.AuthMenu;
 import com.github.sparkzxl.authorization.infrastructure.mapper.AuthMenuMapper;
 import com.github.sparkzxl.authorization.infrastructure.repository.AuthMenuRepository;
 import com.github.sparkzxl.authorization.interfaces.dto.menu.AuthMenuSaveDTO;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import com.github.sparkzxl.database.utils.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.util.List;
  * @date 2020-06-07 13:35:18
  */
 @Service
-public class AuthMenuServiceImpl extends AbstractSuperCacheServiceImpl<AuthMenuMapper, AuthMenu> implements IAuthMenuService {
+public class AuthMenuServiceImpl extends SuperCacheServiceImpl<AuthMenuMapper, AuthMenu> implements IAuthMenuService {
 
     @Autowired
     private AuthMenuRepository authMenuRepository;

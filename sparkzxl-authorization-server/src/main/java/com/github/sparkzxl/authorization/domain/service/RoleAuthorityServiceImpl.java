@@ -6,7 +6,7 @@ import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.authorization.infrastructure.entity.RoleAuthority;
 import com.github.sparkzxl.authorization.infrastructure.mapper.RoleAuthorityMapper;
 import com.github.sparkzxl.authorization.interfaces.dto.role.RoleAuthoritySaveDTO;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @date: 2020-07-19 20:59:45
  */
 @Service
-public class RoleAuthorityServiceImpl extends AbstractSuperCacheServiceImpl<RoleAuthorityMapper, RoleAuthority> implements IRoleAuthorityService {
+public class RoleAuthorityServiceImpl extends SuperCacheServiceImpl<RoleAuthorityMapper, RoleAuthority> implements IRoleAuthorityService {
 
     @Autowired
     private IRoleAuthorityRepository authorityRepository;

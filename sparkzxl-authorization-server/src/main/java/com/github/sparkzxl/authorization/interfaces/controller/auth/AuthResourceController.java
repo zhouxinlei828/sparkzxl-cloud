@@ -33,7 +33,7 @@ import java.util.List;
 @WebLog
 @Api(tags = "资源管理")
 public class AuthResourceController extends SuperCacheController<IAuthResourceService, Long,
-        AuthResource, AuthResourcePageDTO, AuthResourceSaveDTO, AuthResourceUpdateDTO> {
+        AuthResource, AuthResourceSaveDTO, AuthResourceUpdateDTO, AuthResourcePageDTO> {
 
 
     @ApiOperation("查询用户可用的所有资源")

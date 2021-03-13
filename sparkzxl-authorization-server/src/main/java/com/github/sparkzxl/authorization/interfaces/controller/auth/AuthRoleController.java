@@ -29,7 +29,7 @@ import java.util.List;
 @WebLog
 @Api(tags = "角色管理")
 public class AuthRoleController extends SuperCacheController<IAuthRoleService, Long,
-        AuthRole, AuthRolePageDTO, AuthRoleSaveDTO, AuthRoleUpdateDTO> {
+        AuthRole, AuthRoleSaveDTO, AuthRoleUpdateDTO, AuthRolePageDTO> {
 
     private final IUserRoleService userRoleService;
 

@@ -1,8 +1,11 @@
 package com.github.sparkzxl.authorization.interfaces.dto.dictionary;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE_RIGHT;
 
 /**
  * description: 字典项查询入参
@@ -16,6 +19,9 @@ public class DictionaryItemPageDTO {
 
     @ApiModelProperty(value = "类型ID")
     private Long dictionaryId;
+
+    @ApiModelProperty(value = "类型")
+    private String dictionaryType;
 
     @ApiModelProperty(value = "编码")
     private String code;

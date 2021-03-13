@@ -5,7 +5,7 @@ import com.github.sparkzxl.authorization.domain.repository.IAuthRoleRepository;
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthRole;
 import com.github.sparkzxl.authorization.infrastructure.mapper.AuthRoleMapper;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2020-06-07 13:37:09
  */
 @Service
-public class AuthRoleServiceImpl extends AbstractSuperCacheServiceImpl<AuthRoleMapper, AuthRole> implements IAuthRoleService {
+public class AuthRoleServiceImpl extends SuperCacheServiceImpl<AuthRoleMapper, AuthRole> implements IAuthRoleService {
 
     private final IAuthRoleRepository authRoleRepository;
 

@@ -29,7 +29,7 @@ import java.util.List;
 @WebLog
 @Api(tags = "角色资源管理")
 public class RoleAuthorityController extends SuperCacheController<IRoleAuthorityService, Long,
-        RoleAuthority, RoleAuthorityPageDTO, RoleAuthoritySaveDTO, RoleAuthorityUpdateDTO> {
+        RoleAuthority, RoleAuthoritySaveDTO, RoleAuthorityUpdateDTO, RoleAuthorityPageDTO> {
 
     @ApiOperation("批量保存角色资源")
     @PostMapping("/batch")

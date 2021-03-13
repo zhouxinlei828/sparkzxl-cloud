@@ -9,7 +9,7 @@ import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessTaskRule;
 import com.github.sparkzxl.activiti.infrastructure.mapper.ExtProcessTaskRuleMapper;
 import com.github.sparkzxl.activiti.interfaces.dto.process.ProcessActionDTO;
 import com.github.sparkzxl.activiti.interfaces.dto.process.TaskRuleSaveDTO;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ import java.util.List;
  * @date: 2020-07-17 13:37:00
  */
 @Service
-public class ExtProcessTaskRuleServiceImpl extends AbstractSuperCacheServiceImpl<ExtProcessTaskRuleMapper, ExtProcessTaskRule> implements IExtProcessTaskRuleService {
+public class ExtProcessTaskRuleServiceImpl extends SuperCacheServiceImpl<ExtProcessTaskRuleMapper, ExtProcessTaskRule> implements IExtProcessTaskRuleService {
 
     private final IExtProcessTaskRuleRepository actRuTaskRuleRepository;
 

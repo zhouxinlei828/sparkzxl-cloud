@@ -28,7 +28,7 @@ import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserPageDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserUpdateDTO;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import com.github.sparkzxl.database.dto.PageParams;
 import com.github.sparkzxl.database.entity.RemoteData;
 import com.github.sparkzxl.database.utils.PageInfoUtils;
@@ -57,7 +57,7 @@ import java.util.Map;
  */
 @Service
 @Slf4j
-public class AuthUserServiceImpl extends AbstractSuperCacheServiceImpl<AuthUserMapper, AuthUser> implements IAuthUserService {
+public class AuthUserServiceImpl extends SuperCacheServiceImpl<AuthUserMapper, AuthUser> implements IAuthUserService {
 
     @Autowired
     private IAuthUserRepository authUserRepository;

@@ -40,7 +40,7 @@ import java.util.List;
 @WebLog
 @Api(tags = "用户管理")
 public class AuthUserController extends SuperCacheController<IAuthUserService, Long,
-        AuthUser, AuthUserPageDTO, AuthUserSaveDTO, AuthUserUpdateDTO> {
+        AuthUser, AuthUserSaveDTO, AuthUserUpdateDTO, AuthUserPageDTO> {
 
     private PasswordEncoder passwordEncoder;
 

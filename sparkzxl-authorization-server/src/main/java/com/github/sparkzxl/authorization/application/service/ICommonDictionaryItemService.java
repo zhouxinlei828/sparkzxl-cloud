@@ -1,6 +1,7 @@
 package com.github.sparkzxl.authorization.application.service;
 
 import com.github.sparkzxl.authorization.infrastructure.entity.CommonDictionaryItem;
+import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemPageDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemQueryDTO;
 import com.github.sparkzxl.database.base.service.SuperCacheService;
 
@@ -28,10 +29,10 @@ public interface ICommonDictionaryItemService extends SuperCacheService<CommonDi
     /**
      * 根据字典类型查询字典数据
      *
-     * @param dictionaryItem   字典项查询入参
+     * @param dictionaryItemPageDTO   字典项查询入参
      * @return List<CommonDictionaryItem>
      */
-    List<CommonDictionaryItem> findDictionaryItemList(CommonDictionaryItem dictionaryItem);
+    List<CommonDictionaryItem> findDictionaryItemList(DictionaryItemPageDTO dictionaryItemPageDTO);
 
     /**
      * 根据名称查询字典项信息

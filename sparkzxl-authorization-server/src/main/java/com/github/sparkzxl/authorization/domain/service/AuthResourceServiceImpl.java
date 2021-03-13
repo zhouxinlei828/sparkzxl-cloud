@@ -9,7 +9,7 @@ import com.github.sparkzxl.authorization.infrastructure.mapper.AuthResourceMappe
 import com.github.sparkzxl.authorization.interfaces.dto.resource.AuthResourceUpdateDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.resource.ResourceQueryDTO;
 import com.github.sparkzxl.core.utils.BuildKeyUtils;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @date 2020-06-07 13:36:15
  */
 @Service
-public class AuthResourceServiceImpl extends AbstractSuperCacheServiceImpl<AuthResourceMapper, AuthResource> implements IAuthResourceService {
+public class AuthResourceServiceImpl extends SuperCacheServiceImpl<AuthResourceMapper, AuthResource> implements IAuthResourceService {
 
     private final IAuthResourceRepository authResourceRepository;
 

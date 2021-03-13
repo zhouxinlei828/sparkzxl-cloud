@@ -32,11 +32,11 @@ import java.util.List;
 @Api(tags = "字典项管理")
 @RequestMapping("/common/dictionaryItem")
 public class DictionaryItemController extends SuperCacheController<ICommonDictionaryItemService, Long,
-        CommonDictionaryItem, DictionaryItemPageDTO, DictionaryItemSaveDTO, DictionaryItemUpdateDTO> {
+        CommonDictionaryItem, DictionaryItemSaveDTO, DictionaryItemUpdateDTO, DictionaryItemPageDTO> {
 
     @Override
-    public List<CommonDictionaryItem> query(CommonDictionaryItem dictionaryItem) {
-        return baseService.findDictionaryItemList(dictionaryItem);
+    public List<CommonDictionaryItem> query(DictionaryItemPageDTO dictionaryItemPageDTO) {
+        return baseService.findDictionaryItemList(dictionaryItemPageDTO);
     }
 
     @Override

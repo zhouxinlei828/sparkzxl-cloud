@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "字典类型管理")
 @RequestMapping("/common/dictionary")
 public class DictionaryController extends SuperCacheController<ICommonDictionaryService, Long,
-        CommonDictionary, DictionaryPageDTO, DictionarySaveDTO, DictionaryUpdateDTO> {
+        CommonDictionary, DictionarySaveDTO, DictionaryUpdateDTO, DictionaryPageDTO> {
 
     @Override
     public void handlerQueryParams(PageParams<DictionaryPageDTO> params) {

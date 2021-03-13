@@ -12,7 +12,7 @@ import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessStatus;
 import com.github.sparkzxl.activiti.infrastructure.mapper.ExtProcessStatusMapper;
 import com.github.sparkzxl.activiti.interfaces.dto.act.InstancePageDTO;
 import com.github.sparkzxl.core.utils.DateUtils;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ import java.util.List;
  * @date: 2020-07-17 13:37:57
  */
 @Service
-public class ExtProcessStatusServiceImpl extends AbstractSuperCacheServiceImpl<ExtProcessStatusMapper, ExtProcessStatus> implements IExtProcessStatusService {
+public class ExtProcessStatusServiceImpl extends SuperCacheServiceImpl<ExtProcessStatusMapper, ExtProcessStatus> implements IExtProcessStatusService {
 
     private final IExtProcessStatusRepository extProcessStatusRepository;
 

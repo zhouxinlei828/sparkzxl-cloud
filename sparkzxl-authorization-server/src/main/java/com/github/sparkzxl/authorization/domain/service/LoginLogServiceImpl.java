@@ -11,7 +11,7 @@ import com.github.sparkzxl.authorization.infrastructure.entity.LoginLogCount;
 import com.github.sparkzxl.authorization.infrastructure.mapper.LoginLogMapper;
 import com.github.sparkzxl.core.entity.UserAgentEntity;
 import com.github.sparkzxl.core.utils.BuildKeyUtils;
-import com.github.sparkzxl.database.base.service.impl.AbstractSuperCacheServiceImpl;
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ import java.util.List;
  * @date 2020/6/17 0017
  */
 @Service
-public class LoginLogServiceImpl extends AbstractSuperCacheServiceImpl<LoginLogMapper, LoginLog> implements ILoginLogService {
+public class LoginLogServiceImpl extends SuperCacheServiceImpl<LoginLogMapper, LoginLog> implements ILoginLogService {
 
     @Autowired
     private IAuthUserRepository authUserRepository;
