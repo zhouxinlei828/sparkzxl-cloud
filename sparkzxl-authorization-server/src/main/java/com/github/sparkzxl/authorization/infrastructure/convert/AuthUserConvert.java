@@ -2,7 +2,7 @@ package com.github.sparkzxl.authorization.infrastructure.convert;
 
 import com.github.sparkzxl.authorization.domain.model.aggregates.AuthUserBasicInfo;
 import com.github.sparkzxl.authorization.domain.model.aggregates.StationBasicInfo;
-import com.github.sparkzxl.authorization.domain.model.aggregates.UserExcel;
+import com.github.sparkzxl.authorization.domain.model.aggregates.excel.UserExcel;
 import com.github.sparkzxl.authorization.domain.model.vo.AuthUserBasicVO;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.authorization.infrastructure.entity.CoreOrg;
@@ -71,8 +71,8 @@ public interface AuthUserConvert {
     /**
      * 转换sex枚举
      *
-     * @param sex
-     * @return
+     * @param sex 性别
+     * @return SexEnum
      */
     default SexEnum convertSex(Integer sex) {
         if (ObjectUtils.isNotEmpty(sex)) {
@@ -81,6 +81,12 @@ public interface AuthUserConvert {
         return null;
     }
 
+    /**
+     * 转换AuthUserBasicVO
+     *
+     * @param authUserBasicInfo 用户信息
+     * @return AuthUserBasicVO
+     */
     AuthUserBasicVO convertAuthUserBasicVO(AuthUserBasicInfo authUserBasicInfo);
 
     /**
@@ -95,6 +101,12 @@ public interface AuthUserConvert {
     })
     AuthUserBasicInfo convertAuthUserBasicInfo(AuthUser authUser);
 
+    /**
+     * 转换excel
+     *
+     * @param authUser 用户
+     * @return UserExcel
+     */
     @Mappings({
             @Mapping(target = "sex", expression = "java(convertSex(authUser.getSex()))"),
             @Mapping(target = "nation", expression = "java(convertNation(authUser.getNation()))"),
@@ -105,8 +117,20 @@ public interface AuthUserConvert {
     })
     UserExcel convertUserExcel(AuthUser authUser);
 
+    /**
+     * 批量转换excel
+     *
+     * @param authUserList 用户列表
+     * @return List<UserExcel>
+     */
     List<UserExcel> convertUserExcels(List<AuthUser> authUserList);
 
+    /**
+     * 转换岗位
+     *
+     * @param station 组织
+     * @return String
+     */
     default String convertStation(RemoteData<Long, CoreStation> station) {
         if (ObjectUtils.isNotEmpty(station) && ObjectUtils.isNotEmpty(station.getData())) {
             return station.getData().getName();
@@ -114,6 +138,12 @@ public interface AuthUserConvert {
         return null;
     }
 
+    /**
+     * 转换组织
+     *
+     * @param org 组织
+     * @return String
+     */
     default String convertOrg(RemoteData<Long, CoreOrg> org) {
         if (ObjectUtils.isNotEmpty(org) && ObjectUtils.isNotEmpty(org.getData())) {
             return org.getData().getLabel();
@@ -121,7 +151,12 @@ public interface AuthUserConvert {
         return null;
     }
 
-
+    /**
+     * 转换性别
+     *
+     * @param sex 性别
+     * @return String
+     */
     default String convertSex(SexEnum sex) {
         if (ObjectUtils.isNotEmpty(sex)) {
             return sex.getDesc();
@@ -129,6 +164,12 @@ public interface AuthUserConvert {
         return null;
     }
 
+    /**
+     * 转换民族
+     *
+     * @param nation 性别
+     * @return String
+     */
     default String convertNation(RemoteData<String, String> nation) {
         if (ObjectUtils.isNotEmpty(nation) && StringUtils.isNotEmpty(nation.getData())) {
             return nation.getData();

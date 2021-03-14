@@ -60,7 +60,8 @@ public interface IActivitiDriverService {
 
     /**
      * 删除流程实例
-     * @param businessId 业务主键
+     *
+     * @param businessId   业务主键
      * @param deleteReason 删除原因
      * @return boolean
      */
@@ -68,14 +69,24 @@ public interface IActivitiDriverService {
 
     /**
      * 根据流程实例id删除业务流程
+     *
      * @param processInstanceId 流程实例id
-     * @param deleteReason 删除原因
+     * @param deleteReason      删除原因
      * @return boolean
      */
     boolean deleteProcessByProcInsId(String processInstanceId, String deleteReason);
 
     /**
+     * 根据流程实例id集合删除业务流程
+     *
+     * @param processInstanceIds 流程实例id集合
+     * @return boolean
+     */
+    boolean deleteProcessByProcInsIds(List<String> processInstanceIds);
+
+    /**
      * 根据流程实例id挂起流程
+     *
      * @param processInstanceId 流程实例id
      * @return boolean
      */

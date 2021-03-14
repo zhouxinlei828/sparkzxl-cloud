@@ -5,7 +5,7 @@ import com.github.sparkzxl.authorization.application.service.IAuthUserService;
 import com.github.sparkzxl.authorization.application.service.ICommonDictionaryItemService;
 import com.github.sparkzxl.authorization.application.service.ICoreOrgService;
 import com.github.sparkzxl.authorization.application.service.ICoreStationService;
-import com.github.sparkzxl.authorization.domain.model.aggregates.UserExcel;
+import com.github.sparkzxl.authorization.domain.model.aggregates.excel.UserExcel;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.authorization.infrastructure.entity.CommonDictionaryItem;
 import com.github.sparkzxl.authorization.infrastructure.entity.CoreOrg;
@@ -65,11 +65,6 @@ public class ImportUserDataListener extends ImportDataListener<UserExcel> {
 
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
-    }
-
-    @Override
-    public void invoke(UserExcel userExcel, AnalysisContext analysisContext) {
-        list.add(userExcel);
     }
 
     @Override

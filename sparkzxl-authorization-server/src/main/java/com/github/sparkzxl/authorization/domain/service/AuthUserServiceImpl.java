@@ -10,7 +10,7 @@ import com.github.sparkzxl.authorization.application.event.ImportUserDataListene
 import com.github.sparkzxl.authorization.application.service.*;
 import com.github.sparkzxl.authorization.domain.model.aggregates.AuthUserBasicInfo;
 import com.github.sparkzxl.authorization.domain.model.aggregates.MenuBasicInfo;
-import com.github.sparkzxl.authorization.domain.model.aggregates.UserExcel;
+import com.github.sparkzxl.authorization.domain.model.aggregates.excel.UserExcel;
 import com.github.sparkzxl.authorization.domain.model.vo.AuthUserBasicVO;
 import com.github.sparkzxl.authorization.domain.repository.IAuthUserRepository;
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;

@@ -7,6 +7,7 @@ import com.github.sparkzxl.activiti.dto.DriverProcessDTO;
 import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.dto.UserNextTask;
 import com.github.sparkzxl.activiti.interfaces.dto.process.ProcessNextTaskDTO;
+import com.github.sparkzxl.database.dto.DeleteDTO;
 import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
@@ -73,15 +74,13 @@ public class ActDriverController implements ActivitiDriverApi {
     /**
      * 删除流程
      *
-     * @param processInstanceId 业务主键
-     * @param deleteReason      删除原因
+     * @param deleteDTO 删除入参
      * @return boolean
      */
     @ApiOperation("根据流程实例id删除流程实例")
     @DeleteMapping("/deleteProcessByProcInsId")
-    boolean deleteProcessByProcInsId(@RequestParam("processInstanceId") String processInstanceId,
-                                     @RequestParam("deleteReason") String deleteReason) {
-        return activitiDriverService.deleteProcessByProcInsId(processInstanceId, deleteReason);
+    public boolean deleteProcessByProcInsId(@RequestBody DeleteDTO<String> deleteDTO) {
+        return activitiDriverService.deleteProcessByProcInsIds(deleteDTO.getIds());
 
     }
 }

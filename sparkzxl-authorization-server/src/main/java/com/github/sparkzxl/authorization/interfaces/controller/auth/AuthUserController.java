@@ -4,7 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.authorization.application.event.ImportUserDataListener;
 import com.github.sparkzxl.authorization.application.service.IAuthUserService;
 import com.github.sparkzxl.authorization.domain.model.aggregates.MenuBasicInfo;
-import com.github.sparkzxl.authorization.domain.model.aggregates.UserExcel;
+import com.github.sparkzxl.authorization.domain.model.aggregates.excel.UserExcel;
 import com.github.sparkzxl.authorization.domain.model.vo.AuthUserBasicVO;
 import com.github.sparkzxl.authorization.infrastructure.convert.AuthUserConvert;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthUser;
@@ -34,7 +34,6 @@ import java.util.List;
  * @author zhouxinlei
  * @date 2020-05-24 12:25:32
  */
-
 @RestController
 @RequestMapping("/user")
 @ResponseResult
@@ -100,7 +99,7 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
     }
 
     @Override
-    public ImportDataListener<?> getImportDataListener() {
+    public ImportDataListener<UserExcel> getImportDataListener() {
         return importUserDataListener;
     }
 

@@ -2,18 +2,26 @@ package com.github.sparkzxl.authorization.interfaces.controller.core;
 
 
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.authorization.application.event.ImportStationDataListener;
 import com.github.sparkzxl.authorization.application.service.ICoreStationService;
+import com.github.sparkzxl.authorization.domain.model.aggregates.excel.StationExcel;
+import com.github.sparkzxl.authorization.infrastructure.convert.CoreStationConvert;
 import com.github.sparkzxl.authorization.infrastructure.entity.CoreStation;
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationUpdateDTO;
+import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
+import com.github.sparkzxl.database.base.listener.ImportDataListener;
 import com.github.sparkzxl.database.dto.DeleteDTO;
 import com.github.sparkzxl.database.dto.PageParams;
 import com.github.sparkzxl.log.annotation.WebLog;
-import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 /**
@@ -28,7 +36,14 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "岗位管理")
 @RequestMapping("/station")
 public class StationController extends SuperCacheController<ICoreStationService, Long,
-        CoreStation, StationSaveDTO, StationUpdateDTO, StationQueryDTO, Object> {
+        CoreStation, StationSaveDTO, StationUpdateDTO, StationQueryDTO, StationExcel> {
+
+    private ImportStationDataListener importStationDataListener;
+
+    @Autowired
+    public void setImportStationDataListener(ImportStationDataListener importStationDataListener) {
+        this.importStationDataListener = importStationDataListener;
+    }
 
     @Override
     public PageInfo<CoreStation> page(PageParams<StationQueryDTO> params) {
@@ -48,6 +63,21 @@ public class StationController extends SuperCacheController<ICoreStationService,
     @Override
     public boolean delete(DeleteDTO<Long> deleteDTO) {
         return baseService.deleteCoreStation(deleteDTO.getIds());
+    }
+
+    @Override
+    public List<StationExcel> convertExcels(List<CoreStation> stationList) {
+        return CoreStationConvert.INSTANCE.convertStationExcels(stationList);
+    }
+
+    @Override
+    public ImportDataListener<StationExcel> getImportDataListener() {
+        return importStationDataListener;
+    }
+
+    @Override
+    public Class<?> importExcelClass() {
+        return StationExcel.class;
     }
 
 }

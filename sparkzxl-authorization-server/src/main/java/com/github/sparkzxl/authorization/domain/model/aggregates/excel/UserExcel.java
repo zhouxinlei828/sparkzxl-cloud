@@ -1,4 +1,4 @@
-package com.github.sparkzxl.authorization.domain.model.aggregates;
+package com.github.sparkzxl.authorization.domain.model.aggregates.excel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;

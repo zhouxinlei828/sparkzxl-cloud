@@ -1,10 +1,17 @@
 package com.github.sparkzxl.authorization.infrastructure.convert;
 
+import com.github.sparkzxl.authorization.domain.model.aggregates.excel.StationExcel;
+import com.github.sparkzxl.authorization.infrastructure.entity.CoreOrg;
 import com.github.sparkzxl.authorization.infrastructure.entity.CoreStation;
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationUpdateDTO;
+import com.github.sparkzxl.database.entity.RemoteData;
+import org.apache.commons.lang3.ObjectUtils;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * description: CoreStation对象Convert
@@ -33,5 +40,36 @@ public interface CoreStationConvert {
      */
     CoreStation convertCoreStation(StationUpdateDTO stationUpdateDTO);
 
+
+    /**
+     * excel 转换
+     *
+     * @param coreStation 岗位
+     * @return StationExcel
+     */
+    @Mapping(target = "orgName", expression = "java(convertOrg(coreStation.getOrg()))")
+    StationExcel convertUserExcel(CoreStation coreStation);
+
+
+    /**
+     * 批量转换
+     *
+     * @param stationList 岗位列表
+     * @return List<StationExcel>
+     */
+    List<StationExcel> convertStationExcels(List<CoreStation> stationList);
+
+    /**
+     * 转换组织
+     *
+     * @param org 组织
+     * @return String
+     */
+    default String convertOrg(RemoteData<Long, CoreOrg> org) {
+        if (ObjectUtils.isNotEmpty(org) && ObjectUtils.isNotEmpty(org.getData())) {
+            return org.getData().getLabel();
+        }
+        return null;
+    }
 
 }

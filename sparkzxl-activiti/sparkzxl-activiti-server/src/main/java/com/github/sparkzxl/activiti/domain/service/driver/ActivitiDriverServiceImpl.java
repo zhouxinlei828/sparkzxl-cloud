@@ -196,6 +196,14 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
     }
 
     @Override
+    public boolean deleteProcessByProcInsIds(List<String> processInstanceIds) {
+        if (CollectionUtils.isNotEmpty(processInstanceIds)) {
+            processInstanceIds.forEach(processInstanceId-> deleteProcessByProcInsId(processInstanceId, "删除流程"));
+        }
+        return true;
+    }
+
+    @Override
     public boolean suspendProcessByProcessInstanceId(String processInstanceId) {
         processRuntimeService.suspendProcessInstanceById(processInstanceId);
         return true;
