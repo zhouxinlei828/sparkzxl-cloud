@@ -4,19 +4,17 @@ package com.github.sparkzxl.authorization.interfaces.controller.core;
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.authorization.application.service.ICoreStationService;
 import com.github.sparkzxl.authorization.infrastructure.entity.CoreStation;
-import com.github.sparkzxl.authorization.interfaces.dto.station.StationPageDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.station.StationQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationUpdateDTO;
+import com.github.sparkzxl.database.base.controller.SuperCacheController;
 import com.github.sparkzxl.database.dto.DeleteDTO;
+import com.github.sparkzxl.database.dto.PageParams;
 import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 /**
  * description: 岗位 前端控制器
@@ -29,43 +27,27 @@ import java.util.List;
 @WebLog
 @Api(tags = "岗位管理")
 @RequestMapping("/station")
-public class StationController {
+public class StationController extends SuperCacheController<ICoreStationService, Long,
+        CoreStation, StationSaveDTO, StationUpdateDTO, StationQueryDTO, Object> {
 
-    private ICoreStationService stationService;
-
-    @Autowired
-    public void setStationService(ICoreStationService stationService) {
-        this.stationService = stationService;
+    @Override
+    public PageInfo<CoreStation> page(PageParams<StationQueryDTO> params) {
+        return baseService.getStationPageList(params);
     }
 
-    @ApiOperation("查询岗位分页列表")
-    @PostMapping("/page")
-    public PageInfo<CoreStation> getStationPageList(@RequestBody StationPageDTO stationPageDTO) {
-        return stationService.getStationPageList(stationPageDTO);
+    @Override
+    public boolean save(StationSaveDTO stationSaveDTO) {
+        return baseService.saveCoreStation(stationSaveDTO);
     }
 
-    @ApiOperation("查询岗位列表")
-    @GetMapping("/list")
-    public List<CoreStation> getStationList() {
-        return stationService.list();
+    @Override
+    public boolean update(StationUpdateDTO stationUpdateDTO) {
+        return baseService.updateCoreStation(stationUpdateDTO);
     }
 
-    @ApiOperation("新增岗位")
-    @PostMapping("/save")
-    public boolean saveCoreStation(@Validated @RequestBody StationSaveDTO stationSaveDTO) {
-        return stationService.saveCoreStation(stationSaveDTO);
-    }
-
-    @ApiOperation("修改岗位")
-    @PutMapping("/update")
-    public boolean updateCoreStation(@Validated @RequestBody StationUpdateDTO stationUpdateDTO) {
-        return stationService.updateCoreStation(stationUpdateDTO);
-    }
-
-    @ApiOperation("删除岗位")
-    @DeleteMapping("/delete")
-    public boolean deleteCoreStation(@RequestBody DeleteDTO<Long> deleteDTO) {
-        return stationService.deleteCoreStation(deleteDTO.getIds());
+    @Override
+    public boolean delete(DeleteDTO<Long> deleteDTO) {
+        return baseService.deleteCoreStation(deleteDTO.getIds());
     }
 
 }

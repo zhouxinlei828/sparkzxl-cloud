@@ -3,6 +3,7 @@ package com.github.sparkzxl.authorization.infrastructure.mapper;
 import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthApplication;
+import com.github.sparkzxl.database.base.mapper.SuperMapper;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -17,7 +18,7 @@ import java.util.List;
  * @date: 2021-02-20 09:43:16
  */
 @Repository
-public interface AuthApplicationMapper extends BaseMapper<AuthApplication> {
+public interface AuthApplicationMapper extends SuperMapper<AuthApplication> {
 
     /**
      * 根据租户code删除租户客户端

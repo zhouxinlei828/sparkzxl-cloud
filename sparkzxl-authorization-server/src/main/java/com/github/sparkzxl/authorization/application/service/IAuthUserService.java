@@ -4,17 +4,14 @@ import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.authorization.domain.model.aggregates.MenuBasicInfo;
 import com.github.sparkzxl.authorization.domain.model.vo.AuthUserBasicVO;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthUser;
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserPageDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserSaveDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserUpdateDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.user.UserQueryDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.user.UserSaveDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.user.UserUpdateDTO;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.base.service.SuperCacheService;
 import com.github.sparkzxl.database.dto.PageParams;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -41,30 +38,13 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      */
     AuthUser getByAccount(String username);
 
-
-    /**
-     * 获取用户信息
-     *
-     * @param id 用户id
-     * @return AuthUserDTO
-     */
-    AuthUserDTO getAuthUser(Long id);
-
-    /**
-     * 更新用户组织
-     *
-     * @param id 组织id
-     */
-    void deleteOrgId(Long id);
-
-
     /**
      * 获取用户分页
      *
      * @param params 分页入参
      * @return PageInfo<AuthUser>
      */
-    PageInfo<AuthUser> getAuthUserPage(PageParams<AuthUserPageDTO> params);
+    PageInfo<AuthUser> getAuthUserPage(PageParams<UserQueryDTO> params);
 
     /**
      * 保存用户信息
@@ -72,7 +52,7 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * @param authUserSaveDTO AuthUserSaveDTO保存对象
      * @return boolean
      */
-    boolean saveAuthUser(AuthUserSaveDTO authUserSaveDTO);
+    boolean saveAuthUser(UserSaveDTO authUserSaveDTO);
 
     /**
      * 修改用户信息
@@ -80,7 +60,7 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
      * @param authUserUpdateDTO AuthUserSaveDTO修改对象
      * @return boolean
      */
-    boolean updateAuthUser(AuthUserUpdateDTO authUserUpdateDTO);
+    boolean updateAuthUser(UserUpdateDTO authUserUpdateDTO);
 
     /**
      * 批量更新用户组织
@@ -121,13 +101,12 @@ public interface IAuthUserService extends SuperCacheService<AuthUser> {
     Integer importUserData(MultipartFile multipartFile);
 
     /**
-     * 导出Excel用户数据
+     * 查询用户列表
      *
-     * @param authUserPageDTO 用户查询参数
-     * @param response        response
-     * @throws IOException 异常
+     * @param userQueryDTO 用户查询参数
+     * @return List<AuthUser>
      */
-    void exportUserData(AuthUserPageDTO authUserPageDTO, HttpServletResponse response) throws IOException;
+    List<AuthUser> userList(UserQueryDTO userQueryDTO);
 
     /**
      * 删除用户信息

@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel("应用客户端分页DTO")
-public class AuthApplicationPageDTO extends PageDTO {
+public class AuthApplicationQueryDTO extends PageDTO {
 
 
     @ApiModelProperty("应用名称")

@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "AuthUserDTO分页查询对象", description = "AuthUserDTO分页查询对象")
-public class AuthUserPageDTO extends PageDTO {
+public class UserQueryDTO extends PageDTO {
 
     @ApiModelProperty(value = "账号")
     private String account;

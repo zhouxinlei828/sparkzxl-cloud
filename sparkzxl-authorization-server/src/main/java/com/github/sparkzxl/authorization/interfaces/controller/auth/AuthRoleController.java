@@ -11,6 +11,7 @@ import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -29,11 +30,12 @@ import java.util.List;
 @WebLog
 @Api(tags = "角色管理")
 public class AuthRoleController extends SuperCacheController<IAuthRoleService, Long,
-        AuthRole, AuthRoleSaveDTO, AuthRoleUpdateDTO, AuthRolePageDTO> {
+        AuthRole, RoleSaveDTO, RoleUpdateDTO, RoleQueryDTO, Object> {
 
-    private final IUserRoleService userRoleService;
+    private IUserRoleService userRoleService;
 
-    public AuthRoleController(IUserRoleService userRoleService) {
+    @Autowired
+    public void setUserRoleService(IUserRoleService userRoleService) {
         this.userRoleService = userRoleService;
     }
 

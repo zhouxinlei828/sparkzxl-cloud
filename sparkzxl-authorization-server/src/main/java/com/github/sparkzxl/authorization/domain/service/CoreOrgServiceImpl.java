@@ -3,7 +3,6 @@ package com.github.sparkzxl.authorization.domain.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.sparkzxl.authorization.application.service.IAuthUserService;
 import com.github.sparkzxl.authorization.application.service.ICoreOrgService;
-import com.github.sparkzxl.authorization.application.service.IRoleOrgService;
 import com.github.sparkzxl.authorization.domain.repository.IIdSegmentRepository;
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.authorization.infrastructure.convert.CoreOrgConvert;
@@ -28,9 +27,6 @@ import java.util.Optional;
  */
 @Service
 public class CoreOrgServiceImpl extends SuperCacheServiceImpl<CoreOrgMapper, CoreOrg> implements ICoreOrgService {
-
-    @Autowired
-    private IRoleOrgService roleOrgService;
 
     @Autowired
     private IAuthUserService authUserService;
@@ -71,7 +67,6 @@ public class CoreOrgServiceImpl extends SuperCacheServiceImpl<CoreOrgMapper, Cor
 
     @Override
     public boolean deleteBatchCoreOrg(List<Long> ids) {
-        roleOrgService.deleteRoleOrgByOrgIds(ids);
         authUserService.deleteOrgIds(ids);
         return removeByIds(ids);
     }

@@ -14,7 +14,7 @@ import javax.validation.constraints.NotEmpty;
  */
 @Data
 @ApiModel("角色保存对象")
-public class AuthRoleSaveDTO {
+public class RoleSaveDTO {
 
     @ApiModelProperty(value = "名称")
     @NotEmpty(message = "名称不能为空")

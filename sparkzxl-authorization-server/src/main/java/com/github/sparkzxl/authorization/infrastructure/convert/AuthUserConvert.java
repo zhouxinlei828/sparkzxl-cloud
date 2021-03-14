@@ -1,6 +1,5 @@
 package com.github.sparkzxl.authorization.infrastructure.convert;
 
-import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.authorization.domain.model.aggregates.AuthUserBasicInfo;
 import com.github.sparkzxl.authorization.domain.model.aggregates.StationBasicInfo;
 import com.github.sparkzxl.authorization.domain.model.aggregates.UserExcel;
@@ -47,7 +46,7 @@ public interface AuthUserConvert {
      * @return AuthUser
      */
     @Mapping(target = "sex", expression = "java(convertSex(authUserSaveDTO.getSex()))")
-    AuthUser convertAuthUser(AuthUserSaveDTO authUserSaveDTO);
+    AuthUser convertAuthUser(UserSaveDTO authUserSaveDTO);
 
     /**
      * AuthUserUpdateDTO转化为AuthUser
@@ -55,15 +54,7 @@ public interface AuthUserConvert {
      * @param authUserUpdateDTO AuthUserUpdateDTO更新对象
      * @return AuthUser
      */
-    AuthUser convertAuthUser(AuthUserUpdateDTO authUserUpdateDTO);
-
-    /**
-     * AuthUserStatusDTO转化为AuthUser
-     *
-     * @param authUserStatusDTO AuthUserStatusDTO状态修改对象
-     * @return AuthUser
-     */
-    AuthUser convertAuthUser(AuthUserStatusDTO authUserStatusDTO);
+    AuthUser convertAuthUser(UserUpdateDTO authUserUpdateDTO);
 
     /**
      * AuthUserPageDTO转化为AuthUser
@@ -75,7 +66,7 @@ public interface AuthUserConvert {
             @Mapping(target = "sex", expression = "java(convertSex(authUserPageDTO.getSex()))"),
             @Mapping(target = "org", expression = "java(convertOrgRemoteData(authUserPageDTO.getOrgId()))")
     })
-    AuthUser convertAuthUser(AuthUserPageDTO authUserPageDTO);
+    AuthUser convertAuthUser(UserQueryDTO authUserPageDTO);
 
     /**
      * 转换sex枚举
@@ -89,22 +80,6 @@ public interface AuthUserConvert {
         }
         return null;
     }
-
-    /**
-     * AuthUser转化为AuthUserDTO
-     *
-     * @param authUser
-     * @return AuthUserDTO
-     */
-    AuthUserDTO convertAuthUserDTO(AuthUser authUser);
-
-    /**
-     * PageInfo<AuthUser> 转化为PageInfo<AuthUserDTO>
-     *
-     * @param authUserPageInfo 分页对象
-     * @return PageInfo<AuthUserDTO>
-     */
-    PageInfo<AuthUserDTO> convertAuthUserDTO(PageInfo<AuthUser> authUserPageInfo);
 
     AuthUserBasicVO convertAuthUserBasicVO(AuthUserBasicInfo authUserBasicInfo);
 
@@ -129,7 +104,6 @@ public interface AuthUserConvert {
             @Mapping(target = "stationName", expression = "java(convertStation(authUser.getStation()))")
     })
     UserExcel convertUserExcel(AuthUser authUser);
-
 
     List<UserExcel> convertUserExcels(List<AuthUser> authUserList);
 

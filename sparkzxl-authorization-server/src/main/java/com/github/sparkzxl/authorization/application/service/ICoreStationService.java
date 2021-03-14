@@ -3,10 +3,11 @@ package com.github.sparkzxl.authorization.application.service;
 
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.authorization.infrastructure.entity.CoreStation;
-import com.github.sparkzxl.authorization.interfaces.dto.station.StationPageDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.station.StationQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.station.StationUpdateDTO;
 import com.github.sparkzxl.database.base.service.SuperCacheService;
+import com.github.sparkzxl.database.dto.PageParams;
 
 import java.util.List;
 
@@ -21,10 +22,10 @@ public interface ICoreStationService extends SuperCacheService<CoreStation> {
     /**
      * 查询岗位列表
      *
-     * @param stationPageDTO 岗位分页查询对象
+     * @param params 岗位分页查询对象
      * @return PageInfo<CoreStation>
      */
-    PageInfo<CoreStation> getStationPageList(StationPageDTO stationPageDTO);
+    PageInfo<CoreStation> getStationPageList(PageParams<StationQueryDTO> params);
 
     /**
      * 新增岗位

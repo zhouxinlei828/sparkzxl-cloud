@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "资源更新对象", description = "资源更新对象")
-public class AuthResourceUpdateDTO {
+public class ResourceUpdateDTO {
 
     @ApiModelProperty(value = "id")
     private Long id;

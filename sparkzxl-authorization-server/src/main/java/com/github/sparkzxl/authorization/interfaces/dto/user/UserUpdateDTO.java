@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * description: 用户信息
@@ -21,20 +21,18 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "AuthUserSaveDTO保存对象", description = "AuthUserSaveDTO保存对象")
-public class AuthUserSaveDTO {
+@ApiModel(value = "AuthUserUpdateDTO更新对象", description = "AuthUserUpdateDTO更新对象")
+public class UserUpdateDTO {
+
+    @ApiModelProperty(value = "id")
+    @NotNull(message = "用户ID不能为空")
+    private Long id;
 
     @ApiModelProperty(value = "账号")
-    @NotEmpty(message = "账号不能为空")
     private String account;
 
     @ApiModelProperty(value = "姓名")
-    @NotEmpty(message = "姓名不能为空")
     private String name;
-
-    @ApiModelProperty(value = "密码")
-    @NotEmpty(message = "密码不能为空")
-    private String password;
 
     @ApiModelProperty(value = "组织ID")
     private RemoteData<Long, CoreOrg> org;

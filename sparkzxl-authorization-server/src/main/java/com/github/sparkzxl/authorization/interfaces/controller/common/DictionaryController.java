@@ -3,7 +3,7 @@ package com.github.sparkzxl.authorization.interfaces.controller.common;
 
 import com.github.sparkzxl.authorization.application.service.ICommonDictionaryService;
 import com.github.sparkzxl.authorization.infrastructure.entity.CommonDictionary;
-import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryPageDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionarySaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryUpdateDTO;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
@@ -27,15 +27,15 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "字典类型管理")
 @RequestMapping("/common/dictionary")
 public class DictionaryController extends SuperCacheController<ICommonDictionaryService, Long,
-        CommonDictionary, DictionarySaveDTO, DictionaryUpdateDTO, DictionaryPageDTO> {
+        CommonDictionary, DictionarySaveDTO, DictionaryUpdateDTO, DictionaryQueryDTO, Object> {
 
     @Override
-    public void handlerQueryParams(PageParams<DictionaryPageDTO> params) {
-        DictionaryPageDTO paramsModel = params.getModel();
-        if (StringUtils.isEmpty(paramsModel.getName())){
+    public void handlerQueryParams(PageParams<DictionaryQueryDTO> params) {
+        DictionaryQueryDTO paramsModel = params.getModel();
+        if (StringUtils.isEmpty(paramsModel.getName())) {
             paramsModel.setName(null);
         }
-        if (StringUtils.isEmpty(paramsModel.getType())){
+        if (StringUtils.isEmpty(paramsModel.getType())) {
             paramsModel.setType(null);
         }
     }

@@ -12,7 +12,7 @@ import lombok.Data;
 */
 @Data
 @ApiModel("字典查询入参")
-public class DictionaryPageDTO {
+public class DictionaryQueryDTO {
 
     @ApiModelProperty(value = "编码一颗树仅仅有一个统一的编码")
     private String type;

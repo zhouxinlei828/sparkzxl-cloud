@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "资源保存对象", description = "资源保存对象")
-public class AuthResourceSaveDTO {
+public class ResourceSaveDTO {
 
     private static final long serialVersionUID = -6295580114270886981L;
 

@@ -3,10 +3,9 @@ package com.github.sparkzxl.authorization.interfaces.controller.auth;
 
 import com.github.sparkzxl.authorization.application.service.IAuthResourceService;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthResource;
-import com.github.sparkzxl.authorization.interfaces.dto.resource.AuthResourcePageDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.resource.AuthResourceSaveDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.resource.AuthResourceUpdateDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.resource.ResourceQueryDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.resource.ResourceSaveDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.resource.ResourceUpdateDTO;
 import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
@@ -33,23 +32,23 @@ import java.util.List;
 @WebLog
 @Api(tags = "资源管理")
 public class AuthResourceController extends SuperCacheController<IAuthResourceService, Long,
-        AuthResource, AuthResourceSaveDTO, AuthResourceUpdateDTO, AuthResourcePageDTO> {
+        AuthResource, ResourceSaveDTO, ResourceUpdateDTO, ResourceQueryDTO, Object> {
 
 
     @ApiOperation("查询用户可用的所有资源")
     @GetMapping("/visible")
-    public List<AuthResource> visible(@ApiIgnore AuthUserInfo<Long> authUserInfo, ResourceQueryDTO resource) {
-        return baseService.findVisibleResource(authUserInfo.getId(), resource);
+    public List<AuthResource> visible(@ApiIgnore AuthUserInfo<Long> authUserInfo, ResourceQueryDTO resourceQueryDTO) {
+        return baseService.findVisibleResource(authUserInfo.getId(), resourceQueryDTO);
     }
 
     @Override
-    public boolean update(AuthResourceUpdateDTO authResourceUpdateDTO) {
+    public boolean update(ResourceUpdateDTO authResourceUpdateDTO) {
         return baseService.updateResource(authResourceUpdateDTO);
     }
 
     @Override
-    public void handlerQueryParams(PageParams<AuthResourcePageDTO> params) {
-        AuthResourcePageDTO paramsModel = params.getModel();
+    public void handlerQueryParams(PageParams<ResourceQueryDTO> params) {
+        ResourceQueryDTO paramsModel = params.getModel();
         if (StringUtils.isEmpty(paramsModel.getCode())) {
             paramsModel.setCode(null);
         }

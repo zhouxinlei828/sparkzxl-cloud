@@ -1,15 +1,12 @@
 package com.github.sparkzxl.authorization.application.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.authorization.infrastructure.entity.TenantInfo;
 import com.github.sparkzxl.authorization.interfaces.dto.tenant.TenantPageDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.tenant.TenantSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.tenant.TenantUpdateDTO;
-import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
-import com.github.sparkzxl.database.dto.DeleteDTO;
-import org.apache.commons.lang3.StringUtils;
+import com.github.sparkzxl.database.base.service.SuperCacheService;
+import com.github.sparkzxl.database.dto.PageParams;
 
 import java.util.List;
 
@@ -19,15 +16,15 @@ import java.util.List;
  * @author: zhouxinlei
  * @date: 2021-02-02 16:20:51
  */
-public interface ITenantInfoService extends IService<TenantInfo> {
+public interface ITenantInfoService extends SuperCacheService<TenantInfo> {
 
     /**
      * 分页查询租户列表
      *
-     * @param tenantPageDTO 租户分页查询参数
+     * @param params 租户分页查询参数
      * @return PageInfo<TenantInfo>
      */
-    PageInfo<TenantInfo> getTenantPageList(TenantPageDTO tenantPageDTO);
+    PageInfo<TenantInfo> getTenantPageList(PageParams<TenantPageDTO> params);
 
     /**
      * 保存租户信息

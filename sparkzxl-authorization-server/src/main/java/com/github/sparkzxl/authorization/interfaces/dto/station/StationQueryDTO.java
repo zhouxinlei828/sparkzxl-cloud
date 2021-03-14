@@ -14,10 +14,9 @@ import lombok.EqualsAndHashCode;
  * @author: zhouxinlei
  * @date: 2020-07-27 19:49:46
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel(value = "岗位分页查询对象")
-public class StationPageDTO extends PageDTO {
+public class StationQueryDTO {
 
     @ApiModelProperty(value = "名称")
     private String name;

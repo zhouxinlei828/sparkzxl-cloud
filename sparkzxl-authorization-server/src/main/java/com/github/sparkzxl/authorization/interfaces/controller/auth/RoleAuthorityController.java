@@ -4,7 +4,7 @@ package com.github.sparkzxl.authorization.interfaces.controller.auth;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.github.sparkzxl.authorization.application.service.IRoleAuthorityService;
 import com.github.sparkzxl.authorization.infrastructure.entity.RoleAuthority;
-import com.github.sparkzxl.authorization.interfaces.dto.role.RoleAuthorityPageDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.role.RoleAuthorityQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.role.RoleAuthoritySaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.role.RoleAuthorityUpdateDTO;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
@@ -29,7 +29,7 @@ import java.util.List;
 @WebLog
 @Api(tags = "角色资源管理")
 public class RoleAuthorityController extends SuperCacheController<IRoleAuthorityService, Long,
-        RoleAuthority, RoleAuthoritySaveDTO, RoleAuthorityUpdateDTO, RoleAuthorityPageDTO> {
+        RoleAuthority, RoleAuthoritySaveDTO, RoleAuthorityUpdateDTO, RoleAuthorityQueryDTO, Object> {
 
     @ApiOperation("批量保存角色资源")
     @PostMapping("/batch")

@@ -4,9 +4,8 @@ import com.github.sparkzxl.authorization.domain.model.aggregates.RoleBasicInfo;
 import com.github.sparkzxl.authorization.domain.model.aggregates.RoleResource;
 import com.github.sparkzxl.authorization.domain.model.vo.RoleResourceVO;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthRole;
-import com.github.sparkzxl.authorization.interfaces.dto.role.AuthRoleDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.role.AuthRoleSaveDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.role.AuthRoleUpdateDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.role.RoleSaveDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.role.RoleUpdateDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -29,7 +28,7 @@ public interface AuthRoleConvert {
      * @param authRoleSaveDTO 角色保存对象
      * @return AuthRole
      */
-    AuthRole convertAuthRoleDO(AuthRoleSaveDTO authRoleSaveDTO);
+    AuthRole convertAuthRoleDO(RoleSaveDTO authRoleSaveDTO);
 
     /**
      * authRoleUpdateDTO转化为AuthRole
@@ -37,16 +36,7 @@ public interface AuthRoleConvert {
      * @param authRoleUpdateDTO 角色更新对象
      * @return AuthRole
      */
-    AuthRole convertAuthRoleDO(AuthRoleUpdateDTO authRoleUpdateDTO);
-
-    /**
-     * authRole转化为AuthRoleDTO
-     *
-     * @param authRole 角色
-     * @return AuthRoleDTO
-     */
-    AuthRoleDTO convertAuthUserDTO(AuthRole authRole);
-
+    AuthRole convertAuthRoleDO(RoleUpdateDTO authRoleUpdateDTO);
 
     /**
      * 角色资源领域对象转换显示层对象

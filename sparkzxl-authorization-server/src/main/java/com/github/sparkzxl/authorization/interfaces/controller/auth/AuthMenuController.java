@@ -4,20 +4,15 @@ package com.github.sparkzxl.authorization.interfaces.controller.auth;
 import cn.hutool.core.convert.Convert;
 import com.github.sparkzxl.authorization.application.service.IAuthMenuService;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthMenu;
-import com.github.sparkzxl.authorization.interfaces.dto.menu.AuthMenuPageDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.menu.AuthMenuQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.menu.AuthMenuSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.menu.AuthMenuUpdateDTO;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
 import com.github.sparkzxl.database.dto.DeleteDTO;
-import com.github.sparkzxl.database.entity.TreeEntity;
-import com.github.sparkzxl.database.mybatis.conditions.Wraps;
-import com.github.sparkzxl.database.mybatis.conditions.query.LbqWrapper;
-import com.github.sparkzxl.database.utils.TreeUtil;
 import com.github.sparkzxl.log.annotation.WebLog;
 import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +29,7 @@ import java.util.List;
 @WebLog
 @Api(tags = "菜单管理")
 public class AuthMenuController extends SuperCacheController<IAuthMenuService, Long,
-        AuthMenu, AuthMenuSaveDTO, AuthMenuUpdateDTO, AuthMenuPageDTO> {
+        AuthMenu, AuthMenuSaveDTO, AuthMenuUpdateDTO, AuthMenuQueryDTO, Object> {
 
     @Override
     public boolean handlerSave(AuthMenuSaveDTO model) {

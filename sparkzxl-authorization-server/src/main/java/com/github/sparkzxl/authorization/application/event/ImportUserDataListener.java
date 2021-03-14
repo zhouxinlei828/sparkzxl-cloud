@@ -1,7 +1,6 @@
 package com.github.sparkzxl.authorization.application.event;
 
 import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.event.AnalysisEventListener;
 import com.github.sparkzxl.authorization.application.service.IAuthUserService;
 import com.github.sparkzxl.authorization.application.service.ICommonDictionaryItemService;
 import com.github.sparkzxl.authorization.application.service.ICoreOrgService;
@@ -12,12 +11,15 @@ import com.github.sparkzxl.authorization.infrastructure.entity.CommonDictionaryI
 import com.github.sparkzxl.authorization.infrastructure.entity.CoreOrg;
 import com.github.sparkzxl.authorization.infrastructure.entity.CoreStation;
 import com.github.sparkzxl.authorization.infrastructure.enums.SexEnum;
+import com.github.sparkzxl.database.base.listener.ImportDataListener;
 import com.github.sparkzxl.database.entity.RemoteData;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -28,8 +30,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author: zhouxinlei
  * @date: 2021-01-04 15:34:07
  */
+@Component
 @Slf4j
-public class ImportUserDataListener extends AnalysisEventListener<UserExcel> {
+public class ImportUserDataListener extends ImportDataListener<UserExcel> {
 
     private final List<UserExcel> list = Lists.newArrayList();
     private final AtomicInteger count = new AtomicInteger(0);
@@ -40,24 +43,24 @@ public class ImportUserDataListener extends AnalysisEventListener<UserExcel> {
     private ICommonDictionaryItemService dictionaryItemService;
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
     public void setAuthUserService(IAuthUserService authUserService) {
         this.authUserService = authUserService;
     }
 
+    @Autowired
     public void setCoreOrgService(ICoreOrgService coreOrgService) {
         this.coreOrgService = coreOrgService;
     }
 
+    @Autowired
     public void setCoreStationService(ICoreStationService coreStationService) {
         this.coreStationService = coreStationService;
     }
 
+    @Autowired
     public void setDictionaryItemService(ICommonDictionaryItemService dictionaryItemService) {
         this.dictionaryItemService = dictionaryItemService;
-    }
-
-    public Integer getCount() {
-        return count.get();
     }
 
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {

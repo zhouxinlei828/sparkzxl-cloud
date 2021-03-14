@@ -7,7 +7,6 @@ import com.github.sparkzxl.authorization.domain.repository.IRoleAuthorityReposit
 import com.github.sparkzxl.authorization.domain.repository.IUserRoleRepository;
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.authorization.infrastructure.convert.AuthRoleConvert;
-import com.github.sparkzxl.authorization.infrastructure.convert.AuthUserConvert;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.authorization.infrastructure.entity.UserRole;
 import com.github.sparkzxl.authorization.infrastructure.mapper.UserRoleMapper;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 /**
@@ -57,8 +55,7 @@ public class UserRoleServiceImpl extends SuperCacheServiceImpl<UserRoleMapper, U
         RoleUserDTO roleUserDTO = new RoleUserDTO();
         roleUserDTO.setId(roleId);
         List<AuthUser> authUsers = userRoleRepository.getRoleUserList(roleId);
-        Optional.ofNullable(authUsers).ifPresent(x -> roleUserDTO.setAuthUsers(authUsers.stream()
-                .map(AuthUserConvert.INSTANCE::convertAuthUserDTO).collect(Collectors.toList())));
+        Optional.ofNullable(authUsers).ifPresent(x -> roleUserDTO.setAuthUsers(authUsers));
         return roleUserDTO;
     }
 

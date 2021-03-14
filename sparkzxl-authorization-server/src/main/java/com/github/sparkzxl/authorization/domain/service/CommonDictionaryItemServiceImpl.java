@@ -6,7 +6,7 @@ import com.github.sparkzxl.authorization.application.service.ICommonDictionaryIt
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.authorization.infrastructure.entity.CommonDictionaryItem;
 import com.github.sparkzxl.authorization.infrastructure.mapper.CommonDictionaryItemMapper;
-import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemPageDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemQueryDTO;
 import com.github.sparkzxl.core.utils.MapHelper;
 import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import com.github.sparkzxl.database.properties.CustomMybatisProperties;
@@ -62,19 +62,19 @@ public class CommonDictionaryItemServiceImpl extends SuperCacheServiceImpl<Commo
     }
 
     @Override
-    public List<CommonDictionaryItem> findDictionaryItemList(DictionaryItemPageDTO dictionaryItemPageDTO) {
+    public List<CommonDictionaryItem> findDictionaryItemList(DictionaryItemQueryDTO dictionaryItemQueryDTO) {
         LambdaQueryWrapper<CommonDictionaryItem> dictionaryItemLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        if (ObjectUtils.isNotEmpty(dictionaryItemPageDTO.getDictionaryId())){
-            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryId,dictionaryItemPageDTO.getDictionaryId());
+        if (ObjectUtils.isNotEmpty(dictionaryItemQueryDTO.getDictionaryId())) {
+            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryId, dictionaryItemQueryDTO.getDictionaryId());
         }
-        if (StringUtils.isNotEmpty(dictionaryItemPageDTO.getDictionaryType())){
-            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryType,dictionaryItemPageDTO.getDictionaryType());
+        if (StringUtils.isNotEmpty(dictionaryItemQueryDTO.getDictionaryType())) {
+            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getDictionaryType, dictionaryItemQueryDTO.getDictionaryType());
         }
-        if (StringUtils.isNotEmpty(dictionaryItemPageDTO.getCode())){
-            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getCode,dictionaryItemPageDTO.getCode());
+        if (StringUtils.isNotEmpty(dictionaryItemQueryDTO.getCode())) {
+            dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getCode, dictionaryItemQueryDTO.getCode());
         }
-        if (StringUtils.isNotEmpty(dictionaryItemPageDTO.getName())){
-            dictionaryItemLambdaQueryWrapper.likeRight(CommonDictionaryItem::getName,dictionaryItemPageDTO.getName());
+        if (StringUtils.isNotEmpty(dictionaryItemQueryDTO.getName())) {
+            dictionaryItemLambdaQueryWrapper.likeRight(CommonDictionaryItem::getName, dictionaryItemQueryDTO.getName());
         }
         dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getStatus, true)
                 .orderByAsc(CommonDictionaryItem::getSortValue);
@@ -84,7 +84,7 @@ public class CommonDictionaryItemServiceImpl extends SuperCacheServiceImpl<Commo
     @Override
     public CommonDictionaryItem getDictionaryItemByName(String name) {
         LambdaQueryWrapper<CommonDictionaryItem> dictionaryItemLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getName,name);
+        dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getName, name);
         dictionaryItemLambdaQueryWrapper.eq(CommonDictionaryItem::getStatus, true)
                 .last("limit 1");
         return getOne(dictionaryItemLambdaQueryWrapper);

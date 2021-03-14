@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @ApiModel("角色分页查询对象")
-public class AuthRolePageDTO {
+public class RoleQueryDTO {
 
     @ApiModelProperty(value = "角色编码")
     private String code;

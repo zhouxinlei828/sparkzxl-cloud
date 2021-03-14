@@ -3,7 +3,6 @@ package com.github.sparkzxl.authorization.interfaces.controller.common;
 
 import com.github.sparkzxl.authorization.application.service.ICommonAreaService;
 import com.github.sparkzxl.authorization.infrastructure.entity.CommonArea;
-import com.github.sparkzxl.authorization.interfaces.dto.area.AreaPageDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.area.AreaQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.area.AreaSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.area.AreaUpdateDTO;
@@ -27,7 +26,7 @@ import java.util.List;
 @Api(tags = "地区管理")
 @RequestMapping("/common/area")
 public class AreaController extends SuperCacheController<ICommonAreaService, Long,
-        CommonArea, AreaSaveDTO, AreaUpdateDTO, AreaPageDTO> {
+        CommonArea, AreaSaveDTO, AreaUpdateDTO, AreaQueryDTO, Object> {
 
 
     @ApiOperation("查询地区列表")
@@ -37,7 +36,7 @@ public class AreaController extends SuperCacheController<ICommonAreaService, Lon
     }
 
     @ApiOperation("导入城市地区信息")
-    @PostMapping("/import")
+    @PostMapping("/importCity")
     public boolean importAreaJsonData(@RequestParam("jsonFile") MultipartFile multipartFile) {
         return super.baseService.importAreaJsonData(multipartFile);
     }

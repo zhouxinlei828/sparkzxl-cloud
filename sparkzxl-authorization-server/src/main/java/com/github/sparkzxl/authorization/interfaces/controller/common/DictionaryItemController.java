@@ -3,7 +3,7 @@ package com.github.sparkzxl.authorization.interfaces.controller.common;
 
 import com.github.sparkzxl.authorization.application.service.ICommonDictionaryItemService;
 import com.github.sparkzxl.authorization.infrastructure.entity.CommonDictionaryItem;
-import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemPageDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemUpdateDTO;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
@@ -32,16 +32,16 @@ import java.util.List;
 @Api(tags = "字典项管理")
 @RequestMapping("/common/dictionaryItem")
 public class DictionaryItemController extends SuperCacheController<ICommonDictionaryItemService, Long,
-        CommonDictionaryItem, DictionaryItemSaveDTO, DictionaryItemUpdateDTO, DictionaryItemPageDTO> {
+        CommonDictionaryItem, DictionaryItemSaveDTO, DictionaryItemUpdateDTO, DictionaryItemQueryDTO, Object> {
 
     @Override
-    public List<CommonDictionaryItem> query(DictionaryItemPageDTO dictionaryItemPageDTO) {
-        return baseService.findDictionaryItemList(dictionaryItemPageDTO);
+    public List<CommonDictionaryItem> query(DictionaryItemQueryDTO dictionaryItemQueryDTO) {
+        return baseService.findDictionaryItemList(dictionaryItemQueryDTO);
     }
 
     @Override
-    public void handlerQueryParams(PageParams<DictionaryItemPageDTO> params) {
-        DictionaryItemPageDTO paramsModel = params.getModel();
+    public void handlerQueryParams(PageParams<DictionaryItemQueryDTO> params) {
+        DictionaryItemQueryDTO paramsModel = params.getModel();
         if (ObjectUtils.isNotEmpty(paramsModel.getDictionaryId()) && paramsModel.getDictionaryId() == 0L) {
             paramsModel.setDictionaryId(null);
         }

@@ -3,15 +3,15 @@ package com.github.sparkzxl.authorization.interfaces.controller.core;
 
 import com.github.sparkzxl.authorization.application.service.ICoreOrgService;
 import com.github.sparkzxl.authorization.infrastructure.entity.CoreOrg;
+import com.github.sparkzxl.authorization.interfaces.dto.org.OrgQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.org.OrgSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.org.OrgUpdateDTO;
 import com.github.sparkzxl.core.annotation.ResponseResult;
+import com.github.sparkzxl.database.base.controller.SuperCacheController;
 import com.github.sparkzxl.database.dto.DeleteDTO;
 import com.github.sparkzxl.log.annotation.WebLog;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,37 +27,28 @@ import java.util.List;
 @WebLog
 @Api(tags = "组织管理")
 @RequestMapping("/org")
-public class OrgController {
-
-    private ICoreOrgService coreOrgService;
-
-    @Autowired
-    public void setCoreOrgService(ICoreOrgService coreOrgService) {
-        this.coreOrgService = coreOrgService;
-    }
+public class OrgController extends SuperCacheController<ICoreOrgService, Long,
+        CoreOrg, OrgSaveDTO, OrgUpdateDTO, OrgQueryDTO, Object> {
 
     @ApiOperation("组织树查询")
     @GetMapping("/tree")
     public List<CoreOrg> getCoreOrgTree(@RequestParam(value = "name", required = false) String name,
                                         @RequestParam(value = "status", required = false) Boolean status) {
-        return coreOrgService.getCoreOrgTree(name, status);
+        return baseService.getCoreOrgTree(name, status);
     }
 
-    @ApiOperation("新增组织")
-    @PostMapping("/save")
-    public boolean saveCoreOrg(@Validated @RequestBody OrgSaveDTO orgSaveDTO) {
-        return coreOrgService.saveCoreOrg(orgSaveDTO);
+    @Override
+    public boolean save(OrgSaveDTO orgSaveDTO) {
+        return baseService.saveCoreOrg(orgSaveDTO);
     }
 
-    @ApiOperation("修改组织")
-    @PutMapping("/update")
-    public boolean updateCoreOrg(@Validated @RequestBody OrgUpdateDTO orgUpdateDTO) {
-        return coreOrgService.updateCoreOrg(orgUpdateDTO);
+    @Override
+    public boolean update(OrgUpdateDTO orgUpdateDTO) {
+        return baseService.updateCoreOrg(orgUpdateDTO);
     }
 
-    @ApiOperation("删除组织")
-    @DeleteMapping("/delete")
-    public boolean deleteCoreOrg(@RequestBody DeleteDTO<Long> deleteDTO) {
-        return coreOrgService.deleteBatchCoreOrg(deleteDTO.getIds());
+    @Override
+    public boolean delete(DeleteDTO<Long> deleteDTO) {
+        return baseService.deleteBatchCoreOrg(deleteDTO.getIds());
     }
 }

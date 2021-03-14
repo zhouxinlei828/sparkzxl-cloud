@@ -1,6 +1,6 @@
 package com.github.sparkzxl.authorization.interfaces.dto.role;
 
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserDTO;
+import com.github.sparkzxl.authorization.infrastructure.entity.AuthUser;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -19,6 +19,6 @@ public class RoleUserDTO {
     private Long id;
 
     @NotNull(message = "用户列表")
-    private List<AuthUserDTO> authUsers;
+    private List<AuthUser> authUsers;
 
 }

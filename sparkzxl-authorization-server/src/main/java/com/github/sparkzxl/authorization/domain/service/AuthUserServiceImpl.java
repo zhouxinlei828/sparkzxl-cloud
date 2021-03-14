@@ -1,13 +1,10 @@
 package com.github.sparkzxl.authorization.domain.service;
 
-import cn.hutool.core.net.URLEncoder;
 import cn.hutool.extra.pinyin.PinyinUtil;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.excel.EasyExcel;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.javafaker.Faker;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.authorization.application.event.ImportUserDataListener;
 import com.github.sparkzxl.authorization.application.service.*;
@@ -23,10 +20,9 @@ import com.github.sparkzxl.authorization.infrastructure.entity.CoreOrg;
 import com.github.sparkzxl.authorization.infrastructure.entity.CoreStation;
 import com.github.sparkzxl.authorization.infrastructure.enums.SexEnum;
 import com.github.sparkzxl.authorization.infrastructure.mapper.AuthUserMapper;
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserPageDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserSaveDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserUpdateDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.user.UserQueryDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.user.UserSaveDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.user.UserUpdateDTO;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import com.github.sparkzxl.database.dto.PageParams;
@@ -42,9 +38,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -73,23 +67,8 @@ public class AuthUserServiceImpl extends SuperCacheServiceImpl<AuthUserMapper, A
     private ICommonDictionaryItemService dictionaryItemService;
 
     @Override
-    public AuthUserDTO getAuthUser(Long id) {
-        return AuthUserConvert.INSTANCE.convertAuthUserDTO(getByIdCache(id));
-    }
-
-
-    @Override
     protected String getRegion() {
         return CacheConstant.USER;
-    }
-
-
-    @Override
-    public void deleteOrgId(Long id) {
-        UpdateWrapper<AuthUser> userUpdateWrapper = new UpdateWrapper<>();
-        userUpdateWrapper.set("org_id", null);
-        userUpdateWrapper.eq("org_id", id);
-        update(userUpdateWrapper);
     }
 
     @Override
@@ -118,7 +97,7 @@ public class AuthUserServiceImpl extends SuperCacheServiceImpl<AuthUserMapper, A
     }
 
     @Override
-    public PageInfo<AuthUser> getAuthUserPage(PageParams<AuthUserPageDTO> params) {
+    public PageInfo<AuthUser> getAuthUserPage(PageParams<UserQueryDTO> params) {
         AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(params.getModel());
         params.buildPage();
         List<AuthUser> authUserList = authUserRepository.getAuthUserList(authUser);
@@ -126,7 +105,7 @@ public class AuthUserServiceImpl extends SuperCacheServiceImpl<AuthUserMapper, A
     }
 
     @Override
-    public boolean saveAuthUser(AuthUserSaveDTO authUserSaveDTO) {
+    public boolean saveAuthUser(UserSaveDTO authUserSaveDTO) {
         AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserSaveDTO);
         String password = passwordEncoder.encode(authUser.getPassword());
         authUser.setPassword(password);
@@ -134,7 +113,7 @@ public class AuthUserServiceImpl extends SuperCacheServiceImpl<AuthUserMapper, A
     }
 
     @Override
-    public boolean updateAuthUser(AuthUserUpdateDTO authUserUpdateDTO) {
+    public boolean updateAuthUser(UserUpdateDTO authUserUpdateDTO) {
         AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserUpdateDTO);
         return updateById(authUser);
     }
@@ -222,18 +201,9 @@ public class AuthUserServiceImpl extends SuperCacheServiceImpl<AuthUserMapper, A
     }
 
     @Override
-    public void exportUserData(AuthUserPageDTO authUserPageDTO, HttpServletResponse response) throws IOException {
-        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(authUserPageDTO);
-        List<AuthUser> authUserList = authUserRepository.getAuthUserList(authUser);
-        List<UserExcel> userExcels = AuthUserConvert.INSTANCE.convertUserExcels(authUserList);
-        // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        // 这里URLEncoder.encode可以防止中文乱码 当然和easy excel没有关系
-        String fileName = URLEncoder.ALL.encode("user_data_export_".concat(String.valueOf(System.currentTimeMillis())),
-                StandardCharsets.UTF_8);
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), UserExcel.class).sheet("模板").doWrite(userExcels);
+    public List<AuthUser> userList(UserQueryDTO userQueryDTO) {
+        AuthUser authUser = AuthUserConvert.INSTANCE.convertAuthUser(userQueryDTO);
+        return authUserRepository.getAuthUserList(authUser);
     }
 
     @Override

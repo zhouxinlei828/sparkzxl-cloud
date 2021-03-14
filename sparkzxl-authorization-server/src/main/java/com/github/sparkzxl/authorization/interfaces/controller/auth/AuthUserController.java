@@ -1,30 +1,31 @@
 package com.github.sparkzxl.authorization.interfaces.controller.auth;
 
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.authorization.application.event.ImportUserDataListener;
 import com.github.sparkzxl.authorization.application.service.IAuthUserService;
 import com.github.sparkzxl.authorization.domain.model.aggregates.MenuBasicInfo;
+import com.github.sparkzxl.authorization.domain.model.aggregates.UserExcel;
 import com.github.sparkzxl.authorization.domain.model.vo.AuthUserBasicVO;
+import com.github.sparkzxl.authorization.infrastructure.convert.AuthUserConvert;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthUser;
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserPageDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserSaveDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.user.AuthUserUpdateDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.user.UserQueryDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.user.UserSaveDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.user.UserUpdateDTO;
 import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.core.entity.AuthUserInfo;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
+import com.github.sparkzxl.database.base.listener.ImportDataListener;
 import com.github.sparkzxl.database.dto.DeleteDTO;
 import com.github.sparkzxl.database.dto.PageParams;
 import com.github.sparkzxl.log.annotation.WebLog;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -40,45 +41,33 @@ import java.util.List;
 @WebLog
 @Api(tags = "用户管理")
 public class AuthUserController extends SuperCacheController<IAuthUserService, Long,
-        AuthUser, AuthUserSaveDTO, AuthUserUpdateDTO, AuthUserPageDTO> {
+        AuthUser, UserSaveDTO, UserUpdateDTO, UserQueryDTO, UserExcel> {
 
-    private PasswordEncoder passwordEncoder;
+    private ImportUserDataListener importUserDataListener;
 
     @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
+    public void setImportUserDataListener(ImportUserDataListener importUserDataListener) {
+        this.importUserDataListener = importUserDataListener;
     }
 
     @Override
-    public PageInfo<AuthUser> page(PageParams<AuthUserPageDTO> params) {
+    public PageInfo<AuthUser> page(PageParams<UserQueryDTO> params) {
         return baseService.getAuthUserPage(params);
     }
 
-    @ApiOperation("用户信息详情查询")
-    @GetMapping("/detail/{id}")
-    public AuthUserDTO getAuthUser(@PathVariable("id") Long id) {
-        return baseService.getAuthUser(id);
-    }
-
     @Override
-    public boolean save(AuthUserSaveDTO authUserSaveDTO) {
+    public boolean save(UserSaveDTO authUserSaveDTO) {
         return baseService.saveAuthUser(authUserSaveDTO);
     }
 
     @Override
-    public boolean update(AuthUserUpdateDTO authUserUpdateDTO) {
+    public boolean update(UserUpdateDTO authUserUpdateDTO) {
         return baseService.updateAuthUser(authUserUpdateDTO);
     }
 
     @Override
     public boolean delete(DeleteDTO<Long> deleteDTO) {
         return baseService.deleteAuthUser(deleteDTO.getIds());
-    }
-
-    @Override
-    public boolean handlerSave(AuthUserSaveDTO model) {
-        model.setPassword(passwordEncoder.encode(model.getPassword()));
-        return true;
     }
 
     @ApiOperation(value = "用户路由菜单", notes = "用户路由菜单")
@@ -93,22 +82,31 @@ public class AuthUserController extends SuperCacheController<IAuthUserService, L
         return baseService.getAuthUserBasicInfo(authUserInfo.getId());
     }
 
-    @ApiOperation("生成仿真数据")
+    @ApiOperation("生成用户测试数据")
     @GetMapping("/mockData")
     public boolean mockUserData() {
         return baseService.mockUserData();
     }
 
-    @ApiOperation("Excel导入用户数据")
-    @PostMapping("/import")
-    public Integer importUserData(@RequestParam("file") MultipartFile multipartFile) {
-        return baseService.importUserData(multipartFile);
+    @Override
+    public boolean handlerExcelQueryList(UserQueryDTO userQueryDTO, List<AuthUser> authUsers) {
+        authUsers.addAll(baseService.userList(userQueryDTO));
+        return true;
     }
 
-    @ApiOperation("Excel导出用户数据")
-    @GetMapping("/export")
-    public void exportUserData(AuthUserPageDTO authUserPageDTO, HttpServletResponse response) throws IOException {
-        baseService.exportUserData(authUserPageDTO, response);
+    @Override
+    public List<UserExcel> convertExcels(List<AuthUser> authUsers) {
+        return AuthUserConvert.INSTANCE.convertUserExcels(authUsers);
+    }
+
+    @Override
+    public ImportDataListener<?> getImportDataListener() {
+        return importUserDataListener;
+    }
+
+    @Override
+    public Class<?> importExcelClass() {
+        return UserExcel.class;
     }
 
 }
