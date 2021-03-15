@@ -29,7 +29,7 @@
     </properties>
 
     <modules>
-        <module>sparkzxl-activiti</module>
+        <module>sparkzxl-workflow</module>
         <module>sparkzxl-authorization-server</module>
         <module>sparkzxl-code-generator</module>
         <module>sparkzxl-file</module>
