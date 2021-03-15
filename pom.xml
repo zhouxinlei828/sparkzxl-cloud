@@ -84,7 +84,7 @@
             </dependency>
             <dependency>
                 <groupId>com.github.sparkzxl</groupId>
-                <artifactId>sparkzxl-activiti-api</artifactId>
+                <artifactId>sparkzxl-workflow-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- 模拟数据生成 -->

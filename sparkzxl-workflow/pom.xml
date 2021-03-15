@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sparkzxl-activiti</artifactId>
+    <artifactId>sparkzxl-workflow</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>sparkzxl-workflow-api</module>
