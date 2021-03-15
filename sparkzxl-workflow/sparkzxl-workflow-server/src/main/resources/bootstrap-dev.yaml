@@ -35,7 +35,7 @@ spring:
     redisson: redisson.yaml
 logging:
   level:
-    com.github.sparkzxl.activiti.infrastructure.mapper: debug
+    com.github.sparkzxl.workflow.infrastructure.mapper: debug
 management:
   metrics:
     tags:
