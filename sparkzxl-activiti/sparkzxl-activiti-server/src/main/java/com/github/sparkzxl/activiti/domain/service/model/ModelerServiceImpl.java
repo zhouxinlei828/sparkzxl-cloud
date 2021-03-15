@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -158,6 +159,7 @@ public class ModelerServiceImpl implements IModelerService {
                 repositoryService.deleteModel(modelId);
                 return true;
             } catch (Exception e) {
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                 log.error("删除流程实例服务异常：{}", e.getMessage());
             }
         }

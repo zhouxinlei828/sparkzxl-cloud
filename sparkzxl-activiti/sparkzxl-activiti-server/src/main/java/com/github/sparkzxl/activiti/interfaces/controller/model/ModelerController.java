@@ -38,7 +38,7 @@ public class ModelerController {
     private final IActReModelService actReModelService;
 
     @ApiOperation("查询流程模型列表")
-    @GetMapping("/list")
+    @GetMapping("/page")
     @ResponseResult
     public PageInfo<ActReModel> modelList(ModelPageDTO modelPageDTO) {
         return actReModelService.actReModelList(modelPageDTO);

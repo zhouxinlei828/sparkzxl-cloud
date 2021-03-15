@@ -25,8 +25,8 @@ public class ExtProcessDetail {
     private static final long serialVersionUID = -8334040441264344916L;
 
     @ApiModelProperty(value = "主键id")
-    @TableId(value = EntityConstant.COLUMN_ID, type = IdType.INPUT)
-    protected Long id;
+    @TableId(value = EntityConstant.COLUMN_ID, type = IdType.ASSIGN_ID)
+    private Long id;
 
     @ApiModelProperty(value = "模型id")
     @TableField("model_id")

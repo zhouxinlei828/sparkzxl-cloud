@@ -35,9 +35,9 @@ import java.util.List;
 @RestController
 @ResponseResult
 @WebLog
-@RequestMapping("/process")
+@RequestMapping("/instance")
 @Api(tags = "流程实例管理")
-public class ActProcessController implements ProcessApi {
+public class ActInstancesController implements ProcessApi {
 
     private final IProcessHistoryService processHistoryService;
     private final IExtProcessStatusService processTaskStatusService;
@@ -65,7 +65,7 @@ public class ActProcessController implements ProcessApi {
     }
 
     @ApiOperation("分页查询流程列表")
-    @GetMapping("/instances")
+    @GetMapping("/page")
     public PageInfo<ProcessInstance> getProcessInstanceList(InstancePageDTO instancePageDTO) {
         return processTaskStatusService.getProcessInstanceList(instancePageDTO);
     }
