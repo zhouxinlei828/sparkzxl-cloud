@@ -5,6 +5,8 @@ import com.github.sparkzxl.activiti.application.service.ext.IExtProcessStatusSer
 import com.github.sparkzxl.activiti.domain.model.InstanceOverviewCount;
 import com.github.sparkzxl.activiti.domain.repository.IExtProcessStatusRepository;
 import com.github.sparkzxl.activiti.domain.vo.InstanceOverview;
+import com.github.sparkzxl.activiti.dto.ProcessHistory;
+import com.github.sparkzxl.activiti.dto.ProcessHistoryParam;
 import com.github.sparkzxl.activiti.infrastructure.constant.ActivitiCache;
 import com.github.sparkzxl.activiti.infrastructure.convert.ExtProcessStatusConvert;
 import com.github.sparkzxl.activiti.infrastructure.entity.ProcessInstance;

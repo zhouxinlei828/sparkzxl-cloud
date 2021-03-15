@@ -33,17 +33,17 @@ public class ExtProcessTaskRuleController {
         this.processTaskRuleService = processTaskRuleService;
     }
 
-    @PostMapping("processTaskRule")
+    @PostMapping("save")
     @ApiOperation("保存流程跳转规则")
     public boolean saveProcessTaskRule(@RequestBody @Validated TaskRuleSaveDTO taskRuleSaveDTO) {
         return processTaskRuleService.saveProcessTaskRule(taskRuleSaveDTO);
     }
 
-    @GetMapping("processTaskRule")
+    @GetMapping("get")
     @ApiOperation("查询流程跳转规则")
-    public List<ExtProcessTaskRule> getProcessTaskRule(@RequestParam("processDefinitionKey") @ApiParam("流程定义key") String processDefinitionKey,
+    public List<ExtProcessTaskRule> getProcessTaskRule(@RequestParam("procDefKey") @ApiParam("流程定义key") String procDefKey,
                                                        @RequestParam("taskDefKey") @ApiParam("任务定义key") String taskDefKey) {
-        return processTaskRuleService.getProcessTaskRule(processDefinitionKey, taskDefKey);
+        return processTaskRuleService.getProcessTaskRule(procDefKey, taskDefKey);
     }
 
     @GetMapping("action")
@@ -52,7 +52,7 @@ public class ExtProcessTaskRuleController {
         return processTaskRuleService.getProcessAction();
     }
 
-    @DeleteMapping("processTaskRule")
+    @DeleteMapping("delete")
     @ApiOperation("删除流程跳转规则")
     public boolean deleteProcessTaskRule(@RequestParam("id") @ApiParam("主键") Long id) {
         return processTaskRuleService.removeById(id);

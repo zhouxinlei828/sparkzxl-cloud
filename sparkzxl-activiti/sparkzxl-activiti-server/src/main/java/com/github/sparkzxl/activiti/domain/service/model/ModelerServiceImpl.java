@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.sparkzxl.activiti.application.service.model.IModelerService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtProcessDetailService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtProcessTaskRuleService;
+import com.github.sparkzxl.activiti.application.service.model.IModelerService;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessDetail;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessTaskRule;
 import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
@@ -20,6 +20,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -123,7 +124,7 @@ public class ModelerServiceImpl implements IModelerService {
             try {
                 //参数不加true:为普通删除，如果当前规则下有正在执行的流程，则抛异常
                 //参数加true:为级联删除,会删除和当前规则相关的所有信息，包括历史
-                if (StringUtils.isNotEmpty(modelData.getDeploymentId())){
+                if (StringUtils.isNotEmpty(modelData.getDeploymentId())) {
                     repositoryService.deleteDeployment(modelData.getDeploymentId(), true);
                 }
                 return true;
@@ -135,7 +136,7 @@ public class ModelerServiceImpl implements IModelerService {
     }
 
     @Override
-    public boolean deleteProcessInstance(String modelId) {
+    public boolean deleteModel(String modelId) {
         Model modelData = repositoryService.getModel(modelId);
         if (null != modelData) {
             try {
@@ -161,5 +162,13 @@ public class ModelerServiceImpl implements IModelerService {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean deleteModels(List<String> ids) {
+        if (CollectionUtils.isNotEmpty(ids)) {
+            ids.forEach(this::deleteModel);
+        }
+        return true;
     }
 }

@@ -4,20 +4,17 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRepositoryService;
 import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeService;
 import com.github.sparkzxl.activiti.application.service.act.IProcessTaskService;
-import com.github.sparkzxl.activiti.application.service.driver.IActivitiDriverService;
+import com.github.sparkzxl.activiti.application.service.driver.IProcessDriveService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtHiTaskStatusService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtProcessStatusService;
 import com.github.sparkzxl.activiti.domain.model.DriveProcess;
-import com.github.sparkzxl.activiti.dto.ActivitiDataDTO;
-import com.github.sparkzxl.activiti.dto.DriverProcessDTO;
-import com.github.sparkzxl.activiti.dto.DriverResult;
-import com.github.sparkzxl.activiti.dto.UserNextTask;
+import com.github.sparkzxl.activiti.dto.*;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
 import com.github.sparkzxl.activiti.infrastructure.convert.ActivitiDriverConvert;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtHiTaskStatus;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessStatus;
-import com.github.sparkzxl.activiti.infrastructure.strategy.AbstractActivitiSolver;
-import com.github.sparkzxl.activiti.infrastructure.strategy.ActivitiSolverChooser;
+import com.github.sparkzxl.activiti.infrastructure.strategy.AbstractProcessSolver;
+import com.github.sparkzxl.activiti.infrastructure.strategy.ProcessSolverChooser;
 import com.github.sparkzxl.activiti.infrastructure.utils.ActivitiUtils;
 import com.github.sparkzxl.activiti.interfaces.dto.process.ProcessNextTaskDTO;
 import com.github.sparkzxl.core.utils.DateUtils;
@@ -53,33 +50,51 @@ import java.util.Map;
 @Service
 @Slf4j
 @Transactional(transactionManager = "transactionManager", rollbackFor = Exception.class)
-public class ActivitiDriverServiceImpl implements IActivitiDriverService {
+public class ProcessDriveServiceImpl implements IProcessDriveService {
 
-
-    @Autowired
-    private ActivitiSolverChooser activitiSolverChooser;
-
-    @Autowired
+    private ProcessSolverChooser processSolverChooser;
     private IExtHiTaskStatusService extHiTaskStatusService;
-
-    @Autowired
     private IExtProcessStatusService extProcessStatusService;
-
-    @Autowired
     private IProcessRepositoryService processRepositoryService;
-
-    @Autowired
     private IProcessRuntimeService processRuntimeService;
-
-    @Autowired
     private IProcessTaskService processTaskService;
 
+    @Autowired
+    public void setActivitiSolverChooser(ProcessSolverChooser processSolverChooser) {
+        this.processSolverChooser = processSolverChooser;
+    }
+
+    @Autowired
+    public void setExtHiTaskStatusService(IExtHiTaskStatusService extHiTaskStatusService) {
+        this.extHiTaskStatusService = extHiTaskStatusService;
+    }
+
+    @Autowired
+    public void setExtProcessStatusService(IExtProcessStatusService extProcessStatusService) {
+        this.extProcessStatusService = extProcessStatusService;
+    }
+
+    @Autowired
+    public void setProcessRepositoryService(IProcessRepositoryService processRepositoryService) {
+        this.processRepositoryService = processRepositoryService;
+    }
+
+    @Autowired
+    public void setProcessRuntimeService(IProcessRuntimeService processRuntimeService) {
+        this.processRuntimeService = processRuntimeService;
+    }
+
+    @Autowired
+    public void setProcessTaskService(IProcessTaskService processTaskService) {
+        this.processTaskService = processTaskService;
+    }
+
     @Override
-    public DriverResult driverProcess(DriverProcessDTO driverProcessDTO) {
-        int actType = driverProcessDTO.getActType();
-        AbstractActivitiSolver activitiSolver = activitiSolverChooser.chooser(actType);
-        DriveProcess driveProcess = ActivitiDriverConvert.INSTANCE.convertDriveProcess(driverProcessDTO);
-        return activitiSolver.slove(driverProcessDTO.getBusinessId(), driveProcess);
+    public DriverResult driveProcess(DriverProcessParam driverProcessParam) {
+        int actType = driverProcessParam.getActType();
+        AbstractProcessSolver activitiSolver = processSolverChooser.chooser(actType);
+        DriveProcess driveProcess = ActivitiDriverConvert.INSTANCE.convertDriveProcess(driverProcessParam);
+        return activitiSolver.slove(driverProcessParam.getBusinessId(), driveProcess);
     }
 
     @Override
@@ -116,10 +131,10 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
     }
 
     @Override
-    public ActivitiDataDTO findActivitiData(String businessId, String processDefinitionKey) {
-        ActivitiDataDTO activitiDataDTO = new ActivitiDataDTO();
-        activitiDataDTO.setProcessDefinitionKey(processDefinitionKey);
-        activitiDataDTO.setBusinessId(businessId);
+    public BusTaskInfo busTaskInfo(String businessId, String processDefinitionKey) {
+        BusTaskInfo busTaskInfo = new BusTaskInfo();
+        busTaskInfo.setProcessDefinitionKey(processDefinitionKey);
+        busTaskInfo.setBusinessId(businessId);
         ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
         Map<Object, Object> actionMap = Maps.newHashMap();
         if (ObjectUtils.isNotEmpty(processInstance)) {
@@ -150,24 +165,28 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
             userNextTask.setCandidateGroups(candidateGroupList);
             userNextTask.setTaskDefKey(lastTask.getTaskDefinitionKey());
             userNextTask.setTaskName(lastTask.getName());
-            activitiDataDTO.setUserNextTask(userNextTask);
+            busTaskInfo.setUserNextTask(userNextTask);
         } else {
             actionMap.put(WorkflowConstants.WorkflowAction.START, "启动");
         }
-        activitiDataDTO.setActTypeMap(actionMap);
-        return activitiDataDTO;
+        busTaskInfo.setActTypeMap(actionMap);
+        return busTaskInfo;
     }
 
     @Override
-    public List<ActivitiDataDTO> findActivitiDataList(List<String> businessIds, String processDefinitionKey) {
-        List<ActivitiDataDTO> activitiDataDTOList = Lists.newArrayList();
-        businessIds.forEach(x -> activitiDataDTOList.add(findActivitiData(x, processDefinitionKey)));
-        return activitiDataDTOList;
+    public List<BusTaskInfo> busTaskInfoList(List<String> businessIds, String processDefinitionKey) {
+        List<BusTaskInfo> busTaskInfoList = Lists.newArrayList();
+        businessIds.forEach(x -> busTaskInfoList.add(busTaskInfo(x, processDefinitionKey)));
+        return busTaskInfoList;
     }
 
     @Override
-    public boolean suspendProcess(String businessId) {
-        return processRuntimeService.suspendProcess(businessId);
+    public boolean suspendProcess(SuspendProcessDTO suspendProcessDTO) {
+        if (suspendProcessDTO.getType().equals(1)) {
+            return processRuntimeService.suspendProcess(suspendProcessDTO.getBusinessId());
+        } else {
+            return processRuntimeService.suspendProcessInstanceById(suspendProcessDTO.getProcessInstanceId());
+        }
     }
 
     @Override
@@ -183,7 +202,27 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
     }
 
     @Override
-    public boolean deleteProcessByProcInsId(String processInstanceId, String deleteReason) {
+    public boolean deleteProcessInstanceBatch(ProcessInstanceDeleteDTO processInstanceDeleteDTO) {
+        if (processInstanceDeleteDTO.getType().equals(1)) {
+            if (CollectionUtils.isNotEmpty(processInstanceDeleteDTO.getBusinessIds())) {
+                processInstanceDeleteDTO.getBusinessIds().forEach(businessId -> deleteProcessInstance(businessId, processInstanceDeleteDTO.getDeleteReason()));
+            }
+        } else {
+            if (CollectionUtils.isNotEmpty(processInstanceDeleteDTO.getProcessInstanceIds())) {
+                processInstanceDeleteDTO.getProcessInstanceIds().forEach(processInstanceId -> deleteProcessByProcInsId(processInstanceId, processInstanceDeleteDTO.getDeleteReason()));
+
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean suspendProcessByProcessInstanceId(String processInstanceId) {
+        return false;
+    }
+
+    @Override
+    public void deleteProcessByProcInsId(String processInstanceId, String deleteReason) {
         ProcessInstance processInstance = processRuntimeService.getProcessInstance(processInstanceId);
         if (ObjectUtils.isNotEmpty(processInstance)) {
             processRuntimeService.deleteProcessInstance(processInstanceId, deleteReason);
@@ -192,20 +231,13 @@ public class ActivitiDriverServiceImpl implements IActivitiDriverService {
             extProcessStatusService.remove(new LambdaUpdateWrapper<ExtProcessStatus>().eq(ExtProcessStatus::getProcessInstanceId,
                     processInstanceId));
         }
-        return true;
     }
 
     @Override
     public boolean deleteProcessByProcInsIds(List<String> processInstanceIds) {
         if (CollectionUtils.isNotEmpty(processInstanceIds)) {
-            processInstanceIds.forEach(processInstanceId-> deleteProcessByProcInsId(processInstanceId, "删除流程"));
+            processInstanceIds.forEach(processInstanceId -> deleteProcessByProcInsId(processInstanceId, "删除流程"));
         }
-        return true;
-    }
-
-    @Override
-    public boolean suspendProcessByProcessInstanceId(String processInstanceId) {
-        processRuntimeService.suspendProcessInstanceById(processInstanceId);
         return true;
     }
 }

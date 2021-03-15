@@ -134,8 +134,9 @@ public interface IProcessRuntimeService {
     /**
      * 根据流程实例id挂起流程
      * @param processInstanceId 流程实例id
+     * @return
      */
-    void suspendProcessInstanceById(String processInstanceId);
+    boolean suspendProcessInstanceById(String processInstanceId);
     /**
      * 删除流程实例
      *

@@ -34,7 +34,7 @@ public class ExtProcessDetailController {
         this.processDetailService = processDetailService;
     }
 
-    @GetMapping("/processDetail")
+    @GetMapping("/list")
     @ApiOperation("查询流程节点信息")
     public List<ProcessDetailDTO> getProcessDetail(@ApiParam("模型id") @RequestParam("modelId") String modelId) {
         return processDetailService.getProcessDetail(modelId);

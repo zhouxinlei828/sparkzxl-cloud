@@ -2,8 +2,10 @@ package com.github.sparkzxl.activiti.application.service.ext;
 
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.activiti.domain.vo.InstanceOverview;
-import com.github.sparkzxl.activiti.infrastructure.entity.ProcessInstance;
+import com.github.sparkzxl.activiti.dto.ProcessHistory;
+import com.github.sparkzxl.activiti.dto.ProcessHistoryParam;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessStatus;
+import com.github.sparkzxl.activiti.infrastructure.entity.ProcessInstance;
 import com.github.sparkzxl.activiti.interfaces.dto.act.InstancePageDTO;
 import com.github.sparkzxl.database.base.service.SuperCacheService;
 

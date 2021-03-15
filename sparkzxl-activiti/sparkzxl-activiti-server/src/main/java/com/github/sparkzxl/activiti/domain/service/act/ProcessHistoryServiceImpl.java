@@ -8,10 +8,11 @@ import com.github.sparkzxl.activiti.application.service.act.IProcessRuntimeServi
 import com.github.sparkzxl.activiti.application.service.act.IProcessTaskService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtHiTaskStatusService;
 import com.github.sparkzxl.activiti.application.service.ext.IExtProcessStatusService;
+import com.github.sparkzxl.activiti.dto.ProcessHistory;
+import com.github.sparkzxl.activiti.dto.ProcessHistoryParam;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
 import com.github.sparkzxl.activiti.infrastructure.diagram.CustomProcessDiagramGeneratorImpl;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtHiTaskStatus;
-import com.github.sparkzxl.activiti.infrastructure.entity.ProcessHistory;
 import com.github.sparkzxl.activiti.infrastructure.entity.ExtProcessStatus;
 import com.github.sparkzxl.activiti.infrastructure.enums.TaskStatusEnum;
 import com.github.sparkzxl.activiti.infrastructure.utils.CloseableUtils;
@@ -105,8 +106,7 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
         return historyService.createHistoricTaskInstanceQuery().taskId(taskId).singleResult();
     }
 
-    @Override
-    public List<ProcessHistory> getProcessHistoryByBusinessId(String businessId) {
+    private List<ProcessHistory> getProcessHistoryByBusinessId(String businessId) {
         List<ExtProcessStatus> processStatusList = processTaskStatusService.getExtProcessStatusList(businessId);
         List<ProcessHistory> processHistories = Lists.newArrayList();
         if (CollectionUtils.isNotEmpty(processStatusList)) {
@@ -138,8 +138,7 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
         return processHistories;
     }
 
-    @Override
-    public List<ProcessHistory> getProcessHistoryByProcessInstanceId(String processInstanceId) throws ExecutionException, InterruptedException {
+    private List<ProcessHistory> getProcessHistoryByProcessInstanceId(String processInstanceId) throws ExecutionException, InterruptedException {
         return getProcessHistories(processInstanceId);
     }
 
@@ -347,5 +346,20 @@ public class ProcessHistoryServiceImpl implements IProcessHistoryService {
             }
         }
         return highFlows;
+    }
+
+    @Override
+    public List<ProcessHistory> processHistoryList(ProcessHistoryParam processHistoryParam) {
+        if (processHistoryParam.getType().equals(1)) {
+            return getProcessHistoryByBusinessId(processHistoryParam.getBusinessId());
+        } else {
+            try {
+                return getProcessHistoryByProcessInstanceId(processHistoryParam.getProcessInstanceId());
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+                log.error("获取流程历史发生异常：{}", e.getMessage());
+                return null;
+            }
+        }
     }
 }

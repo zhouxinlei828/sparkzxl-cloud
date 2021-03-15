@@ -1,10 +1,10 @@
 package com.github.sparkzxl.activiti.application.service.act;
 
-import com.github.sparkzxl.activiti.infrastructure.entity.ProcessHistory;
+import com.github.sparkzxl.activiti.dto.ProcessHistory;
+import com.github.sparkzxl.activiti.dto.ProcessHistoryParam;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -49,28 +49,18 @@ public interface IProcessHistoryService {
     HistoricTaskInstance getHistoricTasksByTaskId(String taskId);
 
     /**
-     * 根据业务主键获取流程历史
-     *
-     * @param businessId 业务主键
-     * @return List<ProcessHistory>
-     */
-    List<ProcessHistory> getProcessHistoryByBusinessId(String businessId);
-
-    /**
-     * 根据流程实例id获取流程历史
-     *
-     * @param processInstanceId 流程实例id
-     * @return List<ProcessHistory>
-     * @throws ExecutionException   运行异常
-     * @throws InterruptedException 中断异常
-     */
-    List<ProcessHistory> getProcessHistoryByProcessInstanceId(String processInstanceId) throws ExecutionException, InterruptedException;
-
-    /**
      * 获取流程图
      *
      * @param processInstanceId 流程实例id
      * @return String
      */
     String getProcessImage(String processInstanceId);
+
+    /**
+     * 查询流程历史信息
+     *
+     * @param processHistoryParam 流程历史查询入参
+     * @return List<ProcessHistory>
+     */
+    List<ProcessHistory> processHistoryList(ProcessHistoryParam processHistoryParam);
 }

@@ -7,14 +7,14 @@ import lombok.Data;
 import java.util.Map;
 
 /**
- * description: activiti工作流数据DTO
+ * description: 业务任务数据
  *
  * @author: zhouxinlei
  * @date: 2020-10-01 19:56:14
  */
 @Data
-@ApiModel("activiti工作流数据DTO")
-public class ActivitiDataDTO {
+@ApiModel("业务任务数据")
+public class BusTaskInfo {
 
     @ApiModelProperty(value = "流程定义key")
     private String processDefinitionKey;

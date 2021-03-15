@@ -1,7 +1,7 @@
 package com.github.sparkzxl.activiti.infrastructure.convert;
 
 import com.github.sparkzxl.activiti.domain.model.DriveProcess;
-import com.github.sparkzxl.activiti.dto.DriverProcessDTO;
+import com.github.sparkzxl.activiti.dto.DriverProcessParam;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -19,8 +19,8 @@ public interface ActivitiDriverConvert {
     /**
      * 转化driverProcessDTO为DriveProcess
      *
-     * @param driverProcessDTO 流程驱动入参
+     * @param driverProcessParam 流程驱动入参
      * @return DriveProcess
      */
-    DriveProcess convertDriveProcess(DriverProcessDTO driverProcessDTO);
+    DriveProcess convertDriveProcess(DriverProcessParam driverProcessParam);
 }

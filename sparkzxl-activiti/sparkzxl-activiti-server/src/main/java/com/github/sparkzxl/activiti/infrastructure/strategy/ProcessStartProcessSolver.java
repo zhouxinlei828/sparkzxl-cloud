@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @Component
 @Slf4j
-public class ActivitiStartProcessSolver extends AbstractActivitiSolver {
+public class ProcessStartProcessSolver extends AbstractProcessSolver {
 
     @Autowired
     private IdentityService identityService;

@@ -114,8 +114,9 @@ public class ProcessRuntimeServiceImpl implements IProcessRuntimeService {
     }
 
     @Override
-    public void suspendProcessInstanceById(String processInstanceId) {
+    public boolean suspendProcessInstanceById(String processInstanceId) {
         runtimeService.suspendProcessInstanceById(processInstanceId);
+        return false;
     }
 
     @Override

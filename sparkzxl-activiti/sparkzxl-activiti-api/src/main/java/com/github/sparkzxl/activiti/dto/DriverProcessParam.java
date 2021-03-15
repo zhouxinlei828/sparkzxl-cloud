@@ -8,14 +8,14 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
- * description:
+ * description:流程驱动入参
  *
  * @author: zhouxinlei
  * @date: 2020-10-01 19:52:24
  */
 @Data
 @ApiModel("流程驱动入参")
-public class DriverProcessDTO {
+public class DriverProcessParam {
 
     @ApiModelProperty(value = "流程定义key", required = true)
     @NotEmpty(message = "流程定义key不能为空")

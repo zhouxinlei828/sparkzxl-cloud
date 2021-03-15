@@ -9,7 +9,7 @@ import com.github.sparkzxl.activiti.dto.DriverResult;
  * @author: zhouxinlei
  * @date: 2020-07-20 16:09:28
  */
-public abstract class AbstractActivitiSolver {
+public abstract class AbstractProcessSolver {
     /**
      * 流程业务处理
      *

@@ -1,9 +1,6 @@
 package com.github.sparkzxl.activiti.application.service.driver;
 
-import com.github.sparkzxl.activiti.dto.ActivitiDataDTO;
-import com.github.sparkzxl.activiti.dto.DriverProcessDTO;
-import com.github.sparkzxl.activiti.dto.DriverResult;
-import com.github.sparkzxl.activiti.dto.UserNextTask;
+import com.github.sparkzxl.activiti.dto.*;
 import com.github.sparkzxl.activiti.interfaces.dto.process.ProcessNextTaskDTO;
 
 import java.util.List;
@@ -14,15 +11,15 @@ import java.util.List;
  * @author: zhouxinlei
  * @date: 2020-07-17 16:26:54
  */
-public interface IActivitiDriverService {
+public interface IProcessDriveService {
 
     /**
      * activiti流程驱动接口
      *
-     * @param driverProcessDTO 流程驱动入参
+     * @param driverProcessParam 流程驱动入参
      * @return DriverResult
      */
-    DriverResult driverProcess(DriverProcessDTO driverProcessDTO);
+    DriverResult driveProcess(DriverProcessParam driverProcessParam);
 
     /**
      * 获取下一步任务详情
@@ -33,30 +30,30 @@ public interface IActivitiDriverService {
     List<UserNextTask> getNextUserTask(ProcessNextTaskDTO processNextTaskDTO);
 
     /**
-     * 查询业务activiti任务数据
+     * 查询业务任务数据
      *
      * @param businessId           业务主键
      * @param processDefinitionKey 流程定义key
-     * @return ActivitiDataDTO
+     * @return BusTaskInfo
      */
-    ActivitiDataDTO findActivitiData(String businessId, String processDefinitionKey);
+    BusTaskInfo busTaskInfo(String businessId, String processDefinitionKey);
 
     /**
-     * 查询业务activiti任务数据
+     * 查询业务任务批量数据
      *
      * @param businessIds          业务主键
      * @param processDefinitionKey 流程定义key
-     * @return ActivitiDataDTO
+     * @return List<BusTaskInfo>
      */
-    List<ActivitiDataDTO> findActivitiDataList(List<String> businessIds, String processDefinitionKey);
+    List<BusTaskInfo> busTaskInfoList(List<String> businessIds, String processDefinitionKey);
 
     /**
      * 挂起流程
      *
-     * @param businessId 业务主键
+     * @param suspendProcessDTO 挂起流程入参
      * @return boolean
      */
-    boolean suspendProcess(String businessId);
+    boolean suspendProcess(SuspendProcessDTO suspendProcessDTO);
 
     /**
      * 删除流程实例
@@ -68,13 +65,20 @@ public interface IActivitiDriverService {
     boolean deleteProcessInstance(String businessId, String deleteReason);
 
     /**
+     * 删除流程实例
+     *
+     * @param processInstanceDeleteDTO 删除流程实例入参
+     * @return boolean
+     */
+    boolean deleteProcessInstanceBatch(ProcessInstanceDeleteDTO processInstanceDeleteDTO);
+
+    /**
      * 根据流程实例id删除业务流程
      *
      * @param processInstanceId 流程实例id
      * @param deleteReason      删除原因
-     * @return boolean
      */
-    boolean deleteProcessByProcInsId(String processInstanceId, String deleteReason);
+    void deleteProcessByProcInsId(String processInstanceId, String deleteReason);
 
     /**
      * 根据流程实例id集合删除业务流程

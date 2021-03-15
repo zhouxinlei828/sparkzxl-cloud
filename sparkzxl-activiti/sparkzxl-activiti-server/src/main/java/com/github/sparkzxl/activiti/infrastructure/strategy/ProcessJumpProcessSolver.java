@@ -9,16 +9,12 @@ import com.github.sparkzxl.activiti.dto.DriverResult;
 import com.github.sparkzxl.activiti.infrastructure.constant.WorkflowConstants;
 import com.github.sparkzxl.core.support.SparkZxlExceptionAssert;
 import com.github.sparkzxl.redisson.annotation.RedisLock;
-import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-
-import java.util.Map;
 
 /**
  * description: 推动activiti流程
@@ -28,7 +24,7 @@ import java.util.Map;
  */
 @Component
 @Slf4j
-public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
+public class ProcessJumpProcessSolver extends AbstractProcessSolver {
 
     @Autowired
     private IProcessRuntimeService processRuntimeService;
@@ -40,40 +36,35 @@ public class ActivitiSubmitProcessSolver extends AbstractActivitiSolver {
     public DriverResult slove(String businessId, DriveProcess driveProcess) {
         DriverResult driverResult = new DriverResult();
         try {
-            String applyUserId = driveProcess.getApplyUserId();
             String userId = driveProcess.getUserId();
-            Map<String, Object> variables = Maps.newHashMap();
-            if (StringUtils.isNotEmpty(applyUserId)) {
-                variables.put("assignee", applyUserId);
-            }
-            variables.put("actType", driveProcess.getActType());
+            int actType = driveProcess.getActType();
             ProcessInstance processInstance = processRuntimeService.getProcessInstanceByBusinessId(businessId);
             if (ObjectUtils.isEmpty(processInstance)) {
                 SparkZxlExceptionAssert.businessFail("流程实例为空，请检查参数是否正确");
             }
+            String processDefinitionKey = processInstance.getProcessDefinitionKey();
+            String processInstanceId = processInstance.getProcessInstanceId();
             DriverData driverData = DriverData.builder()
                     .userId(userId)
-                    .processInstanceId(processInstance.getProcessInstanceId())
+                    .processInstanceId(processInstanceId)
+                    .processDefinitionKey(processDefinitionKey)
                     .businessId(businessId)
-                    .processDefinitionKey(processInstance.getProcessDefinitionKey())
-                    .actType(driveProcess.getActType())
                     .comment(driveProcess.getComment())
-                    .variables(variables)
+                    .actType(actType)
                     .build();
-            driverResult = actWorkApiService.promoteProcess(driverData);
+            driverResult = actWorkApiService.jumpProcess(driverData);
         } catch (Exception e) {
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error("发生异常 Exception：{}", ExceptionUtil.getMessage(e));
             driverResult.setErrorMsg(e.getMessage());
+            log.error("发生异常 Exception：{}", ExceptionUtil.getMessage(e));
         }
         return driverResult;
     }
 
     @Override
     public Integer[] supports() {
-        return new Integer[]{WorkflowConstants.WorkflowAction.SUBMIT,
-                WorkflowConstants.WorkflowAction.AGREE,
-                WorkflowConstants.WorkflowAction.END};
+        return new Integer[]{WorkflowConstants.WorkflowAction.ROLLBACK, WorkflowConstants.WorkflowAction.JUMP};
     }
+
 }

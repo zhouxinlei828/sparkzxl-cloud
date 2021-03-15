@@ -1,5 +1,7 @@
 package com.github.sparkzxl.activiti.application.service.model;
 
+import java.util.List;
+
 /**
  * description: 模型控制 服务类
  *
@@ -39,5 +41,14 @@ public interface IModelerService {
      * @param modelId 模型id
      * @return boolean
      */
-    boolean deleteProcessInstance(String modelId);
+    boolean deleteModel(String modelId);
+
+    /**
+     * 批量删除流程
+     *
+     * @param ids 模型id列表
+     * @return boolean
+     */
+    boolean deleteModels(List<String> ids);
+
 }

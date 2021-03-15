@@ -1,4 +1,4 @@
-package com.github.sparkzxl.activiti.infrastructure.entity;
+package com.github.sparkzxl.activiti.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

@@ -16,16 +16,16 @@ import java.util.Map;
  * @date: 2020-07-20 16:14:39
  */
 @Component
-public class ActivitiSolverChooser implements ApplicationContextAware {
+public class ProcessSolverChooser implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
-    private final Map<Integer, AbstractActivitiSolver> activitiSolverMap = Maps.newConcurrentMap();
+    private final Map<Integer, AbstractProcessSolver> activitiSolverMap = Maps.newConcurrentMap();
 
 
     @PostConstruct
     public void register() {
-        Map<String, AbstractActivitiSolver> solverMap = applicationContext.getBeansOfType(AbstractActivitiSolver.class);
-        for (AbstractActivitiSolver solver : solverMap.values()) {
+        Map<String, AbstractProcessSolver> solverMap = applicationContext.getBeansOfType(AbstractProcessSolver.class);
+        for (AbstractProcessSolver solver : solverMap.values()) {
             for (Integer support : solver.supports()) {
                 activitiSolverMap.put(support, solver);
             }
@@ -37,7 +37,7 @@ public class ActivitiSolverChooser implements ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
-    public AbstractActivitiSolver chooser(Integer actType) {
+    public AbstractProcessSolver chooser(Integer actType) {
         return activitiSolverMap.get(actType);
     }
 }
