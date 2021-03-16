@@ -3,19 +3,26 @@ package com.github.sparkzxl.authorization.infrastructure.security.logout;
 import com.github.sparkzxl.core.base.ResponseResultUtils;
 import com.github.sparkzxl.core.context.BaseContextConstants;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * description: 退出登录成功处理
+ *
+ * @author zhouxinlei
+ */
 @Slf4j
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 
@@ -33,6 +40,10 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
                 tokenStore.removeAccessToken(accessToken);
                 tokenStore.removeRefreshToken(accessToken.getRefreshToken());
             }
+        }
+        Cookie[] cookies = httpServletRequest.getCookies();
+        for (Cookie cookie : cookies) {
+            System.out.println(cookie.getName());
         }
         ResponseResultUtils.writeResponseOutMsg(httpServletResponse, 200, "退出登录成功", true);
     }

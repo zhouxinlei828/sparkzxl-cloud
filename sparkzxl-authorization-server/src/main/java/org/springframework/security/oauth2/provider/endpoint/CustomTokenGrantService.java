@@ -7,7 +7,6 @@ import org.springframework.security.oauth2.common.exceptions.InvalidGrantExcepti
 import org.springframework.security.oauth2.common.exceptions.InvalidRequestException;
 import org.springframework.security.oauth2.common.exceptions.UnsupportedGrantTypeException;
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.OAuth2RequestValidator;
 import org.springframework.security.oauth2.provider.TokenRequest;
@@ -48,7 +47,7 @@ public class CustomTokenGrantService {
 
             if (!StringUtils.hasText(tokenRequest.getGrantType())) {
                 throw new InvalidRequestException("Missing grant type");
-            } else if (AuthorizationGrantType.IMPLICIT.getValue().equals(tokenRequest.getGrantType())) {
+            } else if ("implicit".equals(tokenRequest.getGrantType())) {
                 throw new InvalidGrantException("Implicit grant type not supported from token endpoint");
             } else {
                 if (this.isAuthCodeRequest(parameters) && !tokenRequest.getScope().isEmpty()) {
@@ -71,11 +70,11 @@ public class CustomTokenGrantService {
     }
 
     private boolean isRefreshTokenRequest(Map<String, String> parameters) {
-        return AuthorizationGrantType.REFRESH_TOKEN.getValue().equals(parameters.get("grant_type")) && parameters.get("refresh_token") != null;
+        return "refresh_token".equals(parameters.get("grant_type")) && parameters.get("refresh_token") != null;
     }
 
     private boolean isAuthCodeRequest(Map<String, String> parameters) {
-        return AuthorizationGrantType.AUTHORIZATION_CODE.getValue().equals(parameters.get("grant_type")) && parameters.get("code") != null;
+        return "authorization_code".equals(parameters.get("grant_type")) && parameters.get("code") != null;
     }
 
 }
