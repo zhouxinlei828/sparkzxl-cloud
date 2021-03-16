@@ -7,12 +7,13 @@ import com.github.sparkzxl.authorization.infrastructure.entity.TenantInfo;
 import com.github.sparkzxl.authorization.interfaces.dto.tenant.TenantPageDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.tenant.TenantSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.tenant.TenantUpdateDTO;
+import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
 import com.github.sparkzxl.database.dto.DeleteDTO;
-import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.database.dto.PageParams;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * description: 租户管理

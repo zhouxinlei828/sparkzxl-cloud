@@ -1,7 +1,6 @@
 package com.github.sparkzxl.authorization.infrastructure.mapper;
 
 import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthApplication;
 import com.github.sparkzxl.database.base.mapper.SuperMapper;
 import org.apache.ibatis.annotations.Delete;

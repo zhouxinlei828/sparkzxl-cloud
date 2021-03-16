@@ -1,11 +1,11 @@
 package com.github.sparkzxl.workflow.domain.service.ext;
 
+import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import com.github.sparkzxl.workflow.application.service.ext.IExtHiTaskStatusService;
 import com.github.sparkzxl.workflow.domain.repository.IExtHiTaskStatusRepository;
 import com.github.sparkzxl.workflow.infrastructure.constant.ActivitiCache;
 import com.github.sparkzxl.workflow.infrastructure.entity.ExtHiTaskStatus;
 import com.github.sparkzxl.workflow.infrastructure.mapper.ExtHiTaskStatusMapper;
-import com.github.sparkzxl.database.base.service.impl.SuperCacheServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -14,7 +14,6 @@ import com.github.sparkzxl.authorization.infrastructure.mapper.RoleAuthorityMapp
 import com.github.sparkzxl.core.context.BaseContextHandler;
 import com.github.sparkzxl.core.spring.SpringContextUtils;
 import com.google.common.collect.Lists;
-import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

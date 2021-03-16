@@ -1,6 +1,7 @@
 package com.github.sparkzxl.file.interfaces.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.file.api.FileApi;
 import com.github.sparkzxl.file.application.service.IFileService;
 import com.github.sparkzxl.file.dto.FileDTO;
@@ -8,7 +9,6 @@ import com.github.sparkzxl.file.infrastructure.entity.FileMaterial;
 import com.github.sparkzxl.file.interfaces.dto.FileMaterialDTO;
 import com.github.sparkzxl.file.interfaces.dto.FileMaterialPageDTO;
 import com.github.sparkzxl.log.annotation.WebLog;
-import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

@@ -7,12 +7,13 @@ import com.github.sparkzxl.authorization.infrastructure.entity.AuthApplication;
 import com.github.sparkzxl.authorization.interfaces.dto.application.AuthApplicationQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.application.AuthApplicationSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.application.AuthApplicationUpdateDTO;
+import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
 import com.github.sparkzxl.database.dto.DeleteDTO;
-import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.database.dto.PageParams;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * description: 应用客户端管理

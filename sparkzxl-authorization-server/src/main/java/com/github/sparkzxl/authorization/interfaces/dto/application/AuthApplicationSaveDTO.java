@@ -1,6 +1,5 @@
 package com.github.sparkzxl.authorization.interfaces.dto.application;
 
-import com.github.sparkzxl.authorization.infrastructure.entity.OauthClientDetails;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

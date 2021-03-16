@@ -2,10 +2,6 @@
 package com.github.sparkzxl.gateway.infrastructure.config;
 
 import com.alibaba.fastjson.JSONArray;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +14,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
+
+import java.util.List;
 
 /**
  * description: 资源配置

@@ -1,12 +1,10 @@
 package com.github.sparkzxl.authorization.interfaces.dto.station;
 
 import com.github.sparkzxl.authorization.infrastructure.entity.CoreOrg;
-import com.github.sparkzxl.database.dto.PageDTO;
 import com.github.sparkzxl.database.entity.RemoteData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * description: 岗位分页查询对象

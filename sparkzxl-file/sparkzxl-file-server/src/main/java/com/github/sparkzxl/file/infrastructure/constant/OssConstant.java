@@ -1,6 +1,7 @@
 package com.github.sparkzxl.file.infrastructure.constant;
 
 import com.google.common.collect.ImmutableMap;
+
 import java.util.Map;
 
 /**

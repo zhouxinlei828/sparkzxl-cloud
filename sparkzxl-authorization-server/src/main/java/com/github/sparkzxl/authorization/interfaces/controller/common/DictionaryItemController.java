@@ -6,10 +6,10 @@ import com.github.sparkzxl.authorization.infrastructure.entity.CommonDictionaryI
 import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemUpdateDTO;
+import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
 import com.github.sparkzxl.database.dto.PageParams;
 import com.github.sparkzxl.log.annotation.WebLog;
-import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;

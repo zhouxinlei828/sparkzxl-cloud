@@ -1,6 +1,5 @@
 package com.github.sparkzxl.authorization.domain.model.aggregates;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.github.sparkzxl.core.tree.TreeNode;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

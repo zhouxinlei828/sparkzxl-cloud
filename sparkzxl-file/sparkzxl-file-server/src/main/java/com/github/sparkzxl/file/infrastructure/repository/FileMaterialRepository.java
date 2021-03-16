@@ -6,9 +6,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.database.utils.PageInfoUtils;
-import com.github.sparkzxl.file.infrastructure.mapper.FileMaterialMapper;
-import com.github.sparkzxl.file.infrastructure.entity.FileMaterial;
 import com.github.sparkzxl.file.domain.repository.IFileMaterialRepository;
+import com.github.sparkzxl.file.infrastructure.entity.FileMaterial;
+import com.github.sparkzxl.file.infrastructure.mapper.FileMaterialMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 

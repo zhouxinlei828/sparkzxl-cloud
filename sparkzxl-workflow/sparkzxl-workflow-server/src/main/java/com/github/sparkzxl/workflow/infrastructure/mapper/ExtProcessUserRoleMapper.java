@@ -1,7 +1,7 @@
 package com.github.sparkzxl.workflow.infrastructure.mapper;
 
-import com.github.sparkzxl.workflow.infrastructure.entity.ExtProcessUserRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.github.sparkzxl.workflow.infrastructure.entity.ExtProcessUserRole;
 
 /**
  * description: 流程用户角色关系Mapper 接口

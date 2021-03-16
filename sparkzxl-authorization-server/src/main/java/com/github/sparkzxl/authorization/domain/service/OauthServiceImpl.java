@@ -222,10 +222,12 @@ public class OauthServiceImpl implements OauthService {
                 .addQuery("state", state)
                 .build();
         String referer = request.getHeader("Referer");
-        UrlBuilder builder = UrlBuilder.ofHttp(referer, CharsetUtil.CHARSET_UTF_8);
-        builder.setPath(UrlPath.of("jump", StandardCharsets.UTF_8));
-        String frontStateKey = BuildKeyUtils.generateKey(CacheConstant.FRONT_STATE, state);
-        cacheTemplate.set(frontStateKey, builder.build(), 5L, TimeUnit.MINUTES);
+        if (StringUtils.isNotEmpty(referer)) {
+            UrlBuilder builder = UrlBuilder.ofHttp(referer, CharsetUtil.CHARSET_UTF_8);
+            builder.setPath(UrlPath.of("jump", StandardCharsets.UTF_8));
+            String frontStateKey = BuildKeyUtils.generateKey(CacheConstant.FRONT_STATE, state);
+            cacheTemplate.set(frontStateKey, builder.build(), 5L, TimeUnit.MINUTES);
+        }
         return EscapeUtil.safeUnescape(authorizeUrl);
     }
 

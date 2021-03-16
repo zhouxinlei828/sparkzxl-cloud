@@ -7,13 +7,16 @@ import com.github.sparkzxl.authorization.infrastructure.entity.AuthMenu;
 import com.github.sparkzxl.authorization.interfaces.dto.menu.AuthMenuQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.menu.AuthMenuSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.menu.AuthMenuUpdateDTO;
+import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.database.base.controller.SuperCacheController;
 import com.github.sparkzxl.database.dto.DeleteDTO;
 import com.github.sparkzxl.log.annotation.WebLog;
-import com.github.sparkzxl.core.annotation.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

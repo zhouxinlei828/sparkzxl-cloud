@@ -1,6 +1,5 @@
 package com.github.sparkzxl.authorization.infrastructure.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.sparkzxl.authorization.infrastructure.entity.TenantInfo;
 import com.github.sparkzxl.database.base.mapper.SuperMapper;
 import org.springframework.stereotype.Repository;

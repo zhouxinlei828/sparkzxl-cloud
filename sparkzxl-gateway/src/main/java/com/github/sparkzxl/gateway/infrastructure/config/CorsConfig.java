@@ -1,12 +1,8 @@
 package com.github.sparkzxl.gateway.infrastructure.config;
 
 import feign.codec.Decoder;
-
-import java.util.List;
-
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.ReactiveDiscoveryClient;
 import org.springframework.cloud.gateway.discovery.DiscoveryClientRouteDefinitionLocator;
 import org.springframework.cloud.gateway.discovery.DiscoveryLocatorProperties;
@@ -27,6 +23,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.reactive.CorsUtils;
 import org.springframework.web.server.WebFilter;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 /**
  * description: 解决跨域问题

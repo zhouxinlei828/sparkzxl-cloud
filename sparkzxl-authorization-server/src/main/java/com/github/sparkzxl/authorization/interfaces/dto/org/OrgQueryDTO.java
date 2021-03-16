@@ -2,7 +2,7 @@ package com.github.sparkzxl.authorization.interfaces.dto.org;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 /**

@@ -1,7 +1,7 @@
 package com.github.sparkzxl.workflow.application.service.ext;
 
-import com.github.sparkzxl.workflow.infrastructure.entity.ExtProcessRole;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.sparkzxl.workflow.infrastructure.entity.ExtProcessRole;
 
 /**
  * description: 流程角色 服务类

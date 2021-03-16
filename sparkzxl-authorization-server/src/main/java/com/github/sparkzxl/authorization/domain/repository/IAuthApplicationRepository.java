@@ -2,7 +2,6 @@ package com.github.sparkzxl.authorization.domain.repository;
 
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthApplication;
-import com.github.sparkzxl.authorization.infrastructure.entity.OauthClientDetails;
 
 import java.util.List;
 

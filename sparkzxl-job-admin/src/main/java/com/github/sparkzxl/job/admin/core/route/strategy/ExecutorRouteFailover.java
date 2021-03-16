@@ -1,8 +1,8 @@
 package com.github.sparkzxl.job.admin.core.route.strategy;
 
 import com.github.sparkzxl.job.admin.core.route.ExecutorRouter;
-import com.github.sparkzxl.job.admin.core.util.I18nUtil;
 import com.github.sparkzxl.job.admin.core.scheduler.XxlJobScheduler;
+import com.github.sparkzxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.core.biz.ExecutorBiz;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.biz.model.TriggerParam;

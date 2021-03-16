@@ -1,7 +1,7 @@
 package com.github.sparkzxl.authorization.infrastructure.mapper;
 
-import com.github.sparkzxl.authorization.infrastructure.entity.IdSegment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.github.sparkzxl.authorization.infrastructure.entity.IdSegment;
 import org.springframework.stereotype.Repository;
 
 /**

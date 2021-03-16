@@ -1,7 +1,7 @@
 package com.github.sparkzxl.workflow.infrastructure.mapper;
 
-import com.github.sparkzxl.workflow.infrastructure.entity.ExtProcessDetail;
 import com.github.sparkzxl.database.base.mapper.SuperMapper;
+import com.github.sparkzxl.workflow.infrastructure.entity.ExtProcessDetail;
 import org.springframework.stereotype.Repository;
 
 /**

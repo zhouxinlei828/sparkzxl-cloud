@@ -1,8 +1,8 @@
 package com.github.sparkzxl.workflow.infrastructure.mapper;
 
-import com.github.sparkzxl.workflow.infrastructure.entity.ProcessInstance;
-import com.github.sparkzxl.workflow.infrastructure.entity.ExtProcessStatus;
 import com.github.sparkzxl.database.base.mapper.SuperMapper;
+import com.github.sparkzxl.workflow.infrastructure.entity.ExtProcessStatus;
+import com.github.sparkzxl.workflow.infrastructure.entity.ProcessInstance;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

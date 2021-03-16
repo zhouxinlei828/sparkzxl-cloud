@@ -1,11 +1,11 @@
 package com.github.sparkzxl.authorization.domain.service;
 
 import com.github.pagehelper.PageInfo;
+import com.github.sparkzxl.authorization.application.service.IAuthApplicationService;
 import com.github.sparkzxl.authorization.domain.repository.IAuthApplicationRepository;
 import com.github.sparkzxl.authorization.infrastructure.convert.AuthApplicationConvert;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthApplication;
 import com.github.sparkzxl.authorization.infrastructure.mapper.AuthApplicationMapper;
-import com.github.sparkzxl.authorization.application.service.IAuthApplicationService;
 import com.github.sparkzxl.authorization.interfaces.dto.application.AuthApplicationQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.application.AuthApplicationSaveDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.application.AuthApplicationUpdateDTO;

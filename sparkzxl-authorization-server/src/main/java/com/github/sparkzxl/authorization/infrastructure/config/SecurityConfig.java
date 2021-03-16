@@ -27,7 +27,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
-import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 
 import java.util.List;
 
@@ -107,13 +106,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         if (!securityProperties.isCsrf()) {
             http.csrf().disable();
         }
-        http.headers(headers -> headers
-                .referrerPolicy(referrer -> referrer
-                        .policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)))
-                .logout().logoutUrl("/customLogout")
+        http.logout().logoutUrl("/customLogout")
                 .logoutSuccessHandler(logoutSuccessHandler())
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll()
                 .and().authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
