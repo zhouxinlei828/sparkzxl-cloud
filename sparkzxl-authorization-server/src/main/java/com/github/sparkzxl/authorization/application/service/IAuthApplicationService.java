@@ -14,7 +14,7 @@ import java.util.List;
  * description: 租户客户端服务类
  *
  * @author charles.zhou
- * @date   2021-02-20 09:44:35
+ * @date 2021-02-20 09:44:35
  */
 public interface IAuthApplicationService extends SuperCacheService<AuthApplication> {
 
@@ -33,6 +33,13 @@ public interface IAuthApplicationService extends SuperCacheService<AuthApplicati
      * @return PageInfo<OauthClientDetails>
      */
     PageInfo<AuthApplication> listPage(PageParams<AuthApplicationQueryDTO> params);
+
+    /**
+     * 查询应用列表
+     *
+     * @return List<AuthApplication>
+     */
+    List<AuthApplication> applicationList();
 
     /**
      * 删除客户端

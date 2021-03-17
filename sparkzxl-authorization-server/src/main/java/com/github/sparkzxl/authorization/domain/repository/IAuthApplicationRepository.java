@@ -9,7 +9,7 @@ import java.util.List;
  * description: 应用 仓储类
  *
  * @author charles.zhou
- * @date   2021-02-20 09:51:03
+ * @date 2021-02-20 09:51:03
  */
 public interface IAuthApplicationRepository {
 
@@ -27,7 +27,7 @@ public interface IAuthApplicationRepository {
      * @param pageNum  当前页
      * @param pageSize 分页大小
      * @param clientId 客户端id
-     * @param appName 应用名称
+     * @param appName  应用名称
      * @return PageInfo<OauthClientDetails>
      */
     PageInfo<AuthApplication> listPage(int pageNum, int pageSize, String clientId, String appName);
@@ -47,4 +47,12 @@ public interface IAuthApplicationRepository {
      * @return boolean
      */
     boolean updateAuthApplication(AuthApplication application);
+
+    /**
+     * 查询应用列表
+     *
+     * @return List<AuthApplication>
+     */
+    List<AuthApplication> applicationList();
+
 }

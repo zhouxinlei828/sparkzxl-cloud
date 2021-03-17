@@ -15,10 +15,10 @@ spring:
       minimum-idle: 10
       pool-name: HikariCP
       validation-timeout: 1000
-    password: Zxl298828
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://sparkzxl.mysql.rds.aliyuncs.com/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
     username: zhouxinlei
+    password: Zxl298828
   freemarker:
     charset: UTF-8
     request-context-attribute: request

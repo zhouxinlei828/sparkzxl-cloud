@@ -59,4 +59,12 @@ public interface AuthApplicationMapper extends SuperMapper<AuthApplication> {
     List<AuthApplication> listPage(@Param("tenantCode") String tenantCode, @Param("clientId") String clientId,
                                    @Param("appName") String appName);
 
+    /**
+     * 查询应用列表
+     * @return List<AuthApplication>
+     */
+    @Select("select * from auth_application")
+    @InterceptorIgnore(tenantLine = "true")
+    List<AuthApplication> applicationList();
+
 }

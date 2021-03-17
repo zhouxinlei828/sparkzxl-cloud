@@ -42,6 +42,11 @@ public class AuthApplicationServiceServiceImpl extends SuperCacheServiceImpl<Aut
     }
 
     @Override
+    public List<AuthApplication> applicationList() {
+        return authApplicationRepository.applicationList();
+    }
+
+    @Override
     public boolean deleteApplication(List<Long> ids) {
         return authApplicationRepository.deleteAuthApplication(ids);
     }
