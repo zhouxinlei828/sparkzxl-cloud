@@ -1,7 +1,7 @@
 package com.github.sparkzxl.authorization.interfaces.controller.common;
 
 
-import com.github.sparkzxl.authorization.application.service.ICommonAreaService;
+import com.github.sparkzxl.authorization.application.service.IAreaService;
 import com.github.sparkzxl.authorization.infrastructure.entity.CommonArea;
 import com.github.sparkzxl.authorization.interfaces.dto.area.AreaQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.area.AreaSaveDTO;
@@ -25,7 +25,7 @@ import java.util.List;
 @ResponseResult
 @Api(tags = "地区管理")
 @RequestMapping("/common/area")
-public class AreaController extends SuperCacheController<ICommonAreaService, Long,
+public class AreaController extends SuperCacheController<IAreaService, Long,
         CommonArea, AreaSaveDTO, AreaUpdateDTO, AreaQueryDTO, Object> {
 
 

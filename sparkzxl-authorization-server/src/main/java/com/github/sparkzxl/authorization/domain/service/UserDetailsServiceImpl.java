@@ -1,6 +1,6 @@
 package com.github.sparkzxl.authorization.domain.service;
 
-import com.github.sparkzxl.authorization.application.service.IAuthUserService;
+import com.github.sparkzxl.authorization.application.service.IUserService;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthUser;
 import com.github.sparkzxl.authorization.infrastructure.security.AuthUserDetail;
 import com.github.sparkzxl.core.context.BaseContextHandler;
@@ -23,10 +23,10 @@ import org.springframework.stereotype.Service;
 @Service("oauthUserDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private IAuthUserService authUserService;
+    private IUserService authUserService;
 
     @Autowired
-    public void setAuthUserService(IAuthUserService authUserService) {
+    public void setAuthUserService(IUserService authUserService) {
         this.authUserService = authUserService;
     }
 

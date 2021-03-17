@@ -1,7 +1,7 @@
 package com.github.sparkzxl.authorization.domain.service;
 
 import cn.hutool.core.convert.Convert;
-import com.github.sparkzxl.authorization.application.service.IAuthMenuService;
+import com.github.sparkzxl.authorization.application.service.IMenuService;
 import com.github.sparkzxl.authorization.domain.model.aggregates.MenuBasicInfo;
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.authorization.infrastructure.convert.AuthMenuConvert;
@@ -23,7 +23,7 @@ import java.util.List;
  * @date 2020-06-07 13:35:18
  */
 @Service
-public class AuthMenuServiceImpl extends SuperCacheServiceImpl<AuthMenuMapper, AuthMenu> implements IAuthMenuService {
+public class MenuServiceImpl extends SuperCacheServiceImpl<AuthMenuMapper, AuthMenu> implements IMenuService {
 
     @Autowired
     private AuthMenuRepository authMenuRepository;

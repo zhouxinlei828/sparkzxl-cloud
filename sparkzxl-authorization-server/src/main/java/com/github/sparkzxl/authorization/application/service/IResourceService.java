@@ -14,7 +14,7 @@ import java.util.List;
  * @author charles.zhou
  * @date 2020-06-07 13:31:28
  */
-public interface IAuthResourceService extends SuperCacheService<AuthResource> {
+public interface IResourceService extends SuperCacheService<AuthResource> {
 
     /**
      * 查询用户可用的所有资源

@@ -20,7 +20,7 @@ import java.util.List;
  * @author charles.zhou
  * @date 2020-05-24 12:22:23
  */
-public interface IAuthUserService extends SuperCacheService<AuthUser> {
+public interface IUserService extends SuperCacheService<AuthUser> {
 
     /**
      * 获取全局用户信息

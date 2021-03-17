@@ -2,13 +2,11 @@ package com.github.sparkzxl.authorization.infrastructure.executor;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.github.sparkzxl.authorization.application.service.IAuthApplicationService;
+import com.github.sparkzxl.authorization.application.service.IApplicationService;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthApplication;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,10 +22,10 @@ import java.util.List;
 @Component
 public class ApplicationHealthCheckJob {
 
-    private IAuthApplicationService applicationService;
+    private IApplicationService applicationService;
 
     @Autowired
-    public void setApplicationService(IAuthApplicationService applicationService) {
+    public void setApplicationService(IApplicationService applicationService) {
         this.applicationService = applicationService;
     }
 

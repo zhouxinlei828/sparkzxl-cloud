@@ -1,6 +1,6 @@
 package com.github.sparkzxl.authorization.interfaces.controller.auth;
 
-import com.github.sparkzxl.authorization.application.service.IAuthRoleService;
+import com.github.sparkzxl.authorization.application.service.IRoleService;
 import com.github.sparkzxl.authorization.application.service.IUserRoleService;
 import com.github.sparkzxl.authorization.domain.model.vo.RoleResourceVO;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthRole;
@@ -29,7 +29,7 @@ import java.util.List;
 @ResponseResult
 @WebLog
 @Api(tags = "角色管理")
-public class AuthRoleController extends SuperCacheController<IAuthRoleService, Long,
+public class AuthRoleController extends SuperCacheController<IRoleService, Long,
         AuthRole, RoleSaveDTO, RoleUpdateDTO, RoleQueryDTO, Object> {
 
     private IUserRoleService userRoleService;

@@ -1,7 +1,7 @@
 package com.github.sparkzxl.authorization.interfaces.controller.oauth;
 
 import com.github.sparkzxl.authorization.application.service.ITenantInfoService;
-import com.github.sparkzxl.authorization.application.service.OauthService;
+import com.github.sparkzxl.authorization.application.service.IOauthService;
 import com.github.sparkzxl.authorization.infrastructure.oauth2.AccessTokenInfo;
 import com.github.sparkzxl.authorization.infrastructure.oauth2.AuthorizationRequest;
 import com.github.sparkzxl.core.annotation.ResponseResult;
@@ -34,12 +34,12 @@ import java.security.Principal;
 @Slf4j
 public class OauthController {
 
-    private OauthService oauthService;
+    private IOauthService IOauthService;
     private ITenantInfoService tenantInfoService;
 
     @Autowired
-    public void setOauthService(OauthService oauthService) {
-        this.oauthService = oauthService;
+    public void setOauthService(IOauthService IOauthService) {
+        this.IOauthService = IOauthService;
     }
 
     @Autowired
@@ -59,7 +59,7 @@ public class OauthController {
     @ResponseBody
     public String getAuthorizeUrl(@RequestParam(value = "clientId", required = false) String clientId,
                                   @RequestParam(value = "frontUrl", required = false) String frontUrl) {
-        return oauthService.getAuthorizeUrl(clientId, frontUrl);
+        return IOauthService.getAuthorizeUrl(clientId, frontUrl);
     }
 
     @ApiOperation(value = "GET授权登录端口", notes = "GET授权登录端口")
@@ -74,7 +74,7 @@ public class OauthController {
                                             @RequestParam AuthorizationRequest authorizationRequest)
             throws HttpRequestMethodNotSupportedException {
         log.info("Authorization = {}", authorization);
-        return oauthService.getAccessToken(principal, authorizationRequest);
+        return IOauthService.getAccessToken(principal, authorizationRequest);
     }
 
 
@@ -90,7 +90,7 @@ public class OauthController {
                                              @RequestBody AuthorizationRequest authorizationRequest)
             throws HttpRequestMethodNotSupportedException {
         log.info("Authorization = {}", authorization);
-        return oauthService.postAccessToken(principal, authorizationRequest);
+        return IOauthService.postAccessToken(principal, authorizationRequest);
     }
 
     @ApiOperation(value = "验证码", notes = "验证码")
@@ -98,7 +98,7 @@ public class OauthController {
     @ResponseResult
     @ResponseBody
     public CaptchaInfo captcha(@RequestParam(value = "type") String type) {
-        return oauthService.createCaptcha(type);
+        return IOauthService.createCaptcha(type);
     }
 
     @ApiOperation(value = "验证验证码", notes = "验证验证码")
@@ -106,7 +106,7 @@ public class OauthController {
     @ResponseResult
     @ResponseBody
     public boolean checkCaptcha(@RequestParam(value = "key") String key, @RequestParam(value = "code") String code) {
-        return oauthService.checkCaptcha(key, code);
+        return IOauthService.checkCaptcha(key, code);
     }
 
     @ApiOperation(value = "校验租户信息", notes = "校验租户信息")
@@ -123,7 +123,7 @@ public class OauthController {
     @ResponseBody
     public AccessTokenInfo callBack(@RequestParam("code") String code,
                                     @RequestParam("state") String state) {
-        return oauthService.authorizationCodeCallBack(code, state);
+        return IOauthService.authorizationCodeCallBack(code, state);
     }
 
 }

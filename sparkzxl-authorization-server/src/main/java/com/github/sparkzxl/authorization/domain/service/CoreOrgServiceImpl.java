@@ -1,7 +1,7 @@
 package com.github.sparkzxl.authorization.domain.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.github.sparkzxl.authorization.application.service.IAuthUserService;
+import com.github.sparkzxl.authorization.application.service.IUserService;
 import com.github.sparkzxl.authorization.application.service.ICoreOrgService;
 import com.github.sparkzxl.authorization.domain.repository.IIdSegmentRepository;
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
@@ -29,7 +29,7 @@ import java.util.Optional;
 public class CoreOrgServiceImpl extends SuperCacheServiceImpl<CoreOrgMapper, CoreOrg> implements ICoreOrgService {
 
     @Autowired
-    private IAuthUserService authUserService;
+    private IUserService authUserService;
 
     @Autowired
     private IIdSegmentRepository segmentRepository;

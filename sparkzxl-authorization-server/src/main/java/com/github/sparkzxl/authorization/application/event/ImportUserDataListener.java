@@ -1,8 +1,8 @@
 package com.github.sparkzxl.authorization.application.event;
 
 import com.alibaba.excel.context.AnalysisContext;
-import com.github.sparkzxl.authorization.application.service.IAuthUserService;
-import com.github.sparkzxl.authorization.application.service.ICommonDictionaryItemService;
+import com.github.sparkzxl.authorization.application.service.IUserService;
+import com.github.sparkzxl.authorization.application.service.IDictionaryItemService;
 import com.github.sparkzxl.authorization.application.service.ICoreOrgService;
 import com.github.sparkzxl.authorization.application.service.ICoreStationService;
 import com.github.sparkzxl.authorization.domain.model.aggregates.excel.UserExcel;
@@ -37,14 +37,14 @@ public class ImportUserDataListener extends ImportDataListener<UserExcel> {
     private final List<UserExcel> list = Lists.newArrayList();
     private final AtomicInteger count = new AtomicInteger(0);
 
-    private IAuthUserService authUserService;
+    private IUserService authUserService;
     private ICoreOrgService coreOrgService;
     private ICoreStationService coreStationService;
-    private ICommonDictionaryItemService dictionaryItemService;
+    private IDictionaryItemService dictionaryItemService;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public void setAuthUserService(IAuthUserService authUserService) {
+    public void setAuthUserService(IUserService authUserService) {
         this.authUserService = authUserService;
     }
 
@@ -59,7 +59,7 @@ public class ImportUserDataListener extends ImportDataListener<UserExcel> {
     }
 
     @Autowired
-    public void setDictionaryItemService(ICommonDictionaryItemService dictionaryItemService) {
+    public void setDictionaryItemService(IDictionaryItemService dictionaryItemService) {
         this.dictionaryItemService = dictionaryItemService;
     }
 

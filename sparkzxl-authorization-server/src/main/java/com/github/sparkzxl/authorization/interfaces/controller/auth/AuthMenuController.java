@@ -2,7 +2,7 @@ package com.github.sparkzxl.authorization.interfaces.controller.auth;
 
 
 import cn.hutool.core.convert.Convert;
-import com.github.sparkzxl.authorization.application.service.IAuthMenuService;
+import com.github.sparkzxl.authorization.application.service.IMenuService;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthMenu;
 import com.github.sparkzxl.authorization.interfaces.dto.menu.AuthMenuQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.menu.AuthMenuSaveDTO;
@@ -31,7 +31,7 @@ import java.util.List;
 @ResponseResult
 @WebLog
 @Api(tags = "菜单管理")
-public class AuthMenuController extends SuperCacheController<IAuthMenuService, Long,
+public class AuthMenuController extends SuperCacheController<IMenuService, Long,
         AuthMenu, AuthMenuSaveDTO, AuthMenuUpdateDTO, AuthMenuQueryDTO, Object> {
 
     @Override

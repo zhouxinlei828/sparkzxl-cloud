@@ -51,20 +51,20 @@ import java.util.Map;
  */
 @Service
 @Slf4j
-public class AuthUserServiceImpl extends SuperCacheServiceImpl<AuthUserMapper, AuthUser> implements IAuthUserService {
+public class UserServiceImpl extends SuperCacheServiceImpl<AuthUserMapper, AuthUser> implements IUserService {
 
     @Autowired
     private IAuthUserRepository authUserRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private IAuthMenuService authMenuService;
+    private IMenuService authMenuService;
     @Autowired
     private ICoreStationService coreStationService;
     @Autowired
     private ICoreOrgService coreOrgService;
     @Autowired
-    private ICommonDictionaryItemService dictionaryItemService;
+    private IDictionaryItemService dictionaryItemService;
 
     @Override
     protected String getRegion() {

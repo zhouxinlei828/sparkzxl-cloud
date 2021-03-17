@@ -13,7 +13,7 @@ import java.util.List;
  * @author charles.zhou
  * @date   2020-07-28 19:41:37
  */
-public interface ICommonAreaService extends SuperCacheService<CommonArea> {
+public interface IAreaService extends SuperCacheService<CommonArea> {
 
     /**
      * 查询地区信息

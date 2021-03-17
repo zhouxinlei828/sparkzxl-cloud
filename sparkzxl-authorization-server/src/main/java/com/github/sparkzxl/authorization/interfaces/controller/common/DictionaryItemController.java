@@ -1,7 +1,7 @@
 package com.github.sparkzxl.authorization.interfaces.controller.common;
 
 
-import com.github.sparkzxl.authorization.application.service.ICommonDictionaryItemService;
+import com.github.sparkzxl.authorization.application.service.IDictionaryItemService;
 import com.github.sparkzxl.authorization.infrastructure.entity.CommonDictionaryItem;
 import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryItemSaveDTO;
@@ -31,7 +31,7 @@ import java.util.List;
 @WebLog
 @Api(tags = "字典项管理")
 @RequestMapping("/common/dictionaryItem")
-public class DictionaryItemController extends SuperCacheController<ICommonDictionaryItemService, Long,
+public class DictionaryItemController extends SuperCacheController<IDictionaryItemService, Long,
         CommonDictionaryItem, DictionaryItemSaveDTO, DictionaryItemUpdateDTO, DictionaryItemQueryDTO, Object> {
 
     @Override

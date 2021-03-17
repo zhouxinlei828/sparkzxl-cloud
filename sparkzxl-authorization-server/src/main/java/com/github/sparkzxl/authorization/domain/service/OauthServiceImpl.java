@@ -4,9 +4,9 @@ import cn.hutool.core.net.url.UrlBuilder;
 import cn.hutool.core.net.url.UrlPath;
 import cn.hutool.core.util.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.github.sparkzxl.authorization.application.service.IAuthUserService;
+import com.github.sparkzxl.authorization.application.service.IOauthService;
 import com.github.sparkzxl.authorization.application.service.ITenantInfoService;
-import com.github.sparkzxl.authorization.application.service.OauthService;
+import com.github.sparkzxl.authorization.application.service.IUserService;
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.authorization.infrastructure.entity.TenantInfo;
 import com.github.sparkzxl.authorization.infrastructure.oauth2.AccessTokenInfo;
@@ -63,14 +63,14 @@ import static io.vavr.API.Case;
  */
 @Service
 @Slf4j
-public class OauthServiceImpl implements OauthService {
+public class OauthServiceImpl implements IOauthService {
 
     @Autowired
     private TokenEndpoint tokenEndpoint;
     @Autowired
     private CacheTemplate cacheTemplate;
     @Autowired
-    private IAuthUserService authUserService;
+    private IUserService userService;
     @Autowired
     private ITenantInfoService tenantService;
     @Autowired
@@ -81,7 +81,7 @@ public class OauthServiceImpl implements OauthService {
     private OpenProperties openProperties;
     @Autowired
     private CustomTokenGrantService customTokenGrantService;
-    @Value("${security.oauth2.authorization.authorization-uri}")
+    @Value("${authorization-server-uri}")
     private String authorizationUri;
 
     @SneakyThrows
@@ -131,7 +131,7 @@ public class OauthServiceImpl implements OauthService {
     private void buildGlobalUserInfo(OAuth2AccessToken oAuth2AccessToken) {
         Map<String, Object> additionalInformation = oAuth2AccessToken.getAdditionalInformation();
         String username = (String) additionalInformation.get("username");
-        AuthUserInfo<Long> authUserInfo = authUserService.getAuthUserInfo(username);
+        AuthUserInfo<Long> authUserInfo = userService.getAuthUserInfo(username);
         String authUserInfoKey = BuildKeyUtils.generateKey(BaseContextConstants.AUTH_USER_TOKEN, authUserInfo.getId());
         redisTemplate.opsForHash().put(authUserInfoKey, oAuth2AccessToken.getValue(), authUserInfo);
         redisTemplate.expire(authUserInfoKey, oAuth2AccessToken.getExpiresIn(), TimeUnit.SECONDS);

@@ -2,7 +2,7 @@ package com.github.sparkzxl.authorization.interfaces.controller.auth;
 
 import com.github.pagehelper.PageInfo;
 import com.github.sparkzxl.authorization.application.event.ImportUserDataListener;
-import com.github.sparkzxl.authorization.application.service.IAuthUserService;
+import com.github.sparkzxl.authorization.application.service.IUserService;
 import com.github.sparkzxl.authorization.domain.model.aggregates.MenuBasicInfo;
 import com.github.sparkzxl.authorization.domain.model.aggregates.excel.UserExcel;
 import com.github.sparkzxl.authorization.domain.model.vo.AuthUserBasicVO;
@@ -39,7 +39,7 @@ import java.util.List;
 @ResponseResult
 @WebLog
 @Api(tags = "用户管理")
-public class AuthUserController extends SuperCacheController<IAuthUserService, Long,
+public class AuthUserController extends SuperCacheController<IUserService, Long,
         AuthUser, UserSaveDTO, UserUpdateDTO, UserQueryDTO, UserExcel> {
 
     private ImportUserDataListener importUserDataListener;

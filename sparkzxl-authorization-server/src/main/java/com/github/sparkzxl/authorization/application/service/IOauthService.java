@@ -14,7 +14,7 @@ import java.security.Principal;
  * @author charles.zhou
  * @date   2020-06-25 09:49:22
  */
-public interface OauthService {
+public interface IOauthService {
 
     /**
      * get请求授权登录

@@ -2,7 +2,7 @@ package com.github.sparkzxl.authorization.domain.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.github.sparkzxl.authorization.application.service.ICommonDictionaryItemService;
+import com.github.sparkzxl.authorization.application.service.IDictionaryItemService;
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.authorization.infrastructure.entity.CommonDictionaryItem;
 import com.github.sparkzxl.authorization.infrastructure.mapper.CommonDictionaryItemMapper;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @date   2020-07-28 19:43:58
  */
 @Service
-public class CommonDictionaryItemServiceImpl extends SuperCacheServiceImpl<CommonDictionaryItemMapper, CommonDictionaryItem> implements ICommonDictionaryItemService {
+public class DictionaryItemServiceImpl extends SuperCacheServiceImpl<CommonDictionaryItemMapper, CommonDictionaryItem> implements IDictionaryItemService {
 
     @Autowired
     private CustomMybatisProperties customMybatisProperties;

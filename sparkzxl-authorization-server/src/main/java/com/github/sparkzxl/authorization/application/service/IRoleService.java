@@ -12,7 +12,7 @@ import java.util.List;
  * @author charles.zhou
  * @date 2020-06-07 13:31:48
  */
-public interface IAuthRoleService extends SuperCacheService<AuthRole> {
+public interface IRoleService extends SuperCacheService<AuthRole> {
 
     /**
      * 删除角色信息

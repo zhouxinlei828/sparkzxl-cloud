@@ -15,7 +15,7 @@ import java.util.Set;
  * @author charles.zhou
  * @date   2020-07-28 19:42:04
  */
-public interface ICommonDictionaryItemService extends SuperCacheService<CommonDictionaryItem> {
+public interface IDictionaryItemService extends SuperCacheService<CommonDictionaryItem> {
 
     /**
      * 根据类型编码查询字典项

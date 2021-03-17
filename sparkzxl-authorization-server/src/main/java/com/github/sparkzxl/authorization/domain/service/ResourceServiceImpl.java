@@ -1,6 +1,6 @@
 package com.github.sparkzxl.authorization.domain.service;
 
-import com.github.sparkzxl.authorization.application.service.IAuthResourceService;
+import com.github.sparkzxl.authorization.application.service.IResourceService;
 import com.github.sparkzxl.authorization.domain.repository.IAuthResourceRepository;
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.authorization.infrastructure.convert.AuthResourceConvert;
@@ -24,11 +24,11 @@ import java.util.stream.Collectors;
  * @date 2020-06-07 13:36:15
  */
 @Service
-public class AuthResourceServiceImpl extends SuperCacheServiceImpl<AuthResourceMapper, AuthResource> implements IAuthResourceService {
+public class ResourceServiceImpl extends SuperCacheServiceImpl<AuthResourceMapper, AuthResource> implements IResourceService {
 
     private final IAuthResourceRepository authResourceRepository;
 
-    public AuthResourceServiceImpl(IAuthResourceRepository authResourceRepository) {
+    public ResourceServiceImpl(IAuthResourceRepository authResourceRepository) {
         this.authResourceRepository = authResourceRepository;
     }
 

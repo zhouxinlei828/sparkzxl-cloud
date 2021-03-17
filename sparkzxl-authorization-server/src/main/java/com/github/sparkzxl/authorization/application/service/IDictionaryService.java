@@ -9,6 +9,6 @@ import com.github.sparkzxl.database.base.service.SuperCacheService;
  * @author charles.zhou
  * @date   2020-07-28 19:42:28
  */
-public interface ICommonDictionaryService extends SuperCacheService<CommonDictionary> {
+public interface IDictionaryService extends SuperCacheService<CommonDictionary> {
 
 }

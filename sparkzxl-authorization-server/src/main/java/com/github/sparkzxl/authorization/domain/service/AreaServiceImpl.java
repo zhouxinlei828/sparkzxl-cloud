@@ -2,7 +2,7 @@ package com.github.sparkzxl.authorization.domain.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.github.sparkzxl.authorization.application.service.ICommonAreaService;
+import com.github.sparkzxl.authorization.application.service.IAreaService;
 import com.github.sparkzxl.authorization.domain.model.aggregates.City;
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
 import com.github.sparkzxl.authorization.infrastructure.entity.CommonArea;
@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Slf4j
 @Service
-public class CommonAreaServiceImpl extends SuperCacheServiceImpl<CommonAreaMapper, CommonArea> implements ICommonAreaService {
+public class AreaServiceImpl extends SuperCacheServiceImpl<CommonAreaMapper, CommonArea> implements IAreaService {
 
     @Override
     public List<CommonArea> getAreaList(AreaQueryDTO areaQueryDTO) {

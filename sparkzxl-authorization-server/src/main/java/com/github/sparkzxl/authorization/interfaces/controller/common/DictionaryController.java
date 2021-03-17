@@ -1,7 +1,7 @@
 package com.github.sparkzxl.authorization.interfaces.controller.common;
 
 
-import com.github.sparkzxl.authorization.application.service.ICommonDictionaryService;
+import com.github.sparkzxl.authorization.application.service.IDictionaryService;
 import com.github.sparkzxl.authorization.infrastructure.entity.CommonDictionary;
 import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionaryQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.dictionary.DictionarySaveDTO;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @WebLog
 @Api(tags = "字典类型管理")
 @RequestMapping("/common/dictionary")
-public class DictionaryController extends SuperCacheController<ICommonDictionaryService, Long,
+public class DictionaryController extends SuperCacheController<IDictionaryService, Long,
         CommonDictionary, DictionarySaveDTO, DictionaryUpdateDTO, DictionaryQueryDTO, Object> {
 
     @Override

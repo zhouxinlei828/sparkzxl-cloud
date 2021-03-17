@@ -1,7 +1,7 @@
 package com.github.sparkzxl.authorization.interfaces.controller.auth;
 
 
-import com.github.sparkzxl.authorization.application.service.IAuthResourceService;
+import com.github.sparkzxl.authorization.application.service.IResourceService;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthResource;
 import com.github.sparkzxl.authorization.interfaces.dto.resource.ResourceQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.resource.ResourceSaveDTO;
@@ -33,7 +33,7 @@ import java.util.List;
 @ResponseResult
 @WebLog
 @Api(tags = "资源管理")
-public class AuthResourceController extends SuperCacheController<IAuthResourceService, Long,
+public class AuthResourceController extends SuperCacheController<IResourceService, Long,
         AuthResource, ResourceSaveDTO, ResourceUpdateDTO, ResourceQueryDTO, Object> {
 
 

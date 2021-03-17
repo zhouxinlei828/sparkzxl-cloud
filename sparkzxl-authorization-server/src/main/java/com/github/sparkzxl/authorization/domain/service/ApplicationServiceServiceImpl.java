@@ -1,7 +1,7 @@
 package com.github.sparkzxl.authorization.domain.service;
 
 import com.github.pagehelper.PageInfo;
-import com.github.sparkzxl.authorization.application.service.IAuthApplicationService;
+import com.github.sparkzxl.authorization.application.service.IApplicationService;
 import com.github.sparkzxl.authorization.domain.repository.IAuthApplicationRepository;
 import com.github.sparkzxl.authorization.infrastructure.convert.AuthApplicationConvert;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthApplication;
@@ -23,7 +23,7 @@ import java.util.List;
  * @date   2021-02-20 09:44:43
  */
 @Service
-public class AuthApplicationServiceServiceImpl extends SuperCacheServiceImpl<AuthApplicationMapper, AuthApplication> implements IAuthApplicationService {
+public class ApplicationServiceServiceImpl extends SuperCacheServiceImpl<AuthApplicationMapper, AuthApplication> implements IApplicationService {
 
 
     @Autowired

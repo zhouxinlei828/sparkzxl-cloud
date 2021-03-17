@@ -2,7 +2,7 @@ package com.github.sparkzxl.authorization.interfaces.controller.auth;
 
 
 import com.github.pagehelper.PageInfo;
-import com.github.sparkzxl.authorization.application.service.IAuthApplicationService;
+import com.github.sparkzxl.authorization.application.service.IApplicationService;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthApplication;
 import com.github.sparkzxl.authorization.interfaces.dto.application.AuthApplicationQueryDTO;
 import com.github.sparkzxl.authorization.interfaces.dto.application.AuthApplicationSaveDTO;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "应用客户端管理")
 @ResponseResult
 @RequestMapping("/application")
-public class AuthApplicationController extends SuperCacheController<IAuthApplicationService, Long,
+public class AuthApplicationController extends SuperCacheController<IApplicationService, Long,
         AuthApplication, AuthApplicationSaveDTO, AuthApplicationUpdateDTO, AuthApplicationQueryDTO, Object> {
 
     @Override

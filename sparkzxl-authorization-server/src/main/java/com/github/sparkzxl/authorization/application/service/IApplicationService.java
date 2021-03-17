@@ -16,7 +16,7 @@ import java.util.List;
  * @author charles.zhou
  * @date 2021-02-20 09:44:35
  */
-public interface IAuthApplicationService extends SuperCacheService<AuthApplication> {
+public interface IApplicationService extends SuperCacheService<AuthApplication> {
 
     /**
      * 保存应用客户端信息
