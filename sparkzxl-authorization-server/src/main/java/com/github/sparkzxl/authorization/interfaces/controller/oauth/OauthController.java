@@ -53,6 +53,15 @@ public class OauthController {
         return "login";
     }
 
+    @ApiOperation(value = "获取授权登录地址", notes = "获取授权登录地址")
+    @GetMapping("/oauth/getAuthorizeUrl")
+    @ResponseResult
+    @ResponseBody
+    public String getAuthorizeUrl(@RequestParam(value = "clientId", required = false) String clientId,
+                                  @RequestParam(value = "frontUrl", required = false) String frontUrl) {
+        return oauthService.getAuthorizeUrl(clientId, frontUrl);
+    }
+
     @ApiOperation(value = "GET授权登录端口", notes = "GET授权登录端口")
     @GetMapping("/oauth/token")
     @ApiImplicitParams(
@@ -106,16 +115,6 @@ public class OauthController {
     @ResponseBody
     public boolean checkTenantCode(@RequestParam(value = "tenantCode") String tenantCode) {
         return tenantInfoService.checkTenantCode(tenantCode);
-    }
-
-
-    @ApiOperation(value = "获取授权登录地址", notes = "获取授权登录地址")
-    @GetMapping("/oauth/getAuthorizeUrl")
-    @ResponseResult
-    @ResponseBody
-    public String getAuthorizeUrl(@RequestParam(value = "clientId", required = false) String clientId,
-                                  @RequestParam(value = "frontUrl", required = false) String frontUrl) {
-        return oauthService.getAuthorizeUrl(clientId, frontUrl);
     }
 
     @ApiOperation(value = "授权成功回调接口", notes = "授权成功回调接口")

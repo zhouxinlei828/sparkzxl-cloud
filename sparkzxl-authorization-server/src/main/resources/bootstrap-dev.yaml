@@ -39,3 +39,7 @@ logging:
   level:
     com.github.sparkzxl.authentication.infrastructure.client: debug
     com.github.sparkzxl.authorization.infrastructure.mapper: debug
+security:
+  oauth2:
+    authorization:
+      authorization-uri: http://127.0.0.1:8801

@@ -33,6 +33,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -80,6 +81,8 @@ public class OauthServiceImpl implements OauthService {
     private OpenProperties openProperties;
     @Autowired
     private CustomTokenGrantService customTokenGrantService;
+    @Value("${security.oauth2.authorization.authorization-uri}")
+    private String authorizationUri;
 
     @SneakyThrows
     @Override
@@ -211,10 +214,7 @@ public class OauthServiceImpl implements OauthService {
                 : openProperties.getAppId());
         HttpServletRequest request = RequestContextHolderUtils.getRequest();
         List<String> redirectUriList = ListUtils.setToList(clientDetails.getRegisteredRedirectUri());
-        String authorizeUrl = UrlBuilder.create()
-                .setScheme(request.getScheme())
-                .setHost(request.getServerName())
-                .setPort(request.getServerPort())
+        String authorizeUrl = UrlBuilder.of(authorizationUri, StandardCharsets.UTF_8)
                 .addPath("/oauth/authorize")
                 .addQuery("client_id", clientDetails.getClientId())
                 .addQuery("redirect_uri", redirectUriList.get(0))

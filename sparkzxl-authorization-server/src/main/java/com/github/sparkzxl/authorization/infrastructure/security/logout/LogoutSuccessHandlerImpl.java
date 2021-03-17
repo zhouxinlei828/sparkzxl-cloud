@@ -10,11 +10,8 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * description: 退出登录成功处理
@@ -28,7 +25,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     private TokenStore tokenStore;
 
     @Override
-    public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+    public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
         String token = httpServletRequest.getHeader("token");
         log.info("退出登录成功：{}", token);
         token = StringUtils.removeStartIgnoreCase(token, BaseContextConstants.BEARER_TOKEN);
@@ -39,10 +36,6 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
                 tokenStore.removeRefreshToken(accessToken.getRefreshToken());
             }
         }
-        Cookie cookie = new Cookie("JSESSIONID", null);
-        cookie.setMaxAge(0);
-        cookie.setPath("/authentication");
-        httpServletResponse.addCookie(cookie);
         ResponseResultUtils.writeResponseOutMsg(httpServletResponse, 200, "退出登录成功", true);
     }
 }
