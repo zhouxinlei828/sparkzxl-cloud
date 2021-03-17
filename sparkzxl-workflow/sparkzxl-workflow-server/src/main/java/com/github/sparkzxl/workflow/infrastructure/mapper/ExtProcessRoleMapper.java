@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 /**
  * description: 流程角色 Mapper 接口
  *
- * @author: zhouxinlei
- * @date: 2021-01-08 16:50:18
+ * @author charles.zhou
+ * @date   2021-01-08 16:50:18
  */
 @Repository
 public interface ExtProcessRoleMapper extends BaseMapper<ExtProcessRole> {

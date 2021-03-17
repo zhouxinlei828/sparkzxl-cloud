@@ -13,8 +13,8 @@ import java.util.List;
 /**
  * description: 租户客户端服务类
  *
- * @author: zhouxinlei
- * @date: 2021-02-20 09:44:35
+ * @author charles.zhou
+ * @date   2021-02-20 09:44:35
  */
 public interface IAuthApplicationService extends SuperCacheService<AuthApplication> {
 

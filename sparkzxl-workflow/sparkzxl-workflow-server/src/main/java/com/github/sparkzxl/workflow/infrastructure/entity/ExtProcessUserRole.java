@@ -14,8 +14,8 @@ import java.io.Serializable;
 /**
  * description: 流程用户角色关系
  *
- * @author: fzhouxinlei
- * @date: 2021-01-08 16:47:56
+ * @author fzhouxinlei
+ * @date   2021-01-08 16:47:56
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

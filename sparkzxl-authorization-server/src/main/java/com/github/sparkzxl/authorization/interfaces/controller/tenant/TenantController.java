@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * description: 租户管理
  *
- * @author: zhouxinlei
- * @date: 2021-02-02 16:21:52
+ * @author charles.zhou
+ * @date   2021-02-02 16:21:52
  */
 @RestController
 @ResponseResult

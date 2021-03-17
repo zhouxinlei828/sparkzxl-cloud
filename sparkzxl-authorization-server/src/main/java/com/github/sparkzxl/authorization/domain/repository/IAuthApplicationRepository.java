@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * description: 应用 仓储类
  *
- * @author: zhouxinlei
- * @date: 2021-02-20 09:51:03
+ * @author charles.zhou
+ * @date   2021-02-20 09:51:03
  */
 public interface IAuthApplicationRepository {
 

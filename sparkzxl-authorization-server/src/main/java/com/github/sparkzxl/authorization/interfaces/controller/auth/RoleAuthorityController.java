@@ -20,8 +20,8 @@ import java.util.List;
 /**
  * description: 角色资源管理
  *
- * @author: zhouxinlei
- * @date: 2020-07-19 21:05:10
+ * @author charles.zhou
+ * @date   2020-07-19 21:05:10
  */
 @RestController
 @RequestMapping("/role/authority")

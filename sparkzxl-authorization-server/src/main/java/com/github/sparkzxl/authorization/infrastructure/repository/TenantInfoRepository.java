@@ -27,8 +27,8 @@ import java.util.stream.Collectors;
 /**
  * description: 租户仓储实现类
  *
- * @author: zhouxinlei
- * @date: 2021-02-14 10:13:48
+ * @author charles.zhou
+ * @date   2021-02-14 10:13:48
  */
 @Repository
 public class TenantInfoRepository implements ITenantInfoRepository {

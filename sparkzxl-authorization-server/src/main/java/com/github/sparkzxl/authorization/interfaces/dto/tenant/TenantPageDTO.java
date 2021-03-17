@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 /**
  * description: 租户分页查询对象
  *
- * @author: zhouxinlei
- * @date: 2020-07-27 19:49:46
+ * @author charles.zhou
+ * @date   2020-07-27 19:49:46
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

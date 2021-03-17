@@ -23,7 +23,7 @@ import static com.github.sparkzxl.authorization.infrastructure.constant.Injectio
 /**
  * description: 用户信息
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-05-24 12:24:03
  */
 @Data

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * description：登录日志 仓储类
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020/6/17 0017
  */
 public interface ILoginLogRepository {

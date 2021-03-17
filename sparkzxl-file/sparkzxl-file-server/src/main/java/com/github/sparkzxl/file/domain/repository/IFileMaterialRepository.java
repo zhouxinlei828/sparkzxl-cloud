@@ -6,7 +6,7 @@ import com.github.sparkzxl.file.infrastructure.entity.FileMaterial;
 /**
  * description：文件 仓储类
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020/6/16 0016
  */
 public interface IFileMaterialRepository {

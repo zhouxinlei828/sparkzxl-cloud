@@ -5,8 +5,8 @@ import lombok.Data;
 /**
  * description: 登录角色
  *
- * @author: zhouxinlei
- * @date: 2020-08-17 11:39:25
+ * @author charles.zhou
+ * @date   2020-08-17 11:39:25
  */
 @Data
 public class RoleBasicInfo {

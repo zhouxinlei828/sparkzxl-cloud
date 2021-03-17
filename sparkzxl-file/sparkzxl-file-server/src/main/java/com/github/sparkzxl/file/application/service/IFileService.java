@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * description: 文件上传服务
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-05-24 12:30:30
  */
 public interface IFileService {

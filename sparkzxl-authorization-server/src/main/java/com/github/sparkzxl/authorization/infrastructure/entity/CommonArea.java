@@ -11,8 +11,8 @@ import lombok.EqualsAndHashCode;
 /**
  * description: 地区表
  *
- * @author: zhouxinlei
- * @date: 2020-07-28 19:35:34
+ * @author charles.zhou
+ * @date   2020-07-28 19:35:34
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

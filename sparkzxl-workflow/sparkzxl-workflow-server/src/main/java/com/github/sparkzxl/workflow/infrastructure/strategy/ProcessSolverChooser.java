@@ -12,8 +12,8 @@ import java.util.Map;
 /**
  * description: 流程驱动选择器
  *
- * @author: zhouxinlei
- * @date: 2020-07-20 16:14:39
+ * @author charles.zhou
+ * @date   2020-07-20 16:14:39
  */
 @Component
 public class ProcessSolverChooser implements ApplicationContextAware {

@@ -10,8 +10,8 @@ import java.util.Map;
 /**
  * description: activiti 辅助工具类
  *
- * @author: zhouxinlei
- * @date: 2020-07-22 17:39:39
+ * @author charles.zhou
+ * @date   2020-07-22 17:39:39
  */
 public class ActivitiUtils {
 

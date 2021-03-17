@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * description: 解决跨域问题
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-05-24 12:16:27
  */
 @Configuration

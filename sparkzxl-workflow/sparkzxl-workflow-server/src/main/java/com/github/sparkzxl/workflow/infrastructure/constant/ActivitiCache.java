@@ -4,8 +4,8 @@ package com.github.sparkzxl.workflow.infrastructure.constant;
 /**
  * description:
  *
- * @author: zhouxinlei
- * @date: 2020-07-17 13:36:40
+ * @author charles.zhou
+ * @date   2020-07-17 13:36:40
 */
 public class ActivitiCache {
 

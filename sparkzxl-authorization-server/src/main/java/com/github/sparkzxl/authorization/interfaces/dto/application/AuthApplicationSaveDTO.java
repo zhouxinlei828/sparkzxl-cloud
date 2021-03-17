@@ -9,8 +9,8 @@ import javax.validation.constraints.NotEmpty;
 /**
  * description: 应用保存DTO
  *
- * @author: zhouxinlei
- * @date: 2021-02-02 14:53:04
+ * @author charles.zhou
+ * @date   2021-02-02 14:53:04
  */
 @Data
 @ApiModel("应用保存DTO")

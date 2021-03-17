@@ -7,8 +7,8 @@ import lombok.Data;
 /**
  * description:ProcessDetail显示层对象
  *
- * @author: zhouxinlei
- * @date: 2020-07-21 14:56:57
+ * @author charles.zhou
+ * @date   2020-07-21 14:56:57
  */
 @Data
 @ApiModel(value = "ProcessDetail显示层对象", description = "")

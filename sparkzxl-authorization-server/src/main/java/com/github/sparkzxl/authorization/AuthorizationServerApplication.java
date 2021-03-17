@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * description: 认证授权启动类
  *
- * @author: zhouxinlei
- * @date: 2021-02-01 11:18:40
+ * @author charles.zhou
+ * @date   2021-02-01 11:18:40
  */
 @SpringBootApplication(scanBasePackages = {"com.github.sparkzxl.authorization"})
 @Slf4j

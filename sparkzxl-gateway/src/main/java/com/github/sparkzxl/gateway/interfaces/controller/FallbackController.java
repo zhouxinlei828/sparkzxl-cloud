@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * description: 响应超时熔断处理器
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-05-24 12:17:49
  */
 @RestController

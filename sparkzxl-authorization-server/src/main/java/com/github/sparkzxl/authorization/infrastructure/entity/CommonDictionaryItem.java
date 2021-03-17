@@ -13,8 +13,8 @@ import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE_RIGHT;
 /**
  * description: 字典项
  *
- * @author: zhouxinlei
- * @date: 2020-07-28 19:38:46
+ * @author charles.zhou
+ * @date   2020-07-28 19:38:46
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

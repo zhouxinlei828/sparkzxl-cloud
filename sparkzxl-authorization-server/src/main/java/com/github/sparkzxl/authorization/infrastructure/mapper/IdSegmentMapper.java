@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 /**
  * description: id序列Mapper 接口
  *
- * @author: zhouxinlei
- * @date: 2021-02-14 10:34:04
+ * @author charles.zhou
+ * @date   2021-02-14 10:34:04
  */
 @Repository
 public interface IdSegmentMapper extends BaseMapper<IdSegment> {

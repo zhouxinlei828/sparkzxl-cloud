@@ -22,8 +22,8 @@ import java.util.List;
 /**
  * description: 字典项管理
  *
- * @author: zhouxinlei
- * @date: 2020-07-28 19:48:30
+ * @author charles.zhou
+ * @date   2020-07-28 19:48:30
  */
 @AllArgsConstructor
 @RestController

@@ -11,8 +11,8 @@ import com.github.sparkzxl.database.base.service.SuperCacheService;
 /**
  * description: 账号角色绑定 服务类
  *
- * @author: zhouxinlei
- * @date: 2020-07-19 21:02:47
+ * @author charles.zhou
+ * @date   2020-07-19 21:02:47
  */
 public interface IUserRoleService extends SuperCacheService<UserRole> {
 

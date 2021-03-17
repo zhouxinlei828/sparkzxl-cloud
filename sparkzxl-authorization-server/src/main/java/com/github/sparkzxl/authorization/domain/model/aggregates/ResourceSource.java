@@ -7,8 +7,8 @@ import lombok.Data;
 /**
  * description: 资源触发事件源
  *
- * @author: zhouxinlei
- * @date: 2021-03-08 14:17:10
+ * @author charles.zhou
+ * @date   2021-03-08 14:17:10
  */
 @Data
 @AllArgsConstructor

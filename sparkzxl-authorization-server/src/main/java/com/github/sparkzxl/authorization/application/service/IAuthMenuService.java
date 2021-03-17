@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * description: 菜单 服务类
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-06-07 13:31:12
  */
 public interface IAuthMenuService extends SuperCacheService<AuthMenu> {

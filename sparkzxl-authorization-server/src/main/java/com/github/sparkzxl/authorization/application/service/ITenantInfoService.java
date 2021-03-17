@@ -13,8 +13,8 @@ import java.util.List;
 /**
  * description: 租户信息 服务类
  *
- * @author: zhouxinlei
- * @date: 2021-02-02 16:20:51
+ * @author charles.zhou
+ * @date   2021-02-02 16:20:51
  */
 public interface ITenantInfoService extends SuperCacheService<TenantInfo> {
 

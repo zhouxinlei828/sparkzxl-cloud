@@ -17,7 +17,7 @@ import static com.github.sparkzxl.authorization.infrastructure.constant.Injectio
 /**
  * description: 岗位
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-06-07 13:23:52
  */
 @Data

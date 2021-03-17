@@ -33,6 +33,8 @@ spring:
             refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
+authorization:
+  logout: http://172.34.67.112:8801/logout
 logging:
   level:
     com.github.sparkzxl.authentication.infrastructure.client: debug

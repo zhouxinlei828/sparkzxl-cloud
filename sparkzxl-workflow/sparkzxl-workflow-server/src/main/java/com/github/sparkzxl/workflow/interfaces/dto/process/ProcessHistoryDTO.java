@@ -9,8 +9,8 @@ import java.util.Date;
 /**
  * description: 流程历史显示层对象
  *
- * @author: zhouxinlei
- * @date: 2020-07-23 14:14:49
+ * @author charles.zhou
+ * @date   2020-07-23 14:14:49
  */
 @Data
 @ApiModel(value = "ProcessHistoryDTO显示层对象", description = "")

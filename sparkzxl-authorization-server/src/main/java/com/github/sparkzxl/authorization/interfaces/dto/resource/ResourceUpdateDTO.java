@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 /**
  * description: 资源更新对象
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-06-07 13:24:26
  */
 @Data

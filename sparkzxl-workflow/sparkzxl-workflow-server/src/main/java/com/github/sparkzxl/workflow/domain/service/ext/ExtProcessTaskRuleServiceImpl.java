@@ -18,8 +18,8 @@ import java.util.List;
 /**
  * description:流程控制 服务实现类
  *
- * @author: zhouxinlei
- * @date: 2020-07-17 13:37:00
+ * @author charles.zhou
+ * @date   2020-07-17 13:37:00
  */
 @Service
 public class ExtProcessTaskRuleServiceImpl extends SuperCacheServiceImpl<ExtProcessTaskRuleMapper, ExtProcessTaskRule> implements IExtProcessTaskRuleService {

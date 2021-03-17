@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * description: 流程状态 仓储类
  *
- * @author: zhouxinlei
- * @date: 2020-07-23 13:58:34
+ * @author charles.zhou
+ * @date   2020-07-23 13:58:34
  */
 public interface IExtProcessStatusRepository {
 

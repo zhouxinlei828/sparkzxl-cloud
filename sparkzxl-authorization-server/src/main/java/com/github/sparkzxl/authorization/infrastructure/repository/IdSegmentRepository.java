@@ -14,8 +14,8 @@ import java.util.Date;
 /**
  * description: 序列生成仓储实现类
  *
- * @author: zhouxinlei
- * @date: 2021-02-20 17:38:32
+ * @author charles.zhou
+ * @date   2021-02-20 17:38:32
  */
 @Repository
 public class IdSegmentRepository implements IIdSegmentRepository {

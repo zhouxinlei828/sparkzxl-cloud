@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * description: 流程状态记录 服务类
  *
- * @author: zhouxinlei
- * @date: 2020-07-17 13:21:47
+ * @author charles.zhou
+ * @date   2020-07-17 13:21:47
  */
 public interface IExtProcessStatusService extends SuperCacheService<ExtProcessStatus> {
 

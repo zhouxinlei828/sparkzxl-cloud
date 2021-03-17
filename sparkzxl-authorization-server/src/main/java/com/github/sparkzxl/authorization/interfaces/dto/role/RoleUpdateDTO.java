@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 /**
  * description：角色更新对象
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020/6/16 0016
  */
 @Data

@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 /**
  * description: 流程详细节点
  *
- * @author: zhouxinlei
- * @date: 2020-07-21 14:20:50
+ * @author charles.zhou
+ * @date   2020-07-21 14:20:50
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

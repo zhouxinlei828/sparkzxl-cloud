@@ -16,7 +16,7 @@ import java.util.Scanner;
 /**
  * description: 代码生成类
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-05-24 12:20:58
  */
 public class MybatisPlusGenerator {
@@ -27,7 +27,7 @@ public class MybatisPlusGenerator {
      * @param tip
      * @return String[]
      * @throws
-     * @author zhouxinlei
+     * @author charles.zhou
      * @date 2020-04-12 14:06:32
      */
     public static String[] scanner(String tip) {

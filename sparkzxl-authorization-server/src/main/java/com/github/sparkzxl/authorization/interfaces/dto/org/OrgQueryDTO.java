@@ -8,8 +8,8 @@ import org.hibernate.validator.constraints.Length;
 /**
  * description: 组织查询对象
  *
- * @author: zhouxinlei
- * @date: 2020-07-28 10:21:46
+ * @author charles.zhou
+ * @date   2020-07-28 10:21:46
  */
 @Data
 @ApiModel("组织查询对象")

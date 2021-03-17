@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * description: 资源管理
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-06-07 13:39:30
  */
 @RestController

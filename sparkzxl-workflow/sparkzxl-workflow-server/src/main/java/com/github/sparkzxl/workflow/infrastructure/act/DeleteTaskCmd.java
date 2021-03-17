@@ -9,8 +9,8 @@ import org.activiti.engine.impl.persistence.entity.TaskEntityManagerImpl;
 /**
  * description: 删除任务
  *
- * @author: zhouxinlei
- * @date: 2020-07-21 10:39:56
+ * @author charles.zhou
+ * @date   2020-07-21 10:39:56
  */
 public class DeleteTaskCmd extends NeedsActiveTaskCmd<String> {
 

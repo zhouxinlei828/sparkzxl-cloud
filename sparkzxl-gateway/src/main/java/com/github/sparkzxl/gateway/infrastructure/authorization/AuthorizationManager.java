@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 /**
  * description: 鉴权管理器，用于判断是否有资源的访问权限
  *
- * @author: zhouxinlei
- * @date: 2020-08-02 18:00:02
+ * @author charles.zhou
+ * @date   2020-08-02 18:00:02
  */
 @Component
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {

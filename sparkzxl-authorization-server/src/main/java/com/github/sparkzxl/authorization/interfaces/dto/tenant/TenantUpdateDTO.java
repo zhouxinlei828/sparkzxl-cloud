@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 /**
  * description: 租户更新对象
  *
- * @author: zhouxinlei
- * @date: 2020-07-27 19:49:46
+ * @author charles.zhou
+ * @date   2020-07-27 19:49:46
  */
 @Data
 @ApiModel(value = "租户更新对象")

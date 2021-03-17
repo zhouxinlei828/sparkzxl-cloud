@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 /**
  * description: activiti在线流程设计 服务类
  *
- * @author: zhouxinlei
- * @date: 2020-07-17 14:30:32
+ * @author charles.zhou
+ * @date   2020-07-17 14:30:32
  */
 public interface IModelService {
 

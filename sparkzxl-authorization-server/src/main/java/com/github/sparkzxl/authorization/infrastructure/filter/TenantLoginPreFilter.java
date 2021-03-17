@@ -14,8 +14,8 @@ import java.io.IOException;
 /**
  * description: 多租户模式登录前置过滤器
  *
- * @author: zhouxinlei
- * @date: 2021-02-25 10:53:03
+ * @author charles.zhou
+ * @date   2021-02-25 10:53:03
  */
 @Component
 public class TenantLoginPreFilter extends OncePerRequestFilter {

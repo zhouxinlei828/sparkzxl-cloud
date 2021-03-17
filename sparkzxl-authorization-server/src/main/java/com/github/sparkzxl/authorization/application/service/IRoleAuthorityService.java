@@ -9,7 +9,7 @@ import com.github.sparkzxl.database.base.service.SuperCacheService;
  * 角色的资源 服务类
  * </p>
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @since 2020-07-19
  */
 public interface IRoleAuthorityService extends SuperCacheService<RoleAuthority> {

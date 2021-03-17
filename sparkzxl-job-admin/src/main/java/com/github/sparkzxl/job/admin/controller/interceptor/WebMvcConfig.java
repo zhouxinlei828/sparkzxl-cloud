@@ -9,8 +9,8 @@ import javax.annotation.Resource;
 /**
  * description: web mvc config
  *
- * @author: zhouxinlei
- * @date: 2021-03-12 15:38:39
+ * @author charles.zhou
+ * @date   2021-03-12 15:38:39
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {

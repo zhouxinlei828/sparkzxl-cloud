@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * description: 模型控制 服务类
  *
- * @author: zhouxinlei
- * @date: 2020-07-17 14:49:49
+ * @author charles.zhou
+ * @date   2020-07-17 14:49:49
  */
 public interface IModelerService {
 

@@ -19,8 +19,8 @@ import java.util.List;
 /**
  * description: 资源服务器
  *
- * @author: zhouxinlei
- * @date: 2021-02-01 11:30:00
+ * @author charles.zhou
+ * @date   2021-02-01 11:30:00
  */
 @Configuration
 @EnableResourceServer

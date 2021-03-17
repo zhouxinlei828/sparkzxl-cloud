@@ -10,8 +10,8 @@ import javax.sql.DataSource;
 /**
  * description:
  *
- * @author: zhouxinlei
- * @date: 2020-12-06 18:49:35
+ * @author charles.zhou
+ * @date   2020-12-06 18:49:35
 */
 @Configuration
 public class DataSourceProxyConfig {

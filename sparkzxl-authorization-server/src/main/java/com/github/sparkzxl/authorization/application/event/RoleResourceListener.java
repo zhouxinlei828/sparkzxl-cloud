@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 /**
  * description: 权限资源变更事件监听，用于调整具体的业务
  *
- * @author: zhouxinlei
- * @date: 2021-03-08 14:19:51
+ * @author charles.zhou
+ * @date   2021-03-08 14:19:51
  */
 @Component
 @Slf4j

@@ -14,8 +14,8 @@ import java.io.Serializable;
 /**
  * description: 流程用户信息
  *
- * @author: zhouxinlei
- * @date: 2021-01-08 16:47:21
+ * @author charles.zhou
+ * @date   2021-01-08 16:47:21
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

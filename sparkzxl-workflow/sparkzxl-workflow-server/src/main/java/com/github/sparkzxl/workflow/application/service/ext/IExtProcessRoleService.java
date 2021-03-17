@@ -6,8 +6,8 @@ import com.github.sparkzxl.workflow.infrastructure.entity.ExtProcessRole;
 /**
  * description: 流程角色 服务类
  *
- * @author: zhouxinlei
- * @date: 2021-01-08 17:05:32
+ * @author charles.zhou
+ * @date   2021-01-08 17:05:32
  */
 public interface IExtProcessRoleService extends IService<ExtProcessRole> {
 

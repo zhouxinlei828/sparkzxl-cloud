@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 /**
  * description: 文件分页查询入参
  *
- * @author: zhouxinlei
- * @date: 2021-01-03 14:32:09
+ * @author charles.zhou
+ * @date   2021-01-03 14:32:09
  */
 @ApiModel("文件分页查询入参")
 @EqualsAndHashCode(callSuper = true)

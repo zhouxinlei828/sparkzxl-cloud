@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * description: 流程跳转规则Mapper 接口
  *
- * @author: zhouxinlei
- * @date: 2020-07-17 13:16:16
+ * @author charles.zhou
+ * @date   2020-07-17 13:16:16
  */
 @Repository
 public interface ExtProcessTaskRuleMapper extends SuperMapper<ExtProcessTaskRule> {

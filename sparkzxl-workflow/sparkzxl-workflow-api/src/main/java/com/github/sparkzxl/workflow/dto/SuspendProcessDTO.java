@@ -7,8 +7,8 @@ import lombok.Data;
 /**
  * description:挂起流程入参
  *
- * @author: zhouxinlei
- * @date: 2020-10-01 19:52:24
+ * @author charles.zhou
+ * @date   2020-10-01 19:52:24
  */
 @Data
 @ApiModel("挂起流程入参")

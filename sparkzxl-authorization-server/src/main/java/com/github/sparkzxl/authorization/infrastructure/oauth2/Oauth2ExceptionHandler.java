@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * description: oauth 异常处理
  *
- * @author: zhouxinlei
- * @date: 2020-08-03 12:42:19
+ * @author charles.zhou
+ * @date   2020-08-03 12:42:19
  */
 @ControllerAdvice
 @RestController

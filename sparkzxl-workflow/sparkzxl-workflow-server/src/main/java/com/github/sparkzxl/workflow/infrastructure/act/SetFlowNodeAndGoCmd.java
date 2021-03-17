@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * description: 自由跳转节点
  *
- * @author: zhouxinlei
- * @date: 2020-07-21 16:03:19
+ * @author charles.zhou
+ * @date   2020-07-21 16:03:19
  */
 public class SetFlowNodeAndGoCmd implements Command<Void> {
 

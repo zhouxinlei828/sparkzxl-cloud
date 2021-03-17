@@ -8,8 +8,8 @@ import java.util.Arrays;
 /**
  * description: 关闭资源工具类
  *
- * @author: zhouxinlei
- * @date: 2020-07-17 15:30:12
+ * @author charles.zhou
+ * @date   2020-07-17 15:30:12
  */
 public final class CloseableUtils {
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * description: oss属性配置
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-05-24 12:39:43
  */
 @Data

@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * description: 历史流程记录 仓储类
  *
- * @author: zhouxinlei
- * @date: 2020-07-23 17:12:59
+ * @author charles.zhou
+ * @date   2020-07-23 17:12:59
  */
 public interface IExtHiTaskStatusRepository {
     /**

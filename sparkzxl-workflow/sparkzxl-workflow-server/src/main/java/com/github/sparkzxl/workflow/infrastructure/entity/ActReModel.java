@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 /**
  * description: 模型对象
  *
- * @author: zhouxinlei
- * @date: 2020-07-25 11:12:50
+ * @author charles.zhou
+ * @date   2020-07-25 11:12:50
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

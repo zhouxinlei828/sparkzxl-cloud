@@ -57,8 +57,8 @@ import static io.vavr.API.Case;
 /**
  * description：授权登录 服务实现类
  *
- * @author： zhouxinlei
- * @date： 2020-06-24 14:50:40
+ * @author charles.zhou
+ * @date 2020-06-24 14:50:40
  */
 @Service
 @Slf4j

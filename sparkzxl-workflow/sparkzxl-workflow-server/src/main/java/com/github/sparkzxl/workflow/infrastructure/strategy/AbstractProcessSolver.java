@@ -6,8 +6,8 @@ import com.github.sparkzxl.workflow.dto.DriverResult;
 /**
  * description: 抽象业务处理器
  *
- * @author: zhouxinlei
- * @date: 2020-07-20 16:09:28
+ * @author charles.zhou
+ * @date   2020-07-20 16:09:28
  */
 public abstract class AbstractProcessSolver {
     /**

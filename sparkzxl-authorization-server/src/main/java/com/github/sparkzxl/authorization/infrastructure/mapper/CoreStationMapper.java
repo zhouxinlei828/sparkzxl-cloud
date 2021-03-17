@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 /**
  * description: 岗位 Mapper 接口
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-06-07 13:30:19
  */
 @Repository

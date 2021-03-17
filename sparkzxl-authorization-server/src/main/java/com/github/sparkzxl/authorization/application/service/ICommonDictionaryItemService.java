@@ -12,8 +12,8 @@ import java.util.Set;
 /**
  * description: 字典项 服务类
  *
- * @author: zhouxinlei
- * @date: 2020-07-28 19:42:04
+ * @author charles.zhou
+ * @date   2020-07-28 19:42:04
  */
 public interface ICommonDictionaryItemService extends SuperCacheService<CommonDictionaryItem> {
 

@@ -6,8 +6,8 @@ import lombok.Data;
 /**
  * description: 元数据
  *
- * @author: zhouxinlei
- * @date: 2020-07-25 13:22:27
+ * @author charles.zhou
+ * @date   2020-07-25 13:22:27
  */
 @Data
 @ApiModel(value = "元数据")

@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 /**
  * description: 应用 仓储实现类
  *
- * @author: zhouxinlei
- * @date: 2021-03-06 19:23:56
+ * @author charles.zhou
+ * @date   2021-03-06 19:23:56
  */
 @Repository
 public class AuthApplicationRepository implements IAuthApplicationRepository {

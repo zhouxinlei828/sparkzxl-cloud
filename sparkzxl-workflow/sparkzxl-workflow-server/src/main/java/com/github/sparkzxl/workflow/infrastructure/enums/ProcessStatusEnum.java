@@ -8,8 +8,8 @@ import lombok.Getter;
 /**
  * description: 流程状态枚举类
  *
- * @author: zhouxinlei
- * @date: 2020-07-23 13:09:34
+ * @author charles.zhou
+ * @date   2020-07-23 13:09:34
  */
 @Getter
 @AllArgsConstructor

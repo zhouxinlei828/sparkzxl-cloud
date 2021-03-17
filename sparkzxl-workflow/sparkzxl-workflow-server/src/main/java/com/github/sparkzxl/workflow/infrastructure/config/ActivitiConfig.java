@@ -18,8 +18,8 @@ import java.io.IOException;
 /**
  * description: Activiti配置
  *
- * @author: zhouxinlei
- * @date: 2020-07-17 14:01:53
+ * @author charles.zhou
+ * @date   2020-07-17 14:01:53
 */
 @Configuration
 public class ActivitiConfig extends AbstractProcessEngineAutoConfiguration {

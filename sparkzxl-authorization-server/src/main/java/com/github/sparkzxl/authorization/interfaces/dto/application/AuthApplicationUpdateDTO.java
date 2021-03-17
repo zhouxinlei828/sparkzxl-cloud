@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull;
 /**
  * description: 应用更新DTO
  *
- * @author: zhouxinlei
- * @date: 2021-02-02 14:53:04
+ * @author charles.zhou
+ * @date   2021-02-02 14:53:04
  */
 @Data
 @ApiModel("应用更新DTO")

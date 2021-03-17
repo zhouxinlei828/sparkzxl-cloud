@@ -19,8 +19,8 @@ import java.util.List;
 /**
  * description: 租户客户端服务实现类
  *
- * @author: zhouxinlei
- * @date: 2021-02-20 09:44:43
+ * @author charles.zhou
+ * @date   2021-02-20 09:44:43
  */
 @Service
 public class AuthApplicationServiceServiceImpl extends SuperCacheServiceImpl<AuthApplicationMapper, AuthApplication> implements IAuthApplicationService {

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 /**
  * description: 文件素材实体类
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-05-24 12:38:24
  */
 @Data

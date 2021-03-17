@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * description: 租户仓储类
  *
- * @author: zhouxinlei
- * @date: 2021-02-14 10:11:05
+ * @author charles.zhou
+ * @date   2021-02-14 10:11:05
  */
 public interface ITenantInfoRepository {
 

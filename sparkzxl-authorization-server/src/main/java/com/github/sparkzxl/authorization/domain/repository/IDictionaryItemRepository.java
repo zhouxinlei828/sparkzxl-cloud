@@ -8,8 +8,8 @@ import java.util.Set;
 /**
  * description: 字典项仓储类
  *
- * @author: zhouxinlei
- * @date: 2021-03-06 20:55:19
+ * @author charles.zhou
+ * @date   2021-03-06 20:55:19
  */
 public interface IDictionaryItemRepository {
 

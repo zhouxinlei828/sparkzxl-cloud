@@ -8,8 +8,8 @@ import org.mapstruct.factory.Mappers;
 /**
  * description: ExtProcessStatusConvert
  *
- * @author: zhouxinlei
- * @date: 2020-12-18 09:15:51
+ * @author charles.zhou
+ * @date   2020-12-18 09:15:51
 */
 @Mapper
 public interface ExtProcessStatusConvert {

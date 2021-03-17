@@ -5,8 +5,8 @@ import java.awt.*;
 /**
  * description: 流程常量
  *
- * @author: zhouxinlei
- * @date: 2020-07-23 13:25:17
+ * @author charles.zhou
+ * @date   2020-07-23 13:25:17
  */
 public final class WorkflowConstants {
 

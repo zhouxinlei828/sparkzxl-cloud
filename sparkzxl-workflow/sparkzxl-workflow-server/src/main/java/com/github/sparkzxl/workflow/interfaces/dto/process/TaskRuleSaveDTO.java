@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 /**
  * description:
  *
- * @author: zhouxinlei
- * @date: 2020-07-21 14:56:57
+ * @author charles.zhou
+ * @date   2020-07-21 14:56:57
  */
 @Data
 @ApiModel(value = "TaskRule保存对象", description = "")

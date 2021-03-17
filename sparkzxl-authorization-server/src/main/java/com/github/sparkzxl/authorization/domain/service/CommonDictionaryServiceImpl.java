@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 /**
  * description: 字典类型 服务实现类
  *
- * @author: zhouxinlei
- * @date: 2020-07-28 19:44:24
+ * @author charles.zhou
+ * @date   2020-07-28 19:44:24
  */
 @Service
 public class CommonDictionaryServiceImpl extends SuperCacheServiceImpl<CommonDictionaryMapper, CommonDictionary> implements ICommonDictionaryService {

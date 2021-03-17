@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * description: 资源配置
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-05-24 12:16:52
  */
 @Component

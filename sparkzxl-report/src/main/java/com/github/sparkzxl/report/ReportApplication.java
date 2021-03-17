@@ -10,8 +10,8 @@ import org.springframework.core.env.Environment;
 /**
  * description: 报表启动类
  *
- * @author: zhouxinlei
- * @date: 2021-03-12 17:44:32
+ * @author charles.zhou
+ * @date   2021-03-12 17:44:32
  */
 @SpringBootApplication(scanBasePackages = {"org.jeecg.modules.jmreport"})
 public class ReportApplication extends SparkBootApplication {

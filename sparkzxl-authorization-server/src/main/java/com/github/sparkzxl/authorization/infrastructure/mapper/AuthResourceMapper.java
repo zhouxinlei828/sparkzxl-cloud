@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * description: 资源 Mapper 接口
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-06-07 13:29:12
  */
 @Repository

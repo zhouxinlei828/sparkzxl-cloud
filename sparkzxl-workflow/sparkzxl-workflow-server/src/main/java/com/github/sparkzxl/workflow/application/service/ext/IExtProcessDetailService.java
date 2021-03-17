@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * description: 流程详细节点 服务类
  *
- * @author: zhouxinlei
- * @date: 2020-07-21 14:22:03
+ * @author charles.zhou
+ * @date   2020-07-21 14:22:03
  */
 public interface IExtProcessDetailService extends SuperCacheService<ExtProcessDetail> {
 

@@ -37,8 +37,8 @@ import java.util.Optional;
 /**
  * description: 授权服务器配置
  *
- * @author: zhouxinlei
- * @date: 2021-02-23 14:13:03
+ * @author charles.zhou
+ * @date   2021-02-23 14:13:03
  */
 @Configuration
 @EnableAuthorizationServer
@@ -129,8 +129,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerSecurityConfigurer securityConfigurer) {
         securityConfigurer.allowFormAuthenticationForClients()
-                .checkTokenAccess("isAuthenticated()")
-                .tokenKeyAccess("isAuthenticated()");
+                .tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()");
     }
 
     @Bean

@@ -15,8 +15,8 @@ import java.util.List;
 /**
  * description: 用户基本信息显示层对象
  *
- * @author: zhouxinlei
- * @date: 2020-12-27 11:08:49
+ * @author charles.zhou
+ * @date   2020-12-27 11:08:49
  */
 @Data
 public class AuthUserBasicVO {

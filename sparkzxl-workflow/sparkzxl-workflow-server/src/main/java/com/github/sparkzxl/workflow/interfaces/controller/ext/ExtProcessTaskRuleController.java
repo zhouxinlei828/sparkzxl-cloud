@@ -17,8 +17,8 @@ import java.util.List;
 /**
  * description:流程流向管理
  *
- * @author: zhouxinlei
- * @date: 2020-07-21 15:44:59
+ * @author charles.zhou
+ * @date   2020-07-21 15:44:59
  */
 @RestController
 @ResponseResult

@@ -7,8 +7,8 @@ import java.io.Serializable;
 /**
  * description: 角色路径
  *
- * @author: zhouxinlei
- * @date: 2020-08-02 22:02:47
+ * @author charles.zhou
+ * @date   2020-08-02 22:02:47
  */
 @Data
 public class RoleResource implements Serializable {

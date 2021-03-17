@@ -15,8 +15,8 @@ import java.util.concurrent.ConcurrentMap;
  * a、LFU(Least Frequently Used)：最不经常使用，频率/次数
  * b(*)、LRU(Least Recently Used)：最近最久未使用，时间
  *
- * @author: zhouxinlei
- * @date: 2021-03-12 16:13:03
+ * @author charles.zhou
+ * @date   2021-03-12 16:13:03
  */
 public class ExecutorRouteLRU extends ExecutorRouter {
 

@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 /**
  * description: 角色的资源 服务实现类
  *
- * @author: zhouxinlei
- * @date: 2020-07-19 20:59:45
+ * @author charles.zhou
+ * @date   2020-07-19 20:59:45
  */
 @Service
 public class RoleAuthorityServiceImpl extends SuperCacheServiceImpl<RoleAuthorityMapper, RoleAuthority> implements IRoleAuthorityService {

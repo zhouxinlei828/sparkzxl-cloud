@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * description: 组织 服务类
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-06-07 13:32:24
  */
 public interface ICoreOrgService extends SuperCacheService<CoreOrg> {

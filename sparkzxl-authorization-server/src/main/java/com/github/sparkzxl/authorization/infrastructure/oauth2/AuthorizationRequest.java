@@ -7,8 +7,8 @@ import lombok.Data;
 /**
  * description:
  *
- * @author: zhouxinlei
- * @date: 2020-08-04 15:26:10
+ * @author charles.zhou
+ * @date   2020-08-04 15:26:10
  */
 @Data
 @ApiModel(value = "授权请求参数")

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * description: 菜单 仓储类
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-06-07 13:31:12
  */
 public interface IAuthMenuRepository {

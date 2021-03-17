@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 /**
  * description: 流程实例实体类
  *
- * @author: zhouxinlei
- * @date: 2020-07-27 10:04:02
+ * @author charles.zhou
+ * @date   2020-07-27 10:04:02
  */
 @Data
 @ApiModel(value = "流程实例对象", description = "")

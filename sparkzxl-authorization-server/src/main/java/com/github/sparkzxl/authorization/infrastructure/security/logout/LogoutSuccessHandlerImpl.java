@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * description: 退出登录成功处理
  *
- * @author zhouxinlei
+ * @author charles.zhou
  */
 @Slf4j
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
@@ -39,10 +39,10 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
                 tokenStore.removeRefreshToken(accessToken.getRefreshToken());
             }
         }
-        Cookie[] cookies = httpServletRequest.getCookies();
-        for (Cookie cookie : cookies) {
-            System.out.println(cookie.getName());
-        }
+        Cookie cookie = new Cookie("JSESSIONID", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/authentication");
+        httpServletResponse.addCookie(cookie);
         ResponseResultUtils.writeResponseOutMsg(httpServletResponse, 200, "退出登录成功", true);
     }
 }

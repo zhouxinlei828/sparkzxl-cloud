@@ -8,8 +8,8 @@ import java.util.Map;
 /**
  * description: 驱动参数
  *
- * @author: zhouxinlei
- * @date: 2020-12-04 20:46:15
+ * @author charles.zhou
+ * @date   2020-12-04 20:46:15
  */
 @Data
 @Builder

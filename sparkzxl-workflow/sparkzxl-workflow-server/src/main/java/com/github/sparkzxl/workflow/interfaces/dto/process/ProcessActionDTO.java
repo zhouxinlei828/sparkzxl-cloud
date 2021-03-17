@@ -8,8 +8,8 @@ import lombok.Data;
 /**
  * description:流程动作类型
  *
- * @author: zhouxinlei
- * @date: 2020-07-28 11:40:39
+ * @author charles.zhou
+ * @date   2020-07-28 11:40:39
  */
 @Data
 @Builder

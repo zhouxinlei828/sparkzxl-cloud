@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * description: 字典类型管理
  *
- * @author: zhouxinlei
- * @date: 2020-07-28 19:48:00
+ * @author charles.zhou
+ * @date   2020-07-28 19:48:00
  */
 @RestController
 @ResponseResult

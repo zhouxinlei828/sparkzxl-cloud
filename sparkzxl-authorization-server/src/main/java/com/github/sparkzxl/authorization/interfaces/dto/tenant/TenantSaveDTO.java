@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 /**
  * description: 租户保存对象
  *
- * @author: zhouxinlei
- * @date: 2020-07-27 19:49:46
+ * @author charles.zhou
+ * @date   2020-07-27 19:49:46
  */
 @Data
 @ApiModel(value = "租户保存对象")

@@ -33,8 +33,8 @@ import java.util.List;
 /**
  * description: 安全认证
  *
- * @author: zhouxinlei
- * @date: 2021-02-23 14:19:05
+ * @author charles.zhou
+ * @date   2021-02-23 14:19:05
  */
 @Configuration
 @EnableWebSecurity

@@ -26,8 +26,8 @@ import java.util.Map;
 /**
  * description: 异常处理（json）
  *
- * @author: zhouxinlei
- * @date: 2020-12-10 11:17:23
+ * @author charles.zhou
+ * @date   2020-12-10 11:17:23
 */
 @Slf4j
 public class JsonExceptionHandler implements ErrorWebExceptionHandler {

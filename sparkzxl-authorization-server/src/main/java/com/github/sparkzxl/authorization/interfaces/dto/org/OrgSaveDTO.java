@@ -9,8 +9,8 @@ import org.hibernate.validator.constraints.Length;
 /**
  * description: 组织保存实体类
  *
- * @author: zhouxinlei
- * @date: 2020-07-28 10:21:46
+ * @author charles.zhou
+ * @date   2020-07-28 10:21:46
  */
 @Data
 @NoArgsConstructor

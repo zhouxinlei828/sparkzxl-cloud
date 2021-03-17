@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * description: 文件API
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-05-24 12:27:04
  */
 public interface FileApi {

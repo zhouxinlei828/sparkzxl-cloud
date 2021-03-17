@@ -3,8 +3,8 @@ package com.github.sparkzxl.authorization.infrastructure.constant;
 /**
  * description: 缓存常量
  *
- * @author: zhouxinlei
- * @date: 2020-07-28 11:01:07
+ * @author charles.zhou
+ * @date   2020-07-28 11:01:07
  */
 public class CacheConstant {
 

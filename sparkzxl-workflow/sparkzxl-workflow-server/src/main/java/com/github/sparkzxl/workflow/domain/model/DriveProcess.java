@@ -5,8 +5,8 @@ import lombok.Data;
 /**
  * description: 流程驱动model
  *
- * @author: zhouxinlei
- * @date: 2020-07-20 16:11:51
+ * @author charles.zhou
+ * @date   2020-07-20 16:11:51
  */
 @Data
 public class DriveProcess {

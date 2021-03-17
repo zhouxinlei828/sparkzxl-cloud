@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
 /**
  * description: 字典项 服务实现类
  *
- * @author: zhouxinlei
- * @date: 2020-07-28 19:43:58
+ * @author charles.zhou
+ * @date   2020-07-28 19:43:58
  */
 @Service
 public class CommonDictionaryItemServiceImpl extends SuperCacheServiceImpl<CommonDictionaryItemMapper, CommonDictionaryItem> implements ICommonDictionaryItemService {

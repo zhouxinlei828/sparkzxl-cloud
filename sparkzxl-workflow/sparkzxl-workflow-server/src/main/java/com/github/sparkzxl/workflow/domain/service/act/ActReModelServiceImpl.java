@@ -18,8 +18,8 @@ import java.util.List;
 /**
  * description: 模型 服务实现类
  *
- * @author: zhouxinlei
- * @date: 2020-07-25 11:14:57
+ * @author charles.zhou
+ * @date   2020-07-25 11:14:57
  */
 @Service
 public class ActReModelServiceImpl extends SuperCacheServiceImpl<ActReModelMapper, ActReModel> implements IActReModelService {

@@ -6,8 +6,8 @@ import lombok.Data;
 /**
  * description: 岗位Excel实体类
  *
- * @author: zhouxinlei
- * @date: 2021-01-04 15:24:30
+ * @author charles.zhou
+ * @date   2021-01-04 15:24:30
  */
 @Data
 public class StationExcel {

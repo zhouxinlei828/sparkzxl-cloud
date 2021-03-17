@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 /**
  * description: id序列生成
  *
- * @author: zhouxinlei
- * @date: 2021-02-14 10:33:10
+ * @author charles.zhou
+ * @date   2021-02-14 10:33:10
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

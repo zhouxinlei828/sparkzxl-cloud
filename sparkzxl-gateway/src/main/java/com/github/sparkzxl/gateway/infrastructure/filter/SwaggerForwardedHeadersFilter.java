@@ -18,7 +18,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
 /**
  * description: SwaggerXForwardedHeadersFilter
  *
- * @author zhouxinlei
+ * @author charles.zhou
  * @date 2020-05-24 12:14:52
  */
 @Component

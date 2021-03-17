@@ -11,8 +11,8 @@ import java.io.Serializable;
 /**
  * description: 菜单基本信息
  *
- * @author: zhouxinlei
- * @date: 2020-08-17 11:39:25
+ * @author charles.zhou
+ * @date   2020-08-17 11:39:25
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
