@@ -220,12 +220,12 @@
                             <image>registry.cn-hangzhou.aliyuncs.com/sparkzxl/jdk:1.8</image>
                         </from>
                         <to>
-                            <image>harbor.en2hr.com:8084/hongneng/${project.artifactId}</image>
+                            <image>registry.cn-hangzhou.aliyuncs.com/sparkzxl/${project.artifactId}</image>
                             <tags>
-                                <tag>dev-${project.version}</tag>
+                                <tag>${project.version}</tag>
                             </tags>
                             <auth>
-                                <username>zhouxinlei</username>
+                                <username>仲秋廿八298</username>
                                 <password>Zxl298828</password>
                             </auth>
                         </to>

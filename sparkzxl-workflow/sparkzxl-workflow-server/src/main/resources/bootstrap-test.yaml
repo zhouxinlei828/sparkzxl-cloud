@@ -1,15 +1,17 @@
 server:
   shutdown: graceful
-  port: 8800
-  undertow:
-    buffer-size: 1024
-    direct-buffers: on
-    always-set-keep-alive: true
+  port: 8802
 spring:
   application:
-    name: sparkzxl-gateway
+    name: sparkzxl-workflow-server
   lifecycle:
     timeout-per-shutdown-phase: 30s
+  freemarker:
+    enabled: true
+    content-type: text/html
+    charset: utf-8
+    template-loader-path: classpath:/templates/
+    suffix: .ftl
   cloud:
     nacos:
       discovery:
@@ -29,6 +31,12 @@ spring:
             refresh: false
         enable-remote-sync-config: true
         refresh-enabled: true
+  redis:
+    redisson: redisson.yaml
 logging:
-  file:
-    path: /logs/${spring.application.name}
+  level:
+    com.github.sparkzxl.workflow.infrastructure.mapper: debug
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}

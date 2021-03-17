@@ -48,6 +48,10 @@ public class AuthApplicationRepository implements IAuthApplicationRepository {
             application.setClientId(oauthClientDetails.getClientId());
             oauthClientDetailsRepository.saveOauthClientDetails(oauthClientDetails);
         }
+        String tenant = BaseContextHandler.getTenant();
+        if (StringUtils.isNotEmpty(tenant)) {
+            application.setTenantCode(tenant);
+        }
         authApplicationMapper.insert(application);
         return true;
     }
@@ -98,6 +102,10 @@ public class AuthApplicationRepository implements IAuthApplicationRepository {
             application.setOriginalClientSecret(oauthClientDetails.getClientSecret());
             application.setClientId(oauthClientDetails.getClientId());
             oauthClientDetailsRepository.updateOauthClientDetails(oauthClientDetails);
+        }
+        String tenant = BaseContextHandler.getTenant();
+        if (StringUtils.isNotEmpty(tenant)) {
+            application.setTenantCode(tenant);
         }
         authApplicationMapper.updateById(application);
         return true;
