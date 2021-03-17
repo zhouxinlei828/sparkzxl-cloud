@@ -17,6 +17,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
         <jib-maven-plugin.version>2.5.0</jib-maven-plugin.version>
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
@@ -77,7 +78,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
+           <dependency>
                 <groupId>com.github.sparkzxl</groupId>
                 <artifactId>sparkzxl-file-api</artifactId>
                 <version>${project.version}</version>
@@ -136,6 +137,11 @@
                                 <version>${lombok.version}</version>
                             </path>
                         </annotationProcessorPaths>
+                        <compilerArgs>
+                            <arg>
+                                -Amapstruct.verbose=true
+                            </arg>
+                        </compilerArgs>
                     </configuration>
                 </plugin>
                 <!-- resources资源插件 -->
@@ -197,6 +203,11 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
                 </plugin>
                 <!-- 打包 -->
                 <plugin>
@@ -277,15 +288,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-            </plugin>
-            <!-- 打包 -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
