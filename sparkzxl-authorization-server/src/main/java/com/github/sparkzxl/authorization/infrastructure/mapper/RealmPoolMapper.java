@@ -1,6 +1,6 @@
 package com.github.sparkzxl.authorization.infrastructure.mapper;
 
-import com.github.sparkzxl.authorization.infrastructure.entity.TenantInfo;
+import com.github.sparkzxl.authorization.infrastructure.entity.RealmPool;
 import com.github.sparkzxl.database.base.mapper.SuperMapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @date   2021-02-02 16:09:50
  */
 @Repository
-public interface TenantInfoMapper extends SuperMapper<TenantInfo> {
+public interface RealmPoolMapper extends SuperMapper<RealmPool> {
 
 }

@@ -28,13 +28,13 @@ import java.util.stream.Collectors;
  * description: 领域池仓储实现类
  *
  * @author charles.zhou
- * @date   2021-02-14 10:13:48
+ * @date 2021-02-14 10:13:48
  */
 @Repository
-public class TenantInfoRepository implements ITenantInfoRepository {
+public class RealmPoolRepository implements IRealmPoolRepository {
 
     @Autowired
-    private TenantInfoMapper tenantMapper;
+    private RealmPoolMapper realmPoolMapper;
     @Autowired
     private IIdSegmentRepository segmentRepository;
     @Autowired
@@ -63,17 +63,17 @@ public class TenantInfoRepository implements ITenantInfoRepository {
     private CommonDictionaryItemMapper dictionaryItemMapper;
 
     @Override
-    public PageInfo<TenantInfo> getTenantPageList(int pageNum, int pageSize, String code, String name) {
-        LambdaQueryWrapper<TenantInfo> tenantLambdaQueryWrapper = new LambdaQueryWrapper<>();
+    public PageInfo<RealmPool> getRealmPoolPageList(int pageNum, int pageSize, String code, String name) {
+        LambdaQueryWrapper<RealmPool> tenantLambdaQueryWrapper = new LambdaQueryWrapper<>();
         if (StringUtils.isNotEmpty(code)) {
-            tenantLambdaQueryWrapper.eq(TenantInfo::getCode, code);
+            tenantLambdaQueryWrapper.eq(RealmPool::getCode, code);
         }
         if (StringUtils.isNotEmpty(name)) {
-            tenantLambdaQueryWrapper.likeLeft(TenantInfo::getName, name);
+            tenantLambdaQueryWrapper.likeLeft(RealmPool::getName, name);
         }
-        tenantLambdaQueryWrapper.orderByAsc(TenantInfo::getCode);
+        tenantLambdaQueryWrapper.orderByAsc(RealmPool::getCode);
         PageHelper.startPage(pageNum, pageSize);
-        List<TenantInfo> tenantList = tenantMapper.selectList(tenantLambdaQueryWrapper);
+        List<RealmPool> tenantList = realmPoolMapper.selectList(tenantLambdaQueryWrapper);
         // 初始化管理员账户
         AuthUser authUser = new AuthUser();
         authUser.setAccount("admin");
@@ -85,10 +85,10 @@ public class TenantInfoRepository implements ITenantInfoRepository {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean saveTenant(TenantInfo tenant) {
+    public boolean saveRealmPool(RealmPool realmPool) {
         String tenantCode = segmentRepository.getIdSegment("tenant_code").toString();
-        tenant.setCode(tenantCode);
-        tenantMapper.insert(tenant);
+        realmPool.setCode(tenantCode);
+        realmPoolMapper.insert(realmPool);
         initTenantData(tenantCode);
         return true;
     }
@@ -129,17 +129,17 @@ public class TenantInfoRepository implements ITenantInfoRepository {
     public void initMenuData(String tenantCode) {
         String menuJsonStr = ResourceUtil.readUtf8Str("menu.json");
         List<AuthMenu> authMenus = JSONArray.parseArray(menuJsonStr, AuthMenu.class);
-        authMenuRepository.saveAuthMenus(authMenus,tenantCode);
+        authMenuRepository.saveAuthMenus(authMenus, tenantCode);
     }
 
     @Override
-    public boolean updateTenant(TenantInfo tenant) {
-        return tenantMapper.updateById(tenant) != 0;
+    public boolean updateRealmPool(RealmPool tenant) {
+        return realmPoolMapper.updateById(tenant) != 0;
     }
 
     @Override
-    public boolean deleteTenant(Long tenantId) {
-        TenantInfo tenantInfo = tenantMapper.selectById(tenantId);
+    public boolean deleteRealmPool(Long realmPoolId) {
+        RealmPool tenantInfo = realmPoolMapper.selectById(realmPoolId);
         String tenantCode = tenantInfo.getCode();
         authUserRepository.deleteTenantUser(tenantCode);
         authRoleRepository.deleteAuthRole(tenantCode);
@@ -156,13 +156,13 @@ public class TenantInfoRepository implements ITenantInfoRepository {
         orgMapper.deleteTenantOrg(tenantCode);
         dictionaryMapper.deleteTenantDictionary(tenantCode);
         dictionaryItemMapper.deleteTenantDictionaryItem(tenantCode);
-        return tenantMapper.deleteById(tenantId) != 0;
+        return realmPoolMapper.deleteById(realmPoolId) != 0;
     }
 
     @Override
-    public boolean deleteBatchTenant(List<Long> tenantIds) {
-        if (CollectionUtils.isNotEmpty(tenantIds)){
-            tenantIds.forEach(this::deleteTenant);
+    public boolean deleteBatchRealmPool(List<Long> realmPoolIds) {
+        if (CollectionUtils.isNotEmpty(realmPoolIds)) {
+            realmPoolIds.forEach(this::deleteRealmPool);
         }
         return true;
     }

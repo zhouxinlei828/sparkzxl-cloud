@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @ApiModel(value = "领域池保存对象")
-public class TenantSaveDTO {
+public class RealmPoolSaveDTO {
 
     @ApiModelProperty(value = "领域池名称")
     @NotEmpty(message = "领域池名称不能为空")

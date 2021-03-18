@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel(value = "领域池分页查询对象")
-public class TenantPageDTO extends PageDTO {
+public class RealmPoolPageDTO extends PageDTO {
 
     @ApiModelProperty(value = "领域池编码")
     private String code;

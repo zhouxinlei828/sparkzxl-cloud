@@ -5,10 +5,10 @@ import cn.hutool.core.net.url.UrlPath;
 import cn.hutool.core.util.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.sparkzxl.authorization.application.service.IOauthService;
-import com.github.sparkzxl.authorization.application.service.ITenantInfoService;
+import com.github.sparkzxl.authorization.application.service.IRealmPoolService;
 import com.github.sparkzxl.authorization.application.service.IUserService;
 import com.github.sparkzxl.authorization.infrastructure.constant.CacheConstant;
-import com.github.sparkzxl.authorization.infrastructure.entity.TenantInfo;
+import com.github.sparkzxl.authorization.infrastructure.entity.RealmPool;
 import com.github.sparkzxl.authorization.infrastructure.oauth2.AccessTokenInfo;
 import com.github.sparkzxl.authorization.infrastructure.oauth2.AuthorizationRequest;
 import com.github.sparkzxl.authorization.infrastructure.oauth2.OpenProperties;
@@ -71,7 +71,7 @@ public class OauthServiceImpl implements IOauthService {
     @Autowired
     private IUserService userService;
     @Autowired
-    private ITenantInfoService tenantService;
+    private IRealmPoolService tenantService;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
     @Autowired
@@ -136,7 +136,7 @@ public class OauthServiceImpl implements IOauthService {
         boolean success = true;
         String tenantCode = RequestContextHolderUtils.getHeader(BaseContextConstants.JWT_KEY_TENANT);
         if (StringUtils.isNotEmpty(tenantCode)) {
-            int count = tenantService.count(new LambdaQueryWrapper<TenantInfo>().eq(TenantInfo::getCode, tenantCode));
+            int count = tenantService.count(new LambdaQueryWrapper<RealmPool>().eq(RealmPool::getCode, tenantCode));
             success = count > 0;
         }
         if (!success) {

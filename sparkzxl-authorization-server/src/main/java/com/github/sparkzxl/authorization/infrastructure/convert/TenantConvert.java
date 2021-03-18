@@ -1,8 +1,8 @@
 package com.github.sparkzxl.authorization.infrastructure.convert;
 
-import com.github.sparkzxl.authorization.infrastructure.entity.TenantInfo;
-import com.github.sparkzxl.authorization.interfaces.dto.tenant.TenantSaveDTO;
-import com.github.sparkzxl.authorization.interfaces.dto.tenant.TenantUpdateDTO;
+import com.github.sparkzxl.authorization.infrastructure.entity.RealmPool;
+import com.github.sparkzxl.authorization.interfaces.dto.tenant.RealmPoolSaveDTO;
+import com.github.sparkzxl.authorization.interfaces.dto.tenant.RealmPoolUpdateDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -20,16 +20,16 @@ public interface TenantConvert {
     /**
      * tenantSaveDTO转换为SpTenant
      *
-     * @param tenantSaveDTO 领域池保存对象
+     * @param realmPoolSaveDTO 领域池保存对象
      * @return SpTenant
      */
-    TenantInfo convertTenant(TenantSaveDTO tenantSaveDTO);
+    RealmPool convertRealmPool(RealmPoolSaveDTO realmPoolSaveDTO);
 
     /**
      * tenantUpdateDTO转换为SpTenant
      *
-     * @param tenantUpdateDTO 领域池更新对象
+     * @param realmPoolUpdateDTO 领域池更新对象
      * @return SpTenant
      */
-    TenantInfo convertTenant(TenantUpdateDTO tenantUpdateDTO);
+    RealmPool convertRealmPool(RealmPoolUpdateDTO realmPoolUpdateDTO);
 }

@@ -1,9 +1,8 @@
 package com.github.sparkzxl.authorization.interfaces.controller.oauth;
 
 import com.github.sparkzxl.authorization.application.service.IOauthService;
-import com.github.sparkzxl.authorization.application.service.ITenantInfoService;
+import com.github.sparkzxl.authorization.application.service.IRealmPoolService;
 import com.github.sparkzxl.authorization.infrastructure.oauth2.AccessTokenInfo;
-import com.github.sparkzxl.authorization.infrastructure.oauth2.AuthorizationRequest;
 import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.core.entity.CaptchaInfo;
 import com.github.sparkzxl.log.annotation.WebLog;
@@ -37,7 +36,7 @@ import java.util.Map;
 public class OauthController {
 
     private IOauthService oauthService;
-    private ITenantInfoService tenantInfoService;
+    private IRealmPoolService tenantInfoService;
 
     @Autowired
     public void setOauthService(IOauthService oauthService) {
@@ -45,7 +44,7 @@ public class OauthController {
     }
 
     @Autowired
-    public void setTenantInfoService(ITenantInfoService tenantInfoService) {
+    public void setTenantInfoService(IRealmPoolService tenantInfoService) {
         this.tenantInfoService = tenantInfoService;
     }
 

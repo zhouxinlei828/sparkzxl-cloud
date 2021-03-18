@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @TableName("realm_pool")
 @ApiModel(value = "领域池信息对象", description = "")
-public class TenantInfo extends Entity<Long> {
+public class RealmPool extends Entity<Long> {
 
     private static final long serialVersionUID = -6955056237245642400L;
 

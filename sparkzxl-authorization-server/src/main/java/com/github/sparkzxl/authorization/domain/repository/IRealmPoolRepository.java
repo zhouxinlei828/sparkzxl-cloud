@@ -1,7 +1,7 @@
 package com.github.sparkzxl.authorization.domain.repository;
 
 import com.github.pagehelper.PageInfo;
-import com.github.sparkzxl.authorization.infrastructure.entity.TenantInfo;
+import com.github.sparkzxl.authorization.infrastructure.entity.RealmPool;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @author charles.zhou
  * @date   2021-02-14 10:11:05
  */
-public interface ITenantInfoRepository {
+public interface IRealmPoolRepository {
 
     /**
      * 查询领域池列表
@@ -20,39 +20,39 @@ public interface ITenantInfoRepository {
      * @param pageSize 分页大小
      * @param code     领域池编码
      * @param name     领域池名称
-     * @return PageInfo<TenantInfo>
+     * @return PageInfo<RealmPool>
      */
-    PageInfo<TenantInfo> getTenantPageList(int pageNum, int pageSize, String code, String name);
+    PageInfo<RealmPool> getRealmPoolPageList(int pageNum, int pageSize, String code, String name);
 
     /**
      * 保存领域池信息
      *
-     * @param tenant 领域池信息
+     * @param realmPool 领域池信息
      * @return boolean
      */
-    boolean saveTenant(TenantInfo tenant);
+    boolean saveRealmPool(RealmPool realmPool);
 
     /**
      * 更新领域池信息
      *
-     * @param tenant 领域池信息
+     * @param realmPool 领域池信息
      * @return boolean
      */
-    boolean updateTenant(TenantInfo tenant);
+    boolean updateRealmPool(RealmPool realmPool);
 
     /**
      * 删除领域池信息
      *
-     * @param tenantId 领域池id
+     * @param realmPoolId 领域池id
      * @return boolean
      */
-    boolean deleteTenant(Long tenantId);
+    boolean deleteRealmPool(Long realmPoolId);
 
     /**
      * 批量删除领域池信息
      *
-     * @param tenantIds 领域池ids
+     * @param realmPoolIds 领域池ids
      * @return boolean
      */
-    boolean deleteBatchTenant(List<Long> tenantIds);
+    boolean deleteBatchRealmPool(List<Long> realmPoolIds);
 }
