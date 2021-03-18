@@ -54,7 +54,7 @@ public class InjectionFieldConstants {
     /**
      * 数据字典项 service查询类
      */
-    public static final String DICTIONARY_ITEM_CLASS = "commonDictionaryItemServiceImpl";
+    public static final String DICTIONARY_ITEM_CLASS = "dictionaryItemServiceImpl";
 
     /**
      * 数据字典项 api查询方法

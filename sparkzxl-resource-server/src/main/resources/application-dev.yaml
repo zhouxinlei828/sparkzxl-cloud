@@ -10,6 +10,8 @@ server:
     direct-buffers: on
     always-set-keep-alive: true
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: sparkzxl-resource-server
   lifecycle:
@@ -64,7 +66,7 @@ knife4j:
 security:
   oauth2:
     client:
-      client-id: sparkzxl
+      client-id: sparkzxl-resource
       client-secret: 123456
       user-authorization-uri: http://127.0.0.1:8801/oauth/authorize # 获取用户的授权码地址
       access-token-uri: http://127.0.0.1:8801/oauth/token # 获取访问令牌的地址

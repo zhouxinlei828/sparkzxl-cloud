@@ -1,3 +1,4 @@
+/*
 package com.github.sparkzxl.resource.infrastructure.config;
 
 import com.github.sparkzxl.core.resource.SwaggerStaticResource;
@@ -16,12 +17,14 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 import java.util.List;
 
+*/
 /**
  * description: 资源服务器
  *
  * @author: zhouxinlei
  * @date: 2021-02-01 11:30:00
- */
+ *//*
+
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
@@ -33,7 +36,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.logout().logoutUrl("/logout")
                 .and().authorizeRequests()
                 .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
-                .antMatchers("/user/test").permitAll()
+                .antMatchers("/callback").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
@@ -43,3 +46,4 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/user/**");
     }
 }
+*/

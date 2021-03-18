@@ -83,14 +83,13 @@ public class OauthServiceImpl implements IOauthService {
 
     @SneakyThrows
     @Override
-    public OAuth2AccessToken getAccessToken(Principal principal, AuthorizationRequest authorizationRequest) {
+    public OAuth2AccessToken getAccessToken(Principal principal, Map<String, String> parameters) {
         checkTenantCode();
-        String captcha = authorizationRequest.getCaptchaCode();
+        String captcha = parameters.get("captchaCode");
         if (StringUtils.isNotEmpty(captcha)) {
-            String captchaKey = authorizationRequest.getCaptchaKey();
+            String captchaKey = parameters.get("captchaKey");
             checkCaptcha(captchaKey, captcha);
         }
-        Map<String, String> parameters = builderAccessTokenParameters(authorizationRequest);
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity = tokenEndpoint.getAccessToken(principal, parameters);
         return loginEventAndBack(oAuth2AccessTokenResponseEntity);
     }
@@ -108,14 +107,13 @@ public class OauthServiceImpl implements IOauthService {
 
     @SneakyThrows
     @Override
-    public OAuth2AccessToken postAccessToken(Principal principal, AuthorizationRequest authorizationRequest) {
+    public OAuth2AccessToken postAccessToken(Principal principal, Map<String, String> parameters) {
         checkTenantCode();
-        String captcha = authorizationRequest.getCaptchaCode();
+        String captcha = parameters.get("captchaCode");
         if (StringUtils.isNotEmpty(captcha)) {
-            String captchaKey = authorizationRequest.getCaptchaKey();
+            String captchaKey = parameters.get("captchaKey");
             checkCaptcha(captchaKey, captcha);
         }
-        Map<String, String> parameters = builderAccessTokenParameters(authorizationRequest);
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity = tokenEndpoint.postAccessToken(principal, parameters);
         return loginEventAndBack(oAuth2AccessTokenResponseEntity);
     }

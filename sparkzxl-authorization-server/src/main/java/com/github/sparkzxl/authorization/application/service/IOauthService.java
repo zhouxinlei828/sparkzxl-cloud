@@ -1,40 +1,41 @@
 package com.github.sparkzxl.authorization.application.service;
 
 import com.github.sparkzxl.authorization.infrastructure.oauth2.AccessTokenInfo;
-import com.github.sparkzxl.authorization.infrastructure.oauth2.AuthorizationRequest;
 import com.github.sparkzxl.core.entity.CaptchaInfo;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.Map;
 
 /**
  * description: Oauth认证 服务类
  *
  * @author charles.zhou
- * @date   2020-06-25 09:49:22
+ * @date 2020-06-25 09:49:22
  */
 public interface IOauthService {
 
     /**
      * get请求授权登录
      *
-     * @param principal            认证主体
-     * @param authorizationRequest 认证请求
+     * @param principal  认证主体
+     * @param parameters 认证请求
      * @return OAuth2AccessToken
      * @throws HttpRequestMethodNotSupportedException 请求方法异常
      */
-    OAuth2AccessToken getAccessToken(Principal principal, AuthorizationRequest authorizationRequest) throws HttpRequestMethodNotSupportedException;
+    OAuth2AccessToken getAccessToken(Principal principal, Map<String, String> parameters) throws HttpRequestMethodNotSupportedException;
 
     /**
      * POST请求授权登录
      *
-     * @param principal            认证主体
-     * @param authorizationRequest 认证请求
+     * @param principal  认证主体
+     * @param parameters 认证请求
      * @return OAuth2AccessToken
      * @throws HttpRequestMethodNotSupportedException 请求方法异常
      */
-    OAuth2AccessToken postAccessToken(Principal principal, AuthorizationRequest authorizationRequest) throws HttpRequestMethodNotSupportedException;
+    OAuth2AccessToken postAccessToken(Principal principal, Map<String, String> parameters) throws HttpRequestMethodNotSupportedException;
 
     /**
      * 生成验证码
