@@ -9,20 +9,20 @@ import java.time.LocalDateTime;
 
 
 /**
- * description: 租户更新对象
+ * description: 领域池更新对象
  *
  * @author charles.zhou
  * @date   2020-07-27 19:49:46
  */
 @Data
-@ApiModel(value = "租户更新对象")
+@ApiModel(value = "领域池更新对象")
 public class TenantUpdateDTO {
 
-    @ApiModelProperty(value = "租户id")
-    @NotNull(message = "租户id不能为空")
+    @ApiModelProperty(value = "领域池id")
+    @NotNull(message = "领域池id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "租户名称")
+    @ApiModelProperty(value = "领域池名称")
     private String name;
 
     @ApiModelProperty(value = "状态")
@@ -37,7 +37,7 @@ public class TenantUpdateDTO {
     @ApiModelProperty(value = "logo地址")
     private String logo;
 
-    @ApiModelProperty(value = "租户简介")
+    @ApiModelProperty(value = "领域池简介")
     private String describe;
 
     @ApiModelProperty(value = "用户密码有效期 单位：天 0表示永久有效")

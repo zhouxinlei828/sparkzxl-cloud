@@ -16,9 +16,9 @@ import org.springframework.stereotype.Repository;
 public interface CommonDictionaryMapper extends SuperMapper<CommonDictionary> {
 
     /**
-     * 根据租户code删除字典类型
+     * 根据领域池code删除字典类型
      *
-     * @param tenantCode 租户code
+     * @param tenantCode 领域池code
      */
     @Delete("delete from common_dictionary where tenant_code = #{tenantCode}")
     @InterceptorIgnore(tenantLine = "true")

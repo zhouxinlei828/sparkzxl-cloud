@@ -11,24 +11,28 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDateTime;
 
 /**
- * description: 租户信息
+ * description: 领域池信息
  *
  * @author charles.zhou
  * @date   2021-02-02 16:08:05
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("tenant_info")
-@ApiModel(value = "租户信息对象", description = "")
+@TableName("realm_pool")
+@ApiModel(value = "领域池信息对象", description = "")
 public class TenantInfo extends Entity<Long> {
 
     private static final long serialVersionUID = -6955056237245642400L;
 
-    @ApiModelProperty(value = "租户编码")
+    @ApiModelProperty(value = "领域用户id")
+    @TableField("realm_user_id")
+    private Long realmUserId;
+
+    @ApiModelProperty(value = "领域池编码")
     @TableField("code")
     private String code;
 
-    @ApiModelProperty(value = "租户名称")
+    @ApiModelProperty(value = "领域池名称")
     @TableField("name")
     private String name;
 
@@ -48,7 +52,7 @@ public class TenantInfo extends Entity<Long> {
     @TableField("logo")
     private String logo;
 
-    @ApiModelProperty(value = "租户简介")
+    @ApiModelProperty(value = "领域池简介")
     @TableField("describe_")
     private String describe;
 

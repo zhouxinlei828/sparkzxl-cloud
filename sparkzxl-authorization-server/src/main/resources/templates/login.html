@@ -20,7 +20,7 @@
         <form action="#">
             <h1 style="font-size: 20px;">欢迎加入Spark Authing</h1>
             <span>填写个人信息</span>
-            <input type="text" id="tenant" name="tenant" placeholder="租户编码">
+            <input type="text" id="tenant" name="tenant" placeholder="领域池编码">
             <input type="text" id="account" name="account" placeholder="账号">
             <input type="email" placeholder="电子邮箱">
             <input type="password" placeholder="密码">
@@ -36,7 +36,7 @@
                 <a href="#" class="social"><span class="iconfont">&#xe61a;</span></a>
             </div>
             <span>或使用您的帐号</span>
-            <input type="text" id="tenantCode" name="tenantCode" placeholder="租户编码">
+            <input type="text" id="tenantCode" name="tenantCode" placeholder="领域池编码">
             <input type="text" id="username" name="username" placeholder="账户">
             <input type="password" id="password" name="password" placeholder="密码">
             <a href="#">忘记密码？</a>
@@ -67,14 +67,14 @@
         const contextPath = $("#contextPath").val();
         $("#tenantCodeMsg").hide()
         $('#login').click(function (e) {
-            // 校验租户信息
+            // 校验领域池信息
             const url = contextPath + '/oauth/checkTenant';
             const tenantCode = $("#tenantCode").val()
             const param = 'tenantCode=' + tenantCode;
             const responseData = loadingAjaxJsonData('get', url, param);
             if (responseData.code !== 200) {
                 Qmsg.error({
-                    content: "租户不存在，请检查！",
+                    content: "领域池不存在，请检查！",
                     timeout: 3000
                 });
                 return false;

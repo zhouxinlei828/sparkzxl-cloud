@@ -6,7 +6,7 @@ import com.github.sparkzxl.authorization.infrastructure.entity.TenantInfo;
 import java.util.List;
 
 /**
- * description: 租户仓储类
+ * description: 领域池仓储类
  *
  * @author charles.zhou
  * @date   2021-02-14 10:11:05
@@ -14,44 +14,44 @@ import java.util.List;
 public interface ITenantInfoRepository {
 
     /**
-     * 查询租户列表
+     * 查询领域池列表
      *
      * @param pageNum  当前页
      * @param pageSize 分页大小
-     * @param code     租户编码
-     * @param name     租户名称
+     * @param code     领域池编码
+     * @param name     领域池名称
      * @return PageInfo<TenantInfo>
      */
     PageInfo<TenantInfo> getTenantPageList(int pageNum, int pageSize, String code, String name);
 
     /**
-     * 保存租户信息
+     * 保存领域池信息
      *
-     * @param tenant 租户信息
+     * @param tenant 领域池信息
      * @return boolean
      */
     boolean saveTenant(TenantInfo tenant);
 
     /**
-     * 更新租户信息
+     * 更新领域池信息
      *
-     * @param tenant 租户信息
+     * @param tenant 领域池信息
      * @return boolean
      */
     boolean updateTenant(TenantInfo tenant);
 
     /**
-     * 删除租户信息
+     * 删除领域池信息
      *
-     * @param tenantId 租户id
+     * @param tenantId 领域池id
      * @return boolean
      */
     boolean deleteTenant(Long tenantId);
 
     /**
-     * 批量删除租户信息
+     * 批量删除领域池信息
      *
-     * @param tenantIds 租户ids
+     * @param tenantIds 领域池ids
      * @return boolean
      */
     boolean deleteBatchTenant(List<Long> tenantIds);

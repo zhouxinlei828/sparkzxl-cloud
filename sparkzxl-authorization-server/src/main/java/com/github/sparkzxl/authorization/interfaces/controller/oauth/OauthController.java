@@ -112,7 +112,7 @@ public class OauthController {
         return oauthService.checkCaptcha(key, code);
     }
 
-    @ApiOperation(value = "校验租户信息", notes = "校验租户信息")
+    @ApiOperation(value = "校验领域池信息", notes = "校验领域池信息")
     @GetMapping(value = "/oauth/checkTenant")
     @ResponseResult
     @ResponseBody

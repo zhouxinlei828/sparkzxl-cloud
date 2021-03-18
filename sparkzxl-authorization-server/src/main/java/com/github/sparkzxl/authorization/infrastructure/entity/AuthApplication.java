@@ -62,7 +62,7 @@ public class AuthApplication extends Entity<Long> {
     @TableField("original_client_secret")
     private String originalClientSecret;
 
-    @ApiModelProperty(value = "租户code")
+    @ApiModelProperty(value = "领域池code")
     @TableField("tenant_code")
     private String tenantCode;
 
@@ -70,7 +70,7 @@ public class AuthApplication extends Entity<Long> {
     @TableField(exist = false)
     private OauthClientDetails oauthClientDetail;
 
-    @ApiModelProperty(value = "租户名称")
+    @ApiModelProperty(value = "领域池名称")
     @TableField(exist = false)
     private String tenantName;
 

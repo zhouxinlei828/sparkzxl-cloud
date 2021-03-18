@@ -16,9 +16,9 @@ import org.springframework.stereotype.Repository;
 public interface AuthMenuMapper extends SuperMapper<AuthMenu> {
 
     /**
-     * 根据租户code删除菜单
+     * 根据领域池code删除菜单
      *
-     * @param tenantCode 租户code
+     * @param tenantCode 领域池code
      */
     @Delete("delete from auth_menu where tenant_code = #{tenantCode}")
     @InterceptorIgnore(tenantLine = "true")

@@ -26,7 +26,7 @@ public interface IAuthMenuRepository {
      * 保存菜单信息
      *
      * @param authMenus  菜单集合
-     * @param tenantCode 租户code
+     * @param tenantCode 领域池code
      */
     void saveAuthMenus(List<AuthMenu> authMenus, String tenantCode);
 
@@ -38,9 +38,9 @@ public interface IAuthMenuRepository {
     List<AuthMenu> findAuthMenuList();
 
     /**
-     * 根据租户code删除菜单
+     * 根据领域池code删除菜单
      *
-     * @param tenantCode 租户code
+     * @param tenantCode 领域池code
      */
     void deleteTenantMenu(String tenantCode);
 

@@ -7,20 +7,20 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * description: 租户分页查询对象
+ * description: 领域池分页查询对象
  *
  * @author charles.zhou
  * @date   2020-07-27 19:49:46
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel(value = "租户分页查询对象")
+@ApiModel(value = "领域池分页查询对象")
 public class TenantPageDTO extends PageDTO {
 
-    @ApiModelProperty(value = "租户编码")
+    @ApiModelProperty(value = "领域池编码")
     private String code;
 
-    @ApiModelProperty(value = "租户名称")
+    @ApiModelProperty(value = "领域池名称")
     private String name;
 
 }

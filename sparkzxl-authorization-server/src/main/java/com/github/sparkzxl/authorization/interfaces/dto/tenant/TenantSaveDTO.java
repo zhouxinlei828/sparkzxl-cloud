@@ -8,17 +8,17 @@ import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 /**
- * description: 租户保存对象
+ * description: 领域池保存对象
  *
  * @author charles.zhou
  * @date   2020-07-27 19:49:46
  */
 @Data
-@ApiModel(value = "租户保存对象")
+@ApiModel(value = "领域池保存对象")
 public class TenantSaveDTO {
 
-    @ApiModelProperty(value = "租户名称")
-    @NotEmpty(message = "租户名称不能为空")
+    @ApiModelProperty(value = "领域池名称")
+    @NotEmpty(message = "领域池名称不能为空")
     private String name;
 
     @ApiModelProperty(value = "logo地址")
@@ -33,7 +33,7 @@ public class TenantSaveDTO {
     @ApiModelProperty(value = "是否内置")
     private Boolean readonly;
 
-    @ApiModelProperty(value = "租户简介")
+    @ApiModelProperty(value = "领域池简介")
     private String describe;
 
     @ApiModelProperty(value = "用户密码有效期 单位：天 0表示永久有效")

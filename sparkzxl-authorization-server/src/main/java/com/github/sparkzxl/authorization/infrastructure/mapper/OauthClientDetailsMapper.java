@@ -21,7 +21,7 @@ public interface OauthClientDetailsMapper extends SuperMapper<OauthClientDetails
     /**
      * 获取客户端分页信息
      *
-     * @param tenantCode 租户code
+     * @param tenantCode 领域池code
      * @param clientId   客户端id
      * @return List<OauthClientDetails>
      */
@@ -33,7 +33,7 @@ public interface OauthClientDetailsMapper extends SuperMapper<OauthClientDetails
             "ti.name tenantName " +
             "FROM oauth_client_details ocd " +
             "INNER JOIN tenant_client tc ON ocd.client_id = tc.client_id " +
-            "INNER JOIN tenant_info ti ON ti.code = tc.tenant_code " +
+            "INNER JOIN realm_pool ti ON ti.code = tc.tenant_code " +
             "<where>" +
             " <if test=\"tenantCode != null and tenantCode != ''\">" +
             "    and tc.tenant_code = #{tenantCode}" +

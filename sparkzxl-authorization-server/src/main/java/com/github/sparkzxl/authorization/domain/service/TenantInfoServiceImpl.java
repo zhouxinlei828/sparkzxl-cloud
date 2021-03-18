@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * description: 租户信息 服务实现类
+ * description: 领域池信息 服务实现类
  *
  * @author charles.zhou
  * @date 2021-02-02 16:21:08
@@ -64,6 +64,6 @@ public class TenantInfoServiceImpl extends SuperCacheServiceImpl<TenantInfoMappe
 
     @Override
     protected String getRegion() {
-        return "tenant_info";
+        return "realm_pool";
     }
 }

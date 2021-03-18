@@ -25,7 +25,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * description: 租户仓储实现类
+ * description: 领域池仓储实现类
  *
  * @author charles.zhou
  * @date   2021-02-14 10:13:48

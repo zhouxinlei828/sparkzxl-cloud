@@ -28,8 +28,8 @@ public interface IAuthRoleRepository {
     void saveRole(AuthRole authRole);
 
     /**
-     * 根据租户code删除角色信息
-     * @param tenantCode 租户code
+     * 根据领域池code删除角色信息
+     * @param tenantCode 领域池code
      */
     void deleteAuthRole(String tenantCode);
 }

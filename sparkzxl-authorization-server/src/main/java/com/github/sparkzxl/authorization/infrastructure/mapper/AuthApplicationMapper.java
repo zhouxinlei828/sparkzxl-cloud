@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * description: 租户客户端Mapper 接口
+ * description: 领域池客户端Mapper 接口
  *
  * @author charles.zhou
  * @date   2021-02-20 09:43:16
@@ -20,9 +20,9 @@ import java.util.List;
 public interface AuthApplicationMapper extends SuperMapper<AuthApplication> {
 
     /**
-     * 根据租户code删除租户客户端
+     * 根据领域池code删除领域池客户端
      *
-     * @param tenantCode 租户code
+     * @param tenantCode 领域池code
      */
     @InterceptorIgnore(tenantLine = "true")
     @Delete("delete from auth_application where tenant_code = #{tenantCode}")
@@ -32,7 +32,7 @@ public interface AuthApplicationMapper extends SuperMapper<AuthApplication> {
     /**
      * 获取客户端分页信息
      *
-     * @param tenantCode 租户code
+     * @param tenantCode 领域池code
      * @param clientId   客户端id
      * @param appName    应用名称
      * @return List<OauthClientDetails>
@@ -42,7 +42,7 @@ public interface AuthApplicationMapper extends SuperMapper<AuthApplication> {
             "app.*, " +
             "ti.NAME tenantName " +
             "FROM auth_application app " +
-            "LEFT JOIN tenant_info ti ON ti.CODE = app.tenant_code" +
+            "LEFT JOIN realm_pool ti ON ti.CODE = app.tenant_code" +
             "<where>" +
             " <if test=\"tenantCode != null and tenantCode != ''\">" +
             "    and ti.code = #{tenantCode}" +

@@ -62,7 +62,7 @@ public class AuthMenu extends TreeEntity<AuthMenu, Long> {
     @TableField("is_enable")
     private Boolean isEnable;
 
-    @ApiModelProperty(value = "租户code")
+    @ApiModelProperty(value = "领域池code")
     @TableField("tenant_code")
     private String tenantCode;
 

@@ -65,9 +65,9 @@ public interface AuthUserMapper extends SuperMapper<AuthUser> {
     AuthUser getById(@Param("id") Long id);
 
     /**
-     * 根据租户code删除用户
+     * 根据领域池code删除用户
      *
-     * @param tenantCode 租户code
+     * @param tenantCode 领域池code
      */
     @Delete("delete from auth_user where tenant_code = #{tenantCode}")
     @InterceptorIgnore(tenantLine = "true")

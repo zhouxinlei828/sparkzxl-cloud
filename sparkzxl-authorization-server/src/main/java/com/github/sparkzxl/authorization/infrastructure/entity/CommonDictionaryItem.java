@@ -52,7 +52,7 @@ public class CommonDictionaryItem extends Entity<Long> {
     @TableField("sort_value")
     private Integer sortValue;
 
-    @ApiModelProperty(value = "租户code")
+    @ApiModelProperty(value = "领域池code")
     @TableField("tenant_code")
     private String tenantCode;
 

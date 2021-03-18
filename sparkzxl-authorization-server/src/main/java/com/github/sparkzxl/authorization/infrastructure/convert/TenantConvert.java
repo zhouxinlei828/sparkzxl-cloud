@@ -20,7 +20,7 @@ public interface TenantConvert {
     /**
      * tenantSaveDTO转换为SpTenant
      *
-     * @param tenantSaveDTO 租户保存对象
+     * @param tenantSaveDTO 领域池保存对象
      * @return SpTenant
      */
     TenantInfo convertTenant(TenantSaveDTO tenantSaveDTO);
@@ -28,7 +28,7 @@ public interface TenantConvert {
     /**
      * tenantUpdateDTO转换为SpTenant
      *
-     * @param tenantUpdateDTO 租户更新对象
+     * @param tenantUpdateDTO 领域池更新对象
      * @return SpTenant
      */
     TenantInfo convertTenant(TenantUpdateDTO tenantUpdateDTO);

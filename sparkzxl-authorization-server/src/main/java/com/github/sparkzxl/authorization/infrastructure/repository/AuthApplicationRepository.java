@@ -60,7 +60,7 @@ public class AuthApplicationRepository implements IAuthApplicationRepository {
     public PageInfo<AuthApplication> listPage(int pageNum, int pageSize, String clientId, String appName) {
         String tenantCode = BaseContextHandler.getTenant();
         if (StringUtils.isEmpty(tenantCode)) {
-            SparkZxlExceptionAssert.businessFail("租户信息为空");
+            SparkZxlExceptionAssert.businessFail("领域池信息为空");
         }
         PageHelper.startPage(pageNum, pageSize);
         List<AuthApplication> authApplications = authApplicationMapper.listPage(tenantCode, clientId, appName);

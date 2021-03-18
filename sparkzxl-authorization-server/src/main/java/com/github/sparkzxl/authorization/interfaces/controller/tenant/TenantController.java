@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * description: 租户管理
+ * description: 领域池管理
  *
  * @author charles.zhou
  * @date   2021-02-02 16:21:52
  */
 @RestController
 @ResponseResult
-@Api(tags = "租户管理")
+@Api(tags = "领域池管理")
 @RequestMapping("/tenant")
 public class TenantController extends SuperCacheController<ITenantInfoService, Long,
         TenantInfo, TenantSaveDTO, TenantUpdateDTO, TenantPageDTO, Object> {

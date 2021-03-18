@@ -140,7 +140,7 @@ public class OauthServiceImpl implements IOauthService {
             success = count > 0;
         }
         if (!success) {
-            SparkZxlExceptionAssert.businessFail("该租户不存在");
+            SparkZxlExceptionAssert.businessFail("该领域池不存在");
         }
     }
 

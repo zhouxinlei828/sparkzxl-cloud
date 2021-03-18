@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * description: 多租户模式登录前置过滤器
+ * description: 多领域池模式登录前置过滤器
  *
  * @author charles.zhou
  * @date   2021-02-25 10:53:03

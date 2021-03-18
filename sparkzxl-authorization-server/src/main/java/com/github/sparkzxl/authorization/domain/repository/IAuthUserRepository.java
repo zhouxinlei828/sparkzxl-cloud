@@ -87,9 +87,9 @@ public interface IAuthUserRepository {
     void saveAuthUserInfo(AuthUser authUser);
 
     /**
-     * 根据租户code删除用户
+     * 根据领域池code删除用户
      *
-     * @param tenantCode 租户code
+     * @param tenantCode 领域池code
      */
     void deleteTenantUser(String tenantCode);
 

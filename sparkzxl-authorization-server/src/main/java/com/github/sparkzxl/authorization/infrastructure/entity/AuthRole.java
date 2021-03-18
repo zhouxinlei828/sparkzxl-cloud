@@ -53,7 +53,7 @@ public class AuthRole extends Entity<Long> {
     @TableField("ds_type")
     private String dsType;
 
-    @ApiModelProperty(value = "租户code")
+    @ApiModelProperty(value = "领域池code")
     @TableField("tenant_code")
     private String tenantCode;
 

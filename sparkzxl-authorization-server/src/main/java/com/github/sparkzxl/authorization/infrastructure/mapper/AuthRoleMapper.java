@@ -16,9 +16,9 @@ import org.springframework.stereotype.Repository;
 public interface AuthRoleMapper extends SuperMapper<AuthRole> {
 
     /**
-     * 根据租户code删除角色
+     * 根据领域池code删除角色
      *
-     * @param tenantCode 租户code
+     * @param tenantCode 领域池code
      */
     @Delete("delete from auth_role where tenant_code = #{tenantCode}")
     @InterceptorIgnore(tenantLine = "true")

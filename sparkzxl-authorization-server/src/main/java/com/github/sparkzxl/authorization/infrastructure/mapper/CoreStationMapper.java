@@ -16,9 +16,9 @@ import org.springframework.stereotype.Repository;
 public interface CoreStationMapper extends SuperMapper<CoreStation> {
 
     /**
-     * 根据租户code删除岗位
+     * 根据领域池code删除岗位
      *
-     * @param tenantCode 租户code
+     * @param tenantCode 领域池code
      */
     @Delete("delete from core_station where tenant_code = #{tenantCode}")
     @InterceptorIgnore(tenantLine = "true")
