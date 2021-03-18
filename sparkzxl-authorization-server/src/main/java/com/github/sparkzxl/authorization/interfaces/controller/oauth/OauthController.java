@@ -7,10 +7,7 @@ import com.github.sparkzxl.authorization.infrastructure.oauth2.AuthorizationRequ
 import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.core.entity.CaptchaInfo;
 import com.github.sparkzxl.log.annotation.WebLog;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -19,6 +16,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 
 
@@ -34,12 +32,12 @@ import java.security.Principal;
 @Slf4j
 public class OauthController {
 
-    private IOauthService IOauthService;
+    private IOauthService oauthService;
     private ITenantInfoService tenantInfoService;
 
     @Autowired
-    public void setOauthService(IOauthService IOauthService) {
-        this.IOauthService = IOauthService;
+    public void setOauthService(IOauthService oauthService) {
+        this.oauthService = oauthService;
     }
 
     @Autowired
@@ -49,7 +47,8 @@ public class OauthController {
 
     @ApiOperation(value = "登录页面", notes = "登录页面")
     @GetMapping(value = "/authentication/require", produces = "text/html;charset=UTF-8")
-    public String require() {
+    public String require(HttpServletResponse httpServletResponse) {
+        httpServletResponse.setHeader("Access-Control-Expose-Headers", "*");
         return "login";
     }
 
@@ -59,7 +58,7 @@ public class OauthController {
     @ResponseBody
     public String getAuthorizeUrl(@RequestParam(value = "clientId", required = false) String clientId,
                                   @RequestParam(value = "frontUrl", required = false) String frontUrl) {
-        return IOauthService.getAuthorizeUrl(clientId, frontUrl);
+        return oauthService.getAuthorizeUrl(clientId, frontUrl);
     }
 
     @ApiOperation(value = "GET授权登录端口", notes = "GET授权登录端口")
@@ -74,7 +73,7 @@ public class OauthController {
                                             @RequestParam AuthorizationRequest authorizationRequest)
             throws HttpRequestMethodNotSupportedException {
         log.info("Authorization = {}", authorization);
-        return IOauthService.getAccessToken(principal, authorizationRequest);
+        return oauthService.getAccessToken(principal, authorizationRequest);
     }
 
 
@@ -90,7 +89,7 @@ public class OauthController {
                                              @RequestBody AuthorizationRequest authorizationRequest)
             throws HttpRequestMethodNotSupportedException {
         log.info("Authorization = {}", authorization);
-        return IOauthService.postAccessToken(principal, authorizationRequest);
+        return oauthService.postAccessToken(principal, authorizationRequest);
     }
 
     @ApiOperation(value = "验证码", notes = "验证码")
@@ -98,7 +97,7 @@ public class OauthController {
     @ResponseResult
     @ResponseBody
     public CaptchaInfo captcha(@RequestParam(value = "type") String type) {
-        return IOauthService.createCaptcha(type);
+        return oauthService.createCaptcha(type);
     }
 
     @ApiOperation(value = "验证验证码", notes = "验证验证码")
@@ -106,7 +105,7 @@ public class OauthController {
     @ResponseResult
     @ResponseBody
     public boolean checkCaptcha(@RequestParam(value = "key") String key, @RequestParam(value = "code") String code) {
-        return IOauthService.checkCaptcha(key, code);
+        return oauthService.checkCaptcha(key, code);
     }
 
     @ApiOperation(value = "校验租户信息", notes = "校验租户信息")
@@ -123,7 +122,7 @@ public class OauthController {
     @ResponseBody
     public AccessTokenInfo callBack(@RequestParam("code") String code,
                                     @RequestParam("state") String state) {
-        return IOauthService.authorizationCodeCallBack(code, state);
+        return oauthService.authorizationCodeCallBack(code, state);
     }
 
 }

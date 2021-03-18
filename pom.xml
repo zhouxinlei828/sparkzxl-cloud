@@ -32,6 +32,7 @@
     <modules>
         <module>sparkzxl-workflow</module>
         <module>sparkzxl-authorization-server</module>
+        <module>sparkzxl-resource-server</module>
         <module>sparkzxl-code-generator</module>
         <module>sparkzxl-file</module>
         <module>sparkzxl-gateway</module>
