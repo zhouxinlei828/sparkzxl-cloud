@@ -52,7 +52,7 @@ public class AuthApplication extends Entity<Long> {
 
     @ApiModelProperty(value = "应用健康状况")
     @TableField("health_status")
-    private boolean healthStatus;
+    private Boolean healthStatus;
 
     @ApiModelProperty(value = "客户端id")
     @TableField("client_id")

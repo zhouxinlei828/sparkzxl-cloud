@@ -21,7 +21,7 @@ import java.util.List;
  * description: 租户信息 服务实现类
  *
  * @author charles.zhou
- * @date   2021-02-02 16:21:08
+ * @date 2021-02-02 16:21:08
  */
 @Service
 public class TenantInfoServiceImpl extends SuperCacheServiceImpl<TenantInfoMapper, TenantInfo> implements ITenantInfoService {
@@ -64,6 +64,6 @@ public class TenantInfoServiceImpl extends SuperCacheServiceImpl<TenantInfoMappe
 
     @Override
     protected String getRegion() {
-        return null;
+        return "tenant_info";
     }
 }

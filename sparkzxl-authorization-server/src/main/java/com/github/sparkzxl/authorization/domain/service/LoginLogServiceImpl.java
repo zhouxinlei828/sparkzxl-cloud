@@ -136,6 +136,6 @@ public class LoginLogServiceImpl extends SuperCacheServiceImpl<LoginLogMapper, L
 
     @Override
     protected String getRegion() {
-        return null;
+        return "login_log";
     }
 }

@@ -59,6 +59,6 @@ public class ApplicationServiceServiceImpl extends SuperCacheServiceImpl<AuthApp
 
     @Override
     protected String getRegion() {
-        return null;
+        return "auth_application";
     }
 }

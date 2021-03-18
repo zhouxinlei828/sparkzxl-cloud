@@ -4,9 +4,11 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.github.sparkzxl.authorization.application.service.IApplicationService;
 import com.github.sparkzxl.authorization.infrastructure.entity.AuthApplication;
+import com.github.sparkzxl.authorization.infrastructure.mapper.AuthApplicationMapper;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,23 +24,28 @@ import java.util.List;
 @Component
 public class ApplicationHealthCheckJob {
 
-    private IApplicationService applicationService;
+    private AuthApplicationMapper authApplicationMapper;
 
     @Autowired
-    public void setApplicationService(IApplicationService applicationService) {
-        this.applicationService = applicationService;
+    public void setAuthApplicationMapper(AuthApplicationMapper authApplicationMapper) {
+        this.authApplicationMapper = authApplicationMapper;
     }
-
 
     @XxlJob("applicationHealthCheck")
     public ReturnT<String> applicationHealthCheck(String param) {
-        List<AuthApplication> authApplications = applicationService.applicationList();
+        List<AuthApplication> authApplications = authApplicationMapper.applicationList();
         authApplications.forEach(authApplication -> {
-            HttpResponse httpResponse = HttpRequest.get(authApplication.getHealthCheck()).execute();
-            boolean responseOk = httpResponse.isOk();
-            authApplication.setHealthStatus(responseOk);
+            if (StringUtils.isNotEmpty(authApplication.getHealthCheck())) {
+                try {
+                    HttpResponse httpResponse = HttpRequest.get(authApplication.getHealthCheck()).execute();
+                    boolean responseOk = httpResponse.isOk();
+                    authApplication.setHealthStatus(responseOk);
+                    authApplicationMapper.updateById(authApplication);
+                } catch (Exception e) {
+                    log.error("定时任务发生异常：{}", e.getMessage());
+                }
+            }
         });
-        applicationService.updateBatchById(authApplications);
         return ReturnT.SUCCESS;
     }
 }
