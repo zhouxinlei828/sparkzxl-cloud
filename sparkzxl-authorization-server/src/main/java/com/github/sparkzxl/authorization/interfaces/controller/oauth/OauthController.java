@@ -1,13 +1,16 @@
 package com.github.sparkzxl.authorization.interfaces.controller.oauth;
 
-import com.github.sparkzxl.authorization.application.service.ITenantInfoService;
 import com.github.sparkzxl.authorization.application.service.IOauthService;
+import com.github.sparkzxl.authorization.application.service.ITenantInfoService;
 import com.github.sparkzxl.authorization.infrastructure.oauth2.AccessTokenInfo;
 import com.github.sparkzxl.authorization.infrastructure.oauth2.AuthorizationRequest;
 import com.github.sparkzxl.core.annotation.ResponseResult;
 import com.github.sparkzxl.core.entity.CaptchaInfo;
 import com.github.sparkzxl.log.annotation.WebLog;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -18,6 +21,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.Map;
 
 
 /**
@@ -46,9 +50,10 @@ public class OauthController {
     }
 
     @ApiOperation(value = "登录页面", notes = "登录页面")
-    @GetMapping(value = "/authentication/require", produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/authentication/require", produces = "text/html;charset=UTF-8", method = RequestMethod.GET)
+    @CrossOrigin(origins = "*", allowCredentials = "true")
     public String require(HttpServletResponse httpServletResponse) {
-        httpServletResponse.setHeader("Access-Control-Expose-Headers", "*");
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
         return "login";
     }
 
@@ -62,7 +67,7 @@ public class OauthController {
     }
 
     @ApiOperation(value = "GET授权登录端口", notes = "GET授权登录端口")
-    @GetMapping("/oauth/token")
+    @GetMapping("/sso/token")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "Authorization", value = "Basic Auth", paramType = "header", defaultValue = "Basic c3Bhcmt6eGw6MTIzNDU2")
     )
@@ -70,15 +75,14 @@ public class OauthController {
     @ResponseBody
     public OAuth2AccessToken getAccessToken(@RequestHeader(value = "Authorization") String authorization,
                                             @ApiIgnore Principal principal,
-                                            @RequestParam AuthorizationRequest authorizationRequest)
+                                            @RequestParam Map<String, String> parameters)
             throws HttpRequestMethodNotSupportedException {
         log.info("Authorization = {}", authorization);
-        return oauthService.getAccessToken(principal, authorizationRequest);
+        return oauthService.getAccessToken(principal, parameters);
     }
 
-
     @ApiOperation(value = "POST授权登录端口", notes = "POST授权登录端口")
-    @PostMapping("/oauth/token")
+    @PostMapping("/sso/token")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "Authorization", value = "Basic Auth", paramType = "header", defaultValue = "Basic c3Bhcmt6eGw6MTIzNDU2")
     )
@@ -86,10 +90,10 @@ public class OauthController {
     @ResponseBody
     public OAuth2AccessToken postAccessToken(@RequestHeader(value = "Authorization") String authorization,
                                              @ApiIgnore Principal principal,
-                                             @RequestBody AuthorizationRequest authorizationRequest)
+                                             @RequestParam Map<String, String> parameters)
             throws HttpRequestMethodNotSupportedException {
         log.info("Authorization = {}", authorization);
-        return oauthService.postAccessToken(principal, authorizationRequest);
+        return oauthService.postAccessToken(principal, parameters);
     }
 
     @ApiOperation(value = "验证码", notes = "验证码")
